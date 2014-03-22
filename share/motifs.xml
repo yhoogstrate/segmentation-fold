@@ -1,0 +1,1213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+@file share/validation.xml
+		
+@author Youri Hoogstrate
+		
+@date 07-jan-2014
+		
+@section LICENSE
+segmentation-fold can predict RNA 2D structures including K-turns.
+Copyright (C) 2012-2013 Youri Hoogstrate
+		
+This file is part of segmentation-fold and originally taken from
+yh-kt-fold.
+		
+segmentation-fold is free software: you can redistribute it and/or
+modify it under the terms of the GNU General Public License as published
+by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+		
+segmentation-fold is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+		
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<root>
+	<!-- K-turns & other special foldig motifs -->
+	<motifs>
+		<motif>
+			<id>Kt-7 G2nA SAM riboswitch (H. marismortui)</id>
+			<p5   >GAAGAA</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AGG</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-7 (D. radiodurans)</id>
+			<p5   >UUUGAC</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AGC</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-7 (E. coli)</id>
+			<p5   >GUUAUAA</p5>
+			<bonds>:    ::</bonds>
+			<p3   >A    AU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-7 (T. thermophilus)</id>
+			<p5   >GUGGAU</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AGG</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-11 (T. thermophilus)</id>
+			<p5   >GACGA C</p5>
+			<bonds>   :: :</bonds>
+			<p3   >   ACUA</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-11.eco</id>
+			<p5   >GACGA U</p5>
+			<bonds>   :: :</bonds>
+			<p3   >   AUUA</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-15.hma</id>
+			<p5   >AAUG U</p5>
+			<bonds>   : :</bonds>
+			<p3   >   AAG</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-23.tth</id>
+			<p5   >GCAGAUA</p5>
+			<bonds>   ::::</bonds>
+			<p3   >   AUGA</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-23.eco</id>
+			<p5   >GUAGAG</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AUG</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-38.hma</id>
+			<p5   >GUUUGAC</p5>
+			<bonds>    :::</bonds>
+			<p3   >    AGC</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-42.hma</id>
+			<p5   >CUAGACA</p5>
+			<bonds>   :: :</bonds>
+			<p3   >   AG C</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-42.tth</id>
+			<p5   >GAAGACA</p5>
+			<bonds>   :: :</bonds>
+			<p3   >   AG C</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-42.dra</id>
+			<p5   >AUAGACA</p5>
+			<bonds>   :: :</bonds>
+			<p3   >   AG C</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-42.eco</id>
+			<p5   >CCAGACA</p5>
+			<bonds>   :: :</bonds>
+			<p3   >   AG C</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-46.hma</id>
+			<p5   >AUGGAAG</p5>
+			<bonds>   ::::</bonds>
+			<p3   >   AGGU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-46.tth</id>
+			<p5   >GAUGAAG</p5>
+			<bonds>   ::::</bonds>
+			<p3   >   AGGU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-46.dra</id>
+			<p5   >GGUGAAG</p5>
+			<bonds>   ::::</bonds>
+			<p3   >   AGGU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-46.eco</id>
+			<p5   >UGCGAAG</p5>
+			<bonds>   ::::</bonds>
+			<p3   >   AGGU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-58.hma</id>
+			<p5   >A GGAAG</p5>
+			<bonds>   ::::</bonds>
+			<p3   > A AGGU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-U4a.hsa</id>
+			<p5   >AAUGA</p5>
+			<bonds>   ::</bonds>
+			<p3   >   AG</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-U4b.hsa</id>
+			<p5   >AGUGA</p5>
+			<bonds>   ::</bonds>
+			<p3   >   AG</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<!-- The following motifs are abstractions of:
+		<motif>
+			<id>Kt-CD-box</id>
+			<p5   >NNRGAU</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AGU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		-->
+		
+		<motif>
+			<id>Kt-CD-box.AAG</id>
+			<p5   >AAGGAU</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AGU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-CD-box.ACA</id>
+			<p5   >ACAGAU</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AGU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-CD-box.ACG</id>
+			<p5   >ACGGAU</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AGU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-CD-box.AUA</id>
+			<p5   >AUAGAU</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AGU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-CD-box.AUG</id>
+			<p5   >AUGGAU</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AGU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-CD-box.AGA</id>
+			<p5   >AGAGAU</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AGU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-CD-box.AGG</id>
+			<p5   >AGGGAU</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AGU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-CD-box.CAA</id>
+			<p5   >CAAGAU</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AGU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-CD-box.CAG</id>
+			<p5   >CAGGAU</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AGU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-CD-box.CCA</id>
+			<p5   >CCAGAU</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AGU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-CD-box.CCG</id>
+			<p5   >CCGGAU</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AGU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-CD-box.CUA</id>
+			<p5   >CUAGAU</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AGU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-CD-box.CUG</id>
+			<p5   >CUGGAU</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AGU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-CD-box.CGU</id><!-- Common -->
+			<p5   >CGUGAU</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AGU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-CD-box.UGU</id><!-- Common -->
+			<p5   >UGUGAU</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AGU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-CD-box.CGA</id>
+			<p5   >CGAGAU</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AGU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-CD-box.CGG</id>
+			<p5   >CGGGAU</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AGU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-CD-box.UAA</id>
+			<p5   >UAAGAU</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AGU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-CD-box.UAG</id>
+			<p5   >UAGGAU</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AGU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-CD-box.UCA</id>
+			<p5   >UCAGAU</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AGU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-CD-box.UCG</id>
+			<p5   >UCGGAU</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AGU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-CD-box.UUA</id>
+			<p5   >UUAGAU</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AGU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-CD-box.UUG</id>
+			<p5   >UUGGAU</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AGU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-CD-box.UGA</id>
+			<p5   >UGAGAU</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AGU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-CD-box.UGG</id>
+			<p5   >UGGGAU</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AGU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-CD-box.GAA</id>
+			<p5   >GAAGAU</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AGU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-CD-box.GAG</id>
+			<p5   >GAGGAU</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AGU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-CD-box.GCA</id>
+			<p5   >GCAGAU</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AGU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-CD-box.GCG</id>
+			<p5   >GCGGAU</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AGU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-CD-box.GUA</id>
+			<p5   >GUAGAU</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AGU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-CD-box.GUG</id>
+			<p5   >GUGGAU</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AGU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-CD-box.GGA</id>
+			<p5   >GGAGAU</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AGU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-CD-box.GGG</id>
+			<p5   >GGGGAU</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AGU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		
+		<motif>
+			<id>Kt-L30e.sce</id>
+			<p5   >GCAGAGAU</p5>
+			<bonds>+|   ::+</bonds>
+			<p3   >UG   AGG</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-SAM-ribo.tte</id>
+			<p5   >GAUGAA</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AGG</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-T-box.bsu</id>
+			<p5   >AAAGAU</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AGU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-c-di-GMP-II.cac</id>
+			<p5   >AAUGAUG</p5>
+			<bonds>   :::+</bonds>
+			<p3   >   AGUU</p3>
+			<energy>-11.1072</energy>
+		</motif>
+		
+		<motif>
+			<id>Kt-G2nA-SAM-riboswitch (T. tengcongensi)</id>
+			<p5   >GACGAA</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AAG</p3>
+			<energy>-11.1072</energy>
+			
+			<comment>The K-turn has no sheared tandem GA-AG bond.</comment>
+		</motif>
+		
+		<motif>
+			<id>Kt-G2nA-SAMribo.bsu</id>
+			<p5   >GACGAA</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AGA</p3>
+			<energy>-11.1072</energy>
+			
+			<comment>No corresponding sequence?!</comment>
+		</motif>
+		
+		<motif>
+			<id>Kt-G2nA-SAMribo.hma</id>
+			<p5   >GAAGAA</p5>
+			<bonds>   :::</bonds>
+			<p3   >   AGG</p3>
+			<energy>-11.1072</energy>
+			
+			<comment>No corresponding sequence?!</comment>
+		</motif>
+		
+		<motif>
+			<id>Loop-E-Motif.bac</id>
+			<p5   >GAUGGUA</p5>
+			<bonds>:::::::</bonds>
+			<p3   >AUGAGAG</p3>
+			<energy>-20.0000</energy>
+			
+			<comment>No corresponding sequence?! - more info at: http://rna.bgsu.edu/rna3dhub_dev/loops/view/IL_1FEU_001</comment>
+		</motif>
+	</motifs>
+	
+	
+	
+	<!-- RNA-Molecules -->
+	<rnas>
+		<rna>
+			<title>Partial 23S rRNA containing Kt-7</title>
+			<organism>H. marismortui</organism>
+			<sequence>CCAUGGGGAGCCGCACGGAGGCGAAGAACCAUGG</sequence>
+			
+			<structures>
+				<structure>
+					<associated_motifs>
+						<link>Kt-7 G2nA SAM riboswitch (H. marismortui)</link>
+					</associated_motifs>
+					<dot_bracket type="full" >((((((((((((.......)))...)))))))))</dot_bracket>
+					<dot_bracket type="motif">?????(((((???????????)...))))?????</dot_bracket><!-- One of the surrounding pairs should still be replaced for N's -->
+				</structure>
+				
+				<structure>
+					<associated_motifs />
+					<dot_bracket />
+				</structure>
+			</structures>
+			
+			<references>
+				<url>http://www.dundee.ac.uk/biocentre/nasg/kturn/sites/5halfHm23SrRNA.jpg</url>
+				<pdb>3CC2</pdb>
+			</references>
+		</rna>
+		
+		<rna>
+			<title>Partial 23S rRNA containing Kt-7</title>
+			<organism>T. thermophilus</organism>
+			<sequence>CCAGGGGGAGCCGGUAGCGGGCGUGGAUCCCUGG</sequence>
+			
+			<structures>
+				<structure>
+					<associated_motifs>
+						<link>Kt-7 (T. thermophilus)</link>
+					</associated_motifs>
+					<dot_bracket type="full" >((((((((((((.......)))...)))))))))</dot_bracket>
+					<dot_bracket type="motif">?????(((((???????????)...))))?????</dot_bracket>
+				</structure>
+				
+				<structure>
+					<associated_motifs />
+					<dot_bracket />
+				</structure>
+			</structures>
+		</rna>
+		
+		<rna>
+			<title>Partial 23S rRNA containing Kt-7</title>
+			<organism>E. coli</organism>
+			<sequence>CGUCGGUAAGGUGAUAUGAACCGUUAUAACCGGCG</sequence>
+			
+			<structures>
+				<structure>
+					<associated_motifs>
+						<link>Kt-7 (E. coli)</link>
+					</associated_motifs>
+					<dot_bracket type="full" >((((((((((((.......))))....))))))))</dot_bracket>
+					<dot_bracket type="motif">??????((((???????????))....))??????</dot_bracket>
+				</structure>
+				
+				<structure>
+					<associated_motifs />
+					<dot_bracket />
+				</structure>
+			</structures>
+		</rna>
+		
+		<rna>
+			<title>Partial 23S rRNA containing Kt-7</title>
+			<organism>D. radiodurans</organism>
+			<sequence>CCCCGACGAGCUGGAGAUACCCUUUGACUCGGGG</sequence><!-- Sequence might be incorrect? -->
+			
+			<structures>
+				<structure>
+					<associated_motifs>
+						<link>Kt-7 (D. radiodurans)</link>
+					</associated_motifs>
+					<dot_bracket type="full" >((((((((((((.......)))...)))))))))</dot_bracket>
+					<dot_bracket type="motif">?????(((((???????????)...))))?????</dot_bracket>
+				</structure>
+				
+				<structure>
+					<associated_motifs />
+					<dot_bracket />
+				</structure>
+			</structures>
+		</rna>
+		
+		<rna>
+			<title>Partial 16S rRNA containing Kt-11</title>
+			<organism>T. thermophilus</organism>
+			<sequence>CCCAUCAGCUAGUUGGUGGGGUAAUGGCCCACCAAGGCGACGACGGG</sequence>
+			
+			<structures>
+				<structure>
+					<associated_motifs>
+						<link>Kt-11 (T. thermophilus)</link>
+					</associated_motifs>
+					<dot_bracket type="full" >((((.(((((..((((((((.......)))))))))))...))))))</dot_bracket>
+					<dot_bracket type="motif">??((.(((?????????????????????????????)...))))??</dot_bracket>
+				</structure>
+				
+				<structure>
+					<associated_motifs />
+					<dot_bracket />
+				</structure>
+			</structures>
+			
+			<references>
+				<pdb>2WH1</pdb>
+			</references>
+		</rna>
+		
+		<rna>
+			<title>Partial 16S rRNA containing Kt-11</title>
+			<organism>E. coli</organism>
+			<sequence>GGGAUUAGCUAGUAGGUGGGGUAACGGCUCACCUAGGCGACGAUCCC</sequence>
+			
+			<structures>
+				<structure>
+					<associated_motifs>
+						<link>Kt-11.eco</link>
+					</associated_motifs>
+					<dot_bracket type="full" >((((.(((((..((((((((.......)))))))))))...))))))</dot_bracket>
+					<dot_bracket type="motif">??((.(((?????????????????????????????)...))))??</dot_bracket>
+				</structure>
+				
+				<structure>
+					<associated_motifs />
+					<dot_bracket />
+				</structure>
+			</structures>
+		</rna>
+		
+		<rna>
+			<title>Partial 23S rRNA containing Kt-15</title>
+			<organism>H. marismortui</organism>
+			<sequence>AACCGAAGCCCUCACGGGCAAUGUGGUGUCA</sequence>
+			<structures>
+				<structure>
+					<associated_motifs>
+						<link>Kt-15.hma</link>
+					</associated_motifs>
+					<dot_bracket type="full" >..(((.(((((....))))...)))).....</dot_bracket>
+					<dot_bracket type="motif">???((.((??????????)...)))??????</dot_bracket>
+				</structure>
+				
+				<structure>
+					<associated_motifs />
+					<dot_bracket />
+				</structure>
+			</structures>
+			
+			<references>
+				<pdb>3CC2</pdb>
+			</references>
+		</rna>
+		
+		<rna>
+			<title>Partial 16S rRNA containing Kt-23</title>
+			<organism>T. thermophilus</organism>
+			<sequence>UUCCCGGAGUAGCGGUGAAAUGCGCAGAUACCGGGAG</sequence>
+			
+			<structures>
+				<structure>
+					<associated_motifs>
+						<link>Kt-23.tth</link>
+					</associated_motifs>
+					<dot_bracket type="full" >((((((((((((((......)))...)))))))))))</dot_bracket>
+					<dot_bracket type="motif">??????((((((??????????)...)))))??????</dot_bracket>
+				</structure>
+				
+				<structure>
+					<associated_motifs />
+					<dot_bracket />
+				</structure>
+			</structures>
+			
+			<references>
+				<pdb>2WH1</pdb>
+			</references>
+		</rna>
+		
+		<rna>
+			<title>Partial 16S rRNA containing Kt-23</title>
+			<organism>E. coli</organism>
+			<sequence>UUCCAGGUGUAGCGGUGAAAUGCGUAGAGAUCUGGAG</sequence>
+			
+			<structures>
+				<structure>
+					<associated_motifs>
+						<link>Kt-23.eco</link>
+					</associated_motifs>
+					<dot_bracket type="full" >((((((((((((((......)))...)))))))))))</dot_bracket>
+					<dot_bracket type="motif">??????((((((??????????)...)))))??????</dot_bracket>
+				</structure>
+				
+				<structure>
+					<associated_motifs />
+					<dot_bracket />
+				</structure>
+			</structures>
+			
+			<references>
+				<pdb>3DG0</pdb>
+				<pdb>3DG2</pdb>
+				<pdb>3DG4</pdb>
+				<pdb>3DG5</pdb>
+			</references>
+		</rna>
+		
+		<rna>
+			<title>Partial 23S rRNA containing Kt-38</title>
+			<organism>H. marismortui</organism>
+			<sequence>CUCCGCCGAGGUAGUCUGUGAGGUAGAGCGACCGAUUGGUGUGUCCGCCUCCGAGAGGAGUCGGCACACCUGUCAAACUCCAAACUUACAGACGCCGUUUGACGCGGGG</sequence>
+			
+			<structures>
+				<structure>
+					<associated_motifs>
+						<link>Kt-38.hma</link>
+					</associated_motifs>
+					<dot_bracket type="full" >((((((((((((.(((((((((...(((.....((((((((((.((((((((....))))))))))))))))))...)).)...))))))))))))....)))))))))</dot_bracket>
+					<dot_bracket type="motif">?????(((((?????????????????????????????????????????????????????????????????????????????????????)....))))?????</dot_bracket>
+				</structure>
+				
+				<structure>
+					<associated_motifs />
+					<dot_bracket />
+				</structure>
+			</structures>
+			
+			<references>
+				<pbd>3CC2</pbd>
+			</references>
+		</rna>
+		
+		<rna>
+			<title>Partial 23S rRNA containing Kt-42</title>
+			<organism>H. marismortui</organism>
+			<sequence>GGUGGUCUCGAGCCCUAGACAGCCGGUUUUUUCCGGCCGAGGUUUGAGGCGCC</sequence>
+			
+			<structures>
+				<structure>
+					<associated_motifs>
+						<link>Kt-42.hma</link>
+					</associated_motifs>
+					<dot_bracket type="full" >(((.((((((((((...((.((((((......)))))))))))))))))))))</dot_bracket>
+					<dot_bracket type="motif">?????????????(...((.((??????????????)))))????????????</dot_bracket>
+				</structure>
+				
+				<structure>
+					<associated_motifs />
+					<dot_bracket />
+				</structure>
+			</structures>
+			
+			<references>
+				<pdb>3CC2</pdb>
+			</references>
+		</rna>
+		
+		<rna>
+			<title>Partial 23S rRNA containing Kt-42</title>
+			<organism>T. thermophilus</organism>
+			<sequence>GGAUGUGGCGCCGCGAAGACAGCCAGUUUUUUCUGGUCGAGUGGCGCCGCGCC</sequence>
+			
+			<structures>
+				<structure>
+					<associated_motifs>
+						<link>Kt-42.tth</link>
+					</associated_motifs>
+					<dot_bracket type="full" >(((.((((((((((...((.((((((......)))))))))))))))))))))</dot_bracket>
+					<dot_bracket type="motif">?????????????(...((.((??????????????)))))????????????</dot_bracket>
+				</structure>
+				
+				<structure>
+					<associated_motifs />
+					<dot_bracket />
+				</structure>
+			</structures>
+		</rna>
+		
+		<rna>
+			<title>Partial 23S rRNA containing Kt-42</title>
+			<organism>D. radiodurans</organism>
+			<sequence>GGAUGUGUCGUCGCAUAGACAGCCAGUUUUUUCUGGUCGAGUGACGAUGCGCC</sequence>
+			
+			<structures>
+				<structure>
+					<associated_motifs>
+						<link>Kt-42.dra</link>
+					</associated_motifs>
+					<dot_bracket type="full" >(((.((((((((((...((.((((((......)))))))))))))))))))))</dot_bracket>
+					<dot_bracket type="motif">?????????????(...((.((??????????????)))))????????????</dot_bracket>
+				</structure>
+				
+				<structure>
+					<associated_motifs />
+					<dot_bracket />
+				</structure>
+			</structures>
+		</rna>
+		
+		<rna>
+			<title>Partial 23S rRNA containing Kt-42</title>
+			<organism>E. coli</organism>
+			<sequence>CGAUGUGGGAAGGCCCAGACAGCCAGUUUUUUCUGGUCGAGUCGGCCUGCGCG</sequence>
+			
+			<structures>
+				<structure>
+					<associated_motifs>
+						<link>Kt-42.eco</link>
+					</associated_motifs>
+					<dot_bracket type="full" >(((.((((((((((...((.((((((......)))))))))))))))))))))</dot_bracket>
+					<dot_bracket type="motif">?????????????(...((.((??????????????)))))????????????</dot_bracket>
+				</structure>
+				
+				<structure>
+					<associated_motifs />
+					<dot_bracket />
+				</structure>
+			</structures>
+		</rna>
+		
+		<rna>
+			<title>Partial 23S rRNA containing Kt-46</title>
+			<organism>H. marismortui</organism>
+			<sequence>CUCUAAUUGGAUGGAAGUAGGGGUGAAAACUCCUAUGGACCGAUUAGUG</sequence>
+			
+			<structures>
+				<structure>
+					<associated_motifs>
+						<link>Kt-46.hma</link>
+					</associated_motifs>
+					<dot_bracket type="full" >((((((((((...(((((((((((....)))))))))))))))))))))</dot_bracket>
+					<dot_bracket type="motif">?????????(...(((((????????????????))))))?????????</dot_bracket>
+				</structure>
+				
+				<structure>
+					<associated_motifs />
+					<dot_bracket />
+				</structure>
+			</structures>
+			
+			<references>
+				<pdb>3CC2</pdb>
+			</references>
+		</rna>
+		
+		<rna>
+			<title>Partial 23S rRNA containing Kt-46</title>
+			<organism>T. thermophilus</organism>
+			<sequence>UUCCCGAUGCCGAUGAAGGCCGACCCGCGAGGCGGCUGGAGGUAAGGGAA</sequence>
+			
+			<structures>
+				<structure>
+					<associated_motifs>
+						<link>Kt-46.tth</link>
+					</associated_motifs>
+					<dot_bracket type="full" >(((((???(((...((((((((((......)))))))))))))??)))))</dot_bracket>
+					<dot_bracket type="motif">??????????(...(((((????????????????))))))?????????</dot_bracket>
+				</structure>
+				
+				<structure>
+					<associated_motifs />
+					<dot_bracket />
+				</structure>
+			</structures>
+		</rna>
+		
+		<rna>
+			<title>Partial 23S rRNA containing Kt-46</title>
+			<organism>D. radiodurans</organism>
+			<sequence>UUCAGUCCGCGGUGAAGCCAUACCGGAAGGAGUGGUGGAGCCGACUGAA</sequence>
+			
+			<structures>
+				<structure>
+					<associated_motifs>
+						<link>Kt-46.dra</link>
+					</associated_motifs>
+					<dot_bracket type="full" >((((((((((...((((((((((......))))))))))))))))))))</dot_bracket>
+					<dot_bracket type="motif">?????????(...(((((????????????????))))))?????????</dot_bracket>
+				</structure>
+				
+				<structure>
+					<associated_motifs />
+					<dot_bracket />
+				</structure>
+			</structures>
+			
+			<comment>GGUGGA might be GGAGGA ... different sources provide different sequences.</comment>
+		</rna>
+		
+		<rna>
+			<title>Partial 23S rRNA containing Kt-46</title>
+			<organism>E. coli</organism>
+			<sequence>UUCUGUAAGCCUGCGAAGGUGUGCUGUGAGGCAUGCUGGAGGUAUCAGAA</sequence>
+			
+			<structures>
+				<structure>
+					<associated_motifs>
+						<link>Kt-46.eco</link>
+					</associated_motifs>
+					<dot_bracket type="full" >(((((((.(((...((((((((((......))))))))))))))))))))</dot_bracket>
+					<dot_bracket type="motif">???????.??(...(((((????????????????))))))?????????</dot_bracket>
+				</structure>
+				
+				<structure>
+					<associated_motifs />
+					<dot_bracket />
+				</structure>
+			</structures>
+		</rna>
+		
+		<rna>
+			<title>Partial 23S rRNA containing Kt-58</title>
+			<organism>H. marismortui</organism>
+			<sequence>UCCGUGGAAGCCGUAAUGGCAGGAAGCGGA</sequence>
+			
+			<structures>
+				<structure>
+					<associated_motifs>
+						<link>Kt-58.hma</link>
+					</associated_motifs>
+					<dot_bracket type="full" >((((((((.(((.....)))..))))))))</dot_bracket>
+					<dot_bracket type="motif">???(((((.(?????????)..)))))???</dot_bracket>
+				</structure>
+				
+				<structure>
+					<associated_motifs />
+					<dot_bracket />
+				</structure>
+			</structures>
+			
+			<references>
+				<pdb>3CC2</pdb>
+			</references>
+		</rna>
+		
+		<rna>
+			<title>Partial U4 snRNA (small)</title>
+			<organism>H. sapiens</organism>
+			<sequence>GCCAAUGAGGUUUAUCCGAGGC</sequence>
+			
+			<structures>
+				<structure>
+					<associated_motifs>
+						<link>Kt-U4a.hsa</link>
+					</associated_motifs>
+					<dot_bracket type="full" >(((...((((.....)))))))</dot_bracket>
+				</structure>
+				
+				<structure>
+					<associated_motifs />
+					<dot_bracket />
+				</structure>
+			</structures>
+			
+			<references>
+				<pdb>1E7K</pdb>
+			</references>
+		</rna>
+		
+		<rna>
+			<title>Partial U4 snRNA (large)</title>
+			<organism>H. sapiens</organism>
+			<sequence>ACGCAUAUCAGUGAGGAUUCGUCCGAGAUUGUGU</sequence>
+			
+			<structures>
+				<structure>
+					<associated_motifs>
+						<link>Kt-U4b.hsa</link>
+					</associated_motifs>
+					<dot_bracket type="full" >(((((.(((...(((((....)))))))))))))</dot_bracket>
+				</structure>
+				
+				<structure>
+					<associated_motifs />
+					<dot_bracket />
+				</structure>
+			</structures>
+			
+			<pdb>1E7K</pdb>
+		</rna>
+		
+		<rna>
+			<title>C/D-box snoRNA</title>
+			<organism>A. fulgidus</organism>
+			<sequence>GCUCUGACCGAAAGGCGUGAUGAGC</sequence>
+			
+			<structures>
+				<structure>
+					<associated_motifs>
+						<link>Kt-CD-box.CGU</link>
+					</associated_motifs>
+					<dot_bracket type="full" >(((((((((....))...)))))))</dot_bracket>
+				</structure>
+				
+				<structure>
+					<associated_motifs />
+					<dot_bracket />
+				</structure>
+			</structures>
+			
+			<references>
+				<pdb>1RLG</pdb>
+				<url>http://www.sciencedirect.com/science/article/pii/S0969212604001169</url>
+			</references>
+		</rna>
+		
+		<rna>
+			<title>Artificial double C/D K-turn construct</title>
+			<sequence>GGGAGUCUUGUGAUGAGAAGUACUGGAUCUGAAGUAGCCCUUUUUGGGCUACUUGUGAUGAAACACUCAUGGUCUGAAGACUCCC</sequence>
+			
+			<structures>
+				<structure>
+					<associated_motifs>
+						<link>Kt-CD-box.UGU</link>
+					</associated_motifs>
+					<dot_bracket type="full" >((((((((...((((?????????????((((((((((((.....))))))))...))))?????????????))))))))))))</dot_bracket>
+				</structure>
+				
+				<structure>
+					<associated_motifs />
+					<dot_bracket />
+				</structure>
+			</structures>
+			
+			<references>
+				<pdb>3ICX</pdb>
+				<pdb>3ID6</pdb>
+				<doi>http://dx.doi.org/10.1038/nature09688</doi>
+			</references>
+		</rna>
+		
+		<rna>
+			<title>L30e pre-mRNA</title>
+			<organism>S. cervisiae</organism>
+			<sequence>GGACGCAGAGAUGGUCUUUUUGACCGGAGUGUCC</sequence>
+			
+			<structures>
+				<structure>
+					<associated_motifs>
+						<link>Kt-L30e.sce</link>
+					</associated_motifs>
+					<dot_bracket type="full" >((((((...(((((((.....)))))))))))))</dot_bracket>
+				</structure>
+				
+				<structure>
+					<associated_motifs />
+					<dot_bracket />
+				</structure>
+			</structures>
+			
+			<references>
+				<pdb>1T0K</pdb>
+			</references>
+		</rna>
+		
+		<rna>
+			<title>SAM riboswitch operon</title>
+			<organism>T. tengcongensis</organism>
+			<sequence>GGUGGAGGGACUGGCCCGAUGAAACC</sequence>
+			<dot_bracket type="full" >(((((((((.....)))...))))))</dot_bracket>
+			
+			<structures>
+				<structure>
+					<associated_motifs>
+						<link>Kt-SAM-ribo.tte</link>
+					</associated_motifs>
+					<dot_bracket />
+				</structure>
+				
+				<structure>
+					<associated_motifs />
+					<dot_bracket />
+				</structure>
+			</structures>
+			
+			<references>
+				<pdb>2GIS</pdb>
+				<doi>http://dx.doi.org/10.1038/nature04819</doi>
+			</references>
+		</rna>
+		
+		<rna>
+			<title>T box</title>
+			<organism>B. subtilis</organism>
+			<sequence>GGGAGUAAAGAUUGAGACAAGUAGGACUUCGGUCCGAAUACACUCAUGAACUCCC</sequence>
+			
+			<structures>
+				<structure>
+					<associated_motifs>
+						<link>Kt-T-box.bsu</link>
+					</associated_motifs>
+					<dot_bracket type="full" >((((((...(((((((...(.((((((....)))))))....)))))))))))))</dot_bracket>
+					<dot_bracket type="motif">?????(...((((????????????????????????????????)))))?????</dot_bracket>
+				</structure>
+				
+				<structure>
+					<associated_motifs />
+					<dot_bracket />
+				</structure>
+			</structures>
+			
+			<references>
+				<pdb>2KZL</pdb>
+			</references>
+		</rna>
+		
+		<rna>
+			<title>c-di-GMP-II aptamer</title>
+			<organism>C. acetobutylicum</organism>
+			<sequence>AACAAUGAUGAAUGGGUUUUUUACUCAUUUUGAGUU</sequence>
+			
+			<structures>
+				<structure>
+					<associated_motifs>
+						<link>Kt-c-di-GMP-II.cac</link>
+					</associated_motifs>
+					<dot_bracket type="full" >(((...(((((((((((.....))))))))))))))</dot_bracket>
+				</structure>
+				
+				<structure>
+					<associated_motifs />
+					<dot_bracket />
+				</structure>
+			</structures>
+			
+			<references>
+				<pdb>3Q3Z</pdb>
+			</references>
+		</rna>
+		
+		<rna>
+			<title>G2nA SAM riboswitch</title>
+			<organism>T. tengcongensis</organism>
+			<sequence>GGUGAAGGGACUGGCCCGACGAAACC</sequence>
+			
+			<structures>
+				<structure>
+					<associated_motifs>
+						<link>Kt-G2nA-SAM-riboswitch (T. tengcongensi)</link>
+					</associated_motifs>
+					<dot_bracket type="full" >(((((((((.....)))...))))))</dot_bracket>
+				</structure>
+				
+				<structure>
+					<associated_motifs />
+					<dot_bracket />
+				</structure>
+			</structures>
+			
+			<comment>G2nA variant</comment>
+			
+			<references>
+				<pdb>2YGH</pdb>
+			</references>
+		</rna>
+	</rnas>
+</root>
