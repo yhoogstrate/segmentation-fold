@@ -32,13 +32,6 @@ parameters (free Gibbs energy levels) have been estimated using a
 biassed computational approach and lack accuracy.
 
 
-### BUGS ###
-
-Please report encountered problems at:
-
-<https://github.com/yhoogstrate/segmentation-fold/issues>
-
-
 ### INSTALLATION ###
 
 Please follow the instructions given in the '[INSTALL](https://github.com/yhoogstrate/segmentation-fold/blob/master/INSTALL)' file, e.g. by
@@ -50,7 +43,30 @@ using one of the following commands:
 	 $ pico INSTALL
 	 $ nano INSTALL
 
-And follow further instructions.
+
+### USAGE ###
+
+	Usage: ./segmentation-fold -h minimum_hairpin_length -s [SEQUENCE]
+	Usage: ./segmentation-fold -h minimum_hairpin_length -f [FASTA_FILE]
+	  * Note: If FASTA_FILE and SEQUENCE are not provided,
+			  the program will read from STDIN.
+
+
+	The following parameters can be used:
+	  -h HAIRPINSIZE             Minimum hairpin size
+	  -f FASTA_FILE              Location to FASTA_FILE
+	  -s SEQUENCE                Specific RNA SEQUENCE (overrules -f)
+	  -k [1/0]                   Enable/disable K-turn predictions
+	  -m MOTIFS_FILE             Use custom  "motifs.xml"-syntaxed file
+	  -t [0/1]                   Use novel (=0) or original (=1) traceback
+	  -v                         Shows the version and license
+
+
+### BUGS ###
+
+Please report encountered problems at:
+
+<https://github.com/yhoogstrate/segmentation-fold/issues>
 
 
 ### AUTHORS ###
