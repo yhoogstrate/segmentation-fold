@@ -11,3 +11,17 @@
 *.lai
 *.la
 *.a
+
+# GNU Autotools and Makefile related
+Makefile
+*.in
+*.in~
+*.status
+
+# Unit test and functional test results
+*.log
+*.trs
+
+# Other temporary files
+*.swp
+.deps
