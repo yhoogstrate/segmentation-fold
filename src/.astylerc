@@ -1,0 +1,29 @@
+# This is the "Artistic Style" (astyle) configuration file used for the
+# segmentation-fold project to format all the code files systematically.
+# Details on this file can be found on the following website:
+# <http://astyle.sourceforge.net/>
+
+# '{' on new line (works only for functions)
+--brackets=stroustrup 
+--add-brackets
+
+--align-pointer=name
+--fill-empty-lines
+ 
+--indent=tab
+--lineend=linux
+ 
+# (a==b) -> (a == b)
+--pad-oper
+
+ 
+--brackets=break
+
+--indent-classes
+
+
+--indent-switches # case block is indented wrt switch
+--indent-cases
+
+--suffix=none
+--unpad-paren
