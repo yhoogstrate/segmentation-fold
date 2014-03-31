@@ -4,7 +4,7 @@
 
 @author Youri Hoogstrate
 
-@date 22-mar-2014
+@date 31-mar-2014
 
 @section LICENSE
 segmentation-fold can predict RNA 2D structures including K-turns.
@@ -34,6 +34,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AGG</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -42,6 +46,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AGC</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -50,6 +58,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>:    ::</bonds>
 			<p3   >A    AU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -58,6 +70,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AGG</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -66,6 +82,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :: :</bonds>
 			<p3   >   ACUA</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -74,6 +94,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :: :</bonds>
 			<p3   >   AUUA</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -82,6 +106,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   : :</bonds>
 			<p3   >   AAG</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -90,6 +118,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   ::::</bonds>
 			<p3   >   AUGA</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -98,6 +130,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AUG</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -106,6 +142,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>    :::</bonds>
 			<p3   >    AGC</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -114,6 +154,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :: :</bonds>
 			<p3   >   AG C</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -122,6 +166,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :: :</bonds>
 			<p3   >   AG C</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -130,6 +178,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :: :</bonds>
 			<p3   >   AG C</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -138,6 +190,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :: :</bonds>
 			<p3   >   AG C</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -146,6 +202,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   ::::</bonds>
 			<p3   >   AGGU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -154,6 +214,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   ::::</bonds>
 			<p3   >   AGGU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -162,6 +226,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   ::::</bonds>
 			<p3   >   AGGU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -170,6 +238,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   ::::</bonds>
 			<p3   >   AGGU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -178,6 +250,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   ::::</bonds>
 			<p3   > A AGGU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -186,6 +262,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   ::</bonds>
 			<p3   >   AG</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -194,6 +274,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   ::</bonds>
 			<p3   >   AG</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<!-- The following motifs are abstractions of:
@@ -203,6 +287,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AGU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		-->
 		
@@ -212,6 +300,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AGU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -220,6 +312,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AGU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -228,6 +324,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AGU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -236,6 +336,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AGU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -244,6 +348,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AGU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -252,6 +360,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AGU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -260,6 +372,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AGU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -268,6 +384,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AGU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -276,6 +396,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AGU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -284,6 +408,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AGU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -292,6 +420,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AGU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -300,6 +432,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AGU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -308,6 +444,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AGU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -316,6 +456,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AGU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -324,6 +468,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AGU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -332,6 +480,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AGU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -340,6 +492,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AGU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -348,6 +504,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AGU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -356,6 +516,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AGU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -364,6 +528,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AGU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -372,6 +540,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AGU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -380,6 +552,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AGU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -388,6 +564,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AGU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -396,6 +576,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AGU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -404,6 +588,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AGU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -412,6 +600,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AGU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -420,6 +612,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AGU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -428,6 +624,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AGU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -436,6 +636,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AGU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -444,6 +648,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AGU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -452,6 +660,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AGU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -460,6 +672,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AGU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -468,6 +684,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AGU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		
@@ -477,6 +697,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>+|   ::+</bonds>
 			<p3   >UG   AGG</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -485,6 +709,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AGG</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -493,6 +721,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AGU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -501,6 +733,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::+</bonds>
 			<p3   >   AGUU</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 		</motif>
 		
 		<motif>
@@ -509,6 +745,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AAG</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 			
 			<comment>The K-turn has no sheared tandem GA-AG bond.</comment>
 		</motif>
@@ -519,6 +759,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AGA</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 			
 			<comment>No corresponding sequence?!</comment>
 		</motif>
@@ -529,6 +773,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>   :::</bonds>
 			<p3   >   AGG</p3>
 			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 			
 			<comment>No corresponding sequence?!</comment>
 		</motif>
@@ -539,6 +787,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<bonds>:::::::</bonds>
 			<p3   >AUGAGAG</p3>
 			<energy>-20.0000</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
 			
 			<comment>No corresponding sequence?! - more info at: http://rna.bgsu.edu/rna3dhub_dev/loops/view/IL_1FEU_001</comment>
 		</motif>
