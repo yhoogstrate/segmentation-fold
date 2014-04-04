@@ -57,7 +57,7 @@ using one of the following commands:
 	  -f FASTA_FILE              Location to FASTA_FILE
 	  -s SEQUENCE                Specific RNA SEQUENCE (overrules -f)
 	  -k [1/0]                   Enable/disable K-turn predictions
-	  -m MOTIFS_FILE             Use custom  "motifs.xml"-syntaxed file
+	  -m MOTIFS_FILE             Use custom "motifs.xml"-syntaxed file
 	  -t [0/1]                   Use novel (=0) or original (=1) traceback
 	  -v                         Shows the version and license
 
