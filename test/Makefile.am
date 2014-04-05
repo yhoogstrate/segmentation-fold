@@ -1,4 +1,4 @@
-# @file test/MAkefile.am
+# @file test/Makefile.am
 #
 # @date 4-apr-2014
 #
