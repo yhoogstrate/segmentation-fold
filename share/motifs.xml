@@ -4,13 +4,14 @@
 
 @author Youri Hoogstrate
 
-@date 3-apr-2014
+@date 7-apr-2014
 
 @section LICENSE
 segmentation-fold can predict RNA 2D structures including K-turns.
 Copyright (C) 2012-2014 Youri Hoogstrate
 
-This file is part of segmentation-fold.
+This file is part of segmentation-fold and originally taken from
+"share/motifs.txt" in yh-kt-fold.
 
 segmentation-fold is free software: you can redistribute it and/or
 modify it under the terms of the GNU General Public License as published
@@ -30,9 +31,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 	<motifs>
 		<motif>
 			<id>Kt-7 G2nA SAM riboswitch (H. marismortui)</id>
-			<p5   >GAAGAA</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AGG</p3>
+			<sequence_5prime>GAAGAA</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AGG</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -42,9 +43,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-7 (D. radiodurans)</id>
-			<p5   >UUUGAC</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AGC</p3>
+			<sequence_5prime>UUUGAC</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AGC</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -54,9 +55,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-7 (E. coli)</id>
-			<p5   >GUUAUAA</p5>
-			<bonds>:    ::</bonds>
-			<p3   >A    AU</p3>
+			<sequence_5prime>GUUAUAA</sequence_5prime>
+			<bonds          >:    ::</bonds>
+			<sequence_3prime>A    AU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -66,9 +67,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-7 (T. thermophilus)</id>
-			<p5   >GUGGAU</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AGG</p3>
+			<sequence_5prime>GUGGAU</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AGG</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -78,9 +79,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-11 (T. thermophilus)</id>
-			<p5   >GACGA C</p5>
-			<bonds>   :: :</bonds>
-			<p3   >   ACUA</p3>
+			<sequence_5prime>GACGA C</sequence_5prime>
+			<bonds          >   :: :</bonds>
+			<sequence_3prime>   ACUA</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -90,9 +91,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-11.eco</id>
-			<p5   >GACGA U</p5>
-			<bonds>   :: :</bonds>
-			<p3   >   AUUA</p3>
+			<sequence_5prime>GACGA U</sequence_5prime>
+			<bonds          >   :: :</bonds>
+			<sequence_3prime>   AUUA</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -102,9 +103,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-15.hma</id>
-			<p5   >AAUG U</p5>
-			<bonds>   : :</bonds>
-			<p3   >   AAG</p3>
+			<sequence_5prime>AAUG U</sequence_5prime>
+			<bonds          >   : :</bonds>
+			<sequence_3prime>   AAG</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -114,9 +115,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-23.tth</id>
-			<p5   >GCAGAUA</p5>
-			<bonds>   ::::</bonds>
-			<p3   >   AUGA</p3>
+			<sequence_5prime>GCAGAUA</sequence_5prime>
+			<bonds          >   ::::</bonds>
+			<sequence_3prime>   AUGA</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -126,9 +127,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-23.eco</id>
-			<p5   >GUAGAG</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AUG</p3>
+			<sequence_5prime>GUAGAG</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AUG</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -138,9 +139,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-38.hma</id>
-			<p5   >GUUUGAC</p5>
-			<bonds>    :::</bonds>
-			<p3   >    AGC</p3>
+			<sequence_5prime>GUUUGAC</sequence_5prime>
+			<bonds          >    :::</bonds>
+			<sequence_3prime>    AGC</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -150,9 +151,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-42.hma</id>
-			<p5   >CUAGACA</p5>
-			<bonds>   :: :</bonds>
-			<p3   >   AG C</p3>
+			<sequence_5prime>CUAGACA</sequence_5prime>
+			<bonds          >   :: :</bonds>
+			<sequence_3prime>   AG C</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -162,9 +163,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-42.tth</id>
-			<p5   >GAAGACA</p5>
-			<bonds>   :: :</bonds>
-			<p3   >   AG C</p3>
+			<sequence_5prime>GAAGACA</sequence_5prime>
+			<bonds          >   :: :</bonds>
+			<sequence_3prime>   AG C</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -174,9 +175,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-42.dra</id>
-			<p5   >AUAGACA</p5>
-			<bonds>   :: :</bonds>
-			<p3   >   AG C</p3>
+			<sequence_5prime>AUAGACA</sequence_5prime>
+			<bonds          >   :: :</bonds>
+			<sequence_3prime>   AG C</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -186,9 +187,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-42.eco</id>
-			<p5   >CCAGACA</p5>
-			<bonds>   :: :</bonds>
-			<p3   >   AG C</p3>
+			<sequence_5prime>CCAGACA</sequence_5prime>
+			<bonds          >   :: :</bonds>
+			<sequence_3prime>   AG C</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -198,9 +199,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-46.hma</id>
-			<p5   >AUGGAAG</p5>
-			<bonds>   ::::</bonds>
-			<p3   >   AGGU</p3>
+			<sequence_5prime>AUGGAAG</sequence_5prime>
+			<bonds          >   ::::</bonds>
+			<sequence_3prime>   AGGU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -210,9 +211,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-46.tth</id>
-			<p5   >GAUGAAG</p5>
-			<bonds>   ::::</bonds>
-			<p3   >   AGGU</p3>
+			<sequence_5prime>GAUGAAG</sequence_5prime>
+			<bonds          >   ::::</bonds>
+			<sequence_3prime>   AGGU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -222,9 +223,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-46.dra</id>
-			<p5   >GGUGAAG</p5>
-			<bonds>   ::::</bonds>
-			<p3   >   AGGU</p3>
+			<sequence_5prime>GGUGAAG</sequence_5prime>
+			<bonds          >   ::::</bonds>
+			<sequence_3prime>   AGGU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -234,9 +235,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-46.eco</id>
-			<p5   >UGCGAAG</p5>
-			<bonds>   ::::</bonds>
-			<p3   >   AGGU</p3>
+			<sequence_5prime>UGCGAAG</sequence_5prime>
+			<bonds          >   ::::</bonds>
+			<sequence_3prime>   AGGU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -246,9 +247,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-58.hma</id>
-			<p5   >A GGAAG</p5>
-			<bonds>   ::::</bonds>
-			<p3   > A AGGU</p3>
+			<sequence_5prime>A GGAAG</sequence_5prime>
+			<bonds          >   ::::</bonds>
+			<sequence_3prime> A AGGU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -258,9 +259,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-U4a.hsa</id>
-			<p5   >AAUGA</p5>
-			<bonds>   ::</bonds>
-			<p3   >   AG</p3>
+			<sequence_5prime>AAUGA</sequence_5prime>
+			<bonds          >   ::</bonds>
+			<sequence_3prime>   AG</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -270,9 +271,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-U4b.hsa</id>
-			<p5   >AGUGA</p5>
-			<bonds>   ::</bonds>
-			<p3   >   AG</p3>
+			<sequence_5prime>AGUGA</sequence_5prime>
+			<bonds          >   ::</bonds>
+			<sequence_3prime>   AG</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -283,9 +284,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		<!-- The following motifs are abstractions of:
 		<motif>
 			<id>Kt-CD-box</id>
-			<p5   >NNRGAU</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AGU</p3>
+			<sequence_5prime>NNRGAU</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -296,9 +297,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-CD-box.AAG</id>
-			<p5   >AAGGAU</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AGU</p3>
+			<sequence_5prime>AAGGAU</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -308,9 +309,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-CD-box.ACA</id>
-			<p5   >ACAGAU</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AGU</p3>
+			<sequence_5prime>ACAGAU</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -320,9 +321,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-CD-box.ACG</id>
-			<p5   >ACGGAU</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AGU</p3>
+			<sequence_5prime>ACGGAU</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -332,9 +333,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-CD-box.AUA</id>
-			<p5   >AUAGAU</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AGU</p3>
+			<sequence_5prime>AUAGAU</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -344,9 +345,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-CD-box.AUG</id>
-			<p5   >AUGGAU</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AGU</p3>
+			<sequence_5prime>AUGGAU</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -356,9 +357,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-CD-box.AGA</id>
-			<p5   >AGAGAU</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AGU</p3>
+			<sequence_5prime>AGAGAU</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -368,9 +369,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-CD-box.AGG</id>
-			<p5   >AGGGAU</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AGU</p3>
+			<sequence_5prime>AGGGAU</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -380,9 +381,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-CD-box.CAA</id>
-			<p5   >CAAGAU</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AGU</p3>
+			<sequence_5prime>CAAGAU</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -392,9 +393,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-CD-box.CAG</id>
-			<p5   >CAGGAU</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AGU</p3>
+			<sequence_5prime>CAGGAU</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -404,9 +405,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-CD-box.CCA</id>
-			<p5   >CCAGAU</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AGU</p3>
+			<sequence_5prime>CCAGAU</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -416,9 +417,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-CD-box.CCG</id>
-			<p5   >CCGGAU</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AGU</p3>
+			<sequence_5prime>CCGGAU</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -428,9 +429,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-CD-box.CUA</id>
-			<p5   >CUAGAU</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AGU</p3>
+			<sequence_5prime>CUAGAU</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -440,9 +441,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-CD-box.CUG</id>
-			<p5   >CUGGAU</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AGU</p3>
+			<sequence_5prime>CUGGAU</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -452,9 +453,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-CD-box.CGU</id><!-- Common -->
-			<p5   >CGUGAU</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AGU</p3>
+			<sequence_5prime>CGUGAU</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -464,9 +465,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-CD-box.UGU</id><!-- Common -->
-			<p5   >UGUGAU</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AGU</p3>
+			<sequence_5prime>UGUGAU</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -476,9 +477,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-CD-box.CGA</id>
-			<p5   >CGAGAU</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AGU</p3>
+			<sequence_5prime>CGAGAU</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -488,9 +489,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-CD-box.CGG</id>
-			<p5   >CGGGAU</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AGU</p3>
+			<sequence_5prime>CGGGAU</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -500,9 +501,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-CD-box.UAA</id>
-			<p5   >UAAGAU</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AGU</p3>
+			<sequence_5prime>UAAGAU</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -512,9 +513,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-CD-box.UAG</id>
-			<p5   >UAGGAU</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AGU</p3>
+			<sequence_5prime>UAGGAU</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -524,9 +525,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-CD-box.UCA</id>
-			<p5   >UCAGAU</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AGU</p3>
+			<sequence_5prime>UCAGAU</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -536,9 +537,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-CD-box.UCG</id>
-			<p5   >UCGGAU</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AGU</p3>
+			<sequence_5prime>UCGGAU</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -548,9 +549,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-CD-box.UUA</id>
-			<p5   >UUAGAU</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AGU</p3>
+			<sequence_5prime>UUAGAU</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -560,9 +561,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-CD-box.UUG</id>
-			<p5   >UUGGAU</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AGU</p3>
+			<sequence_5prime>UUGGAU</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -572,9 +573,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-CD-box.UGA</id>
-			<p5   >UGAGAU</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AGU</p3>
+			<sequence_5prime>UGAGAU</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -584,9 +585,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-CD-box.UGG</id>
-			<p5   >UGGGAU</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AGU</p3>
+			<sequence_5prime>UGGGAU</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -596,9 +597,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-CD-box.GAA</id>
-			<p5   >GAAGAU</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AGU</p3>
+			<sequence_5prime>GAAGAU</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -608,9 +609,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-CD-box.GAG</id>
-			<p5   >GAGGAU</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AGU</p3>
+			<sequence_5prime>GAGGAU</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -620,9 +621,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-CD-box.GCA</id>
-			<p5   >GCAGAU</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AGU</p3>
+			<sequence_5prime>GCAGAU</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -632,9 +633,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-CD-box.GCG</id>
-			<p5   >GCGGAU</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AGU</p3>
+			<sequence_5prime>GCGGAU</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -644,9 +645,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-CD-box.GUA</id>
-			<p5   >GUAGAU</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AGU</p3>
+			<sequence_5prime>GUAGAU</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -656,9 +657,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-CD-box.GUG</id>
-			<p5   >GUGGAU</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AGU</p3>
+			<sequence_5prime>GUGGAU</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -668,9 +669,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-CD-box.GGA</id>
-			<p5   >GGAGAU</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AGU</p3>
+			<sequence_5prime>GGAGAU</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -680,9 +681,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-CD-box.GGG</id>
-			<p5   >GGGGAU</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AGU</p3>
+			<sequence_5prime>GGGGAU</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -693,9 +694,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-L30e.sce</id>
-			<p5   >GCAGAGAU</p5>
-			<bonds>+|   ::+</bonds>
-			<p3   >UG   AGG</p3>
+			<sequence_5prime>GCAGAGAU</sequence_5prime>
+			<bonds          >+|   ::+</bonds>
+			<sequence_3prime>UG   AGG</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -705,9 +706,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-SAM-ribo.tte</id>
-			<p5   >GAUGAA</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AGG</p3>
+			<sequence_5prime>GAUGAA</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AGG</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -717,9 +718,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-T-box.bsu</id>
-			<p5   >AAAGAU</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AGU</p3>
+			<sequence_5prime>AAAGAU</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -729,9 +730,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-c-di-GMP-II.cac</id>
-			<p5   >AAUGAUG</p5>
-			<bonds>   :::+</bonds>
-			<p3   >   AGUU</p3>
+			<sequence_5prime>AAUGAUG</sequence_5prime>
+			<bonds          >   :::+</bonds>
+			<sequence_3prime>   AGUU</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -741,9 +742,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-G2nA-SAM-riboswitch (T. tengcongensi)</id>
-			<p5   >GACGAA</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AAG</p3>
+			<sequence_5prime>GACGAA</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AAG</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -755,9 +756,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Kt-G2nA-SAMribo.bsu</id>
-			<p5   >GACGAA</p5>
-			<bonds>   :::</bonds>
-			<p3   >   AGA</p3>
+			<sequence_5prime>GACGAA</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AGA</sequence_3prime>
 			<energy>-11.1072</energy>
 			<directions>
 				<five_prime>true</five_prime>
@@ -769,9 +770,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		
 		<motif>
 			<id>Loop-E-Motif.bac</id>
-			<p5   >GAUGGUA</p5>
-			<bonds>:::::::</bonds>
-			<p3   >AUGAGAG</p3>
+			<sequence_5prime>GAUGGUA</sequence_5prime>
+			<bonds          >:::::::</bonds>
+			<sequence_3prime>AUGAGAG</sequence_3prime>
 			<energy>-20.0000</energy>
 			<directions>
 				<five_prime>true</five_prime>
