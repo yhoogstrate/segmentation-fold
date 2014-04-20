@@ -94,12 +94,12 @@ BOOST_AUTO_TEST_SUITE(Union)
  */
 BOOST_AUTO_TEST_CASE(Test2)
 {
-	printf("sizeof(Nucleotide::A) = %zu;\n", sizeof(Nucleotide::A));
-	printf("sizeof(Nucleotide::C) = %zu;\n", sizeof(Nucleotide::C));
-	printf("sizeof(Nucleotide::G) = %zu;\n", sizeof(Nucleotide::G));
+	printf("sizeof(Nucleotide::A) == %zu\n", sizeof(Nucleotide::A));
+	printf("sizeof(Nucleotide::C) == %zu\n", sizeof(Nucleotide::C));
+	printf("sizeof(Nucleotide::G) == %zu\n", sizeof(Nucleotide::G));
 	printf("\n");
-	printf("sizeof(Nucleotide::U) = %zu;\n", sizeof(Nucleotide::U));
-	printf("sizeof(Nucleotide::T) = %zu;\n", sizeof(Nucleotide::T));
+	printf("sizeof(Nucleotide::U) == %zu\n", sizeof(Nucleotide::U));
+	printf("sizeof(Nucleotide::T) == %zu\n", sizeof(Nucleotide::T));
 	
 	
 	BOOST_CHECK(sizeof(Nucleotide::A) == 1);
