@@ -41,7 +41,7 @@ BOOST_AUTO_TEST_SUITE(Testing)
 
 /**
  * @brief Tests whether Nucleotides correctly separate
- * 
+ *
  * @date 20-apr-2014
  *
  * @author Youri Hoogstrate
@@ -87,7 +87,7 @@ BOOST_AUTO_TEST_SUITE(Union)
 
 /**
  * @brief Tests whether the size of a Nucleotide stuct is indeed 1 byte
- * 
+ *
  * @date 20-apr-2014
  *
  * @author Youri Hoogstrate
