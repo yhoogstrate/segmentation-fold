@@ -1,7 +1,7 @@
 /**
  * @file src/Nucleotide.hpp
  *
- * @date 20-apr-2014
+ * @date 16-may-2014
  *
  * @author Youri Hoogstrate
  *
@@ -30,7 +30,7 @@
 /**
  * @brief Describes a DNA or RNA nucleotide
  *
- * @date 10-mar-2014
+ * @date 16-may-2014
  *
  * @author Youri Hoogstrate
  *
@@ -38,7 +38,7 @@
  * The type is casted to char to reduce the size of the memory, since
  * this is not automatically done by the compiler.
  */
-enum struct Nucleotide : char
+enum Nucleotide : char
 {
 	A = 0,
 	C = 1,
