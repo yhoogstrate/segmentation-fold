@@ -1,0 +1,4 @@
+2014-12-03  Youri Hoogstrate
+	* Changed directory structure; separated header files in ./include.
+	* Changed from autotools to CMake.
+	

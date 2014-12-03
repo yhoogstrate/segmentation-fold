@@ -1,12 +1,13 @@
-# @file src/Makefile.am
+# @file CMakeLists.txt
 #
-# @date 5-apr-2014
+# @date 3-dec-2014
 #
 # @author Youri Hoogstrate
 #
 # @section DESCRIPTION
-# This Makefile contains the description of compilance of several unit
-# and functional tests. By running the 'make check' command the
+# This CMakefile contains the description of compilance of the tool
+# segmentation-fold as well as building several unit- # and functional
+# tests. By running 'cmake .' followed by the 'make check' command, the
 # software can simply be checked for (new) introduced mistakes.
 #
 # @section LICENSE
