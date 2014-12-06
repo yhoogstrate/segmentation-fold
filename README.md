@@ -91,4 +91,4 @@ the following documentation standard:
 All source-code is formatted using Asteric Style:
  <http://astyle.sourceforge.net/>
 The corresponding configuration file is available under
-'[src/.astylerc](https://github.com/yhoogstrate/segmentation-fold/tree/master/src/.astylerc)'.
+'[src/.astylerc](https://github.com/yhoogstrate/segmentation-fold/tree/master/share/.astylerc)'.

@@ -1,17 +1,18 @@
-# @file test/Makefile.am
+# @file test/CMakeLists.txt
 #
-# @date 4-apr-2014
+# @date 3-dec-2014
 #
 # @author Youri Hoogstrate
 #
 # @section DESCRIPTION
-# This Makefile contains the description of compilance of several unit
-# and functional tests. By running the 'make check' command the
+# This CMakefile contains the description of compilance of the tool
+# segmentation-fold as well as building several unit- # and functional
+# tests. By running 'cmake .' followed by the 'make check' command, the
 # software can simply be checked for (new) introduced mistakes.
 #
 # @section LICENSE
 # segmentation-fold can predict RNA 2D structures including K-turns.
-# Copyright (C) 2012-2014 Youri Hoogstrate
+# Copyright (C) 2012-2015 Youri Hoogstrate
 #
 # This file is part of segmentation-fold.
 #
@@ -27,3 +28,15 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+cmake_minimum_required(VERSION 2.8)
+
+include_directories(../include)
+
+find_package(Boost COMPONENTS system filesystem unit_test_framework REQUIRED)
+include_directories(${Boost_INCLUDE_DIRS})
+
+ADD_DEFINITIONS(-DBOOST_TEST_DYN_LINK)
+
+
+add_executable(../build/test/nucleotide_test Nucleotide_test.cpp)
