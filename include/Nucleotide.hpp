@@ -1,7 +1,7 @@
 /**
- * @file src/Nucleotide.hpp
+ * @file include/Nucleotide.hpp
  *
- * @date 16-may-2014
+ * @date 25-feb-2015
  *
  * @author Youri Hoogstrate
  *
@@ -26,13 +26,14 @@
  */
 
 
+#ifndef NUCLEOTIDE_HPP
+#define	NUCLEOTIDE_HPP
+
 
 /**
- * @brief Describes a DNA or RNA nucleotide
+ * @brief Describes a DNA or RNA nucleotide (in one byte)
  *
  * @date 16-may-2014
- *
- * @author Youri Hoogstrate
  *
  * @section DESCRIPTION
  * The type is casted to char to reduce the size of the memory, since
@@ -45,3 +46,6 @@ enum Nucleotide : char
 	G = 2,
 	U, T = 3
 };
+
+
+#endif																	// NUCLEOTIDE_HPP
