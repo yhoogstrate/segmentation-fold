@@ -1,3 +1,7 @@
+2015-02-25  Youri Hoogstrate
+	* Added Direction definition
+	* Added Sequence definition
+
 2014-12-03  Youri Hoogstrate
 	* Changed directory structure; separated header files in ./include.
 	* Changed from autotools to CMake.
