@@ -23,26 +23,42 @@
 
 <https://github.com/yhoogstrate/segmentation-fold/>
 
-The tool segmentation-fold is a program that does RNA 2D-structure
-prediction using a modified version of the Zuker algorithm. This
-modification includes a new "structure element" that is capable of
-folding a certain type of motifs (predefined sequences).
-	The program includes some motifs; the K-turns. The thermodynamic
+Segmentation-fold is a bioinformatics application that predicts RNA 2D-structure
+with an extended version of the Zuker algorithm. This modification contains a new "structure element"
+named a *segment* is capable of folding a pre-defined substructure with **multiple** canonical
+or non-canonical pairings.
+
+	This allows folding of more complex structures like the K-turns, which are also part of
+	the implemented free energy tables. These thermodynamic
 parameters (free Gibbs energy levels) have been estimated using a
-biassed computational approach and lack accuracy.
+computational approach and lack therefore accuracy.
 
 
 ### INSTALLATION ###
 
+#### Prerequisites ####
+
+Segmentation-fold does **not** install on most systems of itself because
+it depends on two additional libraries.
+
+	boost library (-test)
+	boost library (-xml)
+
+In ubuntu you can install them very easily with the following command:
+
+	sudo apt-get install libboost-test-dev libboost-filesystem-dev
+
+#### Build and install ####
+
 Please follow the instructions given in the '[INSTALL](https://github.com/yhoogstrate/segmentation-fold/blob/master/INSTALL)' file, e.g. by
 using one of the following commands:
 
-	 $ vi INSTALL
-	 $ less INSTALL
-	 $ cat INSTALL
-	 $ pico INSTALL
-	 $ nano INSTALL
-
+	 $ git clone https://github.com/yhoogstrate/segmentation-fold
+	 $ cd segmentation-fold
+	 $ cmake .
+	 $ make
+	 $ make test
+	 $ sudo make install
 
 ### USAGE ###
 
@@ -64,7 +80,7 @@ using one of the following commands:
 
 ### BUGS ###
 
-Please report encountered problems at:
+Please report encountelred problems at:
 
 <https://github.com/yhoogstrate/segmentation-fold/issues>
 
@@ -75,14 +91,15 @@ All people that have contributed to the development of segmentation-fold are
 mentioned in the '[AUTHORS](https://github.com/yhoogstrate/segmentation-fold/blob/master/AUTHORS)' file. You can read it by using on of the
 following commands:
 
-	 $ vi AUTHORS
 	 $ less AUTHORS
-	 $ cat AUTHORS
-	 $ pico AUTHORS
-	 $ nano AUTHORS
-
 
 ### DEVELOPER NOTES ###
+
+We encourage users, researchers and programmers to contribute to this
+free and open source project. This can be achieved by reporting bugs and
+commiting code to this github repository. To streamline and archive
+communication in an univocal way, we also encourge you to only use this
+channel for contribution.
 
 If any developer wants to contribute to segmentation-fold, please use
 the following documentation standard:
@@ -92,3 +109,5 @@ All source-code is formatted using Asteric Style:
  <http://astyle.sourceforge.net/>
 The corresponding configuration file is available under
 '[src/.astylerc](https://github.com/yhoogstrate/segmentation-fold/tree/master/share/.astylerc)'.
+
+For more developer notes you should consult [CONTRIBUTING.md](https://github.com/yhoogstrate/segmentation-fold/blob/master/CONTRIBUTING.md)
