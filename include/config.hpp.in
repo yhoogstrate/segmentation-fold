@@ -34,4 +34,4 @@
 #define VERSION "@PROJECT_VERSION@"
 
 /* Build type (release/debug) */
-#define BUILD_TYPE "@CMAKE_BUILD_TYPE@"
+#define DEBUG @DEBUG@
