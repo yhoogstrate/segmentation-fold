@@ -1,7 +1,7 @@
 /**
  * @file test/Nucleotide_test.cpp
  *
- * @date 20-apr-2014
+ * @date 15-apr-2015
  *
  * @author Youri Hoogstrate
  *
@@ -42,21 +42,19 @@ BOOST_AUTO_TEST_SUITE(Testing)
 /**
  * @brief Tests whether Nucleotides correctly separate
  *
- * @date 20-apr-2014
- *
- * @author Youri Hoogstrate
+ * @date 15-apr-2015
  */
-BOOST_AUTO_TEST_CASE(Test1)
+BOOST_AUTO_TEST_CASE(Test_equality)
 {
-	BOOST_CHECK(Nucleotide::A == Nucleotide::A);
-	BOOST_CHECK(Nucleotide::C == Nucleotide::C);
-	BOOST_CHECK(Nucleotide::G == Nucleotide::G);
+	BOOST_CHECK_EQUAL(Nucleotide::A , Nucleotide::A);
+	BOOST_CHECK_EQUAL(Nucleotide::C , Nucleotide::C);
+	BOOST_CHECK_EQUAL(Nucleotide::G , Nucleotide::G);
 	
-	BOOST_CHECK(Nucleotide::U == Nucleotide::U);
-	BOOST_CHECK(Nucleotide::T == Nucleotide::T);
+	BOOST_CHECK_EQUAL(Nucleotide::U , Nucleotide::U);
+	BOOST_CHECK_EQUAL(Nucleotide::T , Nucleotide::T);
 	
-	BOOST_CHECK(Nucleotide::U == Nucleotide::T);
-	BOOST_CHECK(Nucleotide::T == Nucleotide::U);
+	BOOST_CHECK_EQUAL(Nucleotide::U , Nucleotide::T);
+	BOOST_CHECK_EQUAL(Nucleotide::T , Nucleotide::U);
 	
 	
 	BOOST_CHECK(Nucleotide::A != Nucleotide::C);
@@ -81,32 +79,19 @@ BOOST_AUTO_TEST_CASE(Test1)
 	BOOST_CHECK(Nucleotide::U != Nucleotide::G);
 	BOOST_CHECK(Nucleotide::T != Nucleotide::G);
 }
-BOOST_AUTO_TEST_SUITE_END()
-
-BOOST_AUTO_TEST_SUITE(Union)
 
 /**
  * @brief Tests whether the size of a Nucleotide stuct is indeed 1 byte
  *
- * @date 20-apr-2014
- *
- * @author Youri Hoogstrate
+ * @date 15-apr-2015
  */
-BOOST_AUTO_TEST_CASE(Test2)
+BOOST_AUTO_TEST_CASE(Test_size)
 {
-	printf("sizeof(Nucleotide::A) == %zu\n", sizeof(Nucleotide::A));
-	printf("sizeof(Nucleotide::C) == %zu\n", sizeof(Nucleotide::C));
-	printf("sizeof(Nucleotide::G) == %zu\n", sizeof(Nucleotide::G));
-	printf("\n");
-	printf("sizeof(Nucleotide::U) == %zu\n", sizeof(Nucleotide::U));
-	printf("sizeof(Nucleotide::T) == %zu\n", sizeof(Nucleotide::T));
+	BOOST_CHECK_EQUAL(sizeof(Nucleotide::A) , 1);
+	BOOST_CHECK_EQUAL(sizeof(Nucleotide::C) , 1);
+	BOOST_CHECK_EQUAL(sizeof(Nucleotide::G) , 1);
 	
-	
-	BOOST_CHECK(sizeof(Nucleotide::A) == 1);
-	BOOST_CHECK(sizeof(Nucleotide::C) == 1);
-	BOOST_CHECK(sizeof(Nucleotide::G) == 1);
-	
-	BOOST_CHECK(sizeof(Nucleotide::U) == 1);
-	BOOST_CHECK(sizeof(Nucleotide::T) == 1);
+	BOOST_CHECK_EQUAL(sizeof(Nucleotide::U) , 1);
+	BOOST_CHECK_EQUAL(sizeof(Nucleotide::T) , 1);
 }
 BOOST_AUTO_TEST_SUITE_END()
