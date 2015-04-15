@@ -1,6 +1,6 @@
 # @file test/CMakeLists.txt
 #
-# @date 3-dec-2014
+# @date 15-apr-2015
 #
 # @author Youri Hoogstrate
 #
@@ -39,4 +39,9 @@ include_directories(${Boost_INCLUDE_DIRS})
 ADD_DEFINITIONS(-DBOOST_TEST_DYN_LINK)
 
 
+
+add_executable(../build/test/direction_test Direction_test.cpp)
+# 
 add_executable(../build/test/nucleotide_test Nucleotide_test.cpp)
+add_executable(../build/test/position_test Position_test.cpp ../src/Sequence.cpp)
+add_executable(../build/test/sequence_test Sequence_test.cpp ../src/Sequence.cpp)

@@ -7,7 +7,7 @@
  *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
- * Copyright (C) 2012-2014 Youri Hoogstrate
+ * Copyright (C) 2012-2015 Youri Hoogstrate
  *
  * This file is part of segmentation-fold.
  *
@@ -39,14 +39,13 @@
 
 
 /**
- * @date 25-feb-2015
+ * @date 15-apr-2015
  */
 class Sequence
 {
-	private:
+	public:
 		std::vector<Nucleotide> data;
 		
-	public:
 		Sequence();
 		Sequence(const char *);
 		Sequence(std::string &arg_nucleotides);
@@ -59,20 +58,19 @@ class Sequence
 		size_t size();
 		bool empty();
 		
-		Sequence subseq(unsigned int arg_start, unsigned int arg_stop);
+		Sequence subseq(size_t arg_start, size_t arg_stop);
 		
 		std::string str();
 		
-		// Operators
-		inline bool operator<(const Sequence &arg_left_sequence) const { return data < arg_left_sequence.data; };
-		// inline bool operator>=(const Sequence &arg_left_sequence) const { return data >= arg_left_sequence.data; };
-		inline bool operator==(const Sequence &arg_left_sequence) const {return data == arg_left_sequence.data;};
-		Nucleotide operator[] (unsigned int);
 		
-		//Sequence(const Sequence& orig);
-		//virtual ~Sequence();
-	private:
-	
+		// Operators
+		inline bool operator<(const Sequence &arg_left_sequence) const { return data < arg_left_sequence.data;};
+		inline bool operator==(const Sequence &arg_left_sequence) const {return data == arg_left_sequence.data;};
+		
+		///@note The following line is not being used in the code, but might be desired to include it as API
+		// inline bool operator>=(const Sequence &arg_left_sequence) const { return data >= arg_left_sequence.data;};
+		
+		Nucleotide operator[] (size_t);
 };
 
-#endif																	// SEQUENCE_HPP
+#endif	// SEQUENCE_HPP
