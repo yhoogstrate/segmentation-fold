@@ -39,8 +39,9 @@ computational approach and lack therefore accuracy.
 #### Prerequisites ####
 
 Segmentation-fold does **not** install on most systems of itself because
-it depends on two additional libraries.
+it depends on two additional libraries and an installation library.
 
+	cmake
 	boost library (-test)
 	boost library (-xml)
 
@@ -55,10 +56,23 @@ using one of the following commands:
 
 	 $ git clone https://github.com/yhoogstrate/segmentation-fold
 	 $ cd segmentation-fold
-	 $ cmake .
+	 $ cmake -DCMAKE_BUILD_TYPE=release .
 	 $ make
 	 $ make test
 	 $ sudo make install
+
+In case you do not have administrator rights on a particular machine, you can
+install as follows:
+
+	 $ git clone https://github.com/yhoogstrate/segmentation-fold
+	 $ cd segmentation-fold
+	 $ cmake -DCMAKE_BUILD_TYPE=release -DCMAKE_INSTALL_PREFIX=~/.local .
+	 $ make
+	 $ make test
+	 $ make install
+
+You will then find the binary in the directory:
+	<home directory>/.local/bin/
 
 ### USAGE ###
 
