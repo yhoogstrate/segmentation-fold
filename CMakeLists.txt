@@ -87,11 +87,12 @@ enable_testing()
 
 add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND})					# 'make check' as alias for 'make test'
 
-add_test(direction_test        build/test/direction_test)
+add_test(direction_test          build/test/direction_test)
 # 
-add_test(nucleotide_test       build/test/nucleotide_test)
-add_test(position_test         build/test/position_test)
-add_test(sequence_test         build/test/sequence_test)
+add_test(nucleotide_test         build/test/nucleotide_test)
+add_test(position_test           build/test/position_test)
+add_test(sequence_test           build/test/sequence_test)
+add_test(segment_test            build/test/segment_test)
 
 # ----------------------------------------------------------------------
 # --------------------------- Installation -----------------------------

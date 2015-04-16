@@ -55,16 +55,14 @@ BOOST_AUTO_TEST_CASE(Test1)
 	Direction d3_1 = Direction::ThreePrime;
 	Direction d3_2 = Direction::ThreePrime;
 	
+	BOOST_CHECK(d5_1 == d5_2);
+	BOOST_CHECK(d3_1 == d3_2);
+	
 	BOOST_CHECK(d5_1 != d3_1);
 	BOOST_CHECK(d5_1 != d3_2);
 	
 	BOOST_CHECK(d5_2 != d3_1);
 	BOOST_CHECK(d5_2 != d3_2);
-	
-	
-	BOOST_CHECK(d5_1 == d5_2);
-	
-	BOOST_CHECK(d3_1 == d3_2);
 }
 
 
