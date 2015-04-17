@@ -1,4 +1,4 @@
-# segmentation-fold #
+___
 
 	 _______  _______  _______  _______  _______  _       _________ _______ __________________ _______  _       
 	(  ____ \(  ____ \(  ____ \(       )(  ____ \( (    /|\__   __/(  ___  )\__   __/\__   __/(  ___  )( (    /|
@@ -20,23 +20,24 @@
 	                                      | (      | |   | || |      | |   ) |                                  
 	                                      | )      | (___) || (____/\| (__/  )                                  
 	                                      |/       (_______)(_______/(______/                                   
+___
 
-<https://github.com/yhoogstrate/segmentation-fold/>
+# INTRODUCTION #
 
-Segmentation-fold is a bioinformatics application that predicts RNA 2D-structure
+[segmentation-fold](https://github.com/yhoogstrate/segmentation-fold) is
+a bioinformatics application that predicts RNA 2D-structure
 with an extended version of the Zuker algorithm. This modification contains a new "structure element"
 named a *segment* is capable of folding a pre-defined substructure with **multiple** canonical
 or non-canonical pairings.
 
-	This allows folding of more complex structures like the K-turns, which are also part of
-	the implemented free energy tables. These thermodynamic
+This allows folding of more complex structures like the K-turns, which
+are also part of the implemented free energy tables. These thermodynamic
 parameters (free Gibbs energy levels) have been estimated using a
 computational approach and lack therefore accuracy.
 
+# INSTALLATION #
 
-### INSTALLATION ###
-
-#### Prerequisites ####
+## Prerequisites ##
 
 Segmentation-fold does **not** install on most systems of itself because
 it depends on two additional libraries and an installation library.
@@ -49,7 +50,20 @@ In ubuntu you can install them very easily with the following command:
 
 	sudo apt-get install libboost-test-dev libboost-filesystem-dev
 
-#### Build and install ####
+## Recommended packages ##
+
+To create the corresponding documentation, you should have the following
+package installed:
+
+	doxygen (>= 1.8.3)
+
+The doxygen package is version specific because of the Markdown
+integration. If you want to change code you should have the following
+tool installed to 'beautify' the code:
+
+	astyle
+
+## Build and install ##
 
 Please follow the instructions given in the '[INSTALL](https://github.com/yhoogstrate/segmentation-fold/blob/master/INSTALL)' file, e.g. by
 using one of the following commands:
@@ -74,54 +88,50 @@ install as follows:
 You will then find the binary in the directory:
 	<home directory>/.local/bin/
 
-### USAGE ###
+## Get the documentation ##
 
-	Usage: ./segmentation-fold -h minimum_hairpin_length -s [SEQUENCE]
-	Usage: ./segmentation-fold -h minimum_hairpin_length -f [FASTA_FILE]
-	  * Note: If FASTA_FILE and SEQUENCE are not provided,
-			  the program will read from STDIN.
+Run the following commands to get the latest version of the
+documentation:
 
+	cmake .
+	make readme
+	make doc
+
+The first command, "cmake ." creates the doxygen description file from
+its template and sets e.g. the package version variable. Then
+"make readme" creates the latests version of README.md based on the Markdown
+files present in this project. Then "make doc" creates the documentation
+from all the doxygen comments within the code, including the latest
+README.md as main page.
+
+# USAGE #
+
+	Usage: segmentation-fold -h minimum_hairpin_length -s [SEQUENCE]
+	Usage: segmentation-fold -h minimum_hairpin_length -f [FASTA_FILE]
+	   * Note: If FASTA_FILE and SEQUENCE are not provided,
+	           the program will read from STDIN.
 
 	The following parameters can be used:
 	  -h HAIRPINSIZE             Minimum hairpin size
 	  -f FASTA_FILE              Location to FASTA_FILE
 	  -s SEQUENCE                Specific RNA SEQUENCE (overrules -f)
 	  -k [1/0]                   Enable/disable K-turn predictions
-	  -m MOTIFS_FILE             Use custom "motifs.xml"-syntaxed file
+	  -m MOTIFS_FILE             Use custom  "motifs.xml"-syntaxed file
 	  -t [0/1]                   Use novel (=0) or original (=1) traceback
 	  -v                         Shows the version and license
 
+## galaxy ##
 
-### BUGS ###
+segmentation-fold will become available as galaxy tool.
+# AUTHORS #
 
-Please report encountelred problems at:
-
-<https://github.com/yhoogstrate/segmentation-fold/issues>
+All people that have contributed to the development of segmentation-fold are:
 
 
-### AUTHORS ###
+# CONTRIBUTING #
 
-All people that have contributed to the development of segmentation-fold are
-mentioned in the '[AUTHORS](https://github.com/yhoogstrate/segmentation-fold/blob/master/AUTHORS)' file. You can read it by using on of the
-following commands:
+We encourage users, researchers and programmers to contribute to this free and open source project. This can be achieved by reporting bugs and commiting code to this github repository. To streamline and archive communication in an univocal way, we also encourge you to only use this channel for contribution.
 
-	 $ less AUTHORS
+If any developer wants to contribute to segmentation-fold, please use the following documentation standard: http://www.stack.nl/~dimitri/doxygen/index.html
 
-### DEVELOPER NOTES ###
-
-We encourage users, researchers and programmers to contribute to this
-free and open source project. This can be achieved by reporting bugs and
-commiting code to this github repository. To streamline and archive
-communication in an univocal way, we also encourge you to only use this
-channel for contribution.
-
-If any developer wants to contribute to segmentation-fold, please use
-the following documentation standard:
- <http://www.stack.nl/~dimitri/doxygen/index.html>
-
-All source-code is formatted using Asteric Style:
- <http://astyle.sourceforge.net/>
-The corresponding configuration file is available under
-'[src/.astylerc](https://github.com/yhoogstrate/segmentation-fold/tree/master/share/.astylerc)'.
-
-For more developer notes you should consult [CONTRIBUTING.md](https://github.com/yhoogstrate/segmentation-fold/blob/master/CONTRIBUTING.md)
+All source-code is formatted using Asteric Style: http://astyle.sourceforge.net/ The corresponding configuration file is available under 'src/.astylerc'.
