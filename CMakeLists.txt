@@ -1,6 +1,6 @@
 # @file CMakeLists.txt
 #
-# @date 15-apr-2015
+# @date 17-apr-2015
 #
 # @author Youri Hoogstrate
 #
@@ -64,12 +64,56 @@ endif()
 configure_file("include/config.hpp.in" "include/config.hpp")
 
 # ----------------------------------------------------------------------
-# ------------------------------ Styling -------------------------------
+# ------------------------------ README --------------------------------
+# run 'make readme' to create/update the README.md file
 
+add_custom_command(
+				OUTPUT  make_readme
+				
+				COMMAND cat doc/md/INTRODUCTION.md doc/md/INSTALL.md > README.tmp
+				COMMAND mv README.tmp README.md
+				
+				COMMAND cat README.md doc/md/USAGE.md > README.tmp
+				COMMAND mv README.tmp README.md
+				
+				COMMAND cat README.md AUTHORS > README.tmp
+				COMMAND mv README.tmp README.md
+				
+				COMMAND cat README.md CONTRIBUTING.md > README.tmp
+				COMMAND mv README.tmp README.md
+			)
+
+add_custom_target(readme DEPENDS make_readme)
+
+# ----------------------------------------------------------------------
+# ------------------------------ Styling -------------------------------
+# run 'make tidy' to style the syntax using astyle
+
+#find_program(ASTYLE astyle)
+
+add_custom_command(
+				OUTPUT  make_tidy
+				COMMAND astyle --options=share/.astylerc include/*.hpp
+				COMMAND astyle --options=share/.astylerc src/*.cpp src/Utils/*.cpp
+				COMMAND astyle --options=share/.astylerc test/*.cpp
+				COMMAND date > build/astyle.timestamp.txt
+			)
+
+add_custom_target(tidy DEPENDS make_tidy )
 
 # ----------------------------------------------------------------------
 # --------------------------- Documentation ----------------------------
 
+#find_program(ASTYLE doxygen)
+
+configure_file("doc/Doxyfile.in" "doc/Doxyfile")
+
+add_custom_command(
+				OUTPUT  make_doc
+				COMMAND doxygen doc/Doxyfile
+			)
+
+add_custom_target(doc DEPENDS make_doc)
 
 # ----------------------------------------------------------------------
 # ---------------------------- Compilation -----------------------------

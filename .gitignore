@@ -38,3 +38,10 @@ include/config.hpp
 build/
 Testing/
 test/build/
+
+# Doxygen
+doc/html
+doc/latex
+doc/man
+doc/Doxyfile
+doc/doxygen*.db

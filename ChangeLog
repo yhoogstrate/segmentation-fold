@@ -1,3 +1,9 @@
+2015-04-17  Youri Hoogstrate
+	* Added automatic parsing of README.md by running 'make readme'
+	* Added automatic parsing of documentation, including latest README
+	  by running 'make doc'
+	* Added 'make tidy' command to make the code formatted with astyle.
+
 2015-04-16  Youri Hoogstrate
 	* Added Segment() class + tests
 
@@ -19,4 +25,3 @@
 2014-12-03  Youri Hoogstrate
 	* Changed directory structure; separated header files in ./include.
 	* Changed from autotools to CMake.
-	
