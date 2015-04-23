@@ -1,10 +1,7 @@
 /**
  * @file test/Direction_test.cpp
- *
- * @date 13-apr-2015
- *
+ * @date 23-apr-2015
  * @author Youri Hoogstrate
- *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
  * Copyright (C) 2012-2015 Youri Hoogstrate
@@ -40,13 +37,14 @@ BOOST_AUTO_TEST_SUITE(Testing)
 
 /**
  * @brief Tests whether 5' and 3' are not identical
+ * @test
+ * @date 23-apr-2015
  */
 BOOST_AUTO_TEST_CASE(Test1)
 {
-	BOOST_CHECK(Direction::FivePrime == Direction::FivePrime);
+	BOOST_CHECK(Direction::FivePrime  == Direction::FivePrime);
 	BOOST_CHECK(Direction::ThreePrime == Direction::ThreePrime);
-	
-	BOOST_CHECK(Direction::FivePrime != Direction::ThreePrime);
+	BOOST_CHECK(Direction::FivePrime  != Direction::ThreePrime);
 	
 	
 	Direction d5_1 = Direction::FivePrime;
@@ -69,12 +67,16 @@ BOOST_AUTO_TEST_CASE(Test1)
 
 /**
  * @brief Tests whether the size of a direction is 1 byte
+ * @test
+ * @date 22-apr-2015
  */
 BOOST_AUTO_TEST_CASE(Test2)
 {
-	Direction d = Direction::FivePrime;
+	Direction d1 = Direction::FivePrime;
+	Direction d2 = Direction::ThreePrime;
 	
-	BOOST_CHECK(sizeof(d) == 1);
+	BOOST_CHECK_EQUAL(sizeof(d1), 1);
+	BOOST_CHECK_EQUAL(sizeof(d2), 1);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

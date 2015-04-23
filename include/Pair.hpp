@@ -1,13 +1,10 @@
 /**
- * @file src/Pair.hpp
- *
+ * @file include/Pair.hpp
  * @date 29-mar-2014
- *
  * @author Youri Hoogstrate
- *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
- * Copyright (C) 2012-2014 Youri Hoogstrate
+ * Copyright (C) 2012-2015 Youri Hoogstrate
  *
  * This file is part of segmentation-fold.
  *
@@ -26,5 +23,13 @@
  */
 
 
+#ifndef PAIR_HPP
+#define	PAIR_HPP
 
+
+
+/// The locations refering to 2 Nucleotide positions in a Sequence
 #define Pair std::pair<unsigned int, unsigned int>
+
+
+#endif	// PAIR_HPP

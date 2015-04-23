@@ -4,7 +4,7 @@
 
 @author Youri Hoogstrate
 
-@date 7-apr-2014
+@date 22-apr-2015
 
 @section LICENSE
 segmentation-fold can predict RNA 2D structures including K-turns.
@@ -1351,14 +1351,13 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<title>SAM riboswitch operon</title>
 			<organism>T. tengcongensis</organism>
 			<sequence>GGUGGAGGGACUGGCCCGAUGAAACC</sequence>
-			<dot_bracket type="full" >(((((((((.....)))...))))))</dot_bracket>
 			
 			<structures>
 				<structure>
 					<associated_motifs>
 						<link>Kt-SAM-ribo.tte</link>
 					</associated_motifs>
-					<dot_bracket />
+					<dot_bracket type="full" >(((((((((.....)))...))))))</dot_bracket>
 				</structure>
 				
 				<structure>

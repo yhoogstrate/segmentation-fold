@@ -1,13 +1,10 @@
 /**
- * @file src/Segment.hpp
- *
+ * @file include/Segment.hpp
  * @date 15-apr-2015
- *
  * @author Youri Hoogstrate
- *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
- * Copyright (C) 2012-2014 Youri Hoogstrate
+ * Copyright (C) 2012-2015 Youri Hoogstrate
  *
  * This file is part of segmentation-fold and originally taken from
  * yh-kt-fold.
@@ -36,7 +33,7 @@
 
 /**
  * @brief This object represents a *non-canonical RNA pairing segment* which requires to be surrounded by canonical pairings, like the K-turn.
- *
+ * @date 20-apr-2015
  * @section DESCRIPTION
  *
  * The following can be converted into a dot-bracket format:
@@ -107,7 +104,7 @@ class Segment
 		std::vector<Pair>::reverse_iterator it;
 		
 	public:
-		Segment(std::string arg_name, Sequence arg_segment5p, std::vector <Pair> arg_bonds, Sequence arg_segment3p, float arg_gibbs_free_energy);
+		Segment(std::string arg_name, Sequence arg_segment5p, std::vector<Pair> arg_bonds, Sequence arg_segment3p, float arg_gibbs_free_energy);
 		
 		std::string name;
 		Sequence sequence_5p;
@@ -126,6 +123,5 @@ class Segment
 		size_t size(Direction &direction);
 		size_t size(Direction direction);
 };
-
 
 #endif	// SEGMENT_HPP

@@ -52,16 +52,13 @@ In ubuntu you can install them very easily with the following command:
 
 ## Recommended packages ##
 
-To create the corresponding documentation, you should have the following
-package installed:
+To create the corresponding documentation, you should have installed the
+following package:
 
 	doxygen (>= 1.8.3)
 
 The doxygen package is version specific because of the Markdown
-integration. If you want to change code you should have the following
-tool installed to 'beautify' the code:
-
-	astyle
+support implemented in 1.8.3 and above.
 
 ## Build and install ##
 
@@ -134,4 +131,8 @@ We encourage users, researchers and programmers to contribute to this free and o
 
 If any developer wants to contribute to segmentation-fold, please use the following documentation standard: http://www.stack.nl/~dimitri/doxygen/index.html
 
-All source-code is formatted using Asteric Style: http://astyle.sourceforge.net/ The corresponding configuration file is available under 'src/.astylerc'.
+All source-code is formatted using Asteric Style: http://astyle.sourceforge.net/ The corresponding configuration file is available under 'share/.astylerc'. If you want to contribute to the code you should have it installed to 'beautify' the code, by simply running:
+
+	make tidy
+
+Cmake will make use of the correct syntax file and beautify all c++ and hpp files in src/, include/ and test/.

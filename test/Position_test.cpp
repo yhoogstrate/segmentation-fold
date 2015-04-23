@@ -1,10 +1,7 @@
 /**
  * @file test/Position_test.cpp
- *
  * @date 25-feb-2015
- *
  * @author Youri Hoogstrate
- *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
  * Copyright (C) 2012-2015 Youri Hoogstrate
@@ -44,7 +41,7 @@ BOOST_AUTO_TEST_SUITE(Testing)
 
 /**
  * @brief Tests whether Nucleotides correctly separate
- *
+ * @test
  * @date 15-apr-2015
  */
 BOOST_AUTO_TEST_CASE(Test1)
@@ -59,18 +56,17 @@ BOOST_AUTO_TEST_CASE(Test1)
 	Position position_U = sequence_U.data.begin();
 	Position position_G = sequence_G.data.begin();
 	
-	BOOST_CHECK_EQUAL((*position_A) , Nucleotide::A);
-	BOOST_CHECK_EQUAL((*position_C) , Nucleotide::C);
-	BOOST_CHECK_EQUAL((*position_U) , Nucleotide::U);
-	BOOST_CHECK_EQUAL((*position_U) , Nucleotide::T);
-	BOOST_CHECK_EQUAL((*position_G) , Nucleotide::G);
+	BOOST_CHECK_EQUAL((*position_A), Nucleotide::A);
+	BOOST_CHECK_EQUAL((*position_C), Nucleotide::C);
+	BOOST_CHECK_EQUAL((*position_U), Nucleotide::U);
+	BOOST_CHECK_EQUAL((*position_U), Nucleotide::T);
+	BOOST_CHECK_EQUAL((*position_G), Nucleotide::G);
 }
 
 /**
- * @brief check whether begin() last() and substractions with positions work
- *
+ * @brief Checks whether begin() last() and substractions with positions work
+ * @test
  * @date 15-apr-2015
- *
  * @section DESCRIPTION
  * The following sequence "ACUG" will produce the following vector:
  * [Nucleotide::A][Nucleotide::C][Nucleotide::U][Nucleotide::G][ << end >> ]
@@ -83,15 +79,16 @@ BOOST_AUTO_TEST_CASE(Test2)
 	Position position_last  = sequence.data.end() - 1;
 	
 	
-	BOOST_CHECK_EQUAL((*position_begin) , Nucleotide::A);
-	BOOST_CHECK_EQUAL((*position_last)  , Nucleotide::G);
+	BOOST_CHECK_EQUAL(*position_begin, Nucleotide::A);
+	BOOST_CHECK_EQUAL(*position_last,  Nucleotide::G);
 	
-	BOOST_CHECK_EQUAL((position_last - position_begin) , 3);				// if normal integers would have been used, 3 - 0 = 3
+	BOOST_CHECK_EQUAL(position_last - position_begin, 3);				// if normal integers would have been used, 3 - 0 = 3
 }
 
 /**
  * @brief check whether begin() last() and substractions with positions work and whether everything is fine after a sequence push_back
- *
+ * @test
+ * @date 22-apr-2015
  * @section DESCRIPTION
  *
  * The following sequence "ACUG" will be the following vector:
@@ -106,65 +103,67 @@ BOOST_AUTO_TEST_CASE(Test3)
 	Sequence sequence_poly_c = Sequence("CccCCcCcc");
 	Sequence sequence_poly_u = Sequence("UtTtu");
 	Sequence sequence_poly_g = Sequence("G");
-	Sequence sequence_empty = Sequence("");
+	Sequence sequence_empty  = Sequence("");
 	
 	Position i;
 	for(i = sequence_poly_a.data.begin(); i != sequence_poly_a.data.end(); ++i)
 	{
-		BOOST_CHECK_EQUAL((*i) , Nucleotide::A);
+		BOOST_CHECK_EQUAL(*i, Nucleotide::A);
 		
-		BOOST_CHECK((*i) != Nucleotide::C);
-		BOOST_CHECK((*i) != Nucleotide::T);
-		BOOST_CHECK((*i) != Nucleotide::U);
-		BOOST_CHECK((*i) != Nucleotide::G);
+		BOOST_CHECK(*i != Nucleotide::C);
+		BOOST_CHECK(*i != Nucleotide::T);
+		BOOST_CHECK(*i != Nucleotide::U);
+		BOOST_CHECK(*i != Nucleotide::G);
 	}
 	
 	for(i = sequence_poly_c.data.begin(); i != sequence_poly_c.data.end(); ++i)
 	{
-		BOOST_CHECK((*i) != Nucleotide::A);
+		BOOST_CHECK(*i != Nucleotide::A);
 		
-		BOOST_CHECK_EQUAL((*i) , Nucleotide::C);
+		BOOST_CHECK_EQUAL(*i, Nucleotide::C);
 		
-		BOOST_CHECK((*i) != Nucleotide::T);
-		BOOST_CHECK((*i) != Nucleotide::U);
-		BOOST_CHECK((*i) != Nucleotide::G);
+		BOOST_CHECK(*i != Nucleotide::T);
+		BOOST_CHECK(*i != Nucleotide::U);
+		BOOST_CHECK(*i != Nucleotide::G);
 	}
 	
 	for(i = sequence_poly_u.data.begin(); i != sequence_poly_u.data.end(); ++i)
 	{
-		BOOST_CHECK((*i) != Nucleotide::A);
-		BOOST_CHECK((*i) != Nucleotide::C);
+		BOOST_CHECK(*i != Nucleotide::A);
+		BOOST_CHECK(*i != Nucleotide::C);
 		
-		BOOST_CHECK_EQUAL((*i) , Nucleotide::T);
-		BOOST_CHECK_EQUAL((*i) , Nucleotide::U);
+		BOOST_CHECK_EQUAL(*i, Nucleotide::T);
+		BOOST_CHECK_EQUAL(*i, Nucleotide::U);
 		
-		BOOST_CHECK((*i) != Nucleotide::G);
+		BOOST_CHECK(*i != Nucleotide::G);
 	}
 	
 	for(i = sequence_poly_g.data.begin(); i != sequence_poly_g.data.end(); ++i)
 	{
-		BOOST_CHECK((*i) != Nucleotide::A);
-		BOOST_CHECK((*i) != Nucleotide::C);
-		BOOST_CHECK((*i) != Nucleotide::T);
-		BOOST_CHECK((*i) != Nucleotide::U);
+		BOOST_CHECK(*i != Nucleotide::A);
+		BOOST_CHECK(*i != Nucleotide::C);
+		BOOST_CHECK(*i != Nucleotide::T);
+		BOOST_CHECK(*i != Nucleotide::U);
 		
-		BOOST_CHECK_EQUAL((*i) , Nucleotide::G);
+		BOOST_CHECK_EQUAL(*i, Nucleotide::G);
 	}
 	
 	for(i = sequence_empty.data.begin(); i != sequence_empty.data.end(); ++i)
 	{
 		// An empty sequence should never match any nucleotide
 		
-		BOOST_CHECK((*i) != Nucleotide::A);
-		BOOST_CHECK((*i) != Nucleotide::C);
-		BOOST_CHECK((*i) != Nucleotide::T);
-		BOOST_CHECK((*i) != Nucleotide::U);
-		BOOST_CHECK((*i) != Nucleotide::G);
+		BOOST_CHECK(*i != Nucleotide::A);
+		BOOST_CHECK(*i != Nucleotide::C);
+		BOOST_CHECK(*i != Nucleotide::T);
+		BOOST_CHECK(*i != Nucleotide::U);
+		BOOST_CHECK(*i != Nucleotide::G);
 	}
 }
 
 /**
  * @brief Checks whether end() and push_back() are in sync
+ * @test
+ * @date 22-apr-2015
  */
 BOOST_AUTO_TEST_CASE(Test4)
 {
@@ -175,49 +174,50 @@ BOOST_AUTO_TEST_CASE(Test4)
 	sequence.push_back(Nucleotide::A);
 	i = sequence.data.end() - 1;
 	
-	BOOST_CHECK_EQUAL((*i) , Nucleotide::A);
+	BOOST_CHECK_EQUAL(*i, Nucleotide::A);
 	
-	BOOST_CHECK((*i) != Nucleotide::C);
-	BOOST_CHECK((*i) != Nucleotide::T);
-	BOOST_CHECK((*i) != Nucleotide::U);
-	BOOST_CHECK((*i) != Nucleotide::G);
+	BOOST_CHECK(*i != Nucleotide::C);
+	BOOST_CHECK(*i != Nucleotide::T);
+	BOOST_CHECK(*i != Nucleotide::U);
+	BOOST_CHECK(*i != Nucleotide::G);
 	
 	
 	// Push back a Nucleotide::C
 	sequence.push_back(Nucleotide::C);
 	i = sequence.data.end() - 1;
 	
-	BOOST_CHECK((*i) != Nucleotide::A);
+	BOOST_CHECK(*i != Nucleotide::A);
 	
-	BOOST_CHECK_EQUAL((*i) , Nucleotide::C);
+	BOOST_CHECK_EQUAL(*i, Nucleotide::C);
 	
-	BOOST_CHECK((*i) != Nucleotide::T);
-	BOOST_CHECK((*i) != Nucleotide::U);
-	BOOST_CHECK((*i) != Nucleotide::G);
+	BOOST_CHECK(*i != Nucleotide::T);
+	BOOST_CHECK(*i != Nucleotide::U);
+	BOOST_CHECK(*i != Nucleotide::G);
 	
 	
 	// Push back a Nucleotide::U
 	sequence.push_back(Nucleotide::U);
 	i = sequence.data.end() - 1;
 	
-	BOOST_CHECK((*i) != Nucleotide::A);
-	BOOST_CHECK((*i) != Nucleotide::C);
+	BOOST_CHECK(*i != Nucleotide::A);
+	BOOST_CHECK(*i != Nucleotide::C);
 	
-	BOOST_CHECK_EQUAL((*i) , Nucleotide::T);
-	BOOST_CHECK_EQUAL((*i) , Nucleotide::U);
+	BOOST_CHECK_EQUAL(*i, Nucleotide::T);
+	BOOST_CHECK_EQUAL(*i, Nucleotide::U);
 	
-	BOOST_CHECK((*i) != Nucleotide::G);
+	BOOST_CHECK(*i != Nucleotide::G);
 	
 	
 	// Push back a Nucleotide::G
 	sequence.push_back(Nucleotide::G);
 	i = sequence.data.end() - 1;
 	
-	BOOST_CHECK((*i) != Nucleotide::A);
-	BOOST_CHECK((*i) != Nucleotide::C);
-	BOOST_CHECK((*i) != Nucleotide::T);
-	BOOST_CHECK((*i) != Nucleotide::U);
+	BOOST_CHECK(*i != Nucleotide::A);
+	BOOST_CHECK(*i != Nucleotide::C);
+	BOOST_CHECK(*i != Nucleotide::T);
+	BOOST_CHECK(*i != Nucleotide::U);
 	
-	BOOST_CHECK_EQUAL((*i) , Nucleotide::G);
+	BOOST_CHECK_EQUAL(*i, Nucleotide::G);
 }
+
 BOOST_AUTO_TEST_SUITE_END()
