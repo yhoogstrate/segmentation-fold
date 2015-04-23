@@ -1,6 +1,6 @@
 /**
- * @file include/Utils/utils.hpp
- * @date 15-apr-2015
+ * @file src/Utils/min.cpp
+ * @date 11-sept-2013
  * @author Youri Hoogstrate
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
@@ -24,16 +24,35 @@
  */
 
 
-#ifndef UTILS_HPP
-#define	UTILS_HPP
+
+#include "Utils/utils.hpp"
 
 
 
-#include "../main.hpp"
+/**
+ * @brief Finds the minimal value between x and y
+ * @date 05-nov-2012
+ * @param x any integer
+ * @param y any integer
+ * @return the minimum of both the values x and y
+ * @todo Use macro or inline instead?
+ */
+int min(int x, int y)
+{
+	return (x < y ? x : y);
+}
 
 
-bool file_exists(const char *filename);
-int min(int x, int y);
 
-
-#endif	// UTILS_HPP
+/**
+ * @brief Finds the minimal value between x and y
+ * @date 30-dec-2014
+ * @param x any integer
+ * @param y any integer
+ * @return the minimum of both the values x and y
+ * @todo Use macro or inline instead?
+ *//*
+float min(float x, float y)
+{
+	return (x < y ? x : y);
+}*/

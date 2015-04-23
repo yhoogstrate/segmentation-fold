@@ -1,10 +1,7 @@
 /**
  * @file test/Sequence_test.cpp
- *
  * @date 21-feb-2015
- *
  * @author Youri Hoogstrate
- *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
  * Copyright (C) 2012-2015 Youri Hoogstrate
@@ -42,7 +39,7 @@ BOOST_AUTO_TEST_SUITE(Testing)
 
 /**
  * @brief Tests whether single nucleotides are inserted correctly, and whether the size of the sequence fits.
- *
+ * @test
  * @date 11-mar-2014
  */
 BOOST_AUTO_TEST_CASE(Test1)
@@ -50,7 +47,7 @@ BOOST_AUTO_TEST_CASE(Test1)
 	Sequence s;
 	
 	s = Sequence("ACTG");
-	BOOST_CHECK(s.size() == 4);
+	BOOST_CHECK_EQUAL(s.size(), 4);
 	
 	Nucleotide n1 = Nucleotide::A;
 	const char n2 = 'C';
@@ -63,20 +60,20 @@ BOOST_AUTO_TEST_CASE(Test1)
 	
 	BOOST_CHECK_EQUAL(s.size() , 8);
 	
-	BOOST_CHECK_EQUAL(s[0] , Nucleotide::A);
-	BOOST_CHECK_EQUAL(s[1] , Nucleotide::C);
-	BOOST_CHECK_EQUAL(s[2] , Nucleotide::U);
-	BOOST_CHECK_EQUAL(s[3] , Nucleotide::G);
+	BOOST_CHECK_EQUAL(s[0], Nucleotide::A);
+	BOOST_CHECK_EQUAL(s[1], Nucleotide::C);
+	BOOST_CHECK_EQUAL(s[2], Nucleotide::U);
+	BOOST_CHECK_EQUAL(s[3], Nucleotide::G);
 	
-	BOOST_CHECK_EQUAL(s[4] , Nucleotide::A);
-	BOOST_CHECK_EQUAL(s[5] , Nucleotide::C);
-	BOOST_CHECK_EQUAL(s[6] , Nucleotide::U);
-	BOOST_CHECK_EQUAL(s[7] , Nucleotide::G);
+	BOOST_CHECK_EQUAL(s[4], Nucleotide::A);
+	BOOST_CHECK_EQUAL(s[5], Nucleotide::C);
+	BOOST_CHECK_EQUAL(s[6], Nucleotide::U);
+	BOOST_CHECK_EQUAL(s[7], Nucleotide::G);
 }
 
 /**
  * @brief Checks std::string to Sequence and Sequence to std::string conversion
- *
+ * @test
  * @date 12-mar-2014
  */
 BOOST_AUTO_TEST_CASE(Test2)
@@ -94,12 +91,12 @@ BOOST_AUTO_TEST_CASE(Test2)
 	BOOST_CHECK_EQUAL(s4.size(), 4);
 	
 	BOOST_CHECK(s3.str().compare(s4.str()) != 0);
-	BOOST_CHECK(s2_str  .compare(s4.str()) == 0);
+	BOOST_CHECK(s2_str.compare(s4.str()) == 0);
 }
 
 /**
  * @brief Tests behaviour of unexpected bases char-wise: should throw an exception
- *
+ * @test
  * @date 15-apr-2015
  */
 BOOST_AUTO_TEST_CASE(Test3)
@@ -134,7 +131,7 @@ BOOST_AUTO_TEST_CASE(Test3)
 
 /**
  * @brief Tests behaviour of unexpected bases using entire strings: should throw an exception
- *
+ * @test
  * @date 15-apr-2015
  */
 BOOST_AUTO_TEST_CASE(Test4)
@@ -171,7 +168,7 @@ BOOST_AUTO_TEST_CASE(Test4)
 
 /**
  * @date 19-may-2014
- *
+ * @test
  * @section DESCRIPTION
  * Given that nucleotides are enumerated as follows:
  * A = 0
@@ -182,55 +179,55 @@ BOOST_AUTO_TEST_CASE(Test4)
  */
 BOOST_AUTO_TEST_CASE(Test5)
 {
-	Sequence s1 = Sequence("AA");
-	Sequence s2 = Sequence("CC");
-	Sequence s3 = Sequence("CG");
+	Sequence s1  = Sequence("AA");
+	Sequence s2  = Sequence("CC");
+	Sequence s3  = Sequence("CG");
 	Sequence s4a = Sequence("GU");
 	Sequence s4b = Sequence("GT");
-	Sequence s5 = Sequence("TU");
+	Sequence s5  = Sequence("TU");
 	
 	
-	BOOST_CHECK(s1 < s2);
-	BOOST_CHECK(s2 < s3);
-	BOOST_CHECK(s3 < s4a);
-	BOOST_CHECK(s3 < s4b);
+	BOOST_CHECK(s1  < s2);
+	BOOST_CHECK(s2  < s3);
+	BOOST_CHECK(s3  < s4a);
+	BOOST_CHECK(s3  < s4b);
 	BOOST_CHECK(s4a < s5);
 	BOOST_CHECK(s4b < s5);
 	
-	BOOST_CHECK(s1 < s3);
-	BOOST_CHECK(s2 < s4a);
-	BOOST_CHECK(s2 < s4b);
-	BOOST_CHECK(s3 < s5);
+	BOOST_CHECK(s1  < s3);
+	BOOST_CHECK(s2  < s4a);
+	BOOST_CHECK(s2  < s4b);
+	BOOST_CHECK(s3  < s5);
 	
-	BOOST_CHECK(s1 < s4a);
-	BOOST_CHECK(s1 < s4b);
-	BOOST_CHECK(s2 < s5);
+	BOOST_CHECK(s1  < s4a);
+	BOOST_CHECK(s1  < s4b);
+	BOOST_CHECK(s2  < s5);
 	
-	BOOST_CHECK(s1 < s5);
+	BOOST_CHECK(s1  < s5);
 	
 	
-	BOOST_CHECK((s2 < s1) == false);
-	BOOST_CHECK((s3 < s2) == false);
+	BOOST_CHECK((s2  < s1) == false);
+	BOOST_CHECK((s3  < s2) == false);
 	BOOST_CHECK((s4a < s3) == false);
 	BOOST_CHECK((s4b < s3) == false);
-	BOOST_CHECK((s5 < s4a) == false);
-	BOOST_CHECK((s5 < s4b) == false);
+	BOOST_CHECK((s5  < s4a) == false);
+	BOOST_CHECK((s5  < s4b) == false);
 	
-	BOOST_CHECK((s3 < s1) == false);
+	BOOST_CHECK((s3  < s1) == false);
 	BOOST_CHECK((s4a < s2) == false);
 	BOOST_CHECK((s4b < s2) == false);
-	BOOST_CHECK((s5 < s3) == false);
+	BOOST_CHECK((s5  < s3) == false);
 	
 	BOOST_CHECK((s4a < s1) == false);
 	BOOST_CHECK((s4b < s1) == false);
-	BOOST_CHECK((s5 < s2) == false);
+	BOOST_CHECK((s5  < s2) == false);
 	
-	BOOST_CHECK((s5 < s1) == false);
+	BOOST_CHECK((s5  < s1) == false);
 }
 
 /**
  * @brief Tests the '==' operator
- *
+ * @test
  * @date 19-may-2014
  */
 BOOST_AUTO_TEST_CASE(Test6)
@@ -243,11 +240,11 @@ BOOST_AUTO_TEST_CASE(Test6)
 	Sequence s6 = Sequence("TUGuu");
 	
 	
-	BOOST_CHECK(s1 == s2);
+	BOOST_CHECK(s1  == s2);
 	BOOST_CHECK((s2 == s3) == false);
 	BOOST_CHECK((s3 == s4) == false);
 	BOOST_CHECK((s4 == s5) == false);
-	BOOST_CHECK(s5 == s6);
+	BOOST_CHECK(s5  == s6);
 	
 	BOOST_CHECK((s1 == s3) == false);
 	BOOST_CHECK((s2 == s4) == false);
@@ -273,7 +270,7 @@ BOOST_AUTO_TEST_CASE(Test7)
 {
 	Sequence sequence = Sequence("ACTG");
 	
-	BOOST_CHECK_EQUAL(sequence.size() , 4);
+	BOOST_REQUIRE_EQUAL(sequence.size(), 4);
 	
 	
 	Sequence subsequence_01 = sequence.subseq(0, 0);// start at 0, stop at 0 -> A
@@ -284,13 +281,13 @@ BOOST_AUTO_TEST_CASE(Test7)
 	Sequence subsequence_06 = sequence.subseq(2, 3);// start at 2, stop at 3 ->   TG
 	Sequence subsequence_07 = sequence.subseq(3, 3);// start at 3, stop at 3 ->    G
 	
-	BOOST_CHECK_EQUAL(subsequence_01.size() , 1);
-	BOOST_CHECK_EQUAL(subsequence_02.size() , 2);
-	BOOST_CHECK_EQUAL(subsequence_03.size() , 3);
-	BOOST_CHECK_EQUAL(subsequence_04.size() , 4);
-	BOOST_CHECK_EQUAL(subsequence_05.size() , 3);
-	BOOST_CHECK_EQUAL(subsequence_06.size() , 2);
-	BOOST_CHECK_EQUAL(subsequence_07.size() , 1);
+	BOOST_CHECK_EQUAL(subsequence_01.size(), 1);
+	BOOST_CHECK_EQUAL(subsequence_02.size(), 2);
+	BOOST_CHECK_EQUAL(subsequence_03.size(), 3);
+	BOOST_CHECK_EQUAL(subsequence_04.size(), 4);
+	BOOST_CHECK_EQUAL(subsequence_05.size(), 3);
+	BOOST_CHECK_EQUAL(subsequence_06.size(), 2);
+	BOOST_CHECK_EQUAL(subsequence_07.size(), 1);
 	
 	BOOST_CHECK(subsequence_01 == Sequence("A"));
 	BOOST_CHECK(subsequence_02 == Sequence("AC"));
@@ -308,4 +305,5 @@ BOOST_AUTO_TEST_CASE(Test7)
 	BOOST_CHECK((subsequence_06 == Sequence("TGA")) == false);
 	BOOST_CHECK((subsequence_07 == Sequence("GA")) == false);
 }
+
 BOOST_AUTO_TEST_SUITE_END()

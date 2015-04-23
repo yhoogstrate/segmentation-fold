@@ -16,16 +16,13 @@ In ubuntu you can install them very easily with the following command:
 
 ## Recommended packages ##
 
-To create the corresponding documentation, you should have the following
-package installed:
+To create the corresponding documentation, you should have installed the
+following package:
 
 	doxygen (>= 1.8.3)
 
 The doxygen package is version specific because of the Markdown
-integration. If you want to change code you should have the following
-tool installed to 'beautify' the code:
-
-	astyle
+support implemented in 1.8.3 and above.
 
 ## Build and install ##
 

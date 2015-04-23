@@ -1,10 +1,7 @@
 /**
  * @file src/Segment.cpp
- *
  * @date 29-mar-2014
- *
  * @author Youri Hoogstrate
- *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
  * Copyright (C) 2012-2015 Youri Hoogstrate
@@ -42,33 +39,30 @@
 
 /**
  * @brief Constructor of the Segment class.
- * 
  * @section DESCRIPTION
- * 
  * For the following motif:
- * 
+ *
  * 5') ...CCCCC....
  *        | | |    .
  * 3') ...A U G....
- * 
+ *
  * Alignment:   Bonds:
  * C-A          0-2
  * C
  * C-U          2-1
  * C
  * C-G          4-0
- * 
+ *
  * We denote:
  * name="arbitrary name"
  * sequence_5p="CCCCC"
  * sequence_3p="GUA"   <- this inversion is correct, because then it's annotated from 5' to 3'
  * bonds={{0,2},{2,1},{4,0}}
- * 
+ *
  * @param arg_name Name of the segment
  * @param arg_sequence_5p The segments sequence located closer to the 5' end of the RNA
  * @param arg_sequence_3p The segments sequence located closer to the 3' end of the RNA
  * @param arg_bonds A description of the bonds between the the two sequences, as integers starting from 0
- *
  * @date 21-mar-2014
  */
 Segment::Segment(std::string arg_name, Sequence arg_sequence_5p, std::vector <Pair> arg_bonds, Sequence arg_sequence_3p, float arg_gibbs_free_energy):
@@ -85,7 +79,6 @@ Segment::Segment(std::string arg_name, Sequence arg_sequence_5p, std::vector <Pa
 
 /**
  * @brief Resets the traceback to the first bond of the segment
- * 
  * @date 16-apr-2015
  */
 void Segment::reset_traceback(void)
@@ -97,14 +90,13 @@ void Segment::reset_traceback(void)
 
 /**
  * @brief Return the size of the 5' or 3' sequence
- * 
  * @section DESCRIPTION
  * In the following example:
- * 
+ *
  * 5') ...CCCCC...  <- Direction::FivePrime sequence
  *        | | |
  * 3') ...A AAA.... <- Direction::ThreePrime sequence
- * 
+ *
  * Direction::FirePrime will return 5 (CCCCC = 5 nucleotides)
  * Direction::TreePrime will return 4 (AAAA = 4 nucleotides)
  *
@@ -137,14 +129,13 @@ size_t Segment::size(Direction &direction)
 
 /**
  * @brief Finds the next offset for the traceback algorithm
- *
  * @section DESCRIPTION
  * For the following examplesequence
- * 
+ *
  * 5') ...CCCCC...  <- Direction::FivePrime sequence
  *        | | |
  * 3') ...A U G.... <- Direction::ThreePrime sequence
- * 
+ *
  * We have the following corresponding information:
  * Alignment:   Bonds:      Traceback:
  * C-A          0-2         -1,-1
@@ -152,19 +143,16 @@ size_t Segment::size(Direction &direction)
  * C-U          2-1         -3,-2
  * C
  * C-G          4-0         -5,-3
- * 
+ *
  * Where bonds is what's located within this segment class.
  * The traceback list is the information that should be returned when
  * the corresponding value in Bonds is found.
  *
  * @param i Reference to variable i that should be set
  * @param j Reference to variable i that should be set
- *
- * @date 15-apr-2015
- * 
  * @return Whether the return was VALID - if false is returned, the traceback is being reset to it's origin and will return true again.
- * 
- * @todo be more efficient with signed/unsigned
+ * @date 15-apr-2015
+ * @todo Find a way to be more efficient with signed/unsigned
  */
 bool Segment::pop(signed int &i, signed int &j)
 {
@@ -181,7 +169,7 @@ bool Segment::pop(signed int &i, signed int &j)
 		i = - (this->sequence_5p.size() - pair.first);
 		j = -                             pair.second - 1;
 		
-		this->it++;
+		this->it++;///@todo see if this iterator can move 5 lines up and run tests whether it doesn't break
 		
 		return true;
 	}
@@ -191,7 +179,6 @@ bool Segment::pop(signed int &i, signed int &j)
 
 /**
  * @brief Returns the free energy that corresponds to the segment
- * 
  * @todo check if it is possible to do by sending the reference and see whether that's faster
  */
 float Segment::get_gibbs_free_energy(void)
@@ -203,41 +190,23 @@ float Segment::get_gibbs_free_energy(void)
 
 /**
  * @brief Returns a particular nucleotide in one of the 2 sequences of the segment at a given direciton
- * 
  * @param direction Direction::FivePrime is used if the sequence is located closest to the 5' end of the RNA sequence; Direction::ThreePrime otherwise
- * @param i Location (starting from 0) within the sequence of interest
- * 
- * @date 16-april-2016
+ * @param i Location (starting from 0, ending at n-1) in the sequence of interest
+ * @date 23-april-2015
  */
 Nucleotide Segment::get_nucleotide(Direction direction, unsigned int &i)
 {
-	if(direction == Direction::FivePrime)
-	{
-		return this->sequence_5p[i];
-	}
-	else
-	{
-		return this->sequence_3p[i];
-	}
+	return (direction == Direction::FivePrime) ? this->sequence_5p[i] : this->sequence_3p[i];
 }
 
 
 
 /**
  * @brief Returns one of the 2 sequences of the segment at a given direciton
- * 
  * @param direction Direction::FivePrime is used if the sequence is located closest to the 5' end of the RNA sequence; Direction::ThreePrime otherwise
- * 
  * @date 16-april-2015
  */
 Sequence *Segment::get_sequence(Direction direction)
 {
-	if(direction == Direction::FivePrime)
-	{
-		return &this->sequence_5p;
-	}
-	else
-	{
-		return &this->sequence_3p;
-	}
+	return (direction == Direction::FivePrime) ? &this->sequence_5p : &this->sequence_3p;
 }

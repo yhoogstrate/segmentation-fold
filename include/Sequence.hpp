@@ -1,10 +1,7 @@
 /**
  * @file include/Sequence.hpp
- *
  * @date 25-feb-2015
- *
  * @author Youri Hoogstrate
- *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
  * Copyright (C) 2012-2015 Youri Hoogstrate
@@ -39,11 +36,14 @@
 
 
 /**
+ * @brief A RNA or DNA Sequence object, primarily used as the Sequence to be folded
  * @date 15-apr-2015
  */
 class Sequence
 {
 	public:
+	
+		/// The sequence as vector of nucleotides
 		std::vector<Nucleotide> data;
 		
 		Sequence();
@@ -63,14 +63,16 @@ class Sequence
 		std::string str();
 		
 		
-		// Operators
+		/// Smaller than operator that compares whether the vector of Nucleotides is smaller than the other
 		inline bool operator<(const Sequence &arg_left_sequence) const { return data < arg_left_sequence.data;};
+		/// The equality operator that returns equal only if the sequences have the same composition
 		inline bool operator==(const Sequence &arg_left_sequence) const {return data == arg_left_sequence.data;};
+		
 		
 		///@note The following line is not being used in the code, but might be desired to include it as API
 		// inline bool operator>=(const Sequence &arg_left_sequence) const { return data >= arg_left_sequence.data;};
 		
-		Nucleotide operator[] (size_t);
+		Nucleotide operator[](size_t);
 };
 
 #endif	// SEQUENCE_HPP

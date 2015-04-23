@@ -1,10 +1,7 @@
 /**
  * @file include/Direction.hpp
- *
  * @date 25-feb-2015
- *
  * @author Youri Hoogstrate
- *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
  * Copyright (C) 2012-2015 Youri Hoogstrate
@@ -28,24 +25,32 @@
 
 
 #ifndef DIRECTION_HPP
-#define	DIRECTION_HPP
+#define DIRECTION_HPP
 
 
 /**
  * @brief Describes a direction (5' to 3' or vice versa) in at most one byte
- * 
  * @date 13-mar-2014
+ * @section DESCRIPTION
+The following RNA sequence:
+
+5') GCGC-motif1-GCGCAA
+    |||| : : :: ||||  A
+3') CGCG-motif2-CGCGAA
+
+Has motif1 described from the 5') to 3') end, while motif2 is actually
+written down in reverse, as you can see when the sequence is expanded:
+
+5') GCGC-motif1-GCGCAAAAAGCGC-2fitom-GCGC (3'
+
+This struct is used to define such Direction to a sequence, most often
+in the context of Segment.
  */
 enum struct Direction : bool
 {
-	/*
-	Backwards , ThreePrime = true,
-	Forwards  , FivePrime  = false
-	*/
-	
 	FivePrime  = true,													// 5' => 3'
 	ThreePrime = false													// 3' => 5'
 };
 
 
-#endif																	// DIRECTION_HPP
+#endif // DIRECTION_HPP

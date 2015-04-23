@@ -1,10 +1,7 @@
 /**
  * @file test/Nucleotide_test.cpp
- *
- * @date 15-apr-2015
- *
+ * @date 23-apr-2015
  * @author Youri Hoogstrate
- *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
  * Copyright (C) 2012-2015 Youri Hoogstrate
@@ -41,20 +38,20 @@ BOOST_AUTO_TEST_SUITE(Testing)
 
 /**
  * @brief Tests whether Nucleotides correctly separate
- *
+ * @test
  * @date 15-apr-2015
  */
 BOOST_AUTO_TEST_CASE(Test_equality)
 {
-	BOOST_CHECK_EQUAL(Nucleotide::A , Nucleotide::A);
-	BOOST_CHECK_EQUAL(Nucleotide::C , Nucleotide::C);
-	BOOST_CHECK_EQUAL(Nucleotide::G , Nucleotide::G);
+	BOOST_CHECK_EQUAL(Nucleotide::A, Nucleotide::A);
+	BOOST_CHECK_EQUAL(Nucleotide::C, Nucleotide::C);
+	BOOST_CHECK_EQUAL(Nucleotide::G, Nucleotide::G);
 	
-	BOOST_CHECK_EQUAL(Nucleotide::U , Nucleotide::U);
-	BOOST_CHECK_EQUAL(Nucleotide::T , Nucleotide::T);
+	BOOST_CHECK_EQUAL(Nucleotide::U, Nucleotide::U);
+	BOOST_CHECK_EQUAL(Nucleotide::T, Nucleotide::T);
 	
-	BOOST_CHECK_EQUAL(Nucleotide::U , Nucleotide::T);
-	BOOST_CHECK_EQUAL(Nucleotide::T , Nucleotide::U);
+	BOOST_CHECK_EQUAL(Nucleotide::U, Nucleotide::T);
+	BOOST_CHECK_EQUAL(Nucleotide::T, Nucleotide::U);
 	
 	
 	BOOST_CHECK(Nucleotide::A != Nucleotide::C);
@@ -82,16 +79,17 @@ BOOST_AUTO_TEST_CASE(Test_equality)
 
 /**
  * @brief Tests whether the size of a Nucleotide stuct is indeed 1 byte
- *
+ * @test
  * @date 15-apr-2015
  */
 BOOST_AUTO_TEST_CASE(Test_size)
 {
-	BOOST_CHECK_EQUAL(sizeof(Nucleotide::A) , 1);
-	BOOST_CHECK_EQUAL(sizeof(Nucleotide::C) , 1);
-	BOOST_CHECK_EQUAL(sizeof(Nucleotide::G) , 1);
+	BOOST_CHECK_EQUAL(sizeof(Nucleotide::A), 1);
+	BOOST_CHECK_EQUAL(sizeof(Nucleotide::C), 1);
+	BOOST_CHECK_EQUAL(sizeof(Nucleotide::G), 1);
 	
-	BOOST_CHECK_EQUAL(sizeof(Nucleotide::U) , 1);
-	BOOST_CHECK_EQUAL(sizeof(Nucleotide::T) , 1);
+	BOOST_CHECK_EQUAL(sizeof(Nucleotide::U), 1);
+	BOOST_CHECK_EQUAL(sizeof(Nucleotide::T), 1);
 }
+
 BOOST_AUTO_TEST_SUITE_END()

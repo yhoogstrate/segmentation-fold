@@ -1,10 +1,7 @@
 /**
  * @file src/Sequence.cpp
- *
- * @date 15-apr-2015
- *
+ * @date 17-apr-2015
  * @author Youri Hoogstrate
- *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
  * Copyright (C) 2012-2015 Youri Hoogstrate
@@ -27,8 +24,6 @@
 
 
 
-#include <cstdlib>
-
 #include "main.hpp"
 #include "Nucleotide.hpp"
 #include "Position.hpp"
@@ -47,7 +42,6 @@ Sequence::Sequence()
 
 /**
  * @date 15-apr-2015
- *
  * @brief Initiates a sequences and adds all nucleoides from arg_asequence
  */
 Sequence::Sequence(const char *arg_sequence)
@@ -64,61 +58,64 @@ Sequence::Sequence(const char *arg_sequence)
 
 /**
  * @date 18-may-2014
- *
  * @todo Make a deep-copying function if possible and write test case
  */
 Sequence::Sequence(std::vector<Nucleotide> &arg_nucleotides)
 {
-	for(Position it = arg_nucleotides.begin(); it != arg_nucleotides.end(); ++it)
+	for(Position iterator = arg_nucleotides.begin(); iterator != arg_nucleotides.end(); ++iterator)
 	{
-		this->push_back(*it);
+		this->push_back(*iterator);
 	}
 }
 
 
 
 /**
+ * @brief Initializes a Sequence from a std::string of charset "^[actguACTUG ]+$"
  * @date 18-may-2014
  */
 Sequence::Sequence(std::string &arg_nucleotides)
 {
-	for(std::string::iterator it = arg_nucleotides.begin(); it != arg_nucleotides.end(); ++it)
+	for(std::string::iterator iterator = arg_nucleotides.begin(); iterator != arg_nucleotides.end(); ++iterator)
 	{
-		this->push_back(*it);
+		this->push_back(*iterator);
 	}
 }
 
 
 
 /**
+ * @brief Initializes a Sequence from a const std::string of charset "^[actguACTUG ]+$"
  * @date 18-may-2014
  */
 Sequence::Sequence(const std::string &arg_nucleotides)
 {
-	for(std::string::const_iterator it = arg_nucleotides.begin(); it != arg_nucleotides.end(); ++it)
+	for(std::string::const_iterator iterator = arg_nucleotides.begin(); iterator != arg_nucleotides.end(); ++iterator)
 	{
-		this->push_back(*it);
+		this->push_back(*iterator);
 	}
 }
 
 
 
 /**
+ * @brief Adds a Nucleotide to the end of the Sequence
  * @date 18-may-2014
  */
-void Sequence::push_back(Nucleotide n)
+void Sequence::push_back(Nucleotide nucleotide)
 {
-	this->data.push_back(n);
+	this->data.push_back(nucleotide);
 }
 
 
 
 /**
+ * @brief Adds a char of charset "^[actguACTUG]$" as Nucleotide to the Sequence
  * @date 18-may-2014
  */
 void Sequence::push_back(char arg_char)
 {
-	switch (arg_char)
+	switch(arg_char)
 	{
 		case 'a':
 		case 'A':
@@ -139,10 +136,10 @@ void Sequence::push_back(char arg_char)
 			this->data.push_back(Nucleotide::G);
 			break;
 		default:
-			std::string err = std::string( "Error: invalid char in sequence: '");
+			std::string err = std::string("Error: invalid char in sequence: '");
 			err +=  arg_char;
 			err +=  "' (chr " + std::to_string(arg_char) +  ")\n";
-			throw std::invalid_argument( err.c_str() );
+			throw std::invalid_argument(err.c_str());
 			break;
 	}
 }
@@ -151,13 +148,11 @@ void Sequence::push_back(char arg_char)
 
 /**
  * @brief Creates a subsequence of the sequence
- *
- * @param arg_start is the (0-based offset) base in the sequence where the subsequence starts
- * @param arg_end is the (0-based offset) base in the sequence where the subsequence ends
- *
+ * @param arg_start is the (0-based offset) nucleotide in the sequence where the subsequence starts
+ * @param arg_stop is the (0-based offset) nucleotide in the sequence where the subsequence ends
  * @section DESCRIPTION
  * The arg_stop is more appropriate than arg_length, since the entire Zuker algorithm works with positions rather than lengths.
- *
+
  * @date 15-apr-2015
  */
 Sequence Sequence::subseq(size_t arg_start, size_t arg_stop)
@@ -169,8 +164,8 @@ Sequence Sequence::subseq(size_t arg_start, size_t arg_stop)
 
 
 /**
+ * @brief Gives the number of Nucleotides in the Sequence
  * @date 18-may-2014
- * 
  * @todo check if this can be inlined?
  */
 size_t Sequence::size()
@@ -181,8 +176,8 @@ size_t Sequence::size()
 
 
 /**
+ * @brief Returns whether the Sequence is empty or not
  * @date 18-may-2014
- * 
  * @todo check if this can be inlined?
  */
 bool Sequence::empty()
@@ -192,15 +187,12 @@ bool Sequence::empty()
 
 /**
  * @brief Obtains a requested Nucleotide within the sequence
- *
  * @section DESCRIPTION
  * The function doesn't give an out of bound error message because it
  * introduces an unnecessairy amount of comparisons; the size of the
  * sequence can be found prior to a loop using Sequence::size()
  *
  * @date 18-may-2014
- *
- * @todo templating for size_type, similar to std::vecotr::operator[] (http://www.cplusplus.com/reference/vector/vector/operator[]/)
  */
 Nucleotide Sequence::operator[](size_t arg_position)
 {
@@ -210,30 +202,35 @@ Nucleotide Sequence::operator[](size_t arg_position)
 
 
 /**
+ * @brief Converts the sequence back to a std::string
+ * @section DESCRIPTION
+ * Nucleotides are represented in uppercase and U's are chosen over T's
+ * because it's in a RNA context
+ *
  * @date 15-apr-2015
  */
 std::string Sequence::str()
 {
-	std::string s = std::string();
+	std::string sequence = std::string();
 	
 	for(Position it = this->data.begin(); it != this->data.end(); ++it)
 	{
-		switch (*it)
+		switch(*it)
 		{
 			case Nucleotide::A:
-				s.push_back('A');
+				sequence.push_back('A');
 				break;
 			case Nucleotide::C:
-				s.push_back('C');
+				sequence.push_back('C');
 				break;
 			case Nucleotide::U:
-				s.push_back('U');
+				sequence.push_back('U');
 				break;
 			case Nucleotide::G:
-				s.push_back('G');
+				sequence.push_back('G');
 				break;
 		}
 	}
 	
-	return s;
+	return sequence;
 }

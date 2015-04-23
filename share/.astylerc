@@ -3,27 +3,26 @@
 # Details on this file can be found on the following website:
 # <http://astyle.sourceforge.net/>
 
-# '{' on new line (works only for functions)
---brackets=stroustrup 
---add-brackets
+# After running cmake, you can run "make tidy" to let cmake
+# automatically run astyle over all the code.
 
+--add-brackets
+--add-one-line-brackets
 --align-pointer=name
+--align-reference=name
+
 --fill-empty-lines
  
---indent=tab
+--indent=force-tab
+--indent-cases
+--indent-classes
+--indent-col1-comments
+--indent-switches														# case block is indented wrt switch
+
 --lineend=linux
  
-# (a==b) -> (a == b)
 --pad-oper
-
- 
---brackets=break
-
---indent-classes
-
-
---indent-switches # case block is indented wrt switch
---indent-cases
-
---suffix=none
 --unpad-paren
+
+--style=break
+--suffix=none															# no backups - we have subversion

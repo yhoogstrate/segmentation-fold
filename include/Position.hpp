@@ -1,10 +1,7 @@
 /**
- * @file incude/Position.hpp
- *
+ * @file include/Position.hpp
  * @date 25-feb-2015
- *
  * @author Youri Hoogstrate
- *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
  * Copyright (C) 2012-2015 Youri Hoogstrate
@@ -31,6 +28,7 @@
 #define	POSITION_HPP
 
 
+/// A short alias for a position in a vector of Nucleotide objects
 #define Position std::vector<Nucleotide>::iterator
 
 
