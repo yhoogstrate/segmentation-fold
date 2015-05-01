@@ -45,6 +45,14 @@ set(BUILD_DIR "build")
 file(MAKE_DIRECTORY "${BUILD_DIR}")
 file(MAKE_DIRECTORY "${BUILD_DIR}/test")
 
+# include the git commit SHA1
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake-modules/")
+include(GetGitRevisionDescription)
+get_git_head_revision(GIT_REFSPEC GIT_SHA1)
+if(NOT "${GIT_SHA1}" STREQUAL "")
+	set(GIT_SHA1_STRING "-${GIT_SHA1}")
+endif()
+
 # ----------------------------------------------------------------------
 # ------------------------------ Pre-comp ------------------------------
 
@@ -120,7 +128,7 @@ add_custom_target(doc DEPENDS make_doc)
 
 add_subdirectory(src)
 include_directories(include)
-add_definitions(-std=c++11)
+add_definitions(-std=c++14)
 
 # ----------------------------------------------------------------------
 # ------------------------------ Testing -------------------------------
@@ -132,7 +140,6 @@ enable_testing()
 add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND})					# 'make check' as alias for 'make test'
 
 add_test(direction_test          build/test/direction_test)
-# 
 add_test(nucleotide_test         build/test/nucleotide_test)
 add_test(position_test           build/test/position_test)
 add_test(sequence_test           build/test/sequence_test)

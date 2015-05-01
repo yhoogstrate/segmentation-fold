@@ -1,3 +1,7 @@
+2015-05-01  Youri Hoogstrate
+	* Added automatic inclusion of git SHA1 into include/config.hpp
+	* Added tests for SegmentTree and SegmentTreeElement
+
 2015-04-17  Youri Hoogstrate
 	* Added automatic parsing of README.md by running 'make readme'
 	* Added automatic parsing of documentation, including latest README

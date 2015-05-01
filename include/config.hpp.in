@@ -1,4 +1,4 @@
-/* config.h.in.  Generated from configure.ac by autoheader.  */
+/* Template for automatic generation of these variables into config.hpp  */
 
 /* user specified conf dir */
 #define DATA_DIR "@DESTDIR@@CMAKE_INSTALL_PREFIX@"
@@ -35,3 +35,6 @@
 
 /* Build type (release/debug) */
 #define DEBUG @DEBUG@
+
+/* Git commit SHA1 */
+#define GIT_SHA1_STRING "@GIT_SHA1_STRING@"
