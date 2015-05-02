@@ -28,8 +28,8 @@ following package:
 The doxygen package is version specific because of the Markdown
 support implemented in 1.8.3 and above.
 
-To automatically make the synax of the code tidy you should have
-installed the package:
+To automatically make (new) code styled similar to the programming style
+using in this package, you should have installed the package:
 
 	astyle
 
@@ -40,6 +40,11 @@ You can install the recommended packages in Ubuntu or Debian with:
 You can install the recommanded packages in Arch with:
 
 	sudo pacman -S doxygen astyle
+
+Details on running doxygen and astyle are given in the sections
+[Get the documentation](https://github.com/yhoogstrate/segmentation-fold#get-the-documentation)
+and
+[CONTRIBUTING](https://github.com/yhoogstrate/segmentation-fold#contributing).
 
 ## Build and install ##
 
