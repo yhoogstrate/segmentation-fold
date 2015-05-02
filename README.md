@@ -25,15 +25,16 @@ ___
 # INTRODUCTION #
 
 [segmentation-fold](https://github.com/yhoogstrate/segmentation-fold) is
-a bioinformatics application that predicts RNA 2D-structure
-with an extended version of the Zuker algorithm. This modification contains a new "structure element"
-named a *segment* is capable of folding a pre-defined substructure with **multiple** canonical
-or non-canonical pairings.
+a bioinformatics application that predicts RNA 2D-structure with an
+extended version of the Zuker algorithm. This modification contains a
+new "structure element" named a *segment* and is capable of folding a
+pre-defined substructure with **multiple** canonical or non-canonical
+pairings.
 
 This allows folding of more complex structures like the K-turns, which
 are also part of the implemented free energy tables. These thermodynamic
 parameters (free Gibbs energy levels) have been estimated using a
-computational approach and lack therefore accuracy.
+computational approach and therefore lack accuracy.
 
 # INSTALLATION #
 
@@ -105,9 +106,19 @@ You will then find the binary in the directory:
 If you want to run segmentation-fold for anything else than development,
 you should compile with the -DCMAKE_BUILD_TYPE=release flag because by
 default compiling is done with the 'debug' flag. The two differences
-between debug and release are that (1) debug contains certain checks on
-variables and (2) has no optimizated (but fast) compilation. Therefore,
-debug will result in a slower executing, but more secure binary.
+between debug and release are that (1) debug contains certain
+(unneccesairy if all code behaves as expected) checks on variables and
+(2) has no optimized, but faster, compilation. Therefore, debug mode
+will produce a binary that has a slower performance, but a higher level
+of safety.
+
+If you are using a compiled version of segmentation-fold and you don't
+known the original compilation settings, you should run:
+
+	segmentation-fold --version
+
+This will report the version number, the git commit-SHA1 and the build
+type.
 
 ## Get the documentation ##
 
@@ -119,8 +130,8 @@ documentation:
 	make doc
 
 The first command, "cmake ." creates the doxygen description file from
-its template and sets e.g. the package version variable. Then
-"make readme" creates the latests version of README.md based on the Markdown
+its template and sets e.g. the package version variable. Then "make
+readme" creates the latests version of README.md based on the Markdown
 files present in this project. Then "make doc" creates the documentation
 from all the doxygen comments within the code, including the latest
 README.md as main page.

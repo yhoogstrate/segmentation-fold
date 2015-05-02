@@ -25,12 +25,13 @@ ___
 # INTRODUCTION #
 
 [segmentation-fold](https://github.com/yhoogstrate/segmentation-fold) is
-a bioinformatics application that predicts RNA 2D-structure
-with an extended version of the Zuker algorithm. This modification contains a new "structure element"
-named a *segment* is capable of folding a pre-defined substructure with **multiple** canonical
-or non-canonical pairings.
+a bioinformatics application that predicts RNA 2D-structure with an
+extended version of the Zuker algorithm. This modification contains a
+new "structure element" named a *segment* and is capable of folding a
+pre-defined substructure with **multiple** canonical or non-canonical
+pairings.
 
 This allows folding of more complex structures like the K-turns, which
 are also part of the implemented free energy tables. These thermodynamic
 parameters (free Gibbs energy levels) have been estimated using a
-computational approach and lack therefore accuracy.
+computational approach and therefore lack accuracy.
