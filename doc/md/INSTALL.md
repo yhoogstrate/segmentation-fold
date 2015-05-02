@@ -43,8 +43,8 @@ You can install the recommanded packages in Arch with:
 
 ## Build and install ##
 
-Please follow the instructions given in the '[INSTALL](https://github.com/yhoogstrate/segmentation-fold/blob/master/INSTALL)' file, e.g. by
-using one of the following commands:
+After having the prerequisites installed, you can downadload, compile
+and install segmentation-fold with following commands:
 
 	 $ git clone https://github.com/yhoogstrate/segmentation-fold
 	 $ cd segmentation-fold
@@ -53,8 +53,8 @@ using one of the following commands:
 	 $ make test
 	 $ sudo make install
 
-In case you do not have administrator rights on a particular machine, you can
-install as follows:
+In case you do not have administrator rights on a particular machine,
+you can install as follows:
 
 	 $ git clone https://github.com/yhoogstrate/segmentation-fold
 	 $ cd segmentation-fold
@@ -65,6 +65,13 @@ install as follows:
 
 You will then find the binary in the directory:
 	<home directory>/.local/bin/
+
+If you want to run segmentation-fold for anything else than development,
+you should compile with the -DCMAKE_BUILD_TYPE=release flag because by
+default compiling is done with the 'debug' flag. The two differences
+between debug and release are that (1) debug contains certain checks on
+variables and (2) has no optimizated (but fast) compilation. Therefore,
+debug will result in a slower executing, but more secure binary.
 
 ## Get the documentation ##
 

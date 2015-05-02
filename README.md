@@ -79,8 +79,8 @@ You can install the recommanded packages in Arch with:
 
 ## Build and install ##
 
-Please follow the instructions given in the '[INSTALL](https://github.com/yhoogstrate/segmentation-fold/blob/master/INSTALL)' file, e.g. by
-using one of the following commands:
+After having the prerequisites installed, you can downadload, compile
+and install segmentation-fold with following commands:
 
 	 $ git clone https://github.com/yhoogstrate/segmentation-fold
 	 $ cd segmentation-fold
@@ -89,8 +89,8 @@ using one of the following commands:
 	 $ make test
 	 $ sudo make install
 
-In case you do not have administrator rights on a particular machine, you can
-install as follows:
+In case you do not have administrator rights on a particular machine,
+you can install as follows:
 
 	 $ git clone https://github.com/yhoogstrate/segmentation-fold
 	 $ cd segmentation-fold
@@ -101,6 +101,13 @@ install as follows:
 
 You will then find the binary in the directory:
 	<home directory>/.local/bin/
+
+If you want to run segmentation-fold for anything else than development,
+you should compile with the -DCMAKE_BUILD_TYPE=release flag because by
+default compiling is done with the 'debug' flag. The two differences
+between debug and release are that (1) debug contains certain checks on
+variables and (2) has no optimizated (but fast) compilation. Therefore,
+debug will result in a slower executing, but more secure binary.
 
 ## Get the documentation ##
 
@@ -144,12 +151,12 @@ All people that have contributed to the development of segmentation-fold are:
 
 # CONTRIBUTING #
 
-We encourage users, researchers and programmers to contribute to this free and open source project. This can be achieved by reporting bugs and commiting code to this github repository. To streamline and archive communication in an univocal way, we also encourge you to only use this channel for contribution.
+We encourage users, researchers and programmers to contribute to this free and open source project. This can be achieved by reporting bugs and commiting code to the github repository https://github.com/yhoogstrate/segmentation-fold. To streamline and archive communication in an univocal way, we encourge contributors to only use this channel, github, to contribute to segmentation-fold.
 
-If any developer wants to contribute to segmentation-fold, please use the following documentation standard: http://www.stack.nl/~dimitri/doxygen/index.html
+If any developer wants to contribute to segmentation-fold, please make use the following documentation standard: http://www.stack.nl/~dimitri/doxygen/index.html
 
 All source-code is formatted using Asteric Style: http://astyle.sourceforge.net/ The corresponding configuration file is available under 'share/.astylerc'. If you want to contribute to the code you should have it installed to 'beautify' the code, by simply running:
 
 	make tidy
 
-Cmake will make use of the correct syntax file and beautify all c++ and hpp files in src/, include/ and test/.
+Cmake will make use of the correct syntax file and beautify all C++ and hpp files in src/, include/ and test/.
