@@ -1,7 +1,10 @@
 /**
  * @file test/Position_test.cpp
- * @date 25-feb-2015
+ * 
+ * @date 2015-05-02
+ * 
  * @author Youri Hoogstrate
+ * 
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
  * Copyright (C) 2012-2015 Youri Hoogstrate
@@ -42,7 +45,7 @@ BOOST_AUTO_TEST_SUITE(Testing)
 /**
  * @brief Tests whether Nucleotides correctly separate
  * @test
- * @date 15-apr-2015
+ * @date 2014-04-15
  */
 BOOST_AUTO_TEST_CASE(Test1)
 {
@@ -65,8 +68,11 @@ BOOST_AUTO_TEST_CASE(Test1)
 
 /**
  * @brief Checks whether begin() last() and substractions with positions work
+ * 
  * @test
- * @date 15-apr-2015
+ * 
+ * @date 2014-04-15
+ * 
  * @section DESCRIPTION
  * The following sequence "ACUG" will produce the following vector:
  * [Nucleotide::A][Nucleotide::C][Nucleotide::U][Nucleotide::G][ << end >> ]
@@ -87,10 +93,12 @@ BOOST_AUTO_TEST_CASE(Test2)
 
 /**
  * @brief check whether begin() last() and substractions with positions work and whether everything is fine after a sequence push_back
+ * 
  * @test
- * @date 22-apr-2015
+ * 
+ * @date 2015-04-22
+ * 
  * @section DESCRIPTION
- *
  * The following sequence "ACUG" will be the following vector:
  * [Nucleotide::A][Nucleotide::C][Nucleotide::U][Nucleotide::G][ << end >> ]
  *
@@ -150,7 +158,7 @@ BOOST_AUTO_TEST_CASE(Test3)
 	
 	for(i = sequence_empty.data.begin(); i != sequence_empty.data.end(); ++i)
 	{
-		// An empty sequence should never match any nucleotide
+		// An empty sequence should never match any nucleotide - *i should be the << end >> element
 		
 		BOOST_CHECK(*i != Nucleotide::A);
 		BOOST_CHECK(*i != Nucleotide::C);
@@ -162,8 +170,10 @@ BOOST_AUTO_TEST_CASE(Test3)
 
 /**
  * @brief Checks whether end() and push_back() are in sync
+ * 
  * @test
- * @date 22-apr-2015
+ * 
+ * @date 2015-04-22
  */
 BOOST_AUTO_TEST_CASE(Test4)
 {

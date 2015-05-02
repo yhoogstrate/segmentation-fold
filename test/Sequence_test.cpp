@@ -1,7 +1,10 @@
 /**
  * @file test/Sequence_test.cpp
- * @date 21-feb-2015
+ * 
+ * @date 2015-05-02
+ * 
  * @author Youri Hoogstrate
+ * 
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
  * Copyright (C) 2012-2015 Youri Hoogstrate
@@ -39,8 +42,10 @@ BOOST_AUTO_TEST_SUITE(Testing)
 
 /**
  * @brief Tests whether single nucleotides are inserted correctly, and whether the size of the sequence fits.
+ * 
  * @test
- * @date 11-mar-2014
+ * 
+ * @date 2014-03-11
  */
 BOOST_AUTO_TEST_CASE(Test1)
 {
@@ -73,8 +78,10 @@ BOOST_AUTO_TEST_CASE(Test1)
 
 /**
  * @brief Checks std::string to Sequence and Sequence to std::string conversion
+ * 
  * @test
- * @date 12-mar-2014
+ * 
+ * @date 2014-03-12
  */
 BOOST_AUTO_TEST_CASE(Test2)
 {
@@ -96,8 +103,10 @@ BOOST_AUTO_TEST_CASE(Test2)
 
 /**
  * @brief Tests behaviour of unexpected bases char-wise: should throw an exception
+ * 
  * @test
- * @date 15-apr-2015
+ * 
+ * @date 2014-04-15
  */
 BOOST_AUTO_TEST_CASE(Test3)
 {
@@ -131,8 +140,10 @@ BOOST_AUTO_TEST_CASE(Test3)
 
 /**
  * @brief Tests behaviour of unexpected bases using entire strings: should throw an exception
+ * 
  * @test
- * @date 15-apr-2015
+ * 
+ * @date 2014-04-15
  */
 BOOST_AUTO_TEST_CASE(Test4)
 {
@@ -167,8 +178,10 @@ BOOST_AUTO_TEST_CASE(Test4)
 }
 
 /**
- * @date 19-may-2014
+ * @date 2014-05-19
+ * 
  * @test
+ * 
  * @section DESCRIPTION
  * Given that nucleotides are enumerated as follows:
  * A = 0
@@ -227,8 +240,10 @@ BOOST_AUTO_TEST_CASE(Test5)
 
 /**
  * @brief Tests the '==' operator
+ * 
  * @test
- * @date 19-may-2014
+ * 
+ * @date 2014-05-19
  */
 BOOST_AUTO_TEST_CASE(Test6)
 {
@@ -264,14 +279,13 @@ BOOST_AUTO_TEST_CASE(Test6)
 /**
  * @brief Tests the subseq function
  *
- * @date 19-feb-2015
+ * @date 2015-02-19
  */
 BOOST_AUTO_TEST_CASE(Test7)
 {
 	Sequence sequence = Sequence("ACTG");
 	
 	BOOST_REQUIRE_EQUAL(sequence.size(), 4);
-	
 	
 	Sequence subsequence_01 = sequence.subseq(0, 0);// start at 0, stop at 0 -> A
 	Sequence subsequence_02 = sequence.subseq(0, 1);// start at 0, stop at 1 -> AC

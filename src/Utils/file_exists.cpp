@@ -1,9 +1,9 @@
 /**
  * @file src/Utils/file_exists.cpp
- * @date 22-apr-2015
+ * 
+ * @date 2015-05-02
+ * 
  * @author Youri Hoogstrate
- * @section DESCRIPTION
- * Stores the file_exists() function.
  *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
@@ -32,9 +32,11 @@
 
 /**
  * @brief Checks if a file exists.
- * @date 12-mar-2013
+ * 
  * @param filename The filename of which presency should be checked.
  * @return true if the file exists, false if it doesn't exist.
+ * 
+ * @date 2013-03-12
  */
 bool file_exists(const char *filename)
 {

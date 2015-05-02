@@ -1,7 +1,7 @@
 /**
  * @file test/SegmentTreeElement_test.cpp
  *
- * @date 01-may-2015
+ * @date 2015-05-02
  *
  * @author Youri Hoogstrate
  *
@@ -52,6 +52,8 @@ BOOST_AUTO_TEST_SUITE(Testing)
  * @brief Tests size of the SegmeentTreeElement
  *
  * @test
+ * 
+ * @date 2015-05-01
  */
 BOOST_AUTO_TEST_CASE(Test1)
 {
@@ -76,8 +78,10 @@ BOOST_AUTO_TEST_CASE(Test1)
 
 /**
  * @brief Tests whether segments with a different 5' length can be searched through each other
- *
+ * 
  * @test
+ * 
+ * @date 2015-05-01
  */
 BOOST_AUTO_TEST_CASE(Test2)
 {
@@ -137,8 +141,10 @@ BOOST_AUTO_TEST_CASE(Test2)
 
 /**
  * @brief Tests whether segments with a different 5' sequence can be searched through each other
- *
+ * 
  * @test
+ * 
+ * @date 2015-05-01
  */
 BOOST_AUTO_TEST_CASE(Test3)
 {
@@ -199,8 +205,10 @@ BOOST_AUTO_TEST_CASE(Test3)
 
 /**
  * @brief Tests whether segments with a different 3' length can be searched through each other
- *
+ * 
  * @test
+ * 
+ * @date 2015-05-01
  */
 BOOST_AUTO_TEST_CASE(Test4)
 {
@@ -260,8 +268,10 @@ BOOST_AUTO_TEST_CASE(Test4)
 
 /**
  * @brief Tests whether segments with a different 3' sequence can be searched through each other
- *
+ * 
  * @test
+ * 
+ * @date 2015-05-01
  */
 BOOST_AUTO_TEST_CASE(Test5)
 {
@@ -321,8 +331,10 @@ BOOST_AUTO_TEST_CASE(Test5)
 
 /**
  * @brief Tests error throwing when inserting segments with identical sequences
- *
+ * 
  * @test
+ * 
+ * @date 2015-05-01
  */
 BOOST_AUTO_TEST_CASE(Test6)
 {
@@ -354,4 +366,5 @@ BOOST_AUTO_TEST_CASE(Test6)
 	BOOST_CHECK_THROW(element_01.add_segment(segment_02), std::invalid_argument);
 	BOOST_CHECK_THROW(element_02.add_segment(segment_01), std::invalid_argument);
 }
+
 BOOST_AUTO_TEST_SUITE_END()

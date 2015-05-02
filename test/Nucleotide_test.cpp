@@ -1,7 +1,10 @@
 /**
  * @file test/Nucleotide_test.cpp
- * @date 23-apr-2015
+ * 
+ * @date 2015-05-02
+ * 
  * @author Youri Hoogstrate
+ * 
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
  * Copyright (C) 2012-2015 Youri Hoogstrate
@@ -38,8 +41,10 @@ BOOST_AUTO_TEST_SUITE(Testing)
 
 /**
  * @brief Tests whether Nucleotides correctly separate
+ * 
  * @test
- * @date 15-apr-2015
+ * 
+ * @date 2014-04-15
  */
 BOOST_AUTO_TEST_CASE(Test_equality)
 {
@@ -79,8 +84,10 @@ BOOST_AUTO_TEST_CASE(Test_equality)
 
 /**
  * @brief Tests whether the size of a Nucleotide stuct is indeed 1 byte
+ * 
  * @test
- * @date 15-apr-2015
+ * 
+ * @date 2014-04-15
  */
 BOOST_AUTO_TEST_CASE(Test_size)
 {

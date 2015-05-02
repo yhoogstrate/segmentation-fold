@@ -1,10 +1,11 @@
 /**
- * @file src/Utils/min.cpp
- * 
+ * @file include/DotBracket.hpp
+ *
  * @date 2015-05-02
- * 
+ *
  * @author Youri Hoogstrate
- * 
+ * @author Lisa Yu
+ *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
  * Copyright (C) 2012-2015 Youri Hoogstrate
@@ -27,41 +28,36 @@
  */
 
 
+#ifndef DOTBRACKET_HPP
+#define	DOTBRACKET_HPP
 
-#include "Utils/utils.hpp"
+
+#include "main.hpp"
 
 
 
 /**
- * @brief Finds the minimal value between x and y
- * 
- * @date 2012-11-05
- * 
- * @param x any integer
- * @param y any integer
- * @return the minimum of both the values x and y
- * 
- * @todo Use macro or inline instead?
+ * @brief 2D structure in DotBracket format.
+ *
+ * @section DESCRIPTION
+ * Maintains a DotBracket formatted 2D structure (without pseudo-knotting)
+ *
+ * @date 2015-04-20
  */
-int min(int x, int y)
+class DotBracket
 {
-	return (x < y ? x : y);
-}
+	public:
+		DotBracket();
+		
+		void store(int arg_i, int arg_j);
+		int  find(size_t arg_i);
+		void format(unsigned int n, std::string &output);
+		
+		bool match(std::string &dot_bracket_pattern, std::string &dot_bracket_subject);
+		
+	private:
+		std::vector <std::pair<int, int>> pairings;
+};
 
 
-
-/**
- * @brief Finds the minimal value between x and y
- * 
- * @date 2014-12-30
- * 
- * @param x any integer
- * @param y any integer
- * @return the minimum of both the values x and y
- * 
- * @todo Use macro or inline instead?
- *//*
-float min(float x, float y)
-{
-	return (x < y ? x : y);
-}*/
+#endif	// DOTBRACKET_HPP

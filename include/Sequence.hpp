@@ -1,7 +1,10 @@
 /**
  * @file include/Sequence.hpp
- * @date 25-feb-2015
+ * 
+ * @date 2015-05-02
+ * 
  * @author Youri Hoogstrate
+ * 
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
  * Copyright (C) 2012-2015 Youri Hoogstrate
@@ -37,7 +40,8 @@
 
 /**
  * @brief A RNA or DNA Sequence object, primarily used as the Sequence to be folded
- * @date 15-apr-2015
+ * 
+ * @date 2014-04-15
  */
 class Sequence
 {

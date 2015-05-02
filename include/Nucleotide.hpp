@@ -1,7 +1,10 @@
 /**
  * @file include/Nucleotide.hpp
- * @date 25-feb-2015
+ * 
+ * @date 2015-05-02
+ * 
  * @author Youri Hoogstrate
+ * 
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
  * Copyright (C) 2012-2015 Youri Hoogstrate
@@ -29,7 +32,9 @@
 
 /**
  * @brief Describes a DNA or RNA nucleotide (as a char)
- * @date 16-may-2014
+ * 
+ * @date 2014-05-16
+ * 
  * @section DESCRIPTION
  * The type is casted to char to reduce the size of the memory, since
  * this is not automatically done by the compiler.

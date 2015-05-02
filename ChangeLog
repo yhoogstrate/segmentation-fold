@@ -1,4 +1,7 @@
 2015-05-02  Youri Hoogstrate
+	* Dates have changed to 'ISO 8601' representation
+	* Added DotBracket code and test
+	* Changed some code in Segments.cpp to one-liners
 	* Configuration for tests are now compatible with cmake 3.*
 
 2015-05-01  Youri Hoogstrate

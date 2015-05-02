@@ -1,7 +1,7 @@
 /**
  * @file test/SegmentTree_test.cpp
  *
- * @date 01-may-2015
+ * @date 2015-05-02
  *
  * @author Youri Hoogstrate
  *
@@ -53,8 +53,10 @@ BOOST_AUTO_TEST_SUITE(Testing)
 
 /**
  * @brief Tests quering using a PairingPlus element instead of deep copied sub sequences
- *
+ * 
  * @test
+ * 
+ * @date 2015-05-01
  */
 BOOST_AUTO_TEST_CASE(Test1)
 {
@@ -114,8 +116,10 @@ BOOST_AUTO_TEST_CASE(Test1)
 
 /**
  * @brief Tests if searching a 0 size tree properly returns a nullptr
- *
+ * 
  * @test
+ * 
+ * @date 2015-05-01
  */
 BOOST_AUTO_TEST_CASE(Test2)
 {
@@ -155,8 +159,10 @@ BOOST_AUTO_TEST_CASE(Test2)
 
 /**
  * @brief Tests if for a tree with 1 element searching works
- *
+ * 
  * @test
+ * 
+ * @date 2015-05-01
  */
 BOOST_AUTO_TEST_CASE(Test3)
 {
@@ -209,8 +215,10 @@ BOOST_AUTO_TEST_CASE(Test3)
 
 /**
  * @brief Tests if 2 sized tree searching works
- *
+ * 
  * @test
+ * 
+ * @date 2015-05-01
  */
 BOOST_AUTO_TEST_CASE(Test4)
 {
@@ -278,8 +286,10 @@ BOOST_AUTO_TEST_CASE(Test4)
 
 /**
  * @brief Tests if for 5 sized trees (with elements of different sizes and equences) searching works, in all possible orders of being added
- *
+ * 
  * @test
+ * 
+ * @date 2015-05-01
  */
 BOOST_AUTO_TEST_CASE(Test5)
 {
@@ -445,8 +455,10 @@ BOOST_AUTO_TEST_CASE(Test5)
 
 /**
  * @brief Tests whether an exception is raised if a segment with a duplicate sequence is added
- *
+ * 
  * @test
+ * 
+ * @date 2015-05-01
  */
 BOOST_AUTO_TEST_CASE(Test6)
 {
@@ -472,8 +484,10 @@ BOOST_AUTO_TEST_CASE(Test6)
 
 /**
  * @brief Tests whether a reverse complement Segment does not throw an exception
- *
+ * 
  * @test
+ * 
+ * @date 2015-05-01
  */
 BOOST_AUTO_TEST_CASE(Test7)
 {

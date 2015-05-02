@@ -1,6 +1,6 @@
 # @file test/CMakeLists.txt
 #
-# @date 15-apr-2015
+# @date 2015-05-02
 #
 # @author Youri Hoogstrate
 #
@@ -40,18 +40,21 @@ include_directories(${Boost_INCLUDE_DIRS})
 ADD_DEFINITIONS(-DBOOST_TEST_DYN_LINK)
 
 
-set(BUILD_DIR "../build")
+set(BUILD_DIR      "../build")
 set(BUILD_TEST_DIR "${BUILD_DIR}/test")
 
 
 add_executable(direction_test  Direction_test.cpp)
+add_executable(dotbracket_test DotBracket_test.cpp ../src/DotBracket.cpp)
 add_executable(nucleotide_test Nucleotide_test.cpp)
 add_executable(position_test   Position_test.cpp ../src/Sequence.cpp)
 add_executable(sequence_test   Sequence_test.cpp ../src/Sequence.cpp)
 add_executable(segment_test    Segment_test.cpp ../src/Segment.cpp ../src/Sequence.cpp)
 
-set_target_properties(direction_test  PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${BUILD_TEST_DIR}")
-set_target_properties(nucleotide_test PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${BUILD_TEST_DIR}")
-set_target_properties(position_test   PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${BUILD_TEST_DIR}")
-set_target_properties(sequence_test   PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${BUILD_TEST_DIR}")
-set_target_properties(segment_test    PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${BUILD_TEST_DIR}")
+set_target_properties(direction_test
+                      dotbracket_test
+                      nucleotide_test
+                      position_test
+                      sequence_test
+                      segment_test
+                                      PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${BUILD_TEST_DIR}")

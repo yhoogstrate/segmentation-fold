@@ -1,7 +1,10 @@
 /**
  * @file include/Segment.hpp
- * @date 15-apr-2015
+ * 
+ * @date 2015-05-02
+ * 
  * @author Youri Hoogstrate
+ * 
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
  * Copyright (C) 2012-2015 Youri Hoogstrate
@@ -33,7 +36,7 @@
 
 /**
  * @brief This object represents a *non-canonical RNA pairing segment* which requires to be surrounded by canonical pairings, like the K-turn.
- * @date 20-apr-2015
+ * @date 2015-04-20
  * @section DESCRIPTION
  *
  * The following can be converted into a dot-bracket format:
@@ -96,7 +99,7 @@
  *  -2 U  0
  *  -1 G  1
  *
- * @date 15-apr-2015
+ * @date 2014-04-15
  */
 class Segment
 {

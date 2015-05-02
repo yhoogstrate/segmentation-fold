@@ -1,13 +1,15 @@
 /**
  * @file include/main.hpp
- * @date 23-apr-2015
+ * 
+ * @date 2015-05-02
+ * 
  * @author Youri Hoogstrate
+ * 
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
  * Copyright (C) 2012-2015 Youri Hoogstrate
  *
- * This file is part of segmentation-fold and originally taken from
- * yh-kt-fold.
+ * This file is part of segmentation-fold.
  *
  * segmentation-fold is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -42,5 +44,18 @@
 #include <time.h>
 #include <unistd.h>
 
+#include <algorithm>
+#include <array>
+#include <string>
+#include <vector>
+
+
+#define BOUND              -1
+#define UNBOUND            -2
+#define NOT_YET_CALCULATED -3
+
+#define DOTBRACKET__PAIRING_LEFT  '('
+#define DOTBRACKET__PAIRING_RIGHT ')'
+#define DOTBRACKET__NO_PAIRING    '.'
 
 #endif	// MAIN_HPP
