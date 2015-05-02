@@ -53,7 +53,7 @@ BOOST_AUTO_TEST_SUITE(Testing)
 
 /**
  * @brief Tests quering using a PairingPlus element instead of deep copied sub sequences
- * 
+ *
  * @test
  */
 BOOST_AUTO_TEST_CASE(Test1)
@@ -114,7 +114,7 @@ BOOST_AUTO_TEST_CASE(Test1)
 
 /**
  * @brief Tests if searching a 0 size tree properly returns a nullptr
- * 
+ *
  * @test
  */
 BOOST_AUTO_TEST_CASE(Test2)

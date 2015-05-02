@@ -1,3 +1,6 @@
+2015-05-02  Youri Hoogstrate
+	* Configuration for tests are now compatible with cmake 3.*
+
 2015-05-01  Youri Hoogstrate
 	* Added automatic inclusion of git SHA1 into include/config.hpp
 	* Added tests for SegmentTree and SegmentTreeElement

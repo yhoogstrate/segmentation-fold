@@ -42,8 +42,9 @@ set(PACKAGE_BUGREPORT "${PACKAGE_URL}/issues")
 set(MOTIFS_FILE "motifs.xml")
 
 set(BUILD_DIR "build")
+set(BUILD_TEST_DIR "${BUILD_DIR}/test")
 file(MAKE_DIRECTORY "${BUILD_DIR}")
-file(MAKE_DIRECTORY "${BUILD_DIR}/test")
+file(MAKE_DIRECTORY "${BUILD_TEST_DIR}")
 
 # include the git commit SHA1
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake-modules/")
@@ -128,7 +129,7 @@ add_custom_target(doc DEPENDS make_doc)
 
 add_subdirectory(src)
 include_directories(include)
-add_definitions(-std=c++14)
+add_definitions(-std=c++11)
 
 # ----------------------------------------------------------------------
 # ------------------------------ Testing -------------------------------
@@ -139,11 +140,11 @@ enable_testing()
 
 add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND})					# 'make check' as alias for 'make test'
 
-add_test(direction_test          build/test/direction_test)
-add_test(nucleotide_test         build/test/nucleotide_test)
-add_test(position_test           build/test/position_test)
-add_test(sequence_test           build/test/sequence_test)
-add_test(segment_test            build/test/segment_test)
+add_test(direction_test          "${BUILD_TEST_DIR}/direction_test")
+add_test(nucleotide_test         "${BUILD_TEST_DIR}/nucleotide_test")
+add_test(position_test           "${BUILD_TEST_DIR}/position_test")
+add_test(sequence_test           "${BUILD_TEST_DIR}/sequence_test")
+add_test(segment_test            "${BUILD_TEST_DIR}/segment_test")
 
 # ----------------------------------------------------------------------
 # --------------------------- Installation -----------------------------

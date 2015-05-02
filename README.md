@@ -46,9 +46,13 @@ it depends on two additional libraries and an installation library.
 	boost library (-test)
 	boost library (-xml)
 
-In ubuntu you can install them very easily with the following command:
+In Ubuntu and Debian you can install these packages with the following command:
 
 	sudo apt-get install libboost-test-dev libboost-filesystem-dev
+
+In Arch linux you can install these packages with the folllowing command:
+
+	sudo pacman -S git cmake boost boost-libs
 
 ## Recommended packages ##
 
@@ -59,6 +63,19 @@ following package:
 
 The doxygen package is version specific because of the Markdown
 support implemented in 1.8.3 and above.
+
+To automatically make the synax of the code tidy you should have
+installed the package:
+
+	astyle
+
+You can install the recommended packages in Ubuntu or Debian with:
+
+	sudo apt-get install doxygen astyle
+
+You can install the recommanded packages in Arch with:
+
+	sudo pacman -S doxygen astyle
 
 ## Build and install ##
 

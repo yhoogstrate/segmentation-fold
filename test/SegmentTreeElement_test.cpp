@@ -1,10 +1,10 @@
 /**
  * @file test/SegmentTreeElement_test.cpp
- * 
+ *
  * @date 01-may-2015
- * 
+ *
  * @author Youri Hoogstrate
- * 
+ *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
  * Copyright (C) 2012-2015 Youri Hoogstrate
@@ -50,7 +50,7 @@ BOOST_AUTO_TEST_SUITE(Testing)
 
 /**
  * @brief Tests size of the SegmeentTreeElement
- * 
+ *
  * @test
  */
 BOOST_AUTO_TEST_CASE(Test1)
@@ -62,10 +62,10 @@ BOOST_AUTO_TEST_CASE(Test1)
 	float              energy        = -1.234;
 	Segment            segment_01    = Segment(segment_name, sequence_5p, bonds, sequence_3p, energy);
 	
-	                    segment_name = "C/D-box K-turn";
-	                    sequence_5p  = Sequence("ACUUG");
-	                    bonds        = {{ Pair({0, 2}), Pair({2, 1}), Pair({4, 0}) }};
-	                    sequence_3p  = Sequence("AUC");
+	segment_name = "C/D-box K-turn";
+	sequence_5p  = Sequence("ACUUG");
+	bonds        = {{ Pair({0, 2}), Pair({2, 1}), Pair({4, 0}) }};
+	sequence_3p  = Sequence("AUC");
 	Segment             segment_02   = Segment(segment_name, sequence_5p, bonds, sequence_3p, energy);
 	
 	SegmentTreeElement element_01 = SegmentTreeElement(segment_01);
@@ -76,7 +76,7 @@ BOOST_AUTO_TEST_CASE(Test1)
 
 /**
  * @brief Tests whether segments with a different 5' length can be searched through each other
- * 
+ *
  * @test
  */
 BOOST_AUTO_TEST_CASE(Test2)
@@ -102,7 +102,7 @@ BOOST_AUTO_TEST_CASE(Test2)
 	//AUG
 	std::string        segment_name_02 = "Segment 2";
 	Sequence           sequence_5p_02  = Sequence("ACUU");
-	                   bonds           = {{ Pair({0, 2}), Pair({2, 1}), Pair({4, 0}) }};
+	bonds           = {{ Pair({0, 2}), Pair({2, 1}), Pair({4, 0}) }};
 	Sequence           sequence_3p_02  = Sequence("AUG");
 	float              energy_02       = -2.00;
 	Segment            segment_02      = Segment(segment_name_02, sequence_5p_02, bonds, sequence_3p_02, energy_02);
@@ -119,10 +119,10 @@ BOOST_AUTO_TEST_CASE(Test2)
 	element_01.add_segment(segment_02);
 	element_02.add_segment(segment_01);
 	
-	Segment *segment_03 = element_01.search_segment(segment_01_5p,segment_01_3p);
-	Segment *segment_04 = element_01.search_segment(segment_02_5p,segment_02_3p);
-	Segment *segment_05 = element_02.search_segment(segment_01_5p,segment_01_3p);
-	Segment *segment_06 = element_02.search_segment(segment_02_5p,segment_02_3p);
+	Segment *segment_03 = element_01.search_segment(segment_01_5p, segment_01_3p);
+	Segment *segment_04 = element_01.search_segment(segment_02_5p, segment_02_3p);
+	Segment *segment_05 = element_02.search_segment(segment_01_5p, segment_01_3p);
+	Segment *segment_06 = element_02.search_segment(segment_02_5p, segment_02_3p);
 	
 	BOOST_REQUIRE(segment_03 != nullptr);
 	BOOST_REQUIRE(segment_04 != nullptr);
@@ -137,7 +137,7 @@ BOOST_AUTO_TEST_CASE(Test2)
 
 /**
  * @brief Tests whether segments with a different 5' sequence can be searched through each other
- * 
+ *
  * @test
  */
 BOOST_AUTO_TEST_CASE(Test3)
@@ -163,7 +163,7 @@ BOOST_AUTO_TEST_CASE(Test3)
 	//AUG
 	std::string        segment_name_02 = "Segment 2";
 	Sequence           sequence_5p_02  = Sequence("ACUUC");
-	                   bonds           = {{ Pair({0, 2}), Pair({2, 1}), Pair({4, 0})}};
+	bonds           = {{ Pair({0, 2}), Pair({2, 1}), Pair({4, 0})}};
 	Sequence           sequence_3p_02  = Sequence("GUA");
 	float              energy_02       = -2.00;
 	Segment            segment_02      = Segment(segment_name_02, sequence_5p_02, bonds, sequence_3p_02, energy_02);
@@ -180,10 +180,10 @@ BOOST_AUTO_TEST_CASE(Test3)
 	element_01.add_segment(segment_02);
 	element_02.add_segment(segment_01);
 	
-	Segment *segment_03 = element_01.search_segment(segment_01_5p,segment_01_3p);
-	Segment *segment_04 = element_01.search_segment(segment_02_5p,segment_02_3p);
-	Segment *segment_05 = element_02.search_segment(segment_01_5p,segment_01_3p);
-	Segment *segment_06 = element_02.search_segment(segment_02_5p,segment_02_3p);
+	Segment *segment_03 = element_01.search_segment(segment_01_5p, segment_01_3p);
+	Segment *segment_04 = element_01.search_segment(segment_02_5p, segment_02_3p);
+	Segment *segment_05 = element_02.search_segment(segment_01_5p, segment_01_3p);
+	Segment *segment_06 = element_02.search_segment(segment_02_5p, segment_02_3p);
 	
 	BOOST_REQUIRE(segment_03 != nullptr);
 	BOOST_REQUIRE(segment_04 != nullptr);
@@ -199,7 +199,7 @@ BOOST_AUTO_TEST_CASE(Test3)
 
 /**
  * @brief Tests whether segments with a different 3' length can be searched through each other
- * 
+ *
  * @test
  */
 BOOST_AUTO_TEST_CASE(Test4)
@@ -225,7 +225,7 @@ BOOST_AUTO_TEST_CASE(Test4)
 	//AUGA
 	std::string        segment_name_02 = "Segment 2";
 	Sequence           sequence_5p_02  = Sequence("ACUUG");
-	                   bonds           = {{ Pair({0, 2}), Pair({2, 1}), Pair({4, 0}) }};
+	bonds           = {{ Pair({0, 2}), Pair({2, 1}), Pair({4, 0}) }};
 	Sequence           sequence_3p_02  = Sequence("AGUA");// Rotate to 5'->3'
 	float              energy_02       = -2.00;
 	Segment            segment_02      = Segment(segment_name_02, sequence_5p_02, bonds, sequence_3p_02, energy_02);
@@ -242,10 +242,10 @@ BOOST_AUTO_TEST_CASE(Test4)
 	element_01.add_segment(segment_02);
 	element_02.add_segment(segment_01);
 	
-	Segment *segment_03 = element_01.search_segment(segment_01_5p,segment_01_3p);
-	Segment *segment_04 = element_01.search_segment(segment_02_5p,segment_02_3p);
-	Segment *segment_05 = element_02.search_segment(segment_01_5p,segment_01_3p);
-	Segment *segment_06 = element_02.search_segment(segment_02_5p,segment_02_3p);
+	Segment *segment_03 = element_01.search_segment(segment_01_5p, segment_01_3p);
+	Segment *segment_04 = element_01.search_segment(segment_02_5p, segment_02_3p);
+	Segment *segment_05 = element_02.search_segment(segment_01_5p, segment_01_3p);
+	Segment *segment_06 = element_02.search_segment(segment_02_5p, segment_02_3p);
 	
 	BOOST_REQUIRE(segment_03 != nullptr);
 	BOOST_REQUIRE(segment_04 != nullptr);
@@ -260,7 +260,7 @@ BOOST_AUTO_TEST_CASE(Test4)
 
 /**
  * @brief Tests whether segments with a different 3' sequence can be searched through each other
- * 
+ *
  * @test
  */
 BOOST_AUTO_TEST_CASE(Test5)
@@ -303,10 +303,10 @@ BOOST_AUTO_TEST_CASE(Test5)
 	element_01.add_segment(segment_02);
 	element_02.add_segment(segment_01);
 	
-	Segment *segment_03 = element_01.search_segment(segment_01_5p,segment_01_3p);
-	Segment *segment_04 = element_01.search_segment(segment_02_5p,segment_02_3p);
-	Segment *segment_05 = element_02.search_segment(segment_01_5p,segment_01_3p);
-	Segment *segment_06 = element_02.search_segment(segment_02_5p,segment_02_3p);
+	Segment *segment_03 = element_01.search_segment(segment_01_5p, segment_01_3p);
+	Segment *segment_04 = element_01.search_segment(segment_02_5p, segment_02_3p);
+	Segment *segment_05 = element_02.search_segment(segment_01_5p, segment_01_3p);
+	Segment *segment_06 = element_02.search_segment(segment_02_5p, segment_02_3p);
 	
 	BOOST_REQUIRE(segment_03 != nullptr);
 	BOOST_REQUIRE(segment_04 != nullptr);
@@ -321,7 +321,7 @@ BOOST_AUTO_TEST_CASE(Test5)
 
 /**
  * @brief Tests error throwing when inserting segments with identical sequences
- * 
+ *
  * @test
  */
 BOOST_AUTO_TEST_CASE(Test6)
@@ -335,7 +335,7 @@ BOOST_AUTO_TEST_CASE(Test6)
 	
 	std::string        segment_name_02 = "Segment 2";
 	Sequence           sequence_5p_02  = Sequence("ACUUG");
-	                   bonds           = {{ Pair({0, 2}), Pair({2, 1}), Pair({4, 0}) }};
+	bonds           = {{ Pair({0, 2}), Pair({2, 1}), Pair({4, 0}) }};
 	Sequence           sequence_3p_02  = Sequence("AUG");
 	float              energy_02       = -2.00;
 	Segment            segment_02      = Segment(segment_name_02, sequence_5p_02, bonds, sequence_3p_02, energy_02);

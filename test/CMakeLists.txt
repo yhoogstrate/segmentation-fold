@@ -32,6 +32,7 @@
 cmake_minimum_required(VERSION 2.8)
 
 include_directories(../include)
+add_definitions(-std=c++11)
 
 find_package(Boost COMPONENTS system filesystem unit_test_framework REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
@@ -39,10 +40,18 @@ include_directories(${Boost_INCLUDE_DIRS})
 ADD_DEFINITIONS(-DBOOST_TEST_DYN_LINK)
 
 
+set(BUILD_DIR "../build")
+set(BUILD_TEST_DIR "${BUILD_DIR}/test")
 
-add_executable(../build/test/direction_test Direction_test.cpp)
-# 
-add_executable(../build/test/nucleotide_test Nucleotide_test.cpp)
-add_executable(../build/test/position_test Position_test.cpp ../src/Sequence.cpp)
-add_executable(../build/test/sequence_test Sequence_test.cpp ../src/Sequence.cpp)
-add_executable(../build/test/segment_test Segment_test.cpp ../src/Segment.cpp ../src/Sequence.cpp)
+
+add_executable(direction_test  Direction_test.cpp)
+add_executable(nucleotide_test Nucleotide_test.cpp)
+add_executable(position_test   Position_test.cpp ../src/Sequence.cpp)
+add_executable(sequence_test   Sequence_test.cpp ../src/Sequence.cpp)
+add_executable(segment_test    Segment_test.cpp ../src/Segment.cpp ../src/Sequence.cpp)
+
+set_target_properties(direction_test  PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${BUILD_TEST_DIR}")
+set_target_properties(nucleotide_test PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${BUILD_TEST_DIR}")
+set_target_properties(position_test   PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${BUILD_TEST_DIR}")
+set_target_properties(sequence_test   PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${BUILD_TEST_DIR}")
+set_target_properties(segment_test    PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${BUILD_TEST_DIR}")
