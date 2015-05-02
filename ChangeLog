@@ -1,4 +1,6 @@
 2015-05-02  Youri Hoogstrate
+	* Added PairingPlus code, test and datetypes.
+	* Added SegmentTree and SegmentTree code
 	* Dates have changed to 'ISO 8601' representation
 	* Added DotBracket code and test
 	* Changed some code in Segments.cpp to one-liners

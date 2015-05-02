@@ -44,17 +44,23 @@ set(BUILD_DIR      "../build")
 set(BUILD_TEST_DIR "${BUILD_DIR}/test")
 
 
-add_executable(direction_test  Direction_test.cpp)
-add_executable(dotbracket_test DotBracket_test.cpp ../src/DotBracket.cpp)
-add_executable(nucleotide_test Nucleotide_test.cpp)
-add_executable(position_test   Position_test.cpp ../src/Sequence.cpp)
-add_executable(sequence_test   Sequence_test.cpp ../src/Sequence.cpp)
-add_executable(segment_test    Segment_test.cpp ../src/Segment.cpp ../src/Sequence.cpp)
+add_executable(direction_test          Direction_test.cpp)
+add_executable(dotbracket_test         DotBracket_test.cpp ../src/DotBracket.cpp)
+add_executable(nucleotide_test         Nucleotide_test.cpp)
+add_executable(position_test           Position_test.cpp ../src/Sequence.cpp)
+add_executable(sequence_test           Sequence_test.cpp ../src/Sequence.cpp)
+add_executable(pairingplus_test        PairingPlus_test.cpp ../src/Sequence.cpp ../src/PairingPlus.cpp)
+add_executable(segment_test            Segment_test.cpp ../src/Segment.cpp ../src/Sequence.cpp)
+add_executable(segmenttreeelement_test SegmentTreeElement_test.cpp ../src/SegmentTreeElement.cpp ../src/Segment.cpp ../src/Sequence.cpp  ../src/PairingPlus.cpp)
+add_executable(segmenttree_test        SegmentTree_test.cpp ../src/SegmentTree.cpp ../src/SegmentTreeElement.cpp ../src/Segment.cpp ../src/Sequence.cpp ../src/PairingPlus.cpp)
 
 set_target_properties(direction_test
                       dotbracket_test
                       nucleotide_test
                       position_test
                       sequence_test
+                      pairingplus_test
                       segment_test
+                      segmenttreeelement_test
+                      segmenttree_test
                                       PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${BUILD_TEST_DIR}")

@@ -1,6 +1,6 @@
 # @file CMakeLists.txt
 #
-# @date 17-apr-2015
+# @date 2015-05-02
 #
 # @author Youri Hoogstrate
 #
@@ -140,12 +140,16 @@ enable_testing()
 
 add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND})					# 'make check' as alias for 'make test'
 
+
 add_test(direction_test          "${BUILD_TEST_DIR}/direction_test")
 add_test(dotbrack_test           "${BUILD_TEST_DIR}/dotbracket_test")
 add_test(nucleotide_test         "${BUILD_TEST_DIR}/nucleotide_test")
 add_test(position_test           "${BUILD_TEST_DIR}/position_test")
 add_test(sequence_test           "${BUILD_TEST_DIR}/sequence_test")
+add_test(pairingplus_test        "${BUILD_TEST_DIR}/pairingplus_test")
 add_test(segment_test            "${BUILD_TEST_DIR}/segment_test")
+add_test(segmenttreeelement_test "${BUILD_TEST_DIR}/segmenttreeelement_test")
+add_test(segmenttree_test        "${BUILD_TEST_DIR}/segmenttree_test")
 
 # ----------------------------------------------------------------------
 # --------------------------- Installation -----------------------------

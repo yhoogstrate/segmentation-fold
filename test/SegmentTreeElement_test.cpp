@@ -91,7 +91,7 @@ BOOST_AUTO_TEST_CASE(Test2)
 	std::string        segment_name_01 = "Segment 1";
 	Sequence           sequence_5p_01  = Sequence("ACUUG");
 	std::vector <Pair> bonds           = {{ Pair({0, 2}), Pair({2, 1}), Pair({4, 0}) }};
-	Sequence           sequence_3p_01  = Sequence("GUA");//Must be rotated to 5- -> 3'
+	Sequence           sequence_3p_01  = Sequence("GUA");//Must be rotated to 5' -> 3'
 	float              energy_01       = -1.00;
 	Segment            segment_01      = Segment(segment_name_01, sequence_5p_01, bonds, sequence_3p_01, energy_01);
 	Position           segment_01_5p_s = sequence_5p_01.data.begin();
