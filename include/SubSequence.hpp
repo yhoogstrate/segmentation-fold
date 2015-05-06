@@ -1,7 +1,7 @@
 /**
- * @file include/PairingPlus.hpp
+ * @file include/SubSequence.hpp
  * 
- * @date 2015-05-02
+ * @date 2015-05-06
  * 
  * @author Youri Hoogstrate
  * 
@@ -26,42 +26,40 @@
  */
 
 
-#ifndef PAIRINGPLUS_HPP
-#define	PAIRINGPLUS_HPP
+#ifndef SUBSEQUENCE_HPP
+#define	SUBSEQUENCE_HPP
 
 
 #include "main.hpp"
 
-#include "PairingType.hpp"
+#include "Nucleotide.hpp"
 #include "Position.hpp"
 
 
 /**
- * @brief Merge Pair and Pairing into one object that has functionality of both by storing the two positions as iterators
+ * @brief
  *
- * @date 2015-04-22
+ * @date 2015-05-06
  */
-class PairingPlus
+class SubSequence
 {
 	#if DEBUG
 		private:
-			void _check_order(void);// tests if position1 is indeed smaller than position2; t
+			void _check_order(void);
 	#endif //DEBUG
 	
 	public:
 		Position position1;
 		Position position2;
 		
-		size_t size;/// The number of nucleotides in-between the pairing! [19,20] << has a size of 0
-		PairingType type;
+		size_t size;/// The length of the subsequence [18,18] << subsequence of only one nucleotide has size 1
 		
-		PairingPlus(Position arg_position1, Position arg_position2);
-		PairingPlus(Position arg_position1, Position arg_position2, size_t arg_nucleotides_inbetween);
+		SubSequence(Position arg_position1, Position arg_position2);
+		SubSequence(Position arg_position1, Position arg_position2, size_t arg_nucleotides_inbetween);
 		
 		void init(void);
-		bool is_canonical(void);
 		
 		Nucleotide operator[](size_t);
 };
 
-#endif	// PAIRINGPLUS_HPP
+#endif	// SUBSEQUENCE_HPP

@@ -35,7 +35,7 @@
 #include "Direction.hpp"
 #include "Nucleotide.hpp"
 #include "Sequence.hpp"
-#include "PairingPlus.hpp"
+#include "SubSequence.hpp"
 
 #include "Segment.hpp"
 #include "SegmentTreeElement.hpp"
@@ -98,24 +98,34 @@ BOOST_AUTO_TEST_CASE(Test2)
 	Position           segment_01_5p_e = sequence_5p_01.data.end() - 1;
 	Position           segment_01_3p_s = sequence_3p_01.data.begin();
 	Position           segment_01_3p_e = sequence_3p_01.data.end() - 1;
-	PairingPlus        segment_01_5p   = PairingPlus(segment_01_5p_s, segment_01_5p_e);
-	PairingPlus        segment_01_3p   = PairingPlus(segment_01_3p_s, segment_01_3p_e);
+	SubSequence        segment_01_5p   = SubSequence(segment_01_5p_s, segment_01_5p_e);
+	SubSequence        segment_01_3p   = SubSequence(segment_01_3p_s, segment_01_3p_e);
 	
 	//ACUU
 	//:::
 	//AUG
 	std::string        segment_name_02 = "Segment 2";
 	Sequence           sequence_5p_02  = Sequence("ACUU");
-	bonds           = {{ Pair({0, 2}), Pair({2, 1}), Pair({4, 0}) }};
+	                   bonds           = {{ Pair({0, 2}), Pair({2, 1}), Pair({4, 0}) }};
 	Sequence           sequence_3p_02  = Sequence("AUG");
 	float              energy_02       = -2.00;
 	Segment            segment_02      = Segment(segment_name_02, sequence_5p_02, bonds, sequence_3p_02, energy_02);
-	Position           segment_02_5p_s = sequence_5p_02.data.begin();
-	Position           segment_02_5p_e = sequence_5p_02.data.end() - 1;
-	Position           segment_02_3p_s = sequence_3p_02.data.begin();
-	Position           segment_02_3p_e = sequence_3p_02.data.end() - 1;
-	PairingPlus        segment_02_5p   = PairingPlus(segment_02_5p_s, segment_02_5p_e);
-	PairingPlus        segment_02_3p   = PairingPlus(segment_02_3p_s, segment_02_3p_e);
+	SubSequence        segment_02_5p   = SubSequence(sequence_5p_02.data.begin(), (sequence_5p_02.data.end() - 1));
+	SubSequence        segment_02_3p   = SubSequence(sequence_3p_02.data.begin(), (sequence_3p_02.data.end() - 1));
+	
+	// checks on initiazation
+	BOOST_REQUIRE(  sequence_5p_02.size() == 4);
+	BOOST_REQUIRE(*(sequence_5p_02.data.begin()+0) == Nucleotide::A);
+	BOOST_REQUIRE(*(sequence_5p_02.data.begin()+1) == Nucleotide::C);
+	BOOST_REQUIRE(*(sequence_5p_02.data.begin()+2) == Nucleotide::T);
+	BOOST_REQUIRE(*(sequence_5p_02.data.begin()+3) == Nucleotide::U);
+	BOOST_REQUIRE( (sequence_5p_02.data.begin()+3) == (sequence_5p_02.data.end() - 1));
+
+	BOOST_REQUIRE(  sequence_3p_02.size() == 3);
+	BOOST_REQUIRE(*(sequence_3p_02.data.begin()+0) == Nucleotide::A);
+	BOOST_REQUIRE(*(sequence_3p_02.data.begin()+1) == Nucleotide::U);
+	BOOST_REQUIRE(*(sequence_3p_02.data.begin()+2) == Nucleotide::G);
+	BOOST_REQUIRE( (sequence_3p_02.data.begin()+2) == (sequence_3p_02.data.end() - 1));
 	
 	
 	SegmentTreeElement element_01 = SegmentTreeElement(segment_01);
@@ -128,6 +138,7 @@ BOOST_AUTO_TEST_CASE(Test2)
 	Segment *segment_05 = element_02.search_segment(segment_01_5p, segment_01_3p);
 	Segment *segment_06 = element_02.search_segment(segment_02_5p, segment_02_3p);
 	
+	// checks on the SegmentTreeElement
 	BOOST_REQUIRE(segment_03 != nullptr);
 	BOOST_REQUIRE(segment_04 != nullptr);
 	BOOST_REQUIRE(segment_05 != nullptr);
@@ -161,8 +172,8 @@ BOOST_AUTO_TEST_CASE(Test3)
 	Position           segment_01_5p_e = sequence_5p_01.data.end() - 1;
 	Position           segment_01_3p_s = sequence_3p_01.data.begin();
 	Position           segment_01_3p_e = sequence_3p_01.data.end() - 1;
-	PairingPlus        segment_01_5p   = PairingPlus(segment_01_5p_s, segment_01_5p_e);
-	PairingPlus        segment_01_3p   = PairingPlus(segment_01_3p_s, segment_01_3p_e);
+	SubSequence        segment_01_5p   = SubSequence(segment_01_5p_s, segment_01_5p_e);
+	SubSequence        segment_01_3p   = SubSequence(segment_01_3p_s, segment_01_3p_e);
 	
 	//ACUUC
 	//:::
@@ -177,8 +188,8 @@ BOOST_AUTO_TEST_CASE(Test3)
 	Position           segment_02_5p_e = sequence_5p_02.data.end() - 1;
 	Position           segment_02_3p_s = sequence_3p_02.data.begin();
 	Position           segment_02_3p_e = sequence_3p_02.data.end() - 1;
-	PairingPlus        segment_02_5p   = PairingPlus(segment_02_5p_s, segment_02_5p_e);
-	PairingPlus        segment_02_3p   = PairingPlus(segment_02_3p_s, segment_02_3p_e);
+	SubSequence        segment_02_5p   = SubSequence(segment_02_5p_s, segment_02_5p_e);
+	SubSequence        segment_02_3p   = SubSequence(segment_02_3p_s, segment_02_3p_e);
 	
 	
 	SegmentTreeElement element_01 = SegmentTreeElement(segment_01);
@@ -225,8 +236,8 @@ BOOST_AUTO_TEST_CASE(Test4)
 	Position           segment_01_5p_e = sequence_5p_01.data.end() - 1;
 	Position           segment_01_3p_s = sequence_3p_01.data.begin();
 	Position           segment_01_3p_e = sequence_3p_01.data.end() - 1;
-	PairingPlus        segment_01_5p   = PairingPlus(segment_01_5p_s, segment_01_5p_e);
-	PairingPlus        segment_01_3p   = PairingPlus(segment_01_3p_s, segment_01_3p_e);
+	SubSequence        segment_01_5p   = SubSequence(segment_01_5p_s, segment_01_5p_e);
+	SubSequence        segment_01_3p   = SubSequence(segment_01_3p_s, segment_01_3p_e);
 	
 	//ACUUG
 	//:::
@@ -241,8 +252,8 @@ BOOST_AUTO_TEST_CASE(Test4)
 	Position           segment_02_5p_e = sequence_5p_02.data.end() - 1;
 	Position           segment_02_3p_s = sequence_3p_02.data.begin();
 	Position           segment_02_3p_e = sequence_3p_02.data.end() - 1;
-	PairingPlus        segment_02_5p   = PairingPlus(segment_02_5p_s, segment_02_5p_e);
-	PairingPlus        segment_02_3p   = PairingPlus(segment_02_3p_s, segment_02_3p_e);
+	SubSequence        segment_02_5p   = SubSequence(segment_02_5p_s, segment_02_5p_e);
+	SubSequence        segment_02_3p   = SubSequence(segment_02_3p_s, segment_02_3p_e);
 	
 	
 	SegmentTreeElement element_01 = SegmentTreeElement(segment_01);
@@ -288,8 +299,8 @@ BOOST_AUTO_TEST_CASE(Test5)
 	Position           segment_01_5p_e = sequence_5p_01.data.end() - 1;
 	Position           segment_01_3p_s = sequence_3p_01.data.begin();
 	Position           segment_01_3p_e = sequence_3p_01.data.end() - 1;
-	PairingPlus        segment_01_5p   = PairingPlus(segment_01_5p_s, segment_01_5p_e);
-	PairingPlus        segment_01_3p   = PairingPlus(segment_01_3p_s, segment_01_3p_e);
+	SubSequence        segment_01_5p   = SubSequence(segment_01_5p_s, segment_01_5p_e);
+	SubSequence        segment_01_3p   = SubSequence(segment_01_3p_s, segment_01_3p_e);
 	
 	//ACUUG
 	//:::
@@ -304,8 +315,8 @@ BOOST_AUTO_TEST_CASE(Test5)
 	Position           segment_02_5p_e = sequence_5p_02.data.end() - 1;
 	Position           segment_02_3p_s = sequence_3p_02.data.begin();
 	Position           segment_02_3p_e = sequence_3p_02.data.end() - 1;
-	PairingPlus        segment_02_5p   = PairingPlus(segment_02_5p_s, segment_02_5p_e);
-	PairingPlus        segment_02_3p   = PairingPlus(segment_02_3p_s, segment_02_3p_e);
+	SubSequence        segment_02_5p   = SubSequence(segment_02_5p_s, segment_02_5p_e);
+	SubSequence        segment_02_3p   = SubSequence(segment_02_3p_s, segment_02_3p_e);
 	
 	
 	SegmentTreeElement element_01 = SegmentTreeElement(segment_01);

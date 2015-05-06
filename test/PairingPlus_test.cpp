@@ -51,31 +51,35 @@ BOOST_AUTO_TEST_SUITE(Testing)
  */
 BOOST_AUTO_TEST_CASE(Test1)
 {
-	Sequence sequence = Sequence("ACUG");
-	Position a = sequence.data.begin();
-	Position c = sequence.data.begin() + 1;
-	Position u = sequence.data.begin() + 2;
-	Position g = sequence.data.begin() + 3;
+	Sequence sequence = Sequence("ACUGACUG");
+	Position a1 = sequence.data.begin() + 0;
+	Position c1 = sequence.data.begin() + 1;
+	Position u1 = sequence.data.begin() + 2;
+	Position g1 = sequence.data.begin() + 3;
+	Position a2 = sequence.data.begin() + 4;
+	Position c2 = sequence.data.begin() + 5;
+	Position u2 = sequence.data.begin() + 6;
+	Position g2 = sequence.data.begin() + 7;
 	
-	PairingPlus aa = PairingPlus(a, a);
-	PairingPlus ac = PairingPlus(a, c);
-	PairingPlus au = PairingPlus(a, u);// True canonical pair
-	PairingPlus ag = PairingPlus(a, g);
+	PairingPlus aa = PairingPlus(a1, a2);
+	PairingPlus ac = PairingPlus(a1, c2);
+	PairingPlus au = PairingPlus(a1, u2);// True canonical pair
+	PairingPlus ag = PairingPlus(a1, g2);
 	
-	PairingPlus ca = PairingPlus(c, a);
-	PairingPlus cc = PairingPlus(c, c);
-	PairingPlus cu = PairingPlus(c, u);
-	PairingPlus cg = PairingPlus(c, g);// True canonical pair
+	PairingPlus ca = PairingPlus(c1, a2);
+	PairingPlus cc = PairingPlus(c1, c2);
+	PairingPlus cu = PairingPlus(c1, u2);
+	PairingPlus cg = PairingPlus(c1, g2);// True canonical pair
 	
-	PairingPlus ua = PairingPlus(u, a);// True canonical pair
-	PairingPlus uc = PairingPlus(u, c);
-	PairingPlus uu = PairingPlus(u, u);
-	PairingPlus ug = PairingPlus(u, g);// True canonical pair
+	PairingPlus ua = PairingPlus(u1, a2);// True canonical pair
+	PairingPlus uc = PairingPlus(u1, c2);
+	PairingPlus uu = PairingPlus(u1, u2);
+	PairingPlus ug = PairingPlus(u1, g2);// True canonical pair
 	
-	PairingPlus ga = PairingPlus(g, a);
-	PairingPlus gc = PairingPlus(g, c);// True canonical pair
-	PairingPlus gu = PairingPlus(g, u);// True canonical pair
-	PairingPlus gg = PairingPlus(g, g);
+	PairingPlus ga = PairingPlus(g1, a2);
+	PairingPlus gc = PairingPlus(g1, c2);// True canonical pair
+	PairingPlus gu = PairingPlus(g1, u2);// True canonical pair
+	PairingPlus gg = PairingPlus(g1, g2);
 	
 	BOOST_CHECK(gc.is_canonical());
 	BOOST_CHECK(cg.is_canonical());

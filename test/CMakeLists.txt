@@ -51,8 +51,8 @@ add_executable(position_test           Position_test.cpp ../src/Sequence.cpp)
 add_executable(sequence_test           Sequence_test.cpp ../src/Sequence.cpp)
 add_executable(pairingplus_test        PairingPlus_test.cpp ../src/Sequence.cpp ../src/PairingPlus.cpp)
 add_executable(segment_test            Segment_test.cpp ../src/Segment.cpp ../src/Sequence.cpp)
-add_executable(segmenttreeelement_test SegmentTreeElement_test.cpp ../src/SegmentTreeElement.cpp ../src/Segment.cpp ../src/Sequence.cpp  ../src/PairingPlus.cpp)
-add_executable(segmenttree_test        SegmentTree_test.cpp ../src/SegmentTree.cpp ../src/SegmentTreeElement.cpp ../src/Segment.cpp ../src/Sequence.cpp ../src/PairingPlus.cpp)
+add_executable(segmenttreeelement_test SegmentTreeElement_test.cpp ../src/SegmentTreeElement.cpp ../src/Segment.cpp ../src/Sequence.cpp  ../src/SubSequence.cpp)
+add_executable(segmenttree_test        SegmentTree_test.cpp ../src/SegmentTree.cpp ../src/SegmentTreeElement.cpp ../src/Segment.cpp ../src/Sequence.cpp ../src/SubSequence.cpp)
 
 set_target_properties(direction_test
                       dotbracket_test

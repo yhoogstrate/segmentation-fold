@@ -35,7 +35,7 @@
 #include "Direction.hpp"
 #include "Nucleotide.hpp"
 #include "Position.hpp"
-#include "PairingPlus.hpp"
+#include "SubSequence.hpp"
 
 #include "Sequence.hpp"
 #include "Segment.hpp"
@@ -278,12 +278,12 @@ void SegmentTreeElement::add_segment(Segment &arg_segment, char &arg_search_type
  * 
  * @todo use constants or static enum for cases 1, 2, 3 and 4
  */
-Segment *SegmentTreeElement::search_segment(PairingPlus &arg_sequence_5p, PairingPlus &arg_sequence_3p)
+Segment *SegmentTreeElement::search_segment(SubSequence &arg_sequence_5p, SubSequence &arg_sequence_3p)
 {
 	char search_type = 1;
 	return this->search_segment(arg_sequence_5p, arg_sequence_3p, search_type);
 }
-Segment *SegmentTreeElement::search_segment(PairingPlus &arg_sequence_5p, PairingPlus &arg_sequence_3p, char &arg_search_type)
+Segment *SegmentTreeElement::search_segment(SubSequence &arg_sequence_5p, SubSequence &arg_sequence_3p, char &arg_search_type)
 {
 	Segment *m = nullptr;
 	unsigned int i;
@@ -294,7 +294,6 @@ Segment *SegmentTreeElement::search_segment(PairingPlus &arg_sequence_5p, Pairin
 	switch(arg_search_type)
 	{
 		case 1:///@todo use static constants for these cases
-		
 			if(this->segment.size(Direction::FivePrime) > arg_sequence_5p.size)
 			{
 				if(this->link_5p_size_smaller != nullptr)

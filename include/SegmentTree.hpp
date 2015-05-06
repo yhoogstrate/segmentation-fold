@@ -30,7 +30,7 @@
 #define	SEGMENTTREE_HPP
 
 
-#include "PairingPlus.hpp"
+#include "SubSequence.hpp"
 
 
 /**
@@ -52,7 +52,7 @@ class SegmentTree
 		
 		void insert(Segment &arg_segment);
 		
-		Segment *search(PairingPlus &arg_segment5p, PairingPlus &arg_segment3p);
+		Segment *search(SubSequence &arg_segment5p, SubSequence &arg_segment3p);
 		
 		bool empty(void);
 		size_t size(void);

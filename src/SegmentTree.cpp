@@ -35,7 +35,7 @@
 #include "Direction.hpp"
 #include "Nucleotide.hpp"
 #include "Position.hpp"
-#include "PairingPlus.hpp"
+#include "SubSequence.hpp"
 #include "Sequence.hpp"
 
 #include "Segment.hpp"
@@ -73,7 +73,7 @@ SegmentTree::~SegmentTree()
  *
  * @date 2015-05-02
  */
-Segment *SegmentTree::search(PairingPlus &arg_segment5p, PairingPlus &arg_segment3p)
+Segment *SegmentTree::search(SubSequence &arg_segment5p, SubSequence &arg_segment3p)
 {
 	return (this->empty()) ? nullptr : this->root->search_segment(arg_segment5p, arg_segment3p);
 }

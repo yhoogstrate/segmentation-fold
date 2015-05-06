@@ -30,6 +30,7 @@
 #ifndef SEGMENTTREEELEMENT_HPP
 #define	SEGMENTTREEELEMENT_HPP
 
+#include "SubSequence.hpp"
 
 /**
  * @brief Tree element for fast searching, and contains a reference to the segment object.
@@ -55,14 +56,14 @@ class SegmentTreeElement
 		SegmentTreeElement *link_3p_segment_larger;
 		
 		void add_segment(Segment &arg_segment, char &arg_search_type);
-		Segment *search_segment(PairingPlus &arg_sequence_5p, PairingPlus &arg_sequence_3p, char &arg_search_type);
+		Segment *search_segment(SubSequence &arg_sequence_5p, SubSequence &arg_sequence_3p, char &arg_search_type);
 		
 	public:
 		SegmentTreeElement(Segment &arg_segment);
 		~SegmentTreeElement(void);
 		
 		void add_segment(Segment &arg_segment);
-		Segment *search_segment(PairingPlus &arg_sequence_5p, PairingPlus &arg_sequence_3p);
+		Segment *search_segment(SubSequence &arg_sequence_5p, SubSequence &arg_sequence_3p);
 		
 		size_t size(void);
 };

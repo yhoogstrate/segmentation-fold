@@ -1,3 +1,7 @@
+2015-05-06  Youri Hoogstrate
+	* Added SubSequence and made SegmentTree compatible with it rather than the PairingPlus
+	* Added DEBUG tests to PairingPlus
+
 2015-05-02  Youri Hoogstrate
 	* Added PairingPlus code, test and datetypes.
 	* Added SegmentTree and SegmentTree code
