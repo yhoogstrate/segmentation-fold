@@ -1,6 +1,6 @@
 # @file test/CMakeLists.txt
 #
-# @date 2015-05-02
+# @date 2015-06-04
 #
 # @author Youri Hoogstrate
 #
@@ -53,6 +53,7 @@ add_executable(pairingplus_test        PairingPlus_test.cpp ../src/Sequence.cpp 
 add_executable(segment_test            Segment_test.cpp ../src/Segment.cpp ../src/Sequence.cpp)
 add_executable(segmenttreeelement_test SegmentTreeElement_test.cpp ../src/SegmentTreeElement.cpp ../src/Segment.cpp ../src/Sequence.cpp  ../src/SubSequence.cpp)
 add_executable(segmenttree_test        SegmentTree_test.cpp ../src/SegmentTree.cpp ../src/SegmentTreeElement.cpp ../src/Segment.cpp ../src/Sequence.cpp ../src/SubSequence.cpp)
+add_executable(readsegments_test       ReadSegments_test.cpp ../src/ReadSegments.cpp ../src/SegmentTree.cpp ../src/SegmentTreeElement.cpp ../src/Segment.cpp ../src/Sequence.cpp ../src/PairingPlus.cpp ../src/SubSequence.cpp)
 
 set_target_properties(direction_test
                       dotbracket_test
@@ -63,4 +64,5 @@ set_target_properties(direction_test
                       segment_test
                       segmenttreeelement_test
                       segmenttree_test
+                      readsegments_test
                                       PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${BUILD_TEST_DIR}")
