@@ -123,7 +123,7 @@ void ScoringTree<T_key, T_value>::insert(T_key arg_key, T_value &arg_value, Scor
 #if DEBUG
 	else
 	{
-		// The algorithm should never insert a segment ort a score at the same Pair twice
+		// The algorithm should never insert a segment or a score at the same Pair twice
 		throw std::invalid_argument("ScoringTree::ScoringTree(): Trying to overwrite a ScringTree element.\n");
 	}
 #endif //DEBUG
@@ -132,7 +132,7 @@ void ScoringTree<T_key, T_value>::insert(T_key arg_key, T_value &arg_value, Scor
 
 
 /**
- * @brief
+ * @brief Root of searching
  * 
  * @date 2015-05-02
  */
@@ -144,6 +144,11 @@ T_value *ScoringTree<T_key, T_value>::search(T_key &arg_key)
 
 
 
+/**
+ * @brief Searches whether key exists
+ * 
+ * @date 2015-05-02
+ */
 template <class T_key, class T_value>
 T_value *ScoringTree<T_key, T_value>::search(T_key &arg_key, ScoringTreeElement<T_key, T_value> *arg_parent)
 {
@@ -170,6 +175,11 @@ T_value *ScoringTree<T_key, T_value>::search(T_key &arg_key, ScoringTreeElement<
 
 
 
+/**
+ * @brief Clears tree from the root
+ * 
+ * @date 2015-05-02
+ */
 template <class T_key, class T_value>
 void ScoringTree<T_key, T_value>::clear()
 {
@@ -178,6 +188,11 @@ void ScoringTree<T_key, T_value>::clear()
 
 
 
+/**
+ * @brief Clears tree from a given element
+ * 
+ * @date 2015-05-02
+ */
 template <class T_key, class T_value>
 void ScoringTree<T_key, T_value>::clear(ScoringTreeElement<T_key, T_value> *arg_parent)
 {
