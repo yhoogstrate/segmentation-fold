@@ -1,5 +1,6 @@
 2015-06-04  Youri Hoogstrate
-	* Added ReadSegments
+	* Added ScoringTree and tests
+	* Added ReadSegments and tests
 
 2015-05-06  Youri Hoogstrate
 	* Added SubSequence and made SegmentTree compatible with it rather than the PairingPlus
