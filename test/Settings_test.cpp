@@ -184,4 +184,36 @@ BOOST_AUTO_TEST_CASE(Test3)
 		BOOST_CHECK_EQUAL(settings.segment_prediction_functionality , false);
 	}
 }
+
+
+/**
+ * @brief Tests whether correct segment xml file is chosen (-x)
+ *
+ * @test
+ *
+ * @date 2015-06-05
+ */
+BOOST_AUTO_TEST_CASE(Test4)
+{
+	Sequence sequence;
+	int argc;
+	
+	{
+		// Check example file
+		char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", (char *) "-p", (char *) "share/segmentation-fold/" MOTIFS_FILE, nullptr};
+		argc = sizeof(argv) / sizeof(char *) - 1;
+		
+		Settings settings = Settings(argc, argv, sequence);
+		
+		BOOST_CHECK_EQUAL(settings.segment_filename , "share/segmentation-fold/" MOTIFS_FILE);
+	}
+	
+	{
+		// Check non existing file
+		char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", (char *) "-x", (char *) "/dev/null/neverexist", nullptr};
+		argc = sizeof(argv) / sizeof(char *) - 1;
+		
+		BOOST_CHECK_THROW(Settings settings = Settings(argc, argv, sequence), std::invalid_argument);
+	}
+}
 BOOST_AUTO_TEST_SUITE_END()
