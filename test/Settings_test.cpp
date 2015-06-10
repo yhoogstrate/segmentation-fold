@@ -1,7 +1,7 @@
 /**
  * @file test/Settings_test.cpp
  *
- * @date 2014-04-20
+ * @date 2015-06-05
  *
  * @author Youri Hoogstrate
  *
@@ -199,13 +199,32 @@ BOOST_AUTO_TEST_CASE(Test4)
 	int argc;
 	
 	{
-		// Check example file
-		char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", (char *) "-p", (char *) "share/segmentation-fold/" MOTIFS_FILE, nullptr};
+		// Check default file
+		char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", nullptr};
 		argc = sizeof(argv) / sizeof(char *) - 1;
 		
 		Settings settings = Settings(argc, argv, sequence);
 		
 		BOOST_CHECK_EQUAL(settings.segment_filename , "share/segmentation-fold/" MOTIFS_FILE);
+	}
+	
+	{
+		// Check created tmp file
+		std::string filename = "tmp.settings_test_test4";
+		
+		std::ofstream myfile;
+		myfile.open(filename.c_str());
+		myfile <<   "<?xml version=\"1.0\" encoding=\"UTF-8\"?><root>\n</root>\n";
+		myfile.close();
+		
+		char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", (char *) "-x", (char *) "tmp.settings_test_test4", nullptr};
+		argc = sizeof(argv) / sizeof(char *) - 1;
+		
+		Settings settings = Settings(argc, argv, sequence);
+		
+		BOOST_CHECK_EQUAL(settings.segment_filename , "tmp.settings_test_test4");
+		
+		unlink(filename.c_str());
 	}
 	
 	{
