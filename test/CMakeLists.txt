@@ -1,6 +1,6 @@
 # @file test/CMakeLists.txt
 #
-# @date 2015-06-04
+# @date 2015-06-19
 #
 # @author Youri Hoogstrate
 #
@@ -32,7 +32,7 @@
 cmake_minimum_required(VERSION 2.8)
 
 include_directories(../include)
-add_definitions(-std=c++11)
+add_definitions(-std=c++0x)
 
 find_package(Boost COMPONENTS system filesystem unit_test_framework REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})

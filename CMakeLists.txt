@@ -1,6 +1,6 @@
 # @file CMakeLists.txt
 #
-# @date 2015-06-04
+# @date 2015-06-19
 #
 # @author Youri Hoogstrate
 #
@@ -129,7 +129,7 @@ add_custom_target(doc DEPENDS make_doc)
 
 add_subdirectory(src)
 include_directories(include)
-add_definitions(-std=c++11)
+add_definitions(-std=c++0x)
 
 # ----------------------------------------------------------------------
 # ------------------------------ Testing -------------------------------

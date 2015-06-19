@@ -1,3 +1,6 @@
+2015-06-19  Youri Hoogstrate
+	* Changed to a more robust definition of the c++11 standard: c++0x
+
 2015-06-04  Youri Hoogstrate
 	* Added ScoringTree and tests
 	* Added ReadSegments and tests
