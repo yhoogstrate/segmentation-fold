@@ -6,7 +6,7 @@
 #
 # @section DESCRIPTION
 # This CMakefile contains the description of compilance of the tool
-# segmentation-fold as well as building several unit- # and functional
+# segmentation-fold as well as building several unit and functional
 # tests. By running 'cmake .' followed by the 'make check' command, the
 # software can simply be checked for (new) introduced mistakes.
 #
