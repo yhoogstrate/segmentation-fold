@@ -2,11 +2,13 @@ language: cpp
 
 compiler:
   - gcc
-  - clang
 
 before_script:
   - sudo apt-get update -qq
-  - sudo apt-get install -qq libboost-filesystem-dev libboost-test-dev
+
+install:
+  - sudo apt-get install -qq libboost-filesystem-dev libboost-test-dev g++-4.8
+  - export CXX="g++-4.8"
   - cmake .
   - make
 

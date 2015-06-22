@@ -55,8 +55,3 @@ struct ScoringTreeElement
 
 
 #endif	// SCORINGTREEELEMENT_HPP
-
-
-// Explicit instantiation:
-template struct ScoringTreeElement<Pair, unsigned int>;
-template struct ScoringTreeElement<Pair, Segment>;
