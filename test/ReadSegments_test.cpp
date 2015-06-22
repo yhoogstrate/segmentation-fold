@@ -1,7 +1,7 @@
 /**
  * @file test/ReadSegments_test.cpp
  *
- * @date 2015-06-04
+ * @date 2015-06-22
  *
  * @author Youri Hoogstrate
  *
@@ -296,7 +296,7 @@ BOOST_AUTO_TEST_CASE(Test4)
 /**
  * @brief checks whether parsing a custom file succeeds
  *
- * @date 2015-06-04
+ * @date 2015-06-22
  * 
  * @test
  */
@@ -621,7 +621,7 @@ BOOST_AUTO_TEST_CASE(Test5)
 	SegmentTree segment_tree;
 	ReadSegments r = ReadSegments(filename, segment_tree);
 	
-	int n = 61;
+	const int n = 61;
 	int i = 0;
 	
 	BOOST_CHECK_EQUAL(segment_tree.empty() , false);
