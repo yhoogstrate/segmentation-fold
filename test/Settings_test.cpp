@@ -61,7 +61,7 @@
 BOOST_AUTO_TEST_SUITE(Testing)
 
 /**
- * @brief Tests whether a sequence can be obtained from argv correctly
+ * @brief Tests whether a sequence can be obtained from argv correctly (-s)
  *
  * @test
  *
@@ -107,9 +107,9 @@ BOOST_AUTO_TEST_CASE(Test1)
  * @brief Tests whether a FASTA file can be parsed correctly (-f)
  *
  * @test
- * 
+ *
  * @date 2015-06-22
- * 
+ *
  * @todo Implement the possibility to run multiple entries from a FASTA file
  */
 BOOST_AUTO_TEST_CASE(Test2)
@@ -159,51 +159,13 @@ BOOST_AUTO_TEST_CASE(Test2)
 }
 
 /**
- * @brief Tests whether the minimal hairpin-size can be set (-h)
- *
- * @test
- *
- * @date 2015-06-05
- */
-BOOST_AUTO_TEST_CASE(Test3)
-{
-	Sequence sequence;
-	int argc;
-	std::string is;
-	
-	
-	// Check default value
-	char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", nullptr};
-	argc = sizeof(argv) / sizeof(char *) - 1;
-	
-	Settings settings = Settings(argc, argv, sequence);
-	
-	BOOST_CHECK_EQUAL(settings.minimal_hairpin_length  , 3);
-	
-	
-	// Check argumented values
-	for(signed int i = 0; i < 100; i ++)
-	{
-		is = std::to_string(i);
-		char *ics = (char *) is.c_str();
-		
-		char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", (char *) "-h", (char *) ics, nullptr};
-		argc = sizeof(argv) / sizeof(char *) - 1;
-		
-		Settings settings = Settings(argc, argv, sequence);
-		
-		BOOST_CHECK_MESSAGE(settings.minimal_hairpin_length  == i, "Failed to obtain min_hairpin_size of " << i);
-	}
-}
-
-/**
  * @brief Tests whether segment functionality can be en/disabled (-p)
  *
  * @test
  *
  * @date 2015-06-05
  */
-BOOST_AUTO_TEST_CASE(Test4)
+BOOST_AUTO_TEST_CASE(Test3)
 {
 	Sequence sequence;
 	int argc;
@@ -240,6 +202,43 @@ BOOST_AUTO_TEST_CASE(Test4)
 	}
 }
 
+/**
+ * @brief Tests whether the minimal hairpin-size can be set (-h)
+ *
+ * @test
+ *
+ * @date 2015-06-05
+ */
+BOOST_AUTO_TEST_CASE(Test4)
+{
+	Sequence sequence;
+	int argc;
+	std::string is;
+	
+	
+	// Check default value
+	char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", nullptr};
+	argc = sizeof(argv) / sizeof(char *) - 1;
+	
+	Settings settings = Settings(argc, argv, sequence);
+	
+	BOOST_CHECK_EQUAL(settings.minimal_hairpin_length  , 3);
+	
+	
+	// Check argumented values
+	for(signed int i = 0; i < 100; i ++)
+	{
+		is = std::to_string(i);
+		char *ics = (char *) is.c_str();
+		
+		char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", (char *) "-h", (char *) ics, nullptr};
+		argc = sizeof(argv) / sizeof(char *) - 1;
+		
+		Settings settings = Settings(argc, argv, sequence);
+		
+		BOOST_CHECK_MESSAGE(settings.minimal_hairpin_length  == i, "Failed to obtain min_hairpin_size of " << i);
+	}
+}
 
 /**
  * @brief Tests whether correct segment xml file is chosen (-x)
@@ -269,6 +268,72 @@ BOOST_AUTO_TEST_CASE(Test5)
 		argc = sizeof(argv) / sizeof(char *) - 1;
 		
 		BOOST_CHECK_THROW(Settings settings = Settings(argc, argv, sequence), std::invalid_argument);
+	}
+}
+
+/**
+ * @brief Tests whether the version command is being picked up (-V)
+ *
+ * @test
+ *
+ * @date 2015-06-22
+ */
+BOOST_AUTO_TEST_CASE(Test6)
+{
+	Sequence sequence;
+	int argc;
+	
+	{
+		// Check example file
+		char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", nullptr};
+		argc = sizeof(argv) / sizeof(char *) - 1;
+		
+		Settings settings = Settings(argc, argv, sequence);
+		
+		BOOST_CHECK_EQUAL(settings.run_print_version , false);
+	}
+	
+	{
+		// Check non existing file
+		char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", (char *) "-V", nullptr};
+		argc = sizeof(argv) / sizeof(char *) - 1;
+		
+		Settings settings = Settings(argc, argv, sequence);
+		
+		BOOST_CHECK_EQUAL(settings.run_print_version , true);
+	}
+}
+
+/**
+ * @brief Tests whether the version command is being picked up (--help)
+ *
+ * @test
+ *
+ * @date 2015-06-22
+ */
+BOOST_AUTO_TEST_CASE(Test7)
+{
+	Sequence sequence;
+	int argc;
+	
+	{
+		// Check example file
+		char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", nullptr};
+		argc = sizeof(argv) / sizeof(char *) - 1;
+		
+		Settings settings = Settings(argc, argv, sequence);
+		
+		BOOST_CHECK_EQUAL(settings.run_print_usage , false);
+	}
+	
+	{
+		// Check non existing file
+		char *argv[] = { (char *) PACKAGE_NAME, (char *) "--help", nullptr};
+		argc = sizeof(argv) / sizeof(char *) - 1;
+		
+		Settings settings = Settings(argc, argv, sequence);
+		
+		BOOST_CHECK_EQUAL(settings.run_print_usage , true);
 	}
 }
 BOOST_AUTO_TEST_SUITE_END()

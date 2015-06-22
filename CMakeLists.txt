@@ -151,6 +151,7 @@ add_test(segment_test            "${BUILD_TEST_DIR}/segment_test")
 add_test(segmenttreeelement_test "${BUILD_TEST_DIR}/segmenttreeelement_test")
 add_test(segmenttree_test        "${BUILD_TEST_DIR}/segmenttree_test")
 add_test(readsegments_test       "${BUILD_TEST_DIR}/readsegments_test")
+#add_test(settings_test           "${BUILD_TEST_DIR}/settings_test")
 add_test(scoringtree_test        "${BUILD_TEST_DIR}/scoringtree_test")
 
 # ----------------------------------------------------------------------

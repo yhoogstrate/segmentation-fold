@@ -1,4 +1,7 @@
 2015-06-22  Youri Hoogstrate
+	* Added Setting object files
+	* Added a test to validate parsing the '--help' argument
+	* Added a test to validate parsing the '-V' argument
 	* Added a test to validate parsing the '-f' argument
 	* Changed variable in test/ReadSegments_test.cpp to const
 	* Configuration for Travis CI

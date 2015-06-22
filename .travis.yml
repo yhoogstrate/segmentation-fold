@@ -24,3 +24,11 @@ addons:
     - clang
 
 script: make test
+
+notifications:
+  email: false
+
+# whitelist
+branches:
+  only:
+    - master
