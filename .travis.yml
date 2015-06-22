@@ -6,7 +6,7 @@ compiler:
 
 install:
   - sudo apt-get update -qq
-  - sudo apt-get install -qq libboost-filesystem-dev libboost-test-dev
+#  - sudo apt-get install -qq libboost-filesystem-dev libboost-test-dev
   - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
   - cmake .
   - make
@@ -20,5 +20,6 @@ addons:
     - gcc-4.8
     - g++-4.8
     - clang
+    - libboost-all-dev
 
 script: make test
