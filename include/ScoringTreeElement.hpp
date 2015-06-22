@@ -58,5 +58,5 @@ struct ScoringTreeElement
 
 
 // Explicit instantiation:
-template class ScoringTreeElement<Pair, unsigned int>;
-template class ScoringTreeElement<Pair, Segment>;
+template struct ScoringTreeElement<Pair, unsigned int>;
+template struct ScoringTreeElement<Pair, Segment>;
