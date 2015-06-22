@@ -1,5 +1,5 @@
 2015-06-22  Youri Hoogstrate
-	* Changed variable i n test/ReadSegments_test.cpp to const
+	* Changed variable in test/ReadSegments_test.cpp to const
 	* Configuration for Travis CI
 
 2015-06-19  Youri Hoogstrate

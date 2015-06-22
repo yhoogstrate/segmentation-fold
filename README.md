@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/yhoogstrate/segmentation-fold.svg?branch=master)](https://travis-ci.org/yhoogstrate/segmentation-fold)
 ___
 
 	 _______  _______  _______  _______  _______  _       _________ _______ __________________ _______  _       
