@@ -1,7 +1,7 @@
 /**
  * @file test/Settings_test.cpp
  *
- * @date 2015-06-05
+ * @date 2015-06-22
  *
  * @author Youri Hoogstrate
  *
@@ -104,13 +104,68 @@ BOOST_AUTO_TEST_CASE(Test1)
 }
 
 /**
+ * @brief Tests whether a FASTA file can be parsed correctly (-f)
+ *
+ * @test
+ * 
+ * @date 2015-06-22
+ * 
+ * @todo Implement the possibility to run multiple entries from a FASTA file
+ */
+BOOST_AUTO_TEST_CASE(Test2)
+{
+	std::string filename = "tmp.settings_test_test2";
+	
+	std::ofstream myfile;
+	myfile.open(filename.c_str());
+	myfile <<   "\n\n  \n>some_sequence\nACTG\nactg\nACUG\nacug\n\n>next seq\nacgtgactgac\n";
+	myfile.close();
+	
+	
+	char *argv[] = { (char *) PACKAGE_NAME, (char *) "-f", (char *) filename.c_str(), nullptr};
+	int argc = sizeof(argv) / sizeof(char *) - 1;
+	
+	Sequence sequence;
+	
+	Settings settings = Settings(argc, argv, sequence);
+	
+	BOOST_REQUIRE_EQUAL(sequence.size() , 16);
+	
+	int i = 0;
+	
+	BOOST_CHECK_EQUAL(sequence[i++], Nucleotide::A);
+	BOOST_CHECK_EQUAL(sequence[i++], Nucleotide::C);
+	BOOST_CHECK_EQUAL(sequence[i++], Nucleotide::U);
+	BOOST_CHECK_EQUAL(sequence[i++], Nucleotide::G);
+	
+	BOOST_CHECK_EQUAL(sequence[i++], Nucleotide::A);
+	BOOST_CHECK_EQUAL(sequence[i++], Nucleotide::C);
+	BOOST_CHECK_EQUAL(sequence[i++], Nucleotide::U);
+	BOOST_CHECK_EQUAL(sequence[i++], Nucleotide::G);
+	
+	BOOST_CHECK_EQUAL(sequence[i++], Nucleotide::A);
+	BOOST_CHECK_EQUAL(sequence[i++], Nucleotide::C);
+	BOOST_CHECK_EQUAL(sequence[i++], Nucleotide::U);
+	BOOST_CHECK_EQUAL(sequence[i++], Nucleotide::G);
+	
+	BOOST_CHECK_EQUAL(sequence[i++], Nucleotide::A);
+	BOOST_CHECK_EQUAL(sequence[i++], Nucleotide::C);
+	BOOST_CHECK_EQUAL(sequence[i++], Nucleotide::U);
+	BOOST_CHECK_EQUAL(sequence[i++], Nucleotide::G);
+	
+	BOOST_CHECK(sequence == Sequence("ACTGactgACUGacug"));
+	
+	unlink(filename.c_str());
+}
+
+/**
  * @brief Tests whether the minimal hairpin-size can be set (-h)
  *
  * @test
  *
  * @date 2015-06-05
  */
-BOOST_AUTO_TEST_CASE(Test2)
+BOOST_AUTO_TEST_CASE(Test3)
 {
 	Sequence sequence;
 	int argc;
@@ -142,13 +197,13 @@ BOOST_AUTO_TEST_CASE(Test2)
 }
 
 /**
- * @brief Tests whether segment functionality can be en/disabled (-k)
+ * @brief Tests whether segment functionality can be en/disabled (-p)
  *
  * @test
  *
  * @date 2015-06-05
  */
-BOOST_AUTO_TEST_CASE(Test3)
+BOOST_AUTO_TEST_CASE(Test4)
 {
 	Sequence sequence;
 	int argc;
@@ -193,38 +248,19 @@ BOOST_AUTO_TEST_CASE(Test3)
  *
  * @date 2015-06-05
  */
-BOOST_AUTO_TEST_CASE(Test4)
+BOOST_AUTO_TEST_CASE(Test5)
 {
 	Sequence sequence;
 	int argc;
 	
 	{
-		// Check default file
-		char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", nullptr};
+		// Check example file
+		char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", (char *) "-p", (char *) "share/segmentation-fold/" MOTIFS_FILE, nullptr};
 		argc = sizeof(argv) / sizeof(char *) - 1;
 		
 		Settings settings = Settings(argc, argv, sequence);
 		
 		BOOST_CHECK_EQUAL(settings.segment_filename , "share/segmentation-fold/" MOTIFS_FILE);
-	}
-	
-	{
-		// Check created tmp file
-		std::string filename = "tmp.settings_test_test4";
-		
-		std::ofstream myfile;
-		myfile.open(filename.c_str());
-		myfile <<   "<?xml version=\"1.0\" encoding=\"UTF-8\"?><root>\n</root>\n";
-		myfile.close();
-		
-		char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", (char *) "-x", (char *) "tmp.settings_test_test4", nullptr};
-		argc = sizeof(argv) / sizeof(char *) - 1;
-		
-		Settings settings = Settings(argc, argv, sequence);
-		
-		BOOST_CHECK_EQUAL(settings.segment_filename , "tmp.settings_test_test4");
-		
-		unlink(filename.c_str());
 	}
 	
 	{

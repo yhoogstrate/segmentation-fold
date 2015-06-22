@@ -84,7 +84,7 @@ BOOST_AUTO_TEST_CASE(Test3)
 {
 	DotBracket db = DotBracket();
 	
-	std::string dot_bracket_pattern = ".(((\?\?\?\?\?\?\?\?\?\?)))..()";
+	std::string dot_bracket_pattern = ".(((\?\?\?\?\?\?\?\?\?\?)))..()";///@note Question marks are neccesairy because they will be interpreted as some binary flags otherwise
 	std::string dot_bracket_subject = ".(((()..(..()))))..()";
 	
 	BOOST_CHECK_MESSAGE(db.match(dot_bracket_pattern, dot_bracket_subject), "DotBracket pattern '" << dot_bracket_pattern << "' doesn't match subject '" << dot_bracket_subject << "'");

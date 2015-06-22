@@ -1,4 +1,5 @@
 2015-06-22  Youri Hoogstrate
+	* Added a test to validate parsing the '-f' argument
 	* Changed variable in test/ReadSegments_test.cpp to const
 	* Configuration for Travis CI
 
