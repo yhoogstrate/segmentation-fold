@@ -1,5 +1,5 @@
 /**
- * @date 2014-04-20
+ * @date 2015-06-22
  *
  * @file include/ScoringTreeElement.hpp
  *
@@ -38,7 +38,11 @@
 #ifndef SCORINGTREEELEMENT_HPP
 #define	SCORINGTREEELEMENT_HPP
 
-
+/**
+ * @brief Tree element for ScoringTree
+ * 
+ * @date 2014-04-20
+ */
 template<class T_key, class T_value>
 struct ScoringTreeElement
 {
@@ -52,3 +56,7 @@ struct ScoringTreeElement
 
 #endif	// SCORINGTREEELEMENT_HPP
 
+
+// Explicit instantiation:
+template class ScoringTreeElement<Pair, unsigned int>;
+template class ScoringTreeElement<Pair, Segment>;
