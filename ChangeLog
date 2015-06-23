@@ -1,5 +1,11 @@
+2015-06-23  Youri Hoogstrate
+	* Textual changes
+	* Fixed two bugs in Settings
+	* Added ReadData object files
+	* Enabled testing of Settings objects
+
 2015-06-22  Youri Hoogstrate
-	* Added Setting object files
+	* Added Settings object files
 	* Added a test to validate parsing the '--help' argument
 	* Added a test to validate parsing the '-V' argument
 	* Added a test to validate parsing the '-f' argument

@@ -1,7 +1,7 @@
 /**
  * @file include/Settings.hpp
  *
- * @date 2015-06-22
+ * @date 2014-04-17
  *
  * @author Youri Hoogstrate
  * @author Lisa Yu

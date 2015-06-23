@@ -1,6 +1,6 @@
 # @file CMakeLists.txt
 #
-# @date 2015-06-19
+# @date 2015-06-23
 #
 # @author Youri Hoogstrate
 #
@@ -39,7 +39,7 @@ set(PROJECT_VERSION "1.0.0")
 set(PACKAGE_URL "https://github.com/yhoogstrate/segmentation-fold")
 set(PACKAGE_BUGREPORT "${PACKAGE_URL}/issues")
 
-set(MOTIFS_FILE "motifs.xml")
+set(SEGMENTS_FILE "segments.xml")
 
 set(BUILD_DIR "build")
 set(BUILD_TEST_DIR "${BUILD_DIR}/test")
@@ -151,7 +151,7 @@ add_test(segment_test            "${BUILD_TEST_DIR}/segment_test")
 add_test(segmenttreeelement_test "${BUILD_TEST_DIR}/segmenttreeelement_test")
 add_test(segmenttree_test        "${BUILD_TEST_DIR}/segmenttree_test")
 add_test(readsegments_test       "${BUILD_TEST_DIR}/readsegments_test")
-#add_test(settings_test           "${BUILD_TEST_DIR}/settings_test")
+add_test(settings_test           "${BUILD_TEST_DIR}/settings_test")
 add_test(scoringtree_test        "${BUILD_TEST_DIR}/scoringtree_test")
 
 # ----------------------------------------------------------------------

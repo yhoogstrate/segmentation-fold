@@ -1,6 +1,6 @@
 # @file test/CMakeLists.txt
 #
-# @date 2015-06-19
+# @date 2015-06-23
 #
 # @author Youri Hoogstrate
 #
@@ -54,7 +54,7 @@ add_executable(segment_test            Segment_test.cpp ../src/Segment.cpp ../sr
 add_executable(segmenttreeelement_test SegmentTreeElement_test.cpp ../src/SegmentTreeElement.cpp ../src/Segment.cpp ../src/Sequence.cpp  ../src/SubSequence.cpp)
 add_executable(segmenttree_test        SegmentTree_test.cpp ../src/SegmentTree.cpp ../src/SegmentTreeElement.cpp ../src/Segment.cpp ../src/Sequence.cpp ../src/SubSequence.cpp)
 add_executable(readsegments_test       ReadSegments_test.cpp ../src/ReadSegments.cpp ../src/SegmentTree.cpp ../src/SegmentTreeElement.cpp ../src/Segment.cpp ../src/Sequence.cpp ../src/PairingPlus.cpp ../src/SubSequence.cpp)
-#add_executable(settings_test           Settings_test.cpp ../src/Settings.cpp ../src/Utils/file_exists.cpp ../src/SegmentTree.cpp ../src/SegmentTreeElement.cpp ../src/Segment.cpp ../src/Sequence.cpp ../src/SubSequence.cpp)
+add_executable(settings_test           Settings_test.cpp ../src/Settings.cpp ../src/Utils/file_exists.cpp ../src/SegmentTree.cpp ../src/SegmentTreeElement.cpp ../src/Segment.cpp ../src/Sequence.cpp ../src/SubSequence.cpp)
 add_executable(scoringtree_test        ScoringTree_test.cpp ../src/ScoringTree.cpp ../src/Segment.cpp ../src/Sequence.cpp)
 
 set_target_properties(direction_test
@@ -67,5 +67,6 @@ set_target_properties(direction_test
                       segmenttreeelement_test
                       segmenttree_test
                       readsegments_test
+                      settings_test
                       scoringtree_test
                                       PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${BUILD_TEST_DIR}")

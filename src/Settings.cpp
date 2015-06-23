@@ -1,7 +1,7 @@
 /**
  * @file src/Settings.cpp
  *
- * @date 2015-06-22
+ * @date 2015-06-23
  *
  * @author Youri Hoogstrate
  * @author Lisa Yu
@@ -92,7 +92,7 @@ void Settings::print_usage(void)
 	fprintf(stderr, "  -p                  [1/0]  Enable/disable segment prediction functionality\n\n");
 	fprintf(stderr, "  -h HAIRPINSIZE        [3]  Minimum hairpin size, 0 or larger, default 3\n");
 	fprintf(stderr, "  -x SEGMENTS_XML_FILE       Use custom  \"segments.xml\"-syntaxed file\n\n");
-	fprintf(stderr, "  -V --version               Shows the version and license\n");
+	fprintf(stderr, "  -V                         Shows the version and license\n");
 	fprintf(stderr, "\n\n");
 	fprintf(stderr, "If you encounter problems with this software, please send bug-reports to:\n   <" PACKAGE_BUGREPORT ">\n\n");
 	
@@ -108,12 +108,12 @@ void Settings::print_usage(void)
  */
 void Settings::print_version(void)
 {
-	#if DEBUG
-		#define BUILD_TYPE_STRING " (debug)"
-	#else
-		#define BUILD_TYPE_STRING " (release)"
-	#endif
-	
+#if DEBUG
+#define BUILD_TYPE_STRING " (debug)"
+#else
+#define BUILD_TYPE_STRING " (release)"
+#endif
+
 	printf("[Version]\n  " PACKAGE_STRING GIT_SHA1_STRING BUILD_TYPE_STRING "\n\n");
 	printf("[License]\n  GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>.\n\n  This is free software: you are free to change and redistribute it.\n  There is NO WARRANTY, to the extent permitted by law.\n\n  Written by Youri Hoogstrate.\n");
 	
@@ -125,7 +125,7 @@ void Settings::print_version(void)
 /**
  * @brief Parses the commandline parameters.
  *
- * @date 2015-06-05
+ * @date 2015-06-23
  */
 void Settings::parse_arguments(void)
 {
@@ -133,10 +133,9 @@ void Settings::parse_arguments(void)
 	// This allows parsing arguments multiple timesin one program
 	optind = 1;
 	
-	
+	bool proceed = true;
 	char c;
-	
-	while((c = getopt(this->argc, this->argv, "+h:f:s:p:x:V")) > 0)
+	while((c = getopt(this->argc, this->argv, "+h:f:s:p:x:V")) > 0 && proceed)
 	{
 		switch(c)
 		{
@@ -160,6 +159,7 @@ void Settings::parse_arguments(void)
 				if(stream != nullptr)
 				{
 					this->parse_sequence_from_stream(stream);
+					fclose(stream);
 				}
 				else
 				{
@@ -184,14 +184,16 @@ void Settings::parse_arguments(void)
 				break;
 			case 'V':
 				this->print_version();
+				proceed = false;
 				break;
 			default:
 				this->print_usage();
+				proceed = false;
 				break;
 		}
 	}
 	
-	if(this->obj_sequence.empty())
+	if(this->obj_sequence.empty() && this->run_print_version == false && this->run_print_usage == false)
 	{
 		printf("Please insert your RNA sequence:\n");
 		this->parse_sequence_from_stream(stdin);
@@ -246,28 +248,28 @@ void Settings::parse_sequence_from_stream(FILE *stream)
 /**
  * @brief Finds directories that should contain the segmentation-fold share data.
  *
- * @date 2015-05-04
+ * @date 2015-06-23
  *
  * @return The directories found in environment variable $XDG_DATA_DIRS.
  */
 std::vector<std::string> Settings::get_share_directories(void)
 {
-	unsigned int i, j;
+	unsigned int i;
 	
 	std::vector<std::string> directories = std::vector<std::string>();
 	directories.push_back(DATA_DIR "/share/");
 	
 	char *env_datadirs;
-	char *env_datadirs_buf;
 	env_datadirs = getenv("XDG_DATA_DIRS");
 	
+	char *env_datadirs_buf;
 	if(env_datadirs != nullptr)
 	{
 		env_datadirs_buf = NULL;
 		
-		for(i = 0; i < j; i++)
+		for(i = 0; i < strlen(env_datadirs); i++)
 		{
-			if(env_datadirs_buf == NULL)
+			if(env_datadirs_buf == nullptr)
 			{
 				env_datadirs_buf = &env_datadirs[i];
 			}
@@ -276,14 +278,14 @@ std::vector<std::string> Settings::get_share_directories(void)
 			{
 				env_datadirs[i] = '\0';
 				directories.push_back(std::string(env_datadirs_buf));
-				env_datadirs_buf = NULL;
+				env_datadirs_buf = nullptr;
 			}
 		}
 	}
 	
 	directories.push_back("../share/");
 	directories.push_back("share/");
-	directories.push_back(MOTIFS_PATH "/");
+	directories.push_back(SEGMENTS_PATH "/");
 	directories.push_back("~/.local/share/");
 	
 	return directories;
@@ -315,7 +317,7 @@ void Settings::get_segments_file(void)
 			++it
 		)
 		{
-			file_name = *it + PACKAGE_NAME "/" MOTIFS_FILE;
+			file_name = *it + PACKAGE_NAME "/" SEGMENTS_FILE;
 			
 			if(file_exists(file_name.c_str()))
 			{
@@ -324,7 +326,7 @@ void Settings::get_segments_file(void)
 			}
 			else
 			{
-				file_name = *it + MOTIFS_FILE;
+				file_name = *it + SEGMENTS_FILE;
 				
 				if(file_exists(file_name.c_str()))
 				{
@@ -337,7 +339,7 @@ void Settings::get_segments_file(void)
 		// if it still hasn't been found
 		if(this->segment_filename.empty())
 		{
-			throw std::invalid_argument("Couldn't load the \"" MOTIFS_FILE "\" file");
+			throw std::invalid_argument("Couldn't load the \"" SEGMENTS_FILE "\" file");
 		}
 	}
 }

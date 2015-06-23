@@ -4,10 +4,10 @@
 #define DATA_DIR "@DESTDIR@@CMAKE_INSTALL_PREFIX@"
 
 /* Motifs file */
-#define MOTIFS_FILE "@MOTIFS_FILE@"
+#define SEGMENTS_FILE "@SEGMENTS_FILE@"
 
 /* Motifs path */
-#define MOTIFS_PATH "@PROJECT_SOURCE_DIR@/share/@CMAKE_PROJECT_NAME@"
+#define SEGMENTS_PATH "@PROJECT_SOURCE_DIR@/share/@CMAKE_PROJECT_NAME@"
 
 /* Name of package */
 #define PACKAGE "@CMAKE_PROJECT_NAME@"

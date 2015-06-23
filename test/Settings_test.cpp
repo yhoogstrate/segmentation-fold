@@ -254,12 +254,12 @@ BOOST_AUTO_TEST_CASE(Test5)
 	
 	{
 		// Check example file
-		char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", (char *) "-p", (char *) "share/segmentation-fold/" MOTIFS_FILE, nullptr};
+		char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", (char *) "-p", (char *) "share/segmentation-fold/" SEGMENTS_FILE, nullptr};
 		argc = sizeof(argv) / sizeof(char *) - 1;
 		
 		Settings settings = Settings(argc, argv, sequence);
 		
-		BOOST_CHECK_EQUAL(settings.segment_filename , "share/segmentation-fold/" MOTIFS_FILE);
+		BOOST_CHECK_EQUAL(settings.segment_filename , "share/segmentation-fold/" SEGMENTS_FILE);
 	}
 	
 	{
