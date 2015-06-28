@@ -32,12 +32,12 @@
 cmake_minimum_required(VERSION 2.8)
 
 include_directories(../include)
-add_definitions(-std=c++0x)
 
 find_package(Boost COMPONENTS system filesystem unit_test_framework REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 
-ADD_DEFINITIONS(-DBOOST_TEST_DYN_LINK)
+add_definitions(-std=c++0x)
+add_definitions(-DBOOST_TEST_DYN_LINK)
 
 
 set(BUILD_DIR      "../build")
@@ -57,6 +57,7 @@ add_executable(readsegments_test       ReadSegments_test.cpp ../src/ReadSegments
 add_executable(settings_test           Settings_test.cpp ../src/Settings.cpp ../src/Utils/file_exists.cpp ../src/SegmentTree.cpp ../src/SegmentTreeElement.cpp ../src/Segment.cpp ../src/Sequence.cpp ../src/SubSequence.cpp)
 add_executable(scoringtree_test        ScoringTree_test.cpp ../src/ScoringTree.cpp ../src/Segment.cpp ../src/Sequence.cpp)
 add_executable(scoringmatrix_test      ScoringMatrix_test.cpp ../src/ScoringMatrix.cpp)
+
 
 set_target_properties(direction_test
                       dotbracket_test

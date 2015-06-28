@@ -214,7 +214,7 @@ void ScoringMatrix<T>::set(Pair &pair, T arg_value)
 template <class T>
 size_t ScoringMatrix<T>::size(void)
 {
-	this->m.size();
+	return this->m.size();
 }
 
 
@@ -262,7 +262,6 @@ void ScoringMatrix<T>::fill(T arg_value)
 		this->m[i] = arg_value;
 	}
 }
-
 
 
 // Explicit instantiation:
