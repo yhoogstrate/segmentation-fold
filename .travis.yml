@@ -23,7 +23,7 @@ addons:
     - g++-4.8
     - clang
 
-script: make test
+script: ctest -V
 
 notifications:
   email: false
