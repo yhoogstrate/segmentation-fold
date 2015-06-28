@@ -40,9 +40,9 @@ BOOST_AUTO_TEST_SUITE(Testing)
 
 /**
  * @brief Tests whether the match function matches an exactly identical string
- * 
+ *
  * @date 2015-05-02
- * 
+ *
  * @test
  */
 BOOST_AUTO_TEST_CASE(Test1)
@@ -57,9 +57,9 @@ BOOST_AUTO_TEST_CASE(Test1)
 
 /**
  * @brief Tests whether the match function matches two different strings as different
- * 
+ *
  * @date 2015-05-02
- * 
+ *
  * @test
  */
 BOOST_AUTO_TEST_CASE(Test2)
@@ -75,9 +75,9 @@ BOOST_AUTO_TEST_CASE(Test2)
 
 /**
  * @brief Tests whether the match function matches a structure that matches a pattern
- * 
+ *
  * @date 2015-05-02
- * 
+ *
  * @test
  */
 BOOST_AUTO_TEST_CASE(Test3)

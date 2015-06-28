@@ -1,10 +1,10 @@
 /**
  * @file src/Utils/file_exists.cpp
- * 
+ *
  * @date 2015-06-04
- * 
+ *
  * @author Youri Hoogstrate
- * 
+ *
  * @section DESCRIPTION
  * Stores the file_exists() function.
  *
@@ -35,11 +35,11 @@
 
 /**
  * @brief Checks if a file exists.
- * 
+ *
  * @date 2015-06-04
- * 
+ *
  * @param filename The filename of which presency should be checked.
- * 
+ *
  * @return true if the file exists, false if it doesn't exist.
  */
 bool file_exists(const char *filename)

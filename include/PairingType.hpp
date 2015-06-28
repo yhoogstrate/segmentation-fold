@@ -33,7 +33,7 @@
 
 /**
  * @brief The canonical types of RNA-pairing
- * 
+ *
  * @date 2014-05-16
  */
 enum PairingType : signed char

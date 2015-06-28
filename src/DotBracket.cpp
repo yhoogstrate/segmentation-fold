@@ -123,7 +123,7 @@ void DotBracket::format(unsigned int n, std::string &output)
 
 /**
  * @brief Matches a dotbracked string with a pattern in which unknown chars are encoded with a '?'
- * 
+ *
  * @date 2015-04-20
  *
  * @param dot_bracket_pattern A dotbracket string like "((..))((()))" which allows question tags for unknown structures: "(((???)))"

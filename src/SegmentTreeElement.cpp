@@ -94,7 +94,7 @@ SegmentTreeElement::~SegmentTreeElement()
  * @brief Adds a Segment (as member of a SegmentTreeElement) to another element of the tree.
  *
  * @date 2015-04-29
- * 
+ *
  * @todo use constants or static enum for cases 1, 2, 3 and 4
  */
 void SegmentTreeElement::add_segment(Segment &arg_segment)
@@ -273,9 +273,9 @@ void SegmentTreeElement::add_segment(Segment &arg_segment, char &arg_search_type
 
 /**
  * @brief Searches whether a segment exists in the tree
- * 
+ *
  * @date 2015-04-29
- * 
+ *
  * @todo use constants or static enum for cases 1, 2, 3 and 4
  */
 Segment *SegmentTreeElement::search_segment(SubSequence &arg_sequence_5p, SubSequence &arg_sequence_3p)

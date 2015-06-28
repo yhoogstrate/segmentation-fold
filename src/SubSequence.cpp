@@ -66,48 +66,48 @@ SubSequence::SubSequence(Position arg_position1, Position arg_position2, size_t 
 
 /**
  * @brief Sets the PairingType
- * 
+ *
  * @date 2015-05-06
  */
 void SubSequence::init()
 {
-	#if DEBUG
-		this->_check_order();
-	#endif //DEBUG
+#if DEBUG
+	this->_check_order();
+#endif //DEBUG
 }
 
 
 /**
  * @brief
- * 
+ *
  * @date 2015-05-06
- * 
+ *
  * @todo Decide whether or not to return a Position or a Nucleotide
  */
 Nucleotide SubSequence::operator[](size_t arg_position)
 {
-	#if DEBUG
-		if(arg_position >= this->size)
-		{
-			throw std::invalid_argument("SubSequence::operator[]: Out of bound SubSequence");
-		}
-	#endif //DEBUG
+#if DEBUG
+	if(arg_position >= this->size)
+	{
+		throw std::invalid_argument("SubSequence::operator[]: Out of bound SubSequence");
+	}
+#endif //DEBUG
 	return *(this->position1 + arg_position);
 }
 
 
 
 #if DEBUG
-	/**
-	 * @brief 
-	 * 
-	 * @date 2015-05-06
-	 */
-	void SubSequence::_check_order(void)
+/**
+ * @brief
+ *
+ * @date 2015-05-06
+ */
+void SubSequence::_check_order(void)
+{
+	if(this->position2 < this->position1)
 	{
-		if(this->position2 < this->position1)
-		{
-			throw std::invalid_argument("Position 2 of SubSequence is smaller than Position 1");
-		}
+		throw std::invalid_argument("Position 2 of SubSequence is smaller than Position 1");
 	}
+}
 #endif //DEBUG

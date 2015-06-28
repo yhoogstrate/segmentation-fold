@@ -1,10 +1,10 @@
 /**
  * @file include/ReadSegments.hpp
- * 
+ *
  * @date 2015-04-22
- * 
+ *
  * @author Youri Hoogstrate
- * 
+ *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
  * Copyright (C) 2012-2015 Youri Hoogstrate
@@ -35,7 +35,7 @@ using namespace boost::property_tree;
 
 /**
  * @brief Structure for an (example) RNA that contains a segment
- * 
+ *
  * @date 2015-04-22
  */
 struct rna_example
@@ -51,7 +51,7 @@ struct rna_example
 
 /**
  * @brief Parses the segment XML file
- * 
+ *
  * @date 2015-04-22
  */
 class ReadSegments

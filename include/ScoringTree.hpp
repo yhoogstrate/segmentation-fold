@@ -1,8 +1,8 @@
 /**
  * @date 2015-04-22
- * 
+ *
  * @file include/ScoringTree.hpp
- * 
+ *
  * @section DESCRIPTION
  * The scoring matrices are always filled at every position. The segment
  * objects are only located at certain positions; where the segments are

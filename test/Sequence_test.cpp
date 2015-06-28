@@ -1,10 +1,10 @@
 /**
  * @file test/Sequence_test.cpp
- * 
+ *
  * @date 2015-05-02
- * 
+ *
  * @author Youri Hoogstrate
- * 
+ *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
  * Copyright (C) 2012-2015 Youri Hoogstrate
@@ -42,9 +42,9 @@ BOOST_AUTO_TEST_SUITE(Testing)
 
 /**
  * @brief Tests whether single nucleotides are inserted correctly, and whether the size of the sequence fits.
- * 
+ *
  * @test
- * 
+ *
  * @date 2014-03-11
  */
 BOOST_AUTO_TEST_CASE(Test1)
@@ -78,9 +78,9 @@ BOOST_AUTO_TEST_CASE(Test1)
 
 /**
  * @brief Checks std::string to Sequence and Sequence to std::string conversion
- * 
+ *
  * @test
- * 
+ *
  * @date 2014-03-12
  */
 BOOST_AUTO_TEST_CASE(Test2)
@@ -103,9 +103,9 @@ BOOST_AUTO_TEST_CASE(Test2)
 
 /**
  * @brief Tests behaviour of unexpected bases char-wise: should throw an exception
- * 
+ *
  * @test
- * 
+ *
  * @date 2014-04-15
  */
 BOOST_AUTO_TEST_CASE(Test3)
@@ -140,9 +140,9 @@ BOOST_AUTO_TEST_CASE(Test3)
 
 /**
  * @brief Tests behaviour of unexpected bases using entire strings: should throw an exception
- * 
+ *
  * @test
- * 
+ *
  * @date 2014-04-15
  */
 BOOST_AUTO_TEST_CASE(Test4)
@@ -179,9 +179,9 @@ BOOST_AUTO_TEST_CASE(Test4)
 
 /**
  * @date 2014-05-19
- * 
+ *
  * @test
- * 
+ *
  * @section DESCRIPTION
  * Given that nucleotides are enumerated as follows:
  * A = 0
@@ -240,9 +240,9 @@ BOOST_AUTO_TEST_CASE(Test5)
 
 /**
  * @brief Tests the '==' operator
- * 
+ *
  * @test
- * 
+ *
  * @date 2014-05-19
  */
 BOOST_AUTO_TEST_CASE(Test6)

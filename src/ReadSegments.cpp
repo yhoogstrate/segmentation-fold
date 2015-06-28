@@ -79,7 +79,7 @@ ReadSegments::ReadSegments(std::string arg_filename, SegmentTree &arg_segments, 
 
 /**
  * @brief Parses an XML file using boost xml library
- * 
+ *
  * @date 2015-04-22
  */
 void ReadSegments::parse(bool arg_parse_examples)
@@ -105,7 +105,7 @@ void ReadSegments::parse(bool arg_parse_examples)
 
 /**
  * @brief Parses the <segments> section of the XML file
- * 
+ *
  * @date 25-apr-2015
  *
  * @section DESCRIPTION
@@ -184,7 +184,7 @@ void ReadSegments::parse_segments(ptree &xml_motifs)
 
 /**
  * @brief Parses the <rna> section of the XML file
- * 
+ *
  * @date 2015-04-22
  */
 void ReadSegments::parse_examples(ptree &xml_examples)
@@ -221,7 +221,7 @@ void ReadSegments::parse_examples(ptree &xml_examples)
 
 /**
  * @brief Parses a single segment (correct bonds) based on the XML data
- * 
+ *
  * @date 2014-03-21
  */
 Segment *ReadSegments::parse_segment(std::string arg_name, std::string arg_sequence_5p, std::string arg_bonds, std::string arg_sequence_3p, std::string arg_energy)
@@ -274,7 +274,7 @@ Segment *ReadSegments::parse_segment(std::string arg_name, std::string arg_seque
 
 /**
  * @brief Destructor
- * 
+ *
  * @date 2015-04-22
  */
 ReadSegments::~ReadSegments()

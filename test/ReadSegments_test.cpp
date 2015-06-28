@@ -63,7 +63,7 @@ BOOST_AUTO_TEST_SUITE(Testing_Segments)
 
 /**
  * @brief checks whether parsing a custom file succeeds
- * 
+ *
  * @date 2015-06-04
  */
 BOOST_AUTO_TEST_CASE(Test1)
@@ -91,9 +91,9 @@ BOOST_AUTO_TEST_CASE(Test1)
 
 /**
  * @brief checks whether parsing a custom file succeeds - testing with 5' -> 3'
- * 
+ *
  * @test
- * 
+ *
  * @date 2015-06-04
  */
 BOOST_AUTO_TEST_CASE(Test2)
@@ -191,11 +191,11 @@ BOOST_AUTO_TEST_CASE(Test2)
  * 5') GGA    (3'
  *     :::
  * 3') AAGAAG (5'
- * 
+ *
  * @test
- * 
+ *
  * @date 2015-06-04
- * 
+ *
  * @todo also check segments pop() function
  */
 BOOST_AUTO_TEST_CASE(Test3)
@@ -297,7 +297,7 @@ BOOST_AUTO_TEST_CASE(Test4)
  * @brief checks whether parsing a custom file succeeds
  *
  * @date 2015-06-22
- * 
+ *
  * @test
  */
 BOOST_AUTO_TEST_CASE(Test5)
@@ -715,9 +715,9 @@ BOOST_AUTO_TEST_SUITE(Testing_Examples)
 
 /**
  * @brief Tests whether there are indeed 28 example sequences within the xml file
- * 
+ *
  * @test
- * 
+ *
  * @date 2015-06-04
  */
 BOOST_AUTO_TEST_CASE(Test_E1)

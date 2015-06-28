@@ -1,10 +1,10 @@
 /**
  * @file test/Segment_test.cpp
- * 
+ *
  * @date 2015-05-02
- * 
+ *
  * @author Youri Hoogstrate
- * 
+ *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
  * Copyright (C) 2012-2015 Youri Hoogstrate
@@ -47,9 +47,9 @@ BOOST_AUTO_TEST_SUITE(Testing)
 
 /**
  * @brief Tests the Segment->size() function
- * 
+ *
  * @test
- * 
+ *
  * @date 2014-03-29
  */
 BOOST_AUTO_TEST_CASE(Test1)
@@ -72,9 +72,9 @@ BOOST_AUTO_TEST_CASE(Test1)
 
 /**
  * @brief Tests the Segment->pop() function
- * 
+ *
  * @test
- * 
+ *
  * @date 2015-04-22
  */
 BOOST_AUTO_TEST_CASE(Test2)
@@ -134,9 +134,9 @@ BOOST_AUTO_TEST_CASE(Test2)
 
 /**
  * @brief Tests the Segment->pop() function
- * 
+ *
  * @test
- * 
+ *
  * @date 2015-04-22
  */
 BOOST_AUTO_TEST_CASE(Test3)

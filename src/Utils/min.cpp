@@ -1,10 +1,10 @@
 /**
  * @file src/Utils/min.cpp
- * 
+ *
  * @date 2015-05-02
- * 
+ *
  * @author Youri Hoogstrate
- * 
+ *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
  * Copyright (C) 2012-2015 Youri Hoogstrate
@@ -34,13 +34,13 @@
 
 /**
  * @brief Finds the minimal value between x and y
- * 
+ *
  * @date 2012-11-05
- * 
+ *
  * @param x any integer
  * @param y any integer
  * @return the minimum of both the values x and y
- * 
+ *
  * @todo Use macro or inline instead?
  */
 int min(int x, int y)
@@ -52,13 +52,13 @@ int min(int x, int y)
 
 /**
  * @brief Finds the minimal value between x and y
- * 
+ *
  * @date 2014-12-30
- * 
+ *
  * @param x any integer
  * @param y any integer
  * @return the minimum of both the values x and y
- * 
+ *
  * @todo Use macro or inline instead?
  *//*
 float min(float x, float y)

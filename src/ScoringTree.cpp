@@ -1,6 +1,6 @@
 /**
  * @file src/ScoringTree.cpp
- * 
+ *
  * @date 2015-05-02
  *
  * @author Youri Hoogstrate
@@ -46,7 +46,7 @@
 
 /**
  * @brief
- * 
+ *
  * @date 2015-05-02
  */
 template <class T_key, class T_value>
@@ -59,7 +59,7 @@ ScoringTree<T_key, T_value>::ScoringTree()
 
 /**
  * @brief
- * 
+ *
  * @date 2015-05-02
  */
 template <class T_key, class T_value>
@@ -72,7 +72,7 @@ ScoringTree<T_key, T_value>::~ScoringTree()
 
 /**
  * @brief
- * 
+ *
  * @date 2015-05-02
  */
 template <class T_key, class T_value>
@@ -92,7 +92,7 @@ void ScoringTree<T_key, T_value>::insert(T_key arg_key, T_value &arg_value)
 
 /**
  * @brief
- * 
+ *
  * @date 2015-05-02
  */
 template <class T_key, class T_value>
@@ -133,7 +133,7 @@ void ScoringTree<T_key, T_value>::insert(T_key arg_key, T_value &arg_value, Scor
 
 /**
  * @brief Root of searching
- * 
+ *
  * @date 2015-05-02
  */
 template <class T_key, class T_value>
@@ -146,7 +146,7 @@ T_value *ScoringTree<T_key, T_value>::search(T_key &arg_key)
 
 /**
  * @brief Searches whether key exists
- * 
+ *
  * @date 2015-05-02
  */
 template <class T_key, class T_value>
@@ -177,7 +177,7 @@ T_value *ScoringTree<T_key, T_value>::search(T_key &arg_key, ScoringTreeElement<
 
 /**
  * @brief Clears tree from the root
- * 
+ *
  * @date 2015-05-02
  */
 template <class T_key, class T_value>
@@ -190,7 +190,7 @@ void ScoringTree<T_key, T_value>::clear()
 
 /**
  * @brief Clears tree from a given element
- * 
+ *
  * @date 2015-05-02
  */
 template <class T_key, class T_value>

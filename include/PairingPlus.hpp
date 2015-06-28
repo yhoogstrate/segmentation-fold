@@ -1,10 +1,10 @@
 /**
  * @file include/PairingPlus.hpp
- * 
+ *
  * @date 2015-05-02
- * 
+ *
  * @author Youri Hoogstrate
- * 
+ *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
  * Copyright (C) 2012-2015 Youri Hoogstrate
@@ -43,11 +43,11 @@
  */
 class PairingPlus
 {
-	#if DEBUG
-		private:
-			void _check_order(void);// tests if position1 is indeed smaller than position2; t
-	#endif //DEBUG
-	
+#if DEBUG
+	private:
+		void _check_order(void);// tests if position1 is indeed smaller than position2; t
+#endif //DEBUG
+		
 	public:
 		Position position1;
 		Position position2;

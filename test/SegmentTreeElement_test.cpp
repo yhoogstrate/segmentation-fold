@@ -52,7 +52,7 @@ BOOST_AUTO_TEST_SUITE(Testing)
  * @brief Tests size of the SegmeentTreeElement
  *
  * @test
- * 
+ *
  * @date 2015-05-01
  */
 BOOST_AUTO_TEST_CASE(Test1)
@@ -78,9 +78,9 @@ BOOST_AUTO_TEST_CASE(Test1)
 
 /**
  * @brief Tests whether segments with a different 5' length can be searched through each other
- * 
+ *
  * @test
- * 
+ *
  * @date 2015-05-01
  */
 BOOST_AUTO_TEST_CASE(Test2)
@@ -106,7 +106,7 @@ BOOST_AUTO_TEST_CASE(Test2)
 	//AUG
 	std::string        segment_name_02 = "Segment 2";
 	Sequence           sequence_5p_02  = Sequence("ACUU");
-	                   bonds           = {{ Pair({0, 2}), Pair({2, 1}), Pair({4, 0}) }};
+	bonds           = {{ Pair({0, 2}), Pair({2, 1}), Pair({4, 0}) }};
 	Sequence           sequence_3p_02  = Sequence("AUG");
 	float              energy_02       = -2.00;
 	Segment            segment_02      = Segment(segment_name_02, sequence_5p_02, bonds, sequence_3p_02, energy_02);
@@ -114,18 +114,18 @@ BOOST_AUTO_TEST_CASE(Test2)
 	SubSequence        segment_02_3p   = SubSequence(sequence_3p_02.data.begin(), (sequence_3p_02.data.end() - 1));
 	
 	// checks on initiazation
-	BOOST_REQUIRE(  sequence_5p_02.size() == 4);
-	BOOST_REQUIRE(*(sequence_5p_02.data.begin()+0) == Nucleotide::A);
-	BOOST_REQUIRE(*(sequence_5p_02.data.begin()+1) == Nucleotide::C);
-	BOOST_REQUIRE(*(sequence_5p_02.data.begin()+2) == Nucleotide::T);
-	BOOST_REQUIRE(*(sequence_5p_02.data.begin()+3) == Nucleotide::U);
-	BOOST_REQUIRE( (sequence_5p_02.data.begin()+3) == (sequence_5p_02.data.end() - 1));
-
-	BOOST_REQUIRE(  sequence_3p_02.size() == 3);
-	BOOST_REQUIRE(*(sequence_3p_02.data.begin()+0) == Nucleotide::A);
-	BOOST_REQUIRE(*(sequence_3p_02.data.begin()+1) == Nucleotide::U);
-	BOOST_REQUIRE(*(sequence_3p_02.data.begin()+2) == Nucleotide::G);
-	BOOST_REQUIRE( (sequence_3p_02.data.begin()+2) == (sequence_3p_02.data.end() - 1));
+	BOOST_REQUIRE(sequence_5p_02.size() == 4);
+	BOOST_REQUIRE(*(sequence_5p_02.data.begin() + 0) == Nucleotide::A);
+	BOOST_REQUIRE(*(sequence_5p_02.data.begin() + 1) == Nucleotide::C);
+	BOOST_REQUIRE(*(sequence_5p_02.data.begin() + 2) == Nucleotide::T);
+	BOOST_REQUIRE(*(sequence_5p_02.data.begin() + 3) == Nucleotide::U);
+	BOOST_REQUIRE((sequence_5p_02.data.begin() + 3) == (sequence_5p_02.data.end() - 1));
+	
+	BOOST_REQUIRE(sequence_3p_02.size() == 3);
+	BOOST_REQUIRE(*(sequence_3p_02.data.begin() + 0) == Nucleotide::A);
+	BOOST_REQUIRE(*(sequence_3p_02.data.begin() + 1) == Nucleotide::U);
+	BOOST_REQUIRE(*(sequence_3p_02.data.begin() + 2) == Nucleotide::G);
+	BOOST_REQUIRE((sequence_3p_02.data.begin() + 2) == (sequence_3p_02.data.end() - 1));
 	
 	
 	SegmentTreeElement element_01 = SegmentTreeElement(segment_01);
@@ -152,9 +152,9 @@ BOOST_AUTO_TEST_CASE(Test2)
 
 /**
  * @brief Tests whether segments with a different 5' sequence can be searched through each other
- * 
+ *
  * @test
- * 
+ *
  * @date 2015-05-01
  */
 BOOST_AUTO_TEST_CASE(Test3)
@@ -216,9 +216,9 @@ BOOST_AUTO_TEST_CASE(Test3)
 
 /**
  * @brief Tests whether segments with a different 3' length can be searched through each other
- * 
+ *
  * @test
- * 
+ *
  * @date 2015-05-01
  */
 BOOST_AUTO_TEST_CASE(Test4)
@@ -279,9 +279,9 @@ BOOST_AUTO_TEST_CASE(Test4)
 
 /**
  * @brief Tests whether segments with a different 3' sequence can be searched through each other
- * 
+ *
  * @test
- * 
+ *
  * @date 2015-05-01
  */
 BOOST_AUTO_TEST_CASE(Test5)
@@ -342,9 +342,9 @@ BOOST_AUTO_TEST_CASE(Test5)
 
 /**
  * @brief Tests error throwing when inserting segments with identical sequences
- * 
+ *
  * @test
- * 
+ *
  * @date 2015-05-01
  */
 BOOST_AUTO_TEST_CASE(Test6)

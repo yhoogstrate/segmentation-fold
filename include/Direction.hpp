@@ -1,10 +1,10 @@
 /**
  * @file include/Direction.hpp
- * 
+ *
  * @date 2015-05-02
- * 
+ *
  * @author Youri Hoogstrate
- * 
+ *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
  * Copyright (C) 2012-2015 Youri Hoogstrate
@@ -33,7 +33,7 @@
 
 /**
  * @brief Describes a direction (5' to 3' or vice versa) in at most one byte
- * 
+ *
  * @section DESCRIPTION
 The following RNA sequence:
 

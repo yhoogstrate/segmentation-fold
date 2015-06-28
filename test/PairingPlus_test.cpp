@@ -1,10 +1,10 @@
 /**
  * @file test/PairingPlus_test.cpp
- * 
+ *
  * @date 2015-05-02
- * 
+ *
  * @author Youri Hoogstrate
- * 
+ *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
  * Copyright (C) 2012-2015 Youri Hoogstrate
@@ -44,9 +44,9 @@ BOOST_AUTO_TEST_SUITE(Testing)
 
 /**
  * @brief Tests whether is_canonical() and initialization works
- * 
+ *
  * @test
- * 
+ *
  * @date 2015-05-02
  */
 BOOST_AUTO_TEST_CASE(Test1)

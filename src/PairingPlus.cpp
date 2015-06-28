@@ -120,7 +120,7 @@ bool PairingPlus::is_canonical(void)
 #if DEBUG
 /**
  * @brief Tests whether position 2 is indeed further in the sequence than position 1
- * 
+ *
  * @date 2015-05-06
  */
 void PairingPlus::_check_order(void)

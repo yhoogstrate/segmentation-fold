@@ -40,7 +40,7 @@
 
 /**
  * @brief Tree element for ScoringTree
- * 
+ *
  * @date 2014-04-20
  */
 template<class T_key, class T_value>

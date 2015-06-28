@@ -53,12 +53,12 @@ BOOST_AUTO_TEST_SUITE(Testing)
 
 /**
  * @brief Tests if a scoring tree with unsigned int's can insert and search items properly back
- * 
+ *
  * @section DESCRIPTION
  * inserting and searching is in the same sequential, although the values are not initially sorted
- * 
+ *
  * @test
- * 
+ *
  * @date 2014-04-20
  */
 BOOST_AUTO_TEST_CASE(Test1)
@@ -101,9 +101,9 @@ BOOST_AUTO_TEST_CASE(Test1)
 
 /**
  * @brief Tests if overwriting is indeed disabled
- * 
+ *
  * @test
- * 
+ *
  * @date 2014-04-20
  */
 BOOST_AUTO_TEST_CASE(Test2)
@@ -139,11 +139,11 @@ BOOST_AUTO_TEST_CASE(Test2)
 
 /**
  * @brief tests if inserting a segment based on a pair succeeds
- * 
+ *
  * @test
- * 
+ *
  * @date 2014-04-20
- * 
+ *
  * @todo check whether the segment is a deep-copy - otherwise make the test with *Segment
  */
 BOOST_AUTO_TEST_CASE(Test3)

@@ -56,6 +56,7 @@ add_executable(segmenttree_test        SegmentTree_test.cpp ../src/SegmentTree.c
 add_executable(readsegments_test       ReadSegments_test.cpp ../src/ReadSegments.cpp ../src/SegmentTree.cpp ../src/SegmentTreeElement.cpp ../src/Segment.cpp ../src/Sequence.cpp ../src/PairingPlus.cpp ../src/SubSequence.cpp)
 add_executable(settings_test           Settings_test.cpp ../src/Settings.cpp ../src/Utils/file_exists.cpp ../src/SegmentTree.cpp ../src/SegmentTreeElement.cpp ../src/Segment.cpp ../src/Sequence.cpp ../src/SubSequence.cpp)
 add_executable(scoringtree_test        ScoringTree_test.cpp ../src/ScoringTree.cpp ../src/Segment.cpp ../src/Sequence.cpp)
+add_executable(scoringmatrix_test      ScoringMatrix_test.cpp ../src/ScoringMatrix.cpp)
 
 set_target_properties(direction_test
                       dotbracket_test
@@ -69,4 +70,5 @@ set_target_properties(direction_test
                       readsegments_test
                       settings_test
                       scoringtree_test
+                      scoringmatrix_test
                                       PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${BUILD_TEST_DIR}")
