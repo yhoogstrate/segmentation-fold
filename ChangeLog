@@ -1,5 +1,9 @@
+2015-06-30  Youri Hoogstrate
+	* Added Pairing object and corresponding tests
+
 2015-06-28  Youri Hoogstrate
-	* Added the sparse triangular matrix object ScoringMatrix
+	* Added the sparse triangular matrix object ScoringMatrix and
+	  corresponding tests
 
 2015-06-23  Youri Hoogstrate
 	* Textual changes
@@ -23,7 +27,8 @@
 	* Added ReadSegments and tests
 
 2015-05-06  Youri Hoogstrate
-	* Added SubSequence and made SegmentTree compatible with it rather than the PairingPlus
+	* Added SubSequence and made SegmentTree compatible with it rather
+	  than the PairingPlus
 	* Added DEBUG tests to PairingPlus
 
 2015-05-02  Youri Hoogstrate
@@ -42,7 +47,7 @@
 	* Added automatic parsing of README.md by running 'make readme'
 	* Added automatic parsing of documentation, including latest README
 	  by running 'make doc'
-	* Added 'make tidy' command to make the code formatted with astyle.
+	* Added 'make tidy' command to make the code formatted with astyle
 
 2015-04-16  Youri Hoogstrate
 	* Added Segment() class + tests
@@ -63,5 +68,5 @@
 	* Added Sequence definition
 
 2014-12-03  Youri Hoogstrate
-	* Changed directory structure; separated header files in ./include.
-	* Changed from autotools to CMake.
+	* Changed directory structure; separated header files in ./include
+	* Changed from autotools to CMake
