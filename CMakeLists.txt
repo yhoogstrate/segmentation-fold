@@ -140,7 +140,6 @@ enable_testing()
 
 add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND})					# 'make check' as alias for 'make test'
 
-
 add_test(direction_test          "${BUILD_TEST_DIR}/direction_test")
 add_test(dotbrack_test           "${BUILD_TEST_DIR}/dotbracket_test")
 add_test(nucleotide_test         "${BUILD_TEST_DIR}/nucleotide_test")
@@ -155,6 +154,9 @@ add_test(readsegments_test       "${BUILD_TEST_DIR}/readsegments_test")
 add_test(settings_test           "${BUILD_TEST_DIR}/settings_test")
 add_test(scoringtree_test        "${BUILD_TEST_DIR}/scoringtree_test")
 add_test(scoringmatrix_test      "${BUILD_TEST_DIR}/scoringmatrix_test")
+
+find_program(CTEST_MEMORYCHECK_COMMAND NAMES valgrind)					# 'ctest -T memcheck'
+INCLUDE(Dart)
 
 # ----------------------------------------------------------------------
 # --------------------------- Installation -----------------------------

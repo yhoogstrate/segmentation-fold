@@ -32,6 +32,7 @@ cmake_install.cmake
 CTestTestfile.cmake
 install_manifest.txt
 Makefile
+DartConfiguration.tcl
 
 # Build & compile related
 include/config.hpp

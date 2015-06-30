@@ -176,7 +176,7 @@ BOOST_AUTO_TEST_CASE(Test2)
 	BOOST_CHECK_THROW(matrix.get_position(4, 0), std::invalid_argument);
 	
 	// Positions that fall outside the entire matrix:
-	for(int i = 5; i <= 100; i++)
+	for(int i = 5; i <= 100; i += 5)
 	{
 		BOOST_CHECK_THROW(matrix.get_position(2, i), std::invalid_argument);
 		BOOST_CHECK_THROW(matrix.get_position(i, 2), std::invalid_argument);
@@ -203,7 +203,7 @@ BOOST_AUTO_TEST_CASE(Test3)
 	
 	Pair pair = Pair(0, 0);
 	
-	for(n = 0; n <= 128; n++)
+	for(n = 0; n <= 150; n += 10)
 	{
 		ScoringMatrix<signed int> matrix = ScoringMatrix<signed int>(n, -1);
 		
