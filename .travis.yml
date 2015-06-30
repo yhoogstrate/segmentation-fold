@@ -23,7 +23,7 @@ addons:
     - g++-4.8
     - clang
 
-script: ctest -V
+script: ctest -V -T memcheck
 
 notifications:
   email: false
