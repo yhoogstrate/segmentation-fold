@@ -809,7 +809,7 @@ float GibbsFreeEnergy::get_interior_loop_element(Region &arg_region)
 			
 			
 #if DEBUG
-			if((pairing2.type == PairingType::None))
+			if(pairing2.type == PairingType::None)
 			{
 				fprintf(stderr, "GibbsFreeEnergy::get_interior_loop_element - Requesting energy for interior loop enclosing with non canonical pairing [%i,%i].\n", arg_region.pair2.first , arg_region.pair2.second);
 				energy += N_INFINITY;
