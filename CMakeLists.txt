@@ -1,6 +1,6 @@
 # @file CMakeLists.txt
 #
-# @date 2015-06-30
+# @date 2015-07-10
 #
 # @author Youri Hoogstrate
 #
@@ -154,6 +154,7 @@ add_test(readsegments_test       "${BUILD_TEST_DIR}/readsegments_test")
 add_test(settings_test           "${BUILD_TEST_DIR}/settings_test")
 add_test(scoringtree_test        "${BUILD_TEST_DIR}/scoringtree_test")
 add_test(scoringmatrix_test      "${BUILD_TEST_DIR}/scoringmatrix_test")
+add_test(gibbsfreeenergy_test    "${BUILD_TEST_DIR}/gibbsfreeenergy_test")
 
 find_program(CTEST_MEMORYCHECK_COMMAND NAMES valgrind)					# 'ctest -T memcheck'
 INCLUDE(Dart)

@@ -1,6 +1,6 @@
 # @file test/CMakeLists.txt
 #
-# @date 2015-06-30
+# @date 2015-07-10
 #
 # @author Youri Hoogstrate
 #
@@ -58,6 +58,7 @@ add_executable(readsegments_test       ReadSegments_test.cpp ../src/ReadSegments
 add_executable(settings_test           Settings_test.cpp ../src/Settings.cpp ../src/Utils/file_exists.cpp ../src/SegmentTree.cpp ../src/SegmentTreeElement.cpp ../src/Segment.cpp ../src/Sequence.cpp ../src/SubSequence.cpp)
 add_executable(scoringtree_test        ScoringTree_test.cpp ../src/ScoringTree.cpp ../src/Segment.cpp ../src/Sequence.cpp)
 add_executable(scoringmatrix_test      ScoringMatrix_test.cpp ../src/ScoringMatrix.cpp)
+add_executable(gibbsfreeenergy_test    GibbsFreeEnergy_test.cpp ../src/GibbsFreeEnergy.cpp ../src/ReadData.cpp ../src/SegmentTree.cpp ../src/SegmentTreeElement.cpp ../src/Segment.cpp ../src/Sequence.cpp ../src/Pairing.cpp ../src/PairingPlus.cpp ../src/SubSequence.cpp ../src/Utils/min.cpp )
 
 
 set_target_properties(direction_test
@@ -74,4 +75,5 @@ set_target_properties(direction_test
                       settings_test
                       scoringtree_test
                       scoringmatrix_test
+                      gibbsfreeenergy_test
                                       PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${BUILD_TEST_DIR}")

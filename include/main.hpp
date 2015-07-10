@@ -1,7 +1,7 @@
 /**
  * @file include/main.hpp
  *
- * @date 2015-05-02
+ * @date 2015-07-10
  *
  * @author Youri Hoogstrate
  *
@@ -50,9 +50,37 @@
 #include <vector>
 
 
+#define N_INFINITY  999999
+
 #define BOUND              -1
 #define UNBOUND            -2
 #define NOT_YET_CALCULATED -3
+
+#define MISCLOOP_PRELOG                    0
+
+#define MISCLOOP_ASYMETRIC_INTENRAL_LOOP   1
+
+#define MISCLOOP_FM_ARRAY_0                2
+#define MISCLOOP_FM_ARRAY_1                3
+#define MISCLOOP_FM_ARRAY_2                4
+#define MISCLOOP_FM_ARRAY_3                5
+
+#define MISCLOOP_MULTIBRANCH_OFFSET        6
+#define MISCLOOP_MULTIBRANCH_FB_PENALTY    7
+#define MISCLOOP_MULTIBRANCH_HELIX_PENALTY 8
+
+#define MISCLOOP_EFN2_OFFSET               9
+#define MISCLOOP_EFN2_FB_PENALTY           10
+#define MISCLOOP_EFN2_HELIX_PENALTY        11
+
+#define MISCLOOP_AU_PENALTY                12
+#define MISCLOOP_GGG_U_PENALTY             13
+#define MISCLOOP_C_HAIRPIN_SLOPE           14
+#define MISCLOOP_C_HAIRPIN_INTERCEPT       15
+#define MISCLOOP_C_HAIRPIN_OF_3            16
+
+#define MISCLOOP_INTERMOLECULAR_INIT       17
+#define MISCLOOP_GAIL_RULE                 18
 
 #define DOTBRACKET__PAIRING_LEFT  '('
 #define DOTBRACKET__PAIRING_RIGHT ')'
