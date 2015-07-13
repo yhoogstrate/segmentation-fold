@@ -1,6 +1,6 @@
 # @file test/CMakeLists.txt
 #
-# @date 2015-07-10
+# @date 2015-07-13
 #
 # @author Youri Hoogstrate
 #
@@ -59,6 +59,7 @@ add_executable(settings_test           Settings_test.cpp ../src/Settings.cpp ../
 add_executable(scoringtree_test        ScoringTree_test.cpp ../src/ScoringTree.cpp ../src/Segment.cpp ../src/Sequence.cpp)
 add_executable(scoringmatrix_test      ScoringMatrix_test.cpp ../src/ScoringMatrix.cpp)
 add_executable(gibbsfreeenergy_test    GibbsFreeEnergy_test.cpp ../src/GibbsFreeEnergy.cpp ../src/ReadData.cpp ../src/SegmentTree.cpp ../src/SegmentTreeElement.cpp ../src/Segment.cpp ../src/Sequence.cpp ../src/Pairing.cpp ../src/PairingPlus.cpp ../src/SubSequence.cpp ../src/Utils/min.cpp )
+add_executable(zuker_test              Zuker_test.cpp ../src/Zuker.cpp ../src/GibbsFreeEnergy.cpp ../src/ReadData.cpp ../src/ReadSegments.cpp ../src/SegmentTree.cpp ../src/SegmentTreeElement.cpp ../src/Segment.cpp ../src/Sequence.cpp ../src/Pairing.cpp ../src/PairingPlus.cpp ../src/SubSequence.cpp ../src/Utils/min.cpp ../src/Settings.cpp ../src/Utils/file_exists.cpp ../src/ScoringMatrix.cpp ../src/ScoringTree.cpp ../src/DotBracket.cpp)
 
 
 set_target_properties(direction_test
@@ -76,4 +77,5 @@ set_target_properties(direction_test
                       scoringtree_test
                       scoringmatrix_test
                       gibbsfreeenergy_test
+					  zuker_test
                                       PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${BUILD_TEST_DIR}")
