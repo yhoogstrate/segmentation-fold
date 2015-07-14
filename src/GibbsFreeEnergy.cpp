@@ -91,19 +91,19 @@ inline float GibbsFreeEnergy::get_int11(PairingType &arg_p1, PairingType &arg_p2
  * <PRE>
  * Pairing(i,j)   Pairing(i',j') Nucleotide(i+1)  Nucleotide(j-1)  Nucleotide(j-2)
  * </PRE>
- * 
+ *
  * Reverse:
  * <PRE>
  * Pairing(j',i') Pairing(j,  i) Nucleotide(j'+1) Nucleotide(i'-1) Nucleotide(i'-2)
  * </PRE>
- * 
+ *
  * <PRE>
- 
- 5   i  i+1   i' 
+
+ 5   i  i+1   i'
 
  3   j  j-1  j-2  j'
- 
- 
+
+
  * </PRE>
  *
  * @date 2015-07-04

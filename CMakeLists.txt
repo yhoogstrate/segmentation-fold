@@ -1,6 +1,6 @@
 # @file CMakeLists.txt
 #
-# @date 2015-07-13
+# @date 2015-07-14
 #
 # @author Youri Hoogstrate
 #
@@ -105,7 +105,6 @@ add_custom_command(
 				COMMAND astyle --options=share/.astylerc include/*.hpp
 				COMMAND astyle --options=share/.astylerc src/*.cpp src/Utils/*.cpp
 				COMMAND astyle --options=share/.astylerc test/*.cpp
-				COMMAND date > build/astyle.timestamp.txt
 			)
 
 add_custom_target(tidy DEPENDS make_tidy )
@@ -130,6 +129,35 @@ add_custom_target(doc DEPENDS make_doc)
 add_subdirectory(src)
 include_directories(include)
 add_definitions(-std=c++0x)
+
+# OpenMP - threading
+find_package(OpenMP)
+if(OPENMP_FOUND)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+endif()
+
+add_executable(segmentation-fold
+					src/main.cpp
+					src/DotBracket.cpp
+					src/ReadData.cpp
+					src/ReadSegments.cpp
+					src/Settings.cpp
+					src/GibbsFreeEnergy.cpp
+					src/Zuker.cpp
+					src/Utils/file_exists.cpp
+					src/Utils/min.cpp
+					src/Pairing.cpp
+					src/PairingPlus.cpp
+					src/SubSequence.cpp
+					src/Segment.cpp
+					src/SegmentTreeElement.cpp
+					src/SegmentTree.cpp
+					src/ScoringMatrix.cpp
+					src/Sequence.cpp
+					src/ScoringTree.cpp
+				)
+
+set_target_properties(segmentation-fold PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${BUILD_DIR}")
 
 # ----------------------------------------------------------------------
 # ------------------------------ Testing -------------------------------
@@ -156,11 +184,18 @@ add_test(scoringtree_test        "${BUILD_TEST_DIR}/scoringtree_test")
 add_test(scoringmatrix_test      "${BUILD_TEST_DIR}/scoringmatrix_test")
 add_test(gibbsfreeenergy_test    "${BUILD_TEST_DIR}/gibbsfreeenergy_test")
 add_test(zuker_test              "${BUILD_TEST_DIR}/zuker_test")
+add_test(main_test               "${BUILD_TEST_DIR}/main_test")
 
 find_program(CTEST_MEMORYCHECK_COMMAND NAMES valgrind)					# 'ctest -T memcheck'
 INCLUDE(Dart)
 
 # ----------------------------------------------------------------------
 # --------------------------- Installation -----------------------------
+
+# The compiled binary, usually to: /usr/local/bin/segmentation-fold
+install(TARGETS segmentation-fold DESTINATION "bin")
+
+# The segments.xml file, usually to: /usr/local/share/segmentation-fold/segments.xml
+install(DIRECTORY "share/${CMAKE_PROJECT_NAME}" DESTINATION "share")
 
 # ----------------------------------------------------------------------

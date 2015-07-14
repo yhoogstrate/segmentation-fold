@@ -342,21 +342,21 @@ BOOST_AUTO_TEST_SUITE(TestingBulgeloop)
  *     || \ || a
  * 3') gc  gcga
  * </PRE>
- * 
+ *
  * Hairpin:
  * <PRE>
  * 5') ...Ca
  *          a
  * 3') ...Ga
  * </PRE>
- * 
+ *
  * Bulge loop:
  * <PRE>
  * 5') ...CaaaaG...
  *         \  /
  * 3')   ...GC...
  * </PRE>
- * 
+ *
  * @test GibbsFreeEnergy::get_bulge_loop_element
  *
  * @date 2015-06-23
@@ -418,21 +418,21 @@ BOOST_AUTO_TEST_CASE(TestBulgeLoop1)
  *
  * @section DESCRIPTION
  *     Predicts the Gibbs free energy of the following structure:
- * 
+ *
  * <PRE>
  *           a
  *   5') cgc  gca
  *       || \ || a
  *   3') gc  gcga
  * </PRE>
- * 
+ *
  * Hairpin:
  * <PRE>
  *  5') ...Ca
  *           a
  *  3') ...Ga
  * </PRE>
- * 
+ *
  *  Bulge loop:
  * <PRE>
  *  5') ...CaG...
@@ -743,7 +743,7 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop1)
  *
  * @section DESCRIPTION
  * Predicts the Gibbs free energy of the following structure:
- * 
+ *
  * <PRE>
  *       {r1}
  * 5') gcG  Cga
@@ -751,21 +751,21 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop1)
  * 3') cgC  Gca
  *       {r2}
  * </PRE>
- * 
+ *
  * Where for:
- * 
+ *
  * n_unpaired=34:
  * <PRE>
  * {r1} = AaaaaAaaaaAaaaaAA
  * {r2} = AaaaaAaaaaAaaaaAA
  * </PRE>
- * 
+ *
  * n_unpaired=35:
  * <PRE>
  * {r1} = AaaaaAaaaaAaaaaAAA
  * {r2} = AaaaaAaaaaAaaaaAA
  * </PRE>
- * 
+ *
  * n_unpaired=36:
  * <PRE>
  * {r1} = AaaaaAaaaaAaaaaAAA
@@ -1032,40 +1032,40 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop2)
  * 3') cgC  Gca
  *       {r2}
  * </PRE>
- * 
+ *
  * The poppen vector contains only 4 values and therefore we will test it with four values as well.
  * Where {r1} and {r2} are stretches of sequences that remain unpaired, and for:
- * 
+ *
  * n_unpaired=32:
  * <PRE>
  * {r1} = AaaaaAaaaaAaaaaA
  * {r2} = AaaaaAaaaaAaaaaA
  * </PRE>
- *  
+ *
  * n_unpaired=33:
  * <PRE>
  * {r1} = AaaaaAaaaaAaaaaA
  * {r2} = AaaaaAaaaaAaaaaAA
  * </PRE>
- * 
+ *
  * n_unpaired=34:
  * <PRE>
  * {r1} = AaaaaAaaaaAaaaaA
  * {r2} = AaaaaAaaaaAaaaaAAA
  * </PRE>
- * 
+ *
  * n_unpaired=35:
  * <PRE>
  * {r1} = AaaaaAaaaaAaaaaA
  * {r2} = AaaaaAaaaaAaaaaAAAA
  * </PRE>
- * 
+ *
  * n_unpaired=36:
  * <PRE>
  * {r1} = AaaaaAaaaaAaaaaA
  * {r2} = AaaaaAaaaaAaaaaAAAAA
  * </PRE>
- * 
+ *
  * n_unpaired=37:
  * <PRE>
  * {r1} = AaaaaAaaaaAaaaaA
@@ -1719,13 +1719,13 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop5)
  *
  * @section DESCRIPTION
  *    Predicts the Gibbs free energy of the following structure:
- * 
+ *
  * <PRE>
  *   5') [i] [i+1] [i+2] [i'] ...
  *        |               |
  *   3') [j] [j-1] [j-2] [j'] ...
  * </PRE>
- * 
+ *
  *  With interior loop sequence:
  * <PRE>
  *        aa
@@ -1734,7 +1734,7 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop5)
  * 3') cgC  Gca
  *        aa
  * </PRE>
- * 
+ *
  * @test
  *
  * @date 2015-06-23

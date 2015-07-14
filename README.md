@@ -165,7 +165,6 @@ README.md as main page.
 	If you encounter problems with this software, please send bug-reports to:
 	   <https://github.com/yhoogstrate/segmentation-fold/issues>
 
-
 ## galaxy ##
 
 segmentation-fold will become available as galaxy tool.

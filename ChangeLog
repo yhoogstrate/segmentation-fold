@@ -1,3 +1,8 @@
+2015-07-14  Youri Hoogstrate
+	* v1.0.0
+	  - Added source and test files for main -> stable working version
+	  - Added installer
+
 2015-07-13  Youri Hoogstrate
 	* Added source and test files for Zuker object
 
