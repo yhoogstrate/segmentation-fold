@@ -1,3 +1,6 @@
+2015-07-15  Youri Hoogstrate
+	* Added K-turn from U85 scaRNA's stem
+
 2015-07-14  Youri Hoogstrate
 	* v1.0.0
 	  - Added source and test files for main -> stable working version

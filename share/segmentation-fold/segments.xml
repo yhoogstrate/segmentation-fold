@@ -4,7 +4,7 @@
 
 @author Youri Hoogstrate
 
-@date 2015-06-02
+@date 2015-07-15
 
 @section LICENSE
 segmentation-fold can predict RNA 2D structures including K-turns.
@@ -454,6 +454,18 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		<motif>
 			<id>Kt-CD-box.CGU</id><!-- Common -->
 			<sequence_5prime>CGUGAU</sequence_5prime>
+			<bonds          >   :::</bonds>
+			<sequence_3prime>   AGU</sequence_3prime>
+			<energy>-11.1072</energy>
+			<directions>
+				<five_prime>true</five_prime>
+				<three_prime>true</three_prime>
+			</directions>
+		</motif>
+		
+		<motif>
+			<id>Kt-CD-box.CAU</id><!-- Common -->
+			<sequence_5prime>CAUGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
 			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
