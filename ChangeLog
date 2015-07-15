@@ -1,5 +1,7 @@
 2015-07-15  Youri Hoogstrate
 	* Added K-turn from U85 scaRNA's stem
+	* Fixed tiny bug in Settings_test
+	* Stay stick to term 'segment'
 
 2015-07-14  Youri Hoogstrate
 	* v1.0.0

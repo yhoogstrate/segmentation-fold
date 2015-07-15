@@ -4,7 +4,7 @@
 
 @author Youri Hoogstrate
 
-@date 2015-07-15
+@date 2015-06-02
 
 @section LICENSE
 segmentation-fold can predict RNA 2D structures including K-turns.
@@ -27,9 +27,9 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <root>
-	<!-- K-turns & other special foldig motifs -->
-	<motifs>
-		<motif>
+	<!-- Segments, including K-turns -->
+	<segments>
+		<segment>
 			<id>Kt-7 G2nA SAM riboswitch (H. marismortui)</id>
 			<sequence_5prime>GAAGAA</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -39,9 +39,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-7 (D. radiodurans)</id>
 			<sequence_5prime>UUUGAC</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -51,9 +51,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-7 (E. coli)</id>
 			<sequence_5prime>GUUAUAA</sequence_5prime>
 			<bonds          >:    ::</bonds>
@@ -63,9 +63,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-7 (T. thermophilus)</id>
 			<sequence_5prime>GUGGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -75,9 +75,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-11 (T. thermophilus)</id>
 			<sequence_5prime>GACGA C</sequence_5prime>
 			<bonds          >   :: :</bonds>
@@ -87,9 +87,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-11.eco</id>
 			<sequence_5prime>GACGA U</sequence_5prime>
 			<bonds          >   :: :</bonds>
@@ -99,9 +99,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-15.hma</id>
 			<sequence_5prime>AAUG U</sequence_5prime>
 			<bonds          >   : :</bonds>
@@ -111,9 +111,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-23.tth</id>
 			<sequence_5prime>GCAGAUA</sequence_5prime>
 			<bonds          >   ::::</bonds>
@@ -123,9 +123,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-23.eco</id>
 			<sequence_5prime>GUAGAG</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -135,9 +135,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-38.hma</id>
 			<sequence_5prime>GUUUGAC</sequence_5prime>
 			<bonds          >    :::</bonds>
@@ -147,9 +147,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-42.hma</id>
 			<sequence_5prime>CUAGACA</sequence_5prime>
 			<bonds          >   :: :</bonds>
@@ -159,9 +159,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-42.tth</id>
 			<sequence_5prime>GAAGACA</sequence_5prime>
 			<bonds          >   :: :</bonds>
@@ -171,9 +171,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-42.dra</id>
 			<sequence_5prime>AUAGACA</sequence_5prime>
 			<bonds          >   :: :</bonds>
@@ -183,9 +183,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-42.eco</id>
 			<sequence_5prime>CCAGACA</sequence_5prime>
 			<bonds          >   :: :</bonds>
@@ -195,9 +195,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-46.hma</id>
 			<sequence_5prime>AUGGAAG</sequence_5prime>
 			<bonds          >   ::::</bonds>
@@ -207,9 +207,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-46.tth</id>
 			<sequence_5prime>GAUGAAG</sequence_5prime>
 			<bonds          >   ::::</bonds>
@@ -219,9 +219,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-46.dra</id>
 			<sequence_5prime>GGUGAAG</sequence_5prime>
 			<bonds          >   ::::</bonds>
@@ -231,9 +231,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-46.eco</id>
 			<sequence_5prime>UGCGAAG</sequence_5prime>
 			<bonds          >   ::::</bonds>
@@ -243,9 +243,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-58.hma</id>
 			<sequence_5prime>A GGAAG</sequence_5prime>
 			<bonds          >   ::::</bonds>
@@ -255,9 +255,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-U4a.hsa</id>
 			<sequence_5prime>AAUGA</sequence_5prime>
 			<bonds          >   ::</bonds>
@@ -267,9 +267,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-U4b.hsa</id>
 			<sequence_5prime>AGUGA</sequence_5prime>
 			<bonds          >   ::</bonds>
@@ -279,10 +279,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<!-- The following motifs are abstractions of:
-		<motif>
+		<!-- The following segments are abstractions of:
+		<segment>
 			<id>Kt-CD-box</id>
 			<sequence_5prime>NNRGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -292,10 +292,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		-->
 		
-		<motif>
+		<segment>
 			<id>Kt-CD-box.AAG</id>
 			<sequence_5prime>AAGGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -305,9 +305,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-CD-box.ACA</id>
 			<sequence_5prime>ACAGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -317,9 +317,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-CD-box.ACG</id>
 			<sequence_5prime>ACGGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -329,9 +329,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-CD-box.AUA</id>
 			<sequence_5prime>AUAGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -341,9 +341,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-CD-box.AUG</id>
 			<sequence_5prime>AUGGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -353,9 +353,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-CD-box.AGA</id>
 			<sequence_5prime>AGAGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -365,9 +365,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-CD-box.AGG</id>
 			<sequence_5prime>AGGGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -377,9 +377,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-CD-box.CAA</id>
 			<sequence_5prime>CAAGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -389,9 +389,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-CD-box.CAG</id>
 			<sequence_5prime>CAGGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -401,9 +401,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-CD-box.CCA</id>
 			<sequence_5prime>CCAGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -413,9 +413,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-CD-box.CCG</id>
 			<sequence_5prime>CCGGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -425,9 +425,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-CD-box.CUA</id>
 			<sequence_5prime>CUAGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -437,9 +437,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-CD-box.CUG</id>
 			<sequence_5prime>CUGGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -449,9 +449,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-CD-box.CGU</id><!-- Common -->
 			<sequence_5prime>CGUGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -461,21 +461,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
-			<id>Kt-CD-box.CAU</id><!-- Common -->
-			<sequence_5prime>CAUGAU</sequence_5prime>
-			<bonds          >   :::</bonds>
-			<sequence_3prime>   AGU</sequence_3prime>
-			<energy>-11.1072</energy>
-			<directions>
-				<five_prime>true</five_prime>
-				<three_prime>true</three_prime>
-			</directions>
-		</motif>
-		
-		<motif>
+		<segment>
 			<id>Kt-CD-box.UGU</id><!-- Common -->
 			<sequence_5prime>UGUGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -485,9 +473,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-CD-box.CGA</id>
 			<sequence_5prime>CGAGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -497,9 +485,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-CD-box.CGG</id>
 			<sequence_5prime>CGGGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -509,9 +497,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-CD-box.UAA</id>
 			<sequence_5prime>UAAGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -521,9 +509,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-CD-box.UAG</id>
 			<sequence_5prime>UAGGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -533,9 +521,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-CD-box.UCA</id>
 			<sequence_5prime>UCAGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -545,9 +533,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-CD-box.UCG</id>
 			<sequence_5prime>UCGGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -557,9 +545,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-CD-box.UUA</id>
 			<sequence_5prime>UUAGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -569,9 +557,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-CD-box.UUG</id>
 			<sequence_5prime>UUGGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -581,9 +569,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-CD-box.UGA</id>
 			<sequence_5prime>UGAGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -593,9 +581,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-CD-box.UGG</id>
 			<sequence_5prime>UGGGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -605,9 +593,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-CD-box.GAA</id>
 			<sequence_5prime>GAAGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -617,9 +605,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-CD-box.GAG</id>
 			<sequence_5prime>GAGGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -629,9 +617,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-CD-box.GCA</id>
 			<sequence_5prime>GCAGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -641,9 +629,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-CD-box.GCG</id>
 			<sequence_5prime>GCGGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -653,9 +641,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-CD-box.GUA</id>
 			<sequence_5prime>GUAGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -665,9 +653,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-CD-box.GUG</id>
 			<sequence_5prime>GUGGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -677,9 +665,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-CD-box.GGA</id>
 			<sequence_5prime>GGAGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -689,9 +677,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-CD-box.GGG</id>
 			<sequence_5prime>GGGGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -701,10 +689,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
 		
-		<motif>
+		<segment>
 			<id>Kt-L30e.sce</id>
 			<sequence_5prime>GCAGAGAU</sequence_5prime>
 			<bonds          >+|   ::+</bonds>
@@ -714,9 +702,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-SAM-ribo.tte</id>
 			<sequence_5prime>GAUGAA</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -726,9 +714,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-T-box.bsu</id>
 			<sequence_5prime>AAAGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -738,9 +726,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-c-di-GMP-II.cac</id>
 			<sequence_5prime>AAUGAUG</sequence_5prime>
 			<bonds          >   :::+</bonds>
@@ -750,9 +738,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<five_prime>true</five_prime>
 				<three_prime>true</three_prime>
 			</directions>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-G2nA-SAM-riboswitch (T. tengcongensi)</id>
 			<sequence_5prime>GACGAA</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -764,9 +752,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			</directions>
 			
 			<comment>The K-turn has no sheared tandem GA-AG bond.</comment>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Kt-G2nA-SAMribo.bsu</id>
 			<sequence_5prime>GACGAA</sequence_5prime>
 			<bonds          >   :::</bonds>
@@ -778,9 +766,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			</directions>
 			
 			<comment>No corresponding sequence?!</comment>
-		</motif>
+		</segment>
 		
-		<motif>
+		<segment>
 			<id>Loop-E-Motif.bac</id>
 			<sequence_5prime>GAUGGUA</sequence_5prime>
 			<bonds          >:::::::</bonds>
@@ -792,8 +780,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			</directions>
 			
 			<comment>No corresponding sequence?! - more info at: http://rna.bgsu.edu/rna3dhub_dev/loops/view/IL_1FEU_001</comment>
-		</motif>
-	</motifs>
+		</segment>
+	</segments>
 	
 	
 	
@@ -806,15 +794,15 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			
 			<structures>
 				<structure>
-					<associated_motifs>
+					<associated_segments>
 						<link>Kt-7 G2nA SAM riboswitch (H. marismortui)</link>
-					</associated_motifs>
-					<dot_bracket type="full" >((((((((((((.......)))...)))))))))</dot_bracket>
-					<dot_bracket type="motif">?????(((((???????????)...))))?????</dot_bracket><!-- One of the surrounding pairs should still be replaced for N's -->
+					</associated_segments>
+					<dot_bracket type="full"   >((((((((((((.......)))...)))))))))</dot_bracket>
+					<dot_bracket type="segment">?????(((((???????????)...))))?????</dot_bracket><!-- One of the surrounding pairs should still be replaced for N's -->
 				</structure>
 				
 				<structure>
-					<associated_motifs />
+					<associated_segments />
 					<dot_bracket />
 				</structure>
 			</structures>
@@ -832,15 +820,15 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			
 			<structures>
 				<structure>
-					<associated_motifs>
+					<associated_segments>
 						<link>Kt-7 (T. thermophilus)</link>
-					</associated_motifs>
-					<dot_bracket type="full" >((((((((((((.......)))...)))))))))</dot_bracket>
-					<dot_bracket type="motif">?????(((((???????????)...))))?????</dot_bracket>
+					</associated_segments>
+					<dot_bracket type="full"   >((((((((((((.......)))...)))))))))</dot_bracket>
+					<dot_bracket type="segment">?????(((((???????????)...))))?????</dot_bracket>
 				</structure>
 				
 				<structure>
-					<associated_motifs />
+					<associated_segments />
 					<dot_bracket />
 				</structure>
 			</structures>
@@ -853,15 +841,15 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			
 			<structures>
 				<structure>
-					<associated_motifs>
+					<associated_segments>
 						<link>Kt-7 (E. coli)</link>
-					</associated_motifs>
-					<dot_bracket type="full" >((((((((((((.......))))....))))))))</dot_bracket>
-					<dot_bracket type="motif">??????((((???????????))....))??????</dot_bracket>
+					</associated_segments>
+					<dot_bracket type="full"   >((((((((((((.......))))....))))))))</dot_bracket>
+					<dot_bracket type="segment">??????((((???????????))....))??????</dot_bracket>
 				</structure>
 				
 				<structure>
-					<associated_motifs />
+					<associated_segments />
 					<dot_bracket />
 				</structure>
 			</structures>
@@ -874,15 +862,15 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			
 			<structures>
 				<structure>
-					<associated_motifs>
+					<associated_segments>
 						<link>Kt-7 (D. radiodurans)</link>
-					</associated_motifs>
-					<dot_bracket type="full" >((((((((((((.......)))...)))))))))</dot_bracket>
-					<dot_bracket type="motif">?????(((((???????????)...))))?????</dot_bracket>
+					</associated_segments>
+					<dot_bracket type="full"   >((((((((((((.......)))...)))))))))</dot_bracket>
+					<dot_bracket type="segment">?????(((((???????????)...))))?????</dot_bracket>
 				</structure>
 				
 				<structure>
-					<associated_motifs />
+					<associated_segments />
 					<dot_bracket />
 				</structure>
 			</structures>
@@ -895,15 +883,15 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			
 			<structures>
 				<structure>
-					<associated_motifs>
+					<associated_segments>
 						<link>Kt-11 (T. thermophilus)</link>
-					</associated_motifs>
-					<dot_bracket type="full" >((((.(((((..((((((((.......)))))))))))...))))))</dot_bracket>
-					<dot_bracket type="motif">??((.(((?????????????????????????????)...))))??</dot_bracket>
+					</associated_segments>
+					<dot_bracket type="full"   >((((.(((((..((((((((.......)))))))))))...))))))</dot_bracket>
+					<dot_bracket type="segment">??((.(((?????????????????????????????)...))))??</dot_bracket>
 				</structure>
 				
 				<structure>
-					<associated_motifs />
+					<associated_segments />
 					<dot_bracket />
 				</structure>
 			</structures>
@@ -920,15 +908,15 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			
 			<structures>
 				<structure>
-					<associated_motifs>
+					<associated_segments>
 						<link>Kt-11.eco</link>
-					</associated_motifs>
-					<dot_bracket type="full" >((((.(((((..((((((((.......)))))))))))...))))))</dot_bracket>
-					<dot_bracket type="motif">??((.(((?????????????????????????????)...))))??</dot_bracket>
+					</associated_segments>
+					<dot_bracket type="full"   >((((.(((((..((((((((.......)))))))))))...))))))</dot_bracket>
+					<dot_bracket type="segment">??((.(((?????????????????????????????)...))))??</dot_bracket>
 				</structure>
 				
 				<structure>
-					<associated_motifs />
+					<associated_segments />
 					<dot_bracket />
 				</structure>
 			</structures>
@@ -940,15 +928,15 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			<sequence>AACCGAAGCCCUCACGGGCAAUGUGGUGUCA</sequence>
 			<structures>
 				<structure>
-					<associated_motifs>
+					<associated_segments>
 						<link>Kt-15.hma</link>
-					</associated_motifs>
-					<dot_bracket type="full" >..(((.(((((....))))...)))).....</dot_bracket>
-					<dot_bracket type="motif">???((.((??????????)...)))??????</dot_bracket>
+					</associated_segments>
+					<dot_bracket type="full"   >..(((.(((((....))))...)))).....</dot_bracket>
+					<dot_bracket type="segment">???((.((??????????)...)))??????</dot_bracket>
 				</structure>
 				
 				<structure>
-					<associated_motifs />
+					<associated_segments />
 					<dot_bracket />
 				</structure>
 			</structures>
@@ -965,15 +953,15 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			
 			<structures>
 				<structure>
-					<associated_motifs>
+					<associated_segments>
 						<link>Kt-23.tth</link>
-					</associated_motifs>
-					<dot_bracket type="full" >((((((((((((((......)))...)))))))))))</dot_bracket>
-					<dot_bracket type="motif">??????((((((??????????)...)))))??????</dot_bracket>
+					</associated_segments>
+					<dot_bracket type="full"   >((((((((((((((......)))...)))))))))))</dot_bracket>
+					<dot_bracket type="segment">??????((((((??????????)...)))))??????</dot_bracket>
 				</structure>
 				
 				<structure>
-					<associated_motifs />
+					<associated_segments />
 					<dot_bracket />
 				</structure>
 			</structures>
@@ -990,15 +978,15 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			
 			<structures>
 				<structure>
-					<associated_motifs>
+					<associated_segments>
 						<link>Kt-23.eco</link>
-					</associated_motifs>
-					<dot_bracket type="full" >((((((((((((((......)))...)))))))))))</dot_bracket>
-					<dot_bracket type="motif">??????((((((??????????)...)))))??????</dot_bracket>
+					</associated_segments>
+					<dot_bracket type="full"   >((((((((((((((......)))...)))))))))))</dot_bracket>
+					<dot_bracket type="segment">??????((((((??????????)...)))))??????</dot_bracket>
 				</structure>
 				
 				<structure>
-					<associated_motifs />
+					<associated_segments />
 					<dot_bracket />
 				</structure>
 			</structures>
@@ -1018,15 +1006,15 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			
 			<structures>
 				<structure>
-					<associated_motifs>
+					<associated_segments>
 						<link>Kt-38.hma</link>
-					</associated_motifs>
-					<dot_bracket type="full" >((((((((((((.(((((((((...(((.....((((((((((.((((((((....))))))))))))))))))...)).)...))))))))))))....)))))))))</dot_bracket>
-					<dot_bracket type="motif">?????(((((?????????????????????????????????????????????????????????????????????????????????????)....))))?????</dot_bracket>
+					</associated_segments>
+					<dot_bracket type="full"   >((((((((((((.(((((((((...(((.....((((((((((.((((((((....))))))))))))))))))...)).)...))))))))))))....)))))))))</dot_bracket>
+					<dot_bracket type="segment">?????(((((?????????????????????????????????????????????????????????????????????????????????????)....))))?????</dot_bracket>
 				</structure>
 				
 				<structure>
-					<associated_motifs />
+					<associated_segments />
 					<dot_bracket />
 				</structure>
 			</structures>
@@ -1043,15 +1031,15 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			
 			<structures>
 				<structure>
-					<associated_motifs>
+					<associated_segments>
 						<link>Kt-42.hma</link>
-					</associated_motifs>
-					<dot_bracket type="full" >(((.((((((((((...((.((((((......)))))))))))))))))))))</dot_bracket>
-					<dot_bracket type="motif">?????????????(...((.((??????????????)))))????????????</dot_bracket>
+					</associated_segments>
+					<dot_bracket type="full"   >(((.((((((((((...((.((((((......)))))))))))))))))))))</dot_bracket>
+					<dot_bracket type="segment">?????????????(...((.((??????????????)))))????????????</dot_bracket>
 				</structure>
 				
 				<structure>
-					<associated_motifs />
+					<associated_segments />
 					<dot_bracket />
 				</structure>
 			</structures>
@@ -1068,15 +1056,15 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			
 			<structures>
 				<structure>
-					<associated_motifs>
+					<associated_segments>
 						<link>Kt-42.tth</link>
-					</associated_motifs>
-					<dot_bracket type="full" >(((.((((((((((...((.((((((......)))))))))))))))))))))</dot_bracket>
-					<dot_bracket type="motif">?????????????(...((.((??????????????)))))????????????</dot_bracket>
+					</associated_segments>
+					<dot_bracket type="full"   >(((.((((((((((...((.((((((......)))))))))))))))))))))</dot_bracket>
+					<dot_bracket type="segment">?????????????(...((.((??????????????)))))????????????</dot_bracket>
 				</structure>
 				
 				<structure>
-					<associated_motifs />
+					<associated_segments />
 					<dot_bracket />
 				</structure>
 			</structures>
@@ -1089,15 +1077,15 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			
 			<structures>
 				<structure>
-					<associated_motifs>
+					<associated_segments>
 						<link>Kt-42.dra</link>
-					</associated_motifs>
-					<dot_bracket type="full" >(((.((((((((((...((.((((((......)))))))))))))))))))))</dot_bracket>
-					<dot_bracket type="motif">?????????????(...((.((??????????????)))))????????????</dot_bracket>
+					</associated_segments>
+					<dot_bracket type="full"   >(((.((((((((((...((.((((((......)))))))))))))))))))))</dot_bracket>
+					<dot_bracket type="segment">?????????????(...((.((??????????????)))))????????????</dot_bracket>
 				</structure>
 				
 				<structure>
-					<associated_motifs />
+					<associated_segments />
 					<dot_bracket />
 				</structure>
 			</structures>
@@ -1110,15 +1098,15 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			
 			<structures>
 				<structure>
-					<associated_motifs>
+					<associated_segments>
 						<link>Kt-42.eco</link>
-					</associated_motifs>
-					<dot_bracket type="full" >(((.((((((((((...((.((((((......)))))))))))))))))))))</dot_bracket>
-					<dot_bracket type="motif">?????????????(...((.((??????????????)))))????????????</dot_bracket>
+					</associated_segments>
+					<dot_bracket type="full"   >(((.((((((((((...((.((((((......)))))))))))))))))))))</dot_bracket>
+					<dot_bracket type="segment">?????????????(...((.((??????????????)))))????????????</dot_bracket>
 				</structure>
 				
 				<structure>
-					<associated_motifs />
+					<associated_segments />
 					<dot_bracket />
 				</structure>
 			</structures>
@@ -1131,15 +1119,15 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			
 			<structures>
 				<structure>
-					<associated_motifs>
+					<associated_segments>
 						<link>Kt-46.hma</link>
-					</associated_motifs>
-					<dot_bracket type="full" >((((((((((...(((((((((((....)))))))))))))))))))))</dot_bracket>
-					<dot_bracket type="motif">?????????(...(((((????????????????))))))?????????</dot_bracket>
+					</associated_segments>
+					<dot_bracket type="full"   >((((((((((...(((((((((((....)))))))))))))))))))))</dot_bracket>
+					<dot_bracket type="segment">?????????(...(((((????????????????))))))?????????</dot_bracket>
 				</structure>
 				
 				<structure>
-					<associated_motifs />
+					<associated_segments />
 					<dot_bracket />
 				</structure>
 			</structures>
@@ -1156,15 +1144,15 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			
 			<structures>
 				<structure>
-					<associated_motifs>
+					<associated_segments>
 						<link>Kt-46.tth</link>
-					</associated_motifs>
-					<dot_bracket type="full" >(((((???(((...((((((((((......)))))))))))))??)))))</dot_bracket>
-					<dot_bracket type="motif">??????????(...(((((????????????????))))))?????????</dot_bracket>
+					</associated_segments>
+					<dot_bracket type="full"   >(((((???(((...((((((((((......)))))))))))))??)))))</dot_bracket>
+					<dot_bracket type="segment">??????????(...(((((????????????????))))))?????????</dot_bracket>
 				</structure>
 				
 				<structure>
-					<associated_motifs />
+					<associated_segments />
 					<dot_bracket />
 				</structure>
 			</structures>
@@ -1177,15 +1165,15 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			
 			<structures>
 				<structure>
-					<associated_motifs>
+					<associated_segments>
 						<link>Kt-46.dra</link>
-					</associated_motifs>
-					<dot_bracket type="full" >((((((((((...((((((((((......))))))))))))))))))))</dot_bracket>
-					<dot_bracket type="motif">?????????(...(((((????????????????))))))?????????</dot_bracket>
+					</associated_segments>
+					<dot_bracket type="full"   >((((((((((...((((((((((......))))))))))))))))))))</dot_bracket>
+					<dot_bracket type="segment">?????????(...(((((????????????????))))))?????????</dot_bracket>
 				</structure>
 				
 				<structure>
-					<associated_motifs />
+					<associated_segments />
 					<dot_bracket />
 				</structure>
 			</structures>
@@ -1200,15 +1188,15 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			
 			<structures>
 				<structure>
-					<associated_motifs>
+					<associated_segments>
 						<link>Kt-46.eco</link>
-					</associated_motifs>
-					<dot_bracket type="full" >(((((((.(((...((((((((((......))))))))))))))))))))</dot_bracket>
-					<dot_bracket type="motif">???????.??(...(((((????????????????))))))?????????</dot_bracket>
+					</associated_segments>
+					<dot_bracket type="full"   >(((((((.(((...((((((((((......))))))))))))))))))))</dot_bracket>
+					<dot_bracket type="segment">???????.??(...(((((????????????????))))))?????????</dot_bracket>
 				</structure>
 				
 				<structure>
-					<associated_motifs />
+					<associated_segments />
 					<dot_bracket />
 				</structure>
 			</structures>
@@ -1221,15 +1209,15 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			
 			<structures>
 				<structure>
-					<associated_motifs>
+					<associated_segments>
 						<link>Kt-58.hma</link>
-					</associated_motifs>
-					<dot_bracket type="full" >((((((((.(((.....)))..))))))))</dot_bracket>
-					<dot_bracket type="motif">???(((((.(?????????)..)))))???</dot_bracket>
+					</associated_segments>
+					<dot_bracket type="full"   >((((((((.(((.....)))..))))))))</dot_bracket>
+					<dot_bracket type="segment">???(((((.(?????????)..)))))???</dot_bracket>
 				</structure>
 				
 				<structure>
-					<associated_motifs />
+					<associated_segments />
 					<dot_bracket />
 				</structure>
 			</structures>
@@ -1246,14 +1234,14 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			
 			<structures>
 				<structure>
-					<associated_motifs>
+					<associated_segments>
 						<link>Kt-U4a.hsa</link>
-					</associated_motifs>
-					<dot_bracket type="full" >(((...((((.....)))))))</dot_bracket>
+					</associated_segments>
+					<dot_bracket type="full"   >(((...((((.....)))))))</dot_bracket>
 				</structure>
 				
 				<structure>
-					<associated_motifs />
+					<associated_segments />
 					<dot_bracket />
 				</structure>
 			</structures>
@@ -1270,14 +1258,14 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			
 			<structures>
 				<structure>
-					<associated_motifs>
+					<associated_segments>
 						<link>Kt-U4b.hsa</link>
-					</associated_motifs>
-					<dot_bracket type="full" >(((((.(((...(((((....)))))))))))))</dot_bracket>
+					</associated_segments>
+					<dot_bracket type="full"   >(((((.(((...(((((....)))))))))))))</dot_bracket>
 				</structure>
 				
 				<structure>
-					<associated_motifs />
+					<associated_segments />
 					<dot_bracket />
 				</structure>
 			</structures>
@@ -1292,14 +1280,14 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			
 			<structures>
 				<structure>
-					<associated_motifs>
+					<associated_segments>
 						<link>Kt-CD-box.CGU</link>
-					</associated_motifs>
-					<dot_bracket type="full" >(((((((((....))...)))))))</dot_bracket>
+					</associated_segments>
+					<dot_bracket type="full"   >(((((((((....))...)))))))</dot_bracket>
 				</structure>
 				
 				<structure>
-					<associated_motifs />
+					<associated_segments />
 					<dot_bracket />
 				</structure>
 			</structures>
@@ -1316,14 +1304,14 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			
 			<structures>
 				<structure>
-					<associated_motifs>
+					<associated_segments>
 						<link>Kt-CD-box.UGU</link>
-					</associated_motifs>
-					<dot_bracket type="full" >((((((((...((((?????????????((((((((((((.....))))))))...))))?????????????))))))))))))</dot_bracket>
+					</associated_segments>
+					<dot_bracket type="full"   >((((((((...((((?????????????((((((((((((.....))))))))...))))?????????????))))))))))))</dot_bracket>
 				</structure>
 				
 				<structure>
-					<associated_motifs />
+					<associated_segments />
 					<dot_bracket />
 				</structure>
 			</structures>
@@ -1342,14 +1330,14 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			
 			<structures>
 				<structure>
-					<associated_motifs>
+					<associated_segments>
 						<link>Kt-L30e.sce</link>
-					</associated_motifs>
-					<dot_bracket type="full" >((((((...(((((((.....)))))))))))))</dot_bracket>
+					</associated_segments>
+					<dot_bracket type="full"   >((((((...(((((((.....)))))))))))))</dot_bracket>
 				</structure>
 				
 				<structure>
-					<associated_motifs />
+					<associated_segments />
 					<dot_bracket />
 				</structure>
 			</structures>
@@ -1366,14 +1354,14 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			
 			<structures>
 				<structure>
-					<associated_motifs>
+					<associated_segments>
 						<link>Kt-SAM-ribo.tte</link>
-					</associated_motifs>
-					<dot_bracket type="full" >(((((((((.....)))...))))))</dot_bracket>
+					</associated_segments>
+					<dot_bracket type="full"   >(((((((((.....)))...))))))</dot_bracket>
 				</structure>
 				
 				<structure>
-					<associated_motifs />
+					<associated_segments />
 					<dot_bracket />
 				</structure>
 			</structures>
@@ -1391,15 +1379,15 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			
 			<structures>
 				<structure>
-					<associated_motifs>
+					<associated_segments>
 						<link>Kt-T-box.bsu</link>
-					</associated_motifs>
-					<dot_bracket type="full" >((((((...(((((((...(.((((((....)))))))....)))))))))))))</dot_bracket>
-					<dot_bracket type="motif">?????(...((((????????????????????????????????)))))?????</dot_bracket>
+					</associated_segments>
+					<dot_bracket type="full"   >((((((...(((((((...(.((((((....)))))))....)))))))))))))</dot_bracket>
+					<dot_bracket type="segment">?????(...((((????????????????????????????????)))))?????</dot_bracket>
 				</structure>
 				
 				<structure>
-					<associated_motifs />
+					<associated_segments />
 					<dot_bracket />
 				</structure>
 			</structures>
@@ -1416,14 +1404,14 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			
 			<structures>
 				<structure>
-					<associated_motifs>
+					<associated_segments>
 						<link>Kt-c-di-GMP-II.cac</link>
-					</associated_motifs>
-					<dot_bracket type="full" >(((...(((((((((((.....))))))))))))))</dot_bracket>
+					</associated_segments>
+					<dot_bracket type="full"   >(((...(((((((((((.....))))))))))))))</dot_bracket>
 				</structure>
 				
 				<structure>
-					<associated_motifs />
+					<associated_segments />
 					<dot_bracket />
 				</structure>
 			</structures>
@@ -1440,14 +1428,14 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			
 			<structures>
 				<structure>
-					<associated_motifs>
+					<associated_segments>
 						<link>Kt-G2nA-SAM-riboswitch (T. tengcongensi)</link>
-					</associated_motifs>
-					<dot_bracket type="full" >(((((((((.....)))...))))))</dot_bracket>
+					</associated_segments>
+					<dot_bracket type="full"   >(((((((((.....)))...))))))</dot_bracket>
 				</structure>
 				
 				<structure>
-					<associated_motifs />
+					<associated_segments />
 					<dot_bracket />
 				</structure>
 			</structures>

@@ -1,11 +1,12 @@
 /**
  * @file test/Settings_test.cpp
  *
- * @date 2015-06-22
+ * @date 2015-07-15
  *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
+ * <PRE>
  * segmentation-fold can predict RNA 2D structures including K-turns.
  * Copyright (C) 2012-2015 Youri Hoogstrate
  *
@@ -23,6 +24,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * </PRE>
  */
 
 
@@ -245,7 +247,7 @@ BOOST_AUTO_TEST_CASE(Test4)
  *
  * @test
  *
- * @date 2015-06-05
+ * @date 2015-07-15
  */
 BOOST_AUTO_TEST_CASE(Test5)
 {
@@ -254,7 +256,7 @@ BOOST_AUTO_TEST_CASE(Test5)
 	
 	{
 		// Check example file
-		char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", (char *) "-p", (char *) "share/segmentation-fold/" SEGMENTS_FILE, nullptr};
+		char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", (char *) "-x", (char *) "share/segmentation-fold/" SEGMENTS_FILE, nullptr};
 		argc = sizeof(argv) / sizeof(char *) - 1;
 		
 		Settings settings = Settings(argc, argv, sequence);

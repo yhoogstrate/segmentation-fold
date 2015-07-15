@@ -1,11 +1,12 @@
 /**
  * @file test/SegmentTreeElement_test.cpp
  *
- * @date 2015-05-02
+ * @date 2015-07-15
  *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
+ * <PRE>
  * segmentation-fold can predict RNA 2D structures including K-turns.
  * Copyright (C) 2012-2015 Youri Hoogstrate
  *
@@ -23,6 +24,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * </PRE>
  */
 
 

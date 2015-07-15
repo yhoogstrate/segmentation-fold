@@ -1,7 +1,7 @@
 /**
  * @file src/ReadSegments.cpp
  *
- * @date 2015-06-04
+ * @date 2015-07-15
  *
  * @author Youri Hoogstrate
  *
@@ -80,7 +80,7 @@ ReadSegments::ReadSegments(std::string arg_filename, SegmentTree &arg_segments, 
 /**
  * @brief Parses an XML file using boost xml library
  *
- * @date 2015-04-22
+ * @date 2015-07-15
  */
 void ReadSegments::parse(bool arg_parse_examples)
 {
@@ -89,8 +89,8 @@ void ReadSegments::parse(bool arg_parse_examples)
 	ptree xml_root;
 	read_xml(ifs, xml_root);
 	
-	ptree xml_motifs = xml_root.get_child("root.motifs");
-	this->parse_segments(xml_motifs);
+	ptree xml_segments = xml_root.get_child("root.segments");
+	this->parse_segments(xml_segments);
 	
 	if(arg_parse_examples)
 	{
@@ -106,10 +106,10 @@ void ReadSegments::parse(bool arg_parse_examples)
 /**
  * @brief Parses the <segments> section of the XML file
  *
- * @date 25-apr-2015
+ * @date 2015-07-15
  *
  * @section DESCRIPTION
- *
+ * <PRE>
  * For inversion the following needs to happen
  *    ------>
  * 5') ABCDE (3'    [p5 sequence]
@@ -127,14 +127,15 @@ void ReadSegments::parse(bool arg_parse_examples)
  *
  * Thus: p5, p3 and bonds are reversed and thereby p5 and p3 are swapped
  * for each other
+ * </PRE>
  */
-void ReadSegments::parse_segments(ptree &xml_motifs)
+void ReadSegments::parse_segments(ptree &xml_segments)
 {
 	std::string str_true = "true";										///@todo make it static class member
 	
-	BOOST_FOREACH(ptree::value_type const & xml_segment, xml_motifs)
+	BOOST_FOREACH(ptree::value_type const & xml_segment, xml_segments)
 	{
-		if(xml_segment.first == "motif")
+		if(xml_segment.first == "segment")
 		{
 			std::string id = xml_segment.second.get<std::string>("id");
 			std::string p5 = xml_segment.second.get<std::string>("sequence_5prime");
@@ -185,7 +186,7 @@ void ReadSegments::parse_segments(ptree &xml_motifs)
 /**
  * @brief Parses the <rna> section of the XML file
  *
- * @date 2015-04-22
+ * @date 2015-07-15
  */
 void ReadSegments::parse_examples(ptree &xml_examples)
 {
@@ -205,7 +206,7 @@ void ReadSegments::parse_examples(ptree &xml_examples)
 				if(xml_dot_bracket.first == "dot_bracket")
 				{
 					std::string tmp_dot_bracket_pattern = xml_dot_bracket.second.get<std::string>("<xmlattr>.type", "");
-					if((tmp_dot_bracket_pattern == "motif") || (tmp_dot_bracket_pattern == "full" && dot_bracket == ""))
+					if((tmp_dot_bracket_pattern == "segment") || (tmp_dot_bracket_pattern == "full" && dot_bracket == ""))
 					{
 						dot_bracket = xml_dot_bracket.second.data();
 					}
