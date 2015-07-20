@@ -1,12 +1,13 @@
 /**
  * @file src/Settings.cpp
  *
- * @date 2015-06-23
+ * @date 2015-07-20
  *
  * @author Youri Hoogstrate
  * @author Lisa Yu
  *
  * @section LICENSE
+ * <PRE>
  * segmentation-fold can predict RNA 2D structures including K-turns.
  * Copyright (C) 2012-2015 Youri Hoogstrate
  *
@@ -25,6 +26,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * </PRE>
  */
 
 
@@ -67,6 +69,7 @@ Settings::Settings(int arg_argc, char **arg_argv, Sequence &arg_sequence) :
 {
 	this->minimal_hairpin_length = 3;
 	this->segment_prediction_functionality = true;
+	this->num_threads = 0;
 	
 	this->segment_filename = std::string();
 	
@@ -79,7 +82,7 @@ Settings::Settings(int arg_argc, char **arg_argv, Sequence &arg_sequence) :
 /**
  * @brief Prints usage
  *
- * @date 2015-06-22
+ * @date 2015-07-20
  */
 void Settings::print_usage(void)
 {
@@ -92,6 +95,7 @@ void Settings::print_usage(void)
 	fprintf(stderr, "  -p                  [1/0]  Enable/disable segment prediction functionality\n\n");
 	fprintf(stderr, "  -h HAIRPINSIZE        [3]  Minimum hairpin size, 0 or larger, default 3\n");
 	fprintf(stderr, "  -x SEGMENTS_XML_FILE       Use custom  \"segments.xml\"-syntaxed file\n\n");
+	fprintf(stderr, "  -t NUM_THREADS      [0,N}  Run with N threads (0 = maximal available)\n\n");
 	fprintf(stderr, "  -V                         Shows the version and license\n");
 	fprintf(stderr, "\n\n");
 	fprintf(stderr, "If you encounter problems with this software, please send bug-reports to:\n   <" PACKAGE_BUGREPORT ">\n\n");
@@ -135,20 +139,19 @@ void Settings::parse_arguments(void)
 	
 	bool proceed = true;
 	char c;
-	while((c = getopt(this->argc, this->argv, "+h:f:s:p:x:V")) > 0 && proceed)
+	size_t i;
+	
+	while((c = getopt(this->argc, this->argv, "+h:f:s:p:x:t:V")) > 0 && proceed)
 	{
 		switch(c)
 		{
 			case 'h':													// option -h for minimum hairpin length
-				int i;
-				i = 0;
-				while(optarg[i] != '\0')								// Validate whether we are converting a true integer
+				for(i = 0; i < strlen(optarg); i++)///@todo Validate whether we are converting a true integer
 				{
 					if(!isdigit(optarg[i]))
 					{
 						this->print_usage();
 					}
-					i++;
 				}
 				sscanf(optarg, "%d", &this->minimal_hairpin_length);	// TODO use atoi?
 				break;
@@ -181,6 +184,16 @@ void Settings::parse_arguments(void)
 				{
 					throw std::invalid_argument("Can't open file \"" + std::string(optarg) + "\".");
 				}
+				break;
+			case 't':
+				for(i = 0; i < strlen(optarg); i++)
+				{
+					if(!isdigit(optarg[i]))
+					{
+						this->print_usage();
+					}
+				}
+				sscanf(optarg, "%d", &this->num_threads);
 				break;
 			case 'V':
 				this->print_version();

@@ -1,7 +1,7 @@
 /**
  * @file test/main_test.cpp
  *
- * @date 2015-06-28
+ * @date 2015-07-20
  *
  * @author Youri Hoogstrate
  *
@@ -279,7 +279,47 @@ BOOST_AUTO_TEST_CASE(Test_kturns)
 }
 
 
-///@todo Test function with segment-functionality disabled
+
+
+/**
+ * @brief Runs the function al tests of all the segments in the test-file with segmentation-funcitonality disabled.
+ *
+ * @test
+ *
+ * @date 2015-07-20
+ */
+BOOST_AUTO_TEST_CASE(Test_kturns_segments_disabled)
+{
+	Sequence dummy = Sequence("A");
+	Settings settings = Settings(0, nullptr, dummy);
+	settings.segment_prediction_functionality = false;
+	
+	ReadData thermodynamics = ReadData();
+	std::vector<rna_example> rna_examples;
+	
+	//Keep segments empty. This is what disabling should do.
+	//ReadSegments r = ReadSegments(settings.segment_filename, thermodynamics.segments, rna_examples);
+	
+	DotBracket db = DotBracket();
+	
+	// Test each example separately
+	for(std::vector<rna_example>::iterator example = rna_examples.begin(); example != rna_examples.end(); ++example)
+	{
+		Zuker zuker = Zuker(settings, (*example).sequence, thermodynamics);
+		zuker.energy();
+		zuker.traceback();
+		
+		std::string predicted_structure = "";
+		zuker.dot_bracket.format((*example).sequence.size() , predicted_structure);
+		
+		BOOST_REQUIRE_EQUAL((*example).dot_bracket_pattern.size() , predicted_structure.size());
+		BOOST_CHECK_MESSAGE(db.match((*example).dot_bracket_pattern, predicted_structure) == false, "Predicted structure of '" << (*example).title << "' did match its true structure while it shouldn't:\n\t[" << predicted_structure << "] (predicted structure)\n\t[" << (*example).dot_bracket_pattern << "] (pattern of true structure)\n");
+	}
+}
+
+
+
+
 ///@todo Test function with different minimum hairpin size
 
 BOOST_AUTO_TEST_SUITE_END()

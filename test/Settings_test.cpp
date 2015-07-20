@@ -1,7 +1,7 @@
 /**
  * @file test/Settings_test.cpp
  *
- * @date 2015-07-15
+ * @date 2015-07-20
  *
  * @author Youri Hoogstrate
  *
@@ -336,6 +336,44 @@ BOOST_AUTO_TEST_CASE(Test7)
 		Settings settings = Settings(argc, argv, sequence);
 		
 		BOOST_CHECK_EQUAL(settings.run_print_usage , true);
+	}
+}
+
+/**
+ * @brief Tests whether the number of threads is being picked up (-t)
+ *
+ * @test
+ *
+ * @date 2015-07-20
+ */
+BOOST_AUTO_TEST_CASE(Test8)
+{
+	Sequence sequence;
+	int argc;
+	std::string is;
+	
+	
+	// Check default value
+	char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", nullptr};
+	argc = sizeof(argv) / sizeof(char *) - 1;
+	
+	Settings settings = Settings(argc, argv, sequence);
+	
+	BOOST_CHECK_EQUAL(settings.num_threads , 0);
+	
+	
+	// Check argumented values
+	for(signed int i = 0; i < 100; i ++)
+	{
+		is = std::to_string(i);
+		char *ics = (char *) is.c_str();
+		
+		char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", (char *) "-t", (char *) ics, nullptr};
+		argc = sizeof(argv) / sizeof(char *) - 1;
+		
+		Settings settings = Settings(argc, argv, sequence);
+		
+		BOOST_CHECK_MESSAGE(settings.num_threads  == i, "Failed to obtain num_threads of " << i << " ( " << settings.num_threads <<" was found instead)");
 	}
 }
 BOOST_AUTO_TEST_SUITE_END()

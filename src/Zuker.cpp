@@ -1,7 +1,7 @@
 /**
  * @file src/Zuker.cpp
  *
- * @date 2015-07-13
+ * @date 2015-07-20
  *
  * @author Youri Hoogstrate
  * @author Lisa Yu
@@ -89,7 +89,7 @@ Zuker::Zuker(Settings &arg_settings, Sequence &arg_sequence, ReadData &arg_therm
  * explosion. Each position in a diagnoal can be calculated independently
  * from each other.
  *
- * @date 20-sept-2013
+ * @date 2013-09-20
  *
  * @todo Return: energy at i,j
  */
@@ -103,7 +103,7 @@ float Zuker::energy(void)
 		// Paralelization / threading: "still reachable" memory error seems normal (http://stackoverflow.com/questions/6973489/valgrind-and-openmp-still-reachable-and-possibly-lost-is-that-bad).. -num_threads can be defined here
 		// http://people.cs.pitt.edu/~melhem/courses/xx45p/OpenMp.pdf
 		// For each element in a diagonal, it can be calculated independent of the others - if num_threads = 0, it will take all possible threads
-		#pragma omp parallel for num_threads(0) private(i)
+		#pragma omp parallel for num_threads(this->settings.num_threads) private(i)
 		for(i = 0; i < this->sequence.size() - k; i++)
 		{
 			Pair pair(i, i + k);// j = i + k

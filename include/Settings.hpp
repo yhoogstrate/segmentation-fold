@@ -1,12 +1,13 @@
 /**
  * @file include/Settings.hpp
  *
- * @date 2014-04-17
+ * @date 2014-07-20
  *
  * @author Youri Hoogstrate
  * @author Lisa Yu
  *
  * @section LICENSE
+ * <PRE>
  * segmentation-fold can predict RNA 2D structures including K-turns.
  * Copyright (C) 2012-2015 Youri Hoogstrate
  *
@@ -25,6 +26,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * </PRE>
  */
 
 
@@ -41,7 +43,7 @@
  * @section DESCRIPTION
  * Handling the arguments, settings and input.
  *
- * @date 2015-06-22
+ * @date 2015-07-20
  */
 class Settings
 {
@@ -64,7 +66,8 @@ class Settings
 	public:
 		Settings(int arg_argc, char **arg_argv, Sequence &arg_sequence);
 		
-		int minimal_hairpin_length;
+		unsigned int num_threads;
+		int minimal_hairpin_length;///@todo unsigned?
 		bool segment_prediction_functionality;
 		std::string segment_filename;
 		

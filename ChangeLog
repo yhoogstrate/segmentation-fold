@@ -1,4 +1,11 @@
 2015-07-15  Youri Hoogstrate
+	* Argument -t is implemented and allows to control the number of
+	  threads
+	  - Added corresponding tests
+	* Argument -p is implemented and disables segment functionality
+	  - Added corresponding tests
+
+2015-07-15  Youri Hoogstrate
 	* Added K-turn from U85 scaRNA's stem
 	* Fixed tiny bug in Settings_test
 	* Stay stick to term 'segment'
