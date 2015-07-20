@@ -4,7 +4,7 @@
 
 @author Youri Hoogstrate
 
-@date 2015-06-02
+@date 2015-07-18
 
 @section LICENSE
 segmentation-fold can predict RNA 2D structures including K-turns.
@@ -1020,7 +1020,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 			</structures>
 			
 			<references>
-				<pbd>3CC2</pbd>
+				<pdb>3CC2</pdb>
 			</references>
 		</rna>
 		
