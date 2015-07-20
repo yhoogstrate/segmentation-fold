@@ -1,4 +1,5 @@
 2015-07-15  Youri Hoogstrate
+	* Added the energy-estimation-utility python package in ./scripts
 	* Argument -t is implemented and allows to control the number of
 	  threads
 	  - Added corresponding tests
