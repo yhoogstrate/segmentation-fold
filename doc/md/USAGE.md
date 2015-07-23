@@ -13,10 +13,10 @@
 	
 	  -p                  [1/0]  Enable/disable segment prediction functionality
 	
-	  -h HAIRPINSIZE        [3]  Minimum hairpin size, 0 or larger, default 3
+	  -h HAIRPINSIZE      [1,N}  Minimum hairpin size, default: 3
 	  -x SEGMENTS_XML_FILE       Use custom  "segments.xml"-syntaxed file
-	  
-	  -t NUM_THREADS      [0,N}  Run with N threads (0 = maximal available)
+	
+	  -t NUM_THREADS      [0,N}  Number of threads; 0 = maximum available, default: 3.
 	
 	  -V                         Shows the version and license
 	
@@ -26,4 +26,6 @@
 
 ## galaxy ##
 
-segmentation-fold will become available as galaxy tool.
+segmentation-fold will become available for galaxy. The wrapper will be
+available at:
+[https://github.com/ErasmusMC-Bioinformatics/segmentation_fold_galaxy_wrapper](https://github.com/ErasmusMC-Bioinformatics/segmentation_fold_galaxy_wrapper)

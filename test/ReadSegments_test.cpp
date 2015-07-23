@@ -204,7 +204,7 @@ BOOST_AUTO_TEST_CASE(Test2)
  * </PRE>
  *
  * @date 2015-07-23
- * 
+ *
  * @test
  *
  * @todo also check segments pop() function
@@ -274,7 +274,7 @@ BOOST_AUTO_TEST_CASE(Test3)
  * @brief checks whether parsing a custom file succeeds - testing both 3' -> 5' && 5' -> 3'
  *
  * @date 2015-07-23
- * 
+ *
  * @test
  */
 BOOST_AUTO_TEST_CASE(Test4)
@@ -312,9 +312,9 @@ BOOST_AUTO_TEST_CASE(Test4)
 
 /**
  * @brief checks whether parsing a custom file succeeds
- * 
+ *
  * @date 2015-07-23
- * 
+ *
  * @test
  */
 BOOST_AUTO_TEST_CASE(Test5)
@@ -637,7 +637,7 @@ BOOST_AUTO_TEST_CASE(Test5)
 	
 	SegmentTree segment_tree;
 	ReadSegments r = ReadSegments(filename);
-	r.parse( segment_tree);
+	r.parse(segment_tree);
 	
 	const int n = 61;
 	int i = 0;
@@ -758,7 +758,7 @@ BOOST_AUTO_TEST_CASE(Test_E1)
  */
 BOOST_AUTO_TEST_CASE(Test6)
 {
-	
+
 	std::string filename = "tmp.readsegments_test_test5";
 	
 	std::ofstream myfile;
@@ -832,16 +832,16 @@ BOOST_AUTO_TEST_CASE(Test6)
 	unsigned int n4 = 4;
 	unsigned int n5 = 5;
 	
-	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::FivePrime,n0) , Nucleotide::U);
-	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::FivePrime,n1) , Nucleotide::U);
-	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::FivePrime,n2) , Nucleotide::U);
-	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::FivePrime,n3) , Nucleotide::G);
-	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::FivePrime,n4) , Nucleotide::A);
-	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::FivePrime,n5) , Nucleotide::C);
+	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::FivePrime, n0) , Nucleotide::U);
+	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::FivePrime, n1) , Nucleotide::U);
+	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::FivePrime, n2) , Nucleotide::U);
+	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::FivePrime, n3) , Nucleotide::G);
+	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::FivePrime, n4) , Nucleotide::A);
+	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::FivePrime, n5) , Nucleotide::C);
 	
-	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::ThreePrime,n0) , Nucleotide::C);
-	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::ThreePrime,n1) , Nucleotide::G);
-	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::ThreePrime,n2) , Nucleotide::A);
+	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::ThreePrime, n0) , Nucleotide::C);
+	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::ThreePrime, n1) , Nucleotide::G);
+	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::ThreePrime, n2) , Nucleotide::A);
 	
 	unlink(filename.c_str());
 }

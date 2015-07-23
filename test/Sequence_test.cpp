@@ -324,7 +324,7 @@ BOOST_AUTO_TEST_CASE(Test7)
 
 /**
  * @brief Valgrind check
- * 
+ *
  * @date 2015-07-23
  */
 BOOST_AUTO_TEST_CASE(Test8)

@@ -64,7 +64,7 @@ using namespace boost::property_tree;
 
 /**
  * @brief Initializes the ReadSegments class
- * 
+ *
  * @date 2015-07-23
  */
 ReadSegments::ReadSegments(std::string &arg_filename):
@@ -77,7 +77,7 @@ ReadSegments::ReadSegments(std::string &arg_filename):
 
 /**
  * @brief Starts parsing of the <segments> section of the xml file
- * 
+ *
  * @date 2015-07-23
  */
 void ReadSegments::parse(SegmentTree &arg_segments)
@@ -91,7 +91,7 @@ void ReadSegments::parse(SegmentTree &arg_segments)
 
 /**
  * @brief Starts parsing of the <segments> and <rnas> sections of the xml file
- * 
+ *
  * @date 2015-07-23
  */
 void ReadSegments::parse(SegmentTree &arg_segments, std::vector<rna_example> &arg_examples)

@@ -25,8 +25,8 @@ following package:
 
 	doxygen (>= 1.8.3)
 
-The doxygen package is version specific because of the Markdown
-support implemented in 1.8.3 and above.
+The doxygen package is version specific because Markdown support is
+implemented in 1.8.3 and above.
 
 To automatically make (new) code styled similar to the programming style
 using in this package, you should have installed the package:

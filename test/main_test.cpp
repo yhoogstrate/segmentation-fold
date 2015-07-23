@@ -242,12 +242,12 @@ BOOST_AUTO_TEST_CASE(Test_bifurcation)
 
 /**
  * @brief Runs the function al tests of all the segments in the test-file
- * 
+ *
  * @section DESCRIPTION
  * Uses the same segment_file as it would use normally. In case this
  * functional test is executed with a modified version of this file
  * this might result into unneccesairy errors.
- * 
+ *
  * @date 2015-07-23
  *
  * @test

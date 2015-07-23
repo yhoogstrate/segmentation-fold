@@ -373,7 +373,7 @@ BOOST_AUTO_TEST_CASE(Test8)
 		
 		Settings settings = Settings(argc, argv, sequence);
 		
-		BOOST_CHECK_MESSAGE(settings.num_threads  == i, "Failed to obtain num_threads of " << i << " ( " << settings.num_threads <<" was found instead)");
+		BOOST_CHECK_MESSAGE(settings.num_threads  == i, "Failed to obtain num_threads of " << i << " ( " << settings.num_threads << " was found instead)");
 	}
 }
 BOOST_AUTO_TEST_SUITE_END()

@@ -82,7 +82,7 @@ Settings::Settings(int arg_argc, char **arg_argv, Sequence &arg_sequence) :
 /**
  * @brief Prints usage
  *
- * @date 2015-07-20
+ * @date 2015-07-23
  */
 void Settings::print_usage(void)
 {
@@ -93,9 +93,9 @@ void Settings::print_usage(void)
 	fprintf(stderr, "  -s SEQUENCE                Specific RNA SEQUENCE (overrules -f)\n");
 	fprintf(stderr, "  -f FASTA_FILE              Location to FASTA_FILE that contains the sequence\n\n");
 	fprintf(stderr, "  -p                  [1/0]  Enable/disable segment prediction functionality\n\n");
-	fprintf(stderr, "  -h HAIRPINSIZE        [3]  Minimum hairpin size, 0 or larger, default 3\n");
+	fprintf(stderr, "  -h HAIRPINSIZE      [1,N}  Minimum hairpin size, default: 3\n");
 	fprintf(stderr, "  -x SEGMENTS_XML_FILE       Use custom  \"segments.xml\"-syntaxed file\n\n");
-	fprintf(stderr, "  -t NUM_THREADS      [0,N}  Run with N threads (0 = maximal available)\n\n");
+	fprintf(stderr, "  -t NUM_THREADS      [0,N}  Number of threads; 0 = maximum available, default: 3.\n\n");
 	fprintf(stderr, "  -V                         Shows the version and license\n");
 	fprintf(stderr, "\n\n");
 	fprintf(stderr, "If you encounter problems with this software, please send bug-reports to:\n   <" PACKAGE_BUGREPORT ">\n\n");
