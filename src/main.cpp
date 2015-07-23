@@ -82,21 +82,26 @@ int main(int argc, char *argv[])
 	{
 		ReadData thermodynamics = ReadData();
 		
+		///@todo find a nice solution to this -- ReadSegments gets immediately destructed if the if statement ends, and consequently the segments
+		// solution: destructor of segments in SegmentTree()!
 		if(settings.segment_prediction_functionality)
 		{
 			ReadSegments readsegments = ReadSegments(settings.segment_filename, thermodynamics.segments);
+			
+			// Run algorithm
+			Zuker zuker = Zuker(settings, sequence, thermodynamics);		// Zuker algorithm
+			zuker.energy();													// - filling phase
+			zuker.traceback();												// - traceback
+			zuker.print_2D_structure();
 		}
 		else
 		{
-			SegmentTree empty_tree = SegmentTree();
-			ReadSegments readsegments = ReadSegments(settings.segment_filename, empty_tree);
+			// Run algorithm
+			Zuker zuker = Zuker(settings, sequence, thermodynamics);		// Zuker algorithm
+			zuker.energy();													// - filling phase
+			zuker.traceback();												// - traceback
+			zuker.print_2D_structure();
 		}
-		
-		// Run algorithm
-		Zuker zuker = Zuker(settings, sequence, thermodynamics);		// Zuker algorithm
-		zuker.energy();													// - filling phase
-		zuker.traceback();												// - traceback
-		zuker.print_2D_structure();
 	}
 	
 	return 0;
