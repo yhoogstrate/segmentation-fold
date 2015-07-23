@@ -274,14 +274,28 @@ Segment *ReadSegments::parse_segment(std::string arg_name, std::string arg_seque
 
 
 /**
+ * @brief Removes all segments (memory safe)
+ *
+ * @date 2015-07-23
+ */
+void ReadSegments::clear(void)
+{
+	for(std::vector<Segment *>::iterator it = this->segment_list.begin(); it != this->segment_list.end(); ++it)
+	{
+		delete *it;///@note According to a valgrind test, brackets are not neccesairy
+	}
+	
+	this->segment_list.clear();
+}
+
+
+
+/**
  * @brief Destructor
  *
  * @date 2015-04-22
  */
 ReadSegments::~ReadSegments()
 {
-	for(std::vector<Segment *>::iterator it = this->segment_list.begin(); it != this->segment_list.end(); ++it)
-	{
-		delete *it;///@note According to a valgrind test, brackets are not neccesairy
-	}
+	this->clear();
 }

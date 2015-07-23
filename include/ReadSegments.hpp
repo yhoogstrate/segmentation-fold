@@ -72,6 +72,7 @@ class ReadSegments
 		ReadSegments(std::string arg_filename, SegmentTree &arg_segments);
 		ReadSegments(std::string arg_filename, SegmentTree &arg_segments, std::vector<rna_example> &arg_examples);
 		
+		void clear(void);
 		~ReadSegments();
 		
 		void parse(bool arg_parse_examples);
