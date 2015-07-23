@@ -1,4 +1,5 @@
 2015-07-23  Youri Hoogstrate
+	* Fixed a memory leak and changed organization of ReadSegments
 	* Added some tests and improved the energy utility
 
 2015-07-15  Youri Hoogstrate

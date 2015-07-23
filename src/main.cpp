@@ -6,7 +6,7 @@
  * The program implements the Zuker's minimum free energy model with
  * Segment/K-turn functionality for RNA secondary structure prediction.
  *
- * @date 2015-07-20
+ * @date 2015-07-23
  *
  * @author Youri Hoogstrate
  * @author Lisa Yu
@@ -67,7 +67,7 @@
  * @param argc Number of commandline arguments.
  * @param argv Array of strings with the actual commandline arguments.
  *
- * @date 2015-07-20
+ * @date 2015-07-23
  *
  * @return 0 For success; 1 for abnormal termination
  */
@@ -81,27 +81,18 @@ int main(int argc, char *argv[])
 	if(!settings.run_print_version and !settings.run_print_usage)
 	{
 		ReadData thermodynamics = ReadData();
+		ReadSegments readsegments = ReadSegments(settings.segment_filename);
 		
-		///@todo find a nice solution to this -- ReadSegments gets immediately destructed if the if statement ends, and consequently the segments
-		// solution: destructor of segments in SegmentTree()!
 		if(settings.segment_prediction_functionality)
 		{
-			ReadSegments readsegments = ReadSegments(settings.segment_filename, thermodynamics.segments);
-			
-			// Run algorithm
-			Zuker zuker = Zuker(settings, sequence, thermodynamics);		// Zuker algorithm
-			zuker.energy();													// - filling phase
-			zuker.traceback();												// - traceback
-			zuker.print_2D_structure();
+			readsegments.parse(thermodynamics.segments);
 		}
-		else
-		{
-			// Run algorithm
-			Zuker zuker = Zuker(settings, sequence, thermodynamics);		// Zuker algorithm
-			zuker.energy();													// - filling phase
-			zuker.traceback();												// - traceback
-			zuker.print_2D_structure();
-		}
+		
+		// Run algorithm
+		Zuker zuker = Zuker(settings, sequence, thermodynamics);		// Zuker algorithm
+		zuker.energy();													// - filling phase
+		zuker.traceback();												// - traceback
+		zuker.print_2D_structure();
 	}
 	
 	return 0;

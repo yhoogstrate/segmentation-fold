@@ -1,11 +1,12 @@
 /**
  * @file src/ReadSegments.cpp
  *
- * @date 2015-07-15
+ * @date 2015-07-23
  *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
+ * <PRE>
  * segmentation-fold can predict RNA 2D structures including K-turns.
  * Copyright (C) 2012-2015 Youri Hoogstrate
  *
@@ -23,6 +24,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * </PRE>
  */
 
 
@@ -60,18 +62,43 @@ using namespace boost;
 using namespace boost::property_tree;
 
 
-
-ReadSegments::ReadSegments(std::string arg_filename, SegmentTree &arg_segments) :
-	segments(arg_segments)
+/**
+ * @brief Initializes the ReadSegments class
+ * 
+ * @date 2015-07-23
+ */
+ReadSegments::ReadSegments(std::string &arg_filename):
+	filename(arg_filename)
 {
-	this->filename = arg_filename;
+	this->segments = nullptr;
+}
+
+
+
+/**
+ * @brief Starts parsing of the <segments> section of the xml file
+ * 
+ * @date 2015-07-23
+ */
+void ReadSegments::parse(SegmentTree &arg_segments)
+{
+	this->segments = (&arg_segments);
+	
 	this->parse(false);
 }
-ReadSegments::ReadSegments(std::string arg_filename, SegmentTree &arg_segments, std::vector<  rna_example  > &arg_examples) :
-	segments(arg_segments),
-	rna_examples(&arg_examples)
+
+
+
+/**
+ * @brief Starts parsing of the <segments> and <rnas> sections of the xml file
+ * 
+ * @date 2015-07-23
+ */
+void ReadSegments::parse(SegmentTree &arg_segments, std::vector<rna_example> &arg_examples)
 {
-	this->filename = arg_filename;
+	this->segments = (&arg_segments);
+	this->rna_examples = (&arg_examples);
+	
 	this->parse(true);
 }
 
@@ -106,7 +133,7 @@ void ReadSegments::parse(bool arg_parse_examples)
 /**
  * @brief Parses the <segments> section of the XML file
  *
- * @date 2015-07-15
+ * @date 2015-07-23
  *
  * @section DESCRIPTION
  * <PRE>
@@ -145,7 +172,7 @@ void ReadSegments::parse_segments(ptree &xml_segments)
 			
 			if(str_true.compare(xml_segment.second.get<std::string>("directions.five_prime")) == 0)
 			{
-				this->segments.insert(*(this->parse_segment(id, p5, bonds, p3, energy)));
+				this->segments->insert(*(this->parse_segment(id, p5, bonds, p3, energy)));
 			}
 			if(str_true.compare(xml_segment.second.get<std::string>("directions.three_prime")) == 0)
 			{
@@ -175,7 +202,8 @@ void ReadSegments::parse_segments(ptree &xml_segments)
 				std::reverse(p5.begin(), p5.end());
 				std::reverse(bonds.begin(), bonds.end());
 				std::reverse(p3.begin(), p3.end());
-				this->segments.insert(*(this->parse_segment(id, p3, bonds, p5, energy)));  // just swap their places
+				
+				this->segments->insert(*(this->parse_segment(id, p3, bonds, p5, energy)));// just swap their places
 			}
 		}
 	}
@@ -293,7 +321,7 @@ void ReadSegments::clear(void)
 /**
  * @brief Destructor
  *
- * @date 2015-04-22
+ * @date 2015-07-23
  */
 ReadSegments::~ReadSegments()
 {

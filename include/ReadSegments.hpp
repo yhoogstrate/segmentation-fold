@@ -1,11 +1,12 @@
 /**
  * @file include/ReadSegments.hpp
  *
- * @date 2015-04-22
+ * @date 2015-07-23
  *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
+ * <PRE>
  * segmentation-fold can predict RNA 2D structures including K-turns.
  * Copyright (C) 2012-2015 Youri Hoogstrate
  *
@@ -23,6 +24,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * </PRE>
  */
 
 
@@ -49,19 +51,22 @@ struct rna_example
 };
 
 
+
 /**
  * @brief Parses the segment XML file
  *
- * @date 2015-04-22
+ * @date 2015-07-23
  */
 class ReadSegments
 {
 	private:
-		std::string filename;
+		std::string &filename;
 		
-		SegmentTree &segments;
-		std::vector<Segment *> segment_list;							//@todo remove this vector -> put destructor in SegmentTree
+		SegmentTree *segments;
+		std::vector<Segment *> segment_list;
 		std::vector<rna_example> *rna_examples;
+		
+		void parse(bool arg_parse_examples);
 		
 		void parse_segments(ptree &xml_motifs);
 		void parse_examples(ptree &xml_examples);
@@ -69,11 +74,11 @@ class ReadSegments
 		Segment *parse_segment(std::string arg_name, std::string arg_sequence_5p, std::string arg_bonds, std::string arg_sequence_3p, std::string arg_energy);
 		
 	public:
-		ReadSegments(std::string arg_filename, SegmentTree &arg_segments);
-		ReadSegments(std::string arg_filename, SegmentTree &arg_segments, std::vector<rna_example> &arg_examples);
+		ReadSegments(std::string &arg_filename);
+		
+		void parse(SegmentTree &arg_segments);
+		void parse(SegmentTree &arg_segments, std::vector<rna_example> &arg_examples);
 		
 		void clear(void);
 		~ReadSegments();
-		
-		void parse(bool arg_parse_examples);
 };
