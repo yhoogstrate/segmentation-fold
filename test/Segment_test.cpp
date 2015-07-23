@@ -132,6 +132,8 @@ BOOST_AUTO_TEST_CASE(Test2)
 	BOOST_CHECK(segment.pop(i, j) == false);
 }
 
+
+
 /**
  * @brief Tests the Segment->pop() function
  *

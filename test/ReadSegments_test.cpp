@@ -710,10 +710,8 @@ BOOST_AUTO_TEST_CASE(Test5)
 	
 	unlink(filename.c_str());
 }
-BOOST_AUTO_TEST_SUITE_END()
 
 
-BOOST_AUTO_TEST_SUITE(Testing_Examples)
 
 /**
  * @brief Tests whether there are indeed 28 example sequences within the xml file
@@ -730,6 +728,104 @@ BOOST_AUTO_TEST_CASE(Test_E1)
 	ReadSegments r = ReadSegments(filename, segments, rna_examples);
 	
 	BOOST_CHECK_EQUAL(rna_examples.size() , 28);
+}
+
+
+
+/**
+ * @brief A check whether memory handling goes well
+ *
+ * @test
+ *
+ * @date 2015-07-23
+ */
+BOOST_AUTO_TEST_CASE(Test6)
+{
+	
+	std::string filename = "tmp.readsegments_test_test5";
+	
+	std::ofstream myfile;
+	myfile.open(filename.c_str());
+	myfile << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+		   "<root>\n"
+		   "	<segments>\n"
+		   "		<segment>\n"
+		   "			<id>Kt-7 (D. radiodurans)</id>\n"
+		   "			<sequence_5prime>UUUGAC</sequence_5prime>\n"
+		   "			<bonds          >   :::</bonds>\n"
+		   "			<sequence_3prime>   AGC</sequence_3prime>\n"
+		   "			<energy>-59.5</energy>\n"
+		   "			<directions>\n"
+		   "				<five_prime>true</five_prime>\n"
+		   "				<three_prime>true</three_prime>\n"
+		   "			</directions>\n"
+		   "		</segment>\n"
+		   "	</segments>\n"
+		   "</root>\n";
+	myfile.close();
+	
+	SegmentTree segments;
+	ReadSegments r = ReadSegments(filename, segments);
+	
+	BOOST_CHECK_EQUAL(segments.empty() , false);
+	BOOST_CHECK_EQUAL(segments.size() , 2);
+	
+	Sequence sequence_5p = Sequence("UUUGAC");
+	Sequence sequence_3p = Sequence("CGA");// Rotated; 5'->3'
+	Position position_5p_s = sequence_5p.data.begin();
+	Position position_5p_e = sequence_5p.data.end() - 1;
+	Position position_3p_s = sequence_3p.data.begin();
+	Position position_3p_e = sequence_3p.data.end() - 1;
+	SubSequence subsequence_5p = SubSequence(position_5p_s, position_5p_e);
+	SubSequence subsequence_3p = SubSequence(position_3p_s, position_3p_e);
+	Segment *segment = segments.search(subsequence_5p, subsequence_3p);
+	
+	BOOST_CHECK(segment != nullptr);
+	
+	int i = 0;
+	int j = 0;
+	
+	unsigned int k;
+	for(k = 0; k < 5; k++)
+	{
+		BOOST_CHECK(segment->pop(i, j));
+		BOOST_CHECK_EQUAL(i, -1);
+		BOOST_CHECK_EQUAL(j, -1);
+		
+		BOOST_CHECK(segment->pop(i, j));
+		BOOST_CHECK_EQUAL(i, -2);
+		BOOST_CHECK_EQUAL(j, -2);
+		
+		BOOST_CHECK(segment->pop(i, j));
+		BOOST_CHECK_EQUAL(i, -3);
+		BOOST_CHECK_EQUAL(j, -3);
+		
+		BOOST_CHECK(segment->pop(i, j) == false);
+	}
+	
+	BOOST_CHECK_EQUAL(segment->size(Direction::FivePrime) , 6);
+	BOOST_CHECK_EQUAL(segment->size(Direction::ThreePrime) , 3);
+	
+	unlink(filename.c_str());
+	unsigned int n0 = 0;
+	unsigned int n1 = 1;
+	unsigned int n2 = 2;
+	unsigned int n3 = 3;
+	unsigned int n4 = 4;
+	unsigned int n5 = 5;
+	
+	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::FivePrime,n0) , Nucleotide::U);
+	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::FivePrime,n1) , Nucleotide::U);
+	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::FivePrime,n2) , Nucleotide::U);
+	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::FivePrime,n3) , Nucleotide::G);
+	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::FivePrime,n4) , Nucleotide::A);
+	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::FivePrime,n5) , Nucleotide::C);
+	
+	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::ThreePrime,n0) , Nucleotide::C);
+	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::ThreePrime,n1) , Nucleotide::G);
+	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::ThreePrime,n2) , Nucleotide::A);
+	
+	unlink(filename.c_str());
 }
 
 BOOST_AUTO_TEST_SUITE_END()

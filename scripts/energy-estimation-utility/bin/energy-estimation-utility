@@ -33,9 +33,11 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 from energy_estimation_utility.RNA import *
 from energy_estimation_utility.DataController import *
 from energy_estimation_utility.BinarySplit import *
+from energy_estimation_utility.CLI import *
 
 if __name__ == "__main__":
-    data = DataController("/usr/local/share/segmentation-fold/segments.xml")
+    args = CLI()
+    data = DataController(args.xml_file)
     
     for segment in data:
         for structure in segment.structures:
@@ -47,7 +49,7 @@ if __name__ == "__main__":
                 print segment.sequence
                 
                 safe_name = segment.name.replace(" ","").replace("'","").replace('"','').replace('/','').replace('(','').replace(')','')
-                b = BinarySplit("segmentation-fold","/tmp/e/segments_"+safe_name+"_",segment.sequence, associated_segments)
+                b = BinarySplit(args.segmentation_fold,args.temp_dir+"/segments_"+safe_name+"_",segment.sequence, associated_segments)
                 print b.find_transitions()
                 print
     

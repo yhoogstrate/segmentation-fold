@@ -320,4 +320,17 @@ BOOST_AUTO_TEST_CASE(Test7)
 	BOOST_CHECK((subsequence_07 == Sequence("GA")) == false);
 }
 
+
+
+/**
+ * @brief Valgrind check
+ * 
+ * @date 2015-07-23
+ */
+BOOST_AUTO_TEST_CASE(Test8)
+{
+	Sequence sequence = Sequence();
+	BOOST_REQUIRE_EQUAL(sequence.size(), 0);
+}
+
 BOOST_AUTO_TEST_SUITE_END()

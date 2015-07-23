@@ -81,6 +81,7 @@ class FoldController:
     
     def run_folding(self):
         argv = [self.binary,'-s',self.sequence,'-x',self.xml_file,'-t','1']
+        print "Running job: "+" ".join(argv)
         output,error = subprocess.Popen(argv,stdout = subprocess.PIPE, stderr= subprocess.PIPE).communicate()
         
         output = output.split("\n")

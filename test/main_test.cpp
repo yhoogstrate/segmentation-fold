@@ -280,7 +280,6 @@ BOOST_AUTO_TEST_CASE(Test_kturns)
 
 
 
-
 /**
  * @brief Runs the function al tests of all the segments in the test-file with segmentation-funcitonality disabled.
  *
@@ -317,6 +316,37 @@ BOOST_AUTO_TEST_CASE(Test_kturns_segments_disabled)
 	}
 }
 
+
+
+/**
+ * @brief Tests whether a specific sequence caused a critial error (seg-fault)
+ *
+ * @test
+ *
+ * @date 2015-07-23
+ */
+BOOST_AUTO_TEST_CASE(Test_segfault_01)
+{
+	Sequence sequence = Sequence("CCCUUUGACCCAAAAGGGGCGAGGG");
+	std::string true_structure = "(((...(((((......))))))))";
+	
+	// Load variables etc.
+	Settings settings = Settings(0, nullptr, sequence);
+	ReadData thermodynamics = ReadData();
+	std::vector<rna_example> rna_examples;
+	ReadSegments r = ReadSegments(settings.segment_filename, thermodynamics.segments, rna_examples);
+	
+	// Predict structure
+	Zuker zuker = Zuker(settings, sequence, thermodynamics);
+	zuker.energy();
+	zuker.traceback();
+	
+	// Obtain and compare results
+	std::string predicted_structure;
+	zuker.dot_bracket.format(sequence.size() , predicted_structure);
+	
+	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
+}
 
 
 
