@@ -84,6 +84,6 @@ class BinarySplit:
                 return results_min + results_max
             else:
                 
-                return [splitpoint]
+                return [{'structure_min':min_energy['results']['dot_bracket'],'structure_max':max_energy['results']['dot_bracket'],'energy':splitpoint}]
         else:
             return []

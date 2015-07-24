@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
 """
-@file scripts/energy-estimation/bin/energy-estimation
+@file scripts/energy-estimation/bin/scan-for-segments
 
-@date 2015-07-15
+@date 2015-07-24
 
 @author Youri Hoogstrate
 
@@ -34,23 +34,10 @@ from energy_estimation_utility.RNA import *
 from energy_estimation_utility.DataController import *
 from energy_estimation_utility.BinarySplit import *
 from energy_estimation_utility.CLI import *
+from energy_estimation_utility.FastaFile import *
 
 if __name__ == "__main__":
-    args = CLI()
+    args = CLI_scan_for_segments()
     data = DataController(args.xml_file)
     
-    for segment in data:
-        for structure in segment.structures:
-            segments = {}
-            
-            if(len(structure['associated_segments']) > 0):
-                associated_segments = { key:value for key,value in data.segments.items() if key in structure['associated_segments'] }
-                print ">"+segment.name
-                print segment.sequence
-                
-                safe_name = segment.name.replace(" ","").replace("'","").replace('"','').replace('/','').replace('(','').replace(')','')
-                b = BinarySplit(args.segmentation_fold,args.temp_dir+"/segments_"+safe_name+"_",segment.sequence, associated_segments)
-                for transition in b.find_transitions():
-                    print transition['structure_max']+"\t"+transition['structure_min']+"\t"+str(transition['energy'])
-                print
     

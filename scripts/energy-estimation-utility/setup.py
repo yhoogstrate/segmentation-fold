@@ -3,7 +3,7 @@
 """
 @file scripts/energy-estimation/bin/energy-estimation
 
-@date 2015-07-15
+@date 2015-07-24
 
 @author Youri Hoogstrate
 
@@ -42,7 +42,7 @@ setup(name='energy-estimation-utility',
 		maintainer=energy_estimation_utility.__author__,
 		license=energy_estimation_utility.__license__,
 		url=energy_estimation_utility.__homepage__,
-		scripts=["bin/energy-estimation-utility"],
+		scripts=["bin/energy-estimation-utility","bin/scan-for-segments"],
 		packages=['energy_estimation_utility'],
 		classifiers=[
 			'Environment :: Console',

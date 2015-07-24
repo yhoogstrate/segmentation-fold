@@ -3,7 +3,7 @@
 """
 @file scripts/energy-estimation-utility/energy_estimation_utility/CLI.py
 
-@date 2015-07-23
+@date 2015-07-24
 
 @author Youri Hoogstrate
 
@@ -38,5 +38,18 @@ def CLI():
 	parser.add_argument("-t","--temp-dir",default="/tmp",help="Directory in which the temporary files will be created")
 	parser.add_argument("-s","--segmentation-fold",default="segmentation-fold",help="Path of the binary")
 	parser.add_argument("-x","--xml-file",default="/usr/local/share/segmentation-fold/segments.xml",help="Location of segments.xml")
+	
+	return parser.parse_args()
+
+
+
+def CLI_scan_for_segments():
+	parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter,epilog="For more info please visit:\n<https://github.com/yhoogstrate/segmentation-fold>")
+	
+	parser.add_argument("-t","--temp-dir",default="/tmp",help="Directory in which the temporary files will be created")
+	parser.add_argument("-s","--segmentation-fold",default="segmentation-fold",help="Path of the binary")
+	parser.add_argument("-x","--xml-file",default="/usr/local/share/segmentation-fold/segments.xml",help="Location of segments.xml")
+	
+	parser.add_argument("fasta_file",help="FASTA file containing the sequences that will be scanned for the presence of segments from --xml-file",nargs=1)
 	
 	return parser.parse_args()
