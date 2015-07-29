@@ -3,7 +3,7 @@
 """
 @file scripts/energy-estimation-utility/energy_estimation_utility/CLI.py
 
-@date 2015-07-24
+@date 2015-07-29
 
 @author Youri Hoogstrate
 
@@ -49,7 +49,8 @@ def CLI_scan_for_segments():
 	parser.add_argument("-t","--temp-dir",default="/tmp",help="Directory in which the temporary files will be created")
 	parser.add_argument("-s","--segmentation-fold",default="segmentation-fold",help="Path of the binary")
 	parser.add_argument("-x","--xml-file",default="/usr/local/share/segmentation-fold/segments.xml",help="Location of segments.xml")
+	parser.add_argument("-p","--precision",choices=['quick','in-depth'],default="quick",help="Precision level 'quick' will scan quickly whether the structure changes and 'in-depth' will try to find the transition levels.")
 	
-	parser.add_argument("fasta_file",help="FASTA file containing the sequences that will be scanned for the presence of segments from --xml-file",nargs=1)
+	parser.add_argument("fasta_file",help="FASTA file containing the sequences that will be scanned for the presence of segments from --xml-file")
 	
 	return parser.parse_args()

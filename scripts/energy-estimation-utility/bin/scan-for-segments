@@ -3,7 +3,7 @@
 """
 @file scripts/energy-estimation/bin/scan-for-segments
 
-@date 2015-07-24
+@date 2015-07-29
 
 @author Youri Hoogstrate
 
@@ -30,6 +30,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 </PRE>
 """
 
+from __future__ import print_function
+
 from energy_estimation_utility.RNA import *
 from energy_estimation_utility.DataController import *
 from energy_estimation_utility.BinarySplit import *
@@ -40,4 +42,28 @@ if __name__ == "__main__":
     args = CLI_scan_for_segments()
     data = DataController(args.xml_file)
     
-    
+    sequences = FastaFile(args.fasta_file)
+    for sequence in sequences:
+        sequence_safe_name = sequence['name'].replace(" ","").replace("'","").replace('"','').replace('/','').replace('(','').replace(')','')
+        sequence['transitions'] = {}
+        for segment_name, segment_value in data.segments.items():
+            segment = {segment_name: segment_value}
+            segment_safe_name = segment_name.replace(" ","").replace("'","").replace('"','').replace('/','').replace('(','').replace(')','')
+            
+            if(args.precision == 'quick'):
+                precision = 3.5 * (1.0 + len(sequence['sequence']))
+            else:
+                precision = 0.005
+            
+            b = BinarySplit(args.segmentation_fold,args.temp_dir+"/segments_"+sequence_safe_name+"_"+segment_safe_name+"_",sequence['sequence'], segment, precision) 
+            transitions = b.find_transitions()
+            
+            if(len(transitions) > 0 ):
+                sequence['transitions'][segment_name] = transitions
+        
+        print(">" + sequence['name'])
+        print(sequence['sequence'])
+        for segment_name, transitions in sequence['transitions'].items():
+            print("\t"+segment_name)
+            for transition in transitions:
+                print("\t"+transition['structure_max']+"\t"+transition['structure_min']+"\t"+str(transition['energy']))
