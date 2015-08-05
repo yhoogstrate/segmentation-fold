@@ -256,6 +256,7 @@ void ReadSegments::parse_examples(ptree &xml_examples)
 Segment *ReadSegments::parse_segment(std::string arg_name, std::string arg_sequence_5p, std::string arg_bonds, std::string arg_sequence_3p, std::string arg_energy)
 {
 	std::vector<Pair> bonds = std::vector<Pair>();
+	std::vector<Pair> bonds2 = std::vector<Pair>();
 	
 	std::string abs_sequence_5p = arg_sequence_5p;
 	std::string abs_sequence_3p = arg_sequence_3p;
@@ -272,7 +273,9 @@ Segment *ReadSegments::parse_segment(std::string arg_name, std::string arg_seque
 	
 	
 	int i = 0;
+	int i2 = 1;
 	int j = abs_sequence_3p.size() - 1;
+	int j2 = 1;
 	
 	unsigned int k;
 	
@@ -281,17 +284,35 @@ Segment *ReadSegments::parse_segment(std::string arg_name, std::string arg_seque
 		if(arg_bonds[k] != ' ')
 		{
 			bonds.push_back(Pair {i, j});
+			bonds2.push_back(Pair {i2, j2});
 		}
 		
 		if(arg_sequence_5p[k] != ' ')
 		{
 			i++;
+			i2++;
 		}
 		if(arg_sequence_3p[k] != ' ')
 		{
 			j--;
+			j2++;
 		}
 	}
+	
+	/*
+	std::cout << arg_name << "\n";
+	printf("bonds:\n");
+	for(k = 0; k < bonds.size();k++)
+	{
+		printf("[%i, %i]",bonds[k].first, bonds[k].second);
+	}
+	printf("\n\nbonds2:\n");
+	for(k = 0; k < bonds2.size();k++)
+	{
+		printf("[%i, %i]",bonds2[k].first, bonds2[k].second);
+	}
+	printf("\n\n\n\n");
+	*/
 	
 	Segment *m = new Segment(arg_name, sequence_5p, bonds, sequence_3p, energy);
 	this->segment_list.push_back(m);
