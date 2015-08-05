@@ -6,6 +6,7 @@
  * @author Youri Hoogstrate
  *
  * @section LICENSE
+ * <PRE>
  * segmentation-fold can predict RNA 2D structures including K-turns.
  * Copyright (C) 2012-2015 Youri Hoogstrate
  *
@@ -24,6 +25,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * </PRE>
  */
 
 
@@ -176,11 +178,11 @@ bool Segment::pop(signed int &i, signed int &j)
 /**
  * @brief Returns the free energy that corresponds to the segment
  *
- * @date 2014-03-21
+ * @date 2015-08-03
  *
  * @todo check if it is possible to do by sending the reference and see whether that's faster
  */
-float Segment::get_gibbs_free_energy(void)
+const float Segment::get_gibbs_free_energy(void)
 {
 	return this->gibbs_free_energy;
 }

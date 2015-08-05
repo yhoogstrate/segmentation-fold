@@ -36,7 +36,7 @@
 
 /**
  * @brief This object represents a *non-canonical RNA pairing segment* which requires to be surrounded by canonical pairings, like the K-turn.
- * @date 2015-04-20
+ *
  * @section DESCRIPTION
  *
  * The following can be converted into a dot-bracket format:
@@ -99,7 +99,7 @@
  *  -2 U  0
  *  -1 G  1
  *
- * @date 2014-04-15
+ * @date 2015-04-20
  */
 class Segment
 {
@@ -118,7 +118,7 @@ class Segment
 		void reset_traceback(void);
 		
 		float gibbs_free_energy;
-		float get_gibbs_free_energy(void);
+		const float get_gibbs_free_energy(void);///@deprecated Getters and setters should be deprecated since the variable is public
 		
 		Nucleotide get_nucleotide(Direction direction, unsigned int &i);// @todo operator: segment[Direction][arg_i]
 		Sequence  *get_sequence(Direction direction);					// @todo operator: segment[Direction]
