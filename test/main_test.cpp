@@ -1,7 +1,7 @@
 /**
  * @file test/main_test.cpp
  *
- * @date 2015-07-23
+ * @date 2015-08-06
  *
  * @author Youri Hoogstrate
  *
@@ -66,6 +66,8 @@ BOOST_AUTO_TEST_SUITE(Testing)
  * @brief Tests whether an unstructured RNA is indeed unstructured
  *
  * @test
+ * 
+ * @date 2015-07-23
  */
 BOOST_AUTO_TEST_CASE(Test_unfolded)
 {
@@ -88,10 +90,14 @@ BOOST_AUTO_TEST_CASE(Test_unfolded)
 	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
 }
 
+
+
 /**
  * @brief tests Hairpin sequence GGGAAACCC to be folded as (((...)))
  *
  * @test
+ * 
+ * @date 2015-07-23
  */
 BOOST_AUTO_TEST_CASE(Test_hairpin)
 {
@@ -128,6 +134,8 @@ BOOST_AUTO_TEST_CASE(Test_hairpin)
  *     \\\   ///  A
  * 3') CCC CCC A
  * </PRE>
+ * 
+ * @date 2015-07-23
  */
 BOOST_AUTO_TEST_CASE(Test_bulge_loop)
 {
@@ -168,6 +176,8 @@ BOOST_AUTO_TEST_CASE(Test_bulge_loop)
  * GGGGAAAGGGGAAACCCCAAACCCC
  * ((((...((((...))))...))))
  * </PRE>
+ * 
+ * @date 2015-07-23
  */
 BOOST_AUTO_TEST_CASE(Test_interior_loop)
 {
@@ -216,6 +226,8 @@ BOOST_AUTO_TEST_CASE(Test_interior_loop)
  * GGGGgggaaaCCCgggAAAcccCCCC
  * (((((((...)))(((...)))))))
  * </PRE>
+ * 
+ * @date 2015-07-23
  */
 BOOST_AUTO_TEST_CASE(Test_bifurcation)
 {
@@ -243,14 +255,14 @@ BOOST_AUTO_TEST_CASE(Test_bifurcation)
 /**
  * @brief Runs the function al tests of all the segments in the test-file
  *
+ * @test
+ *
  * @section DESCRIPTION
  * Uses the same segment_file as it would use normally. In case this
  * functional test is executed with a modified version of this file
  * this might result into unneccesairy errors.
  *
  * @date 2015-07-23
- *
- * @test
  *
  * @todo BOOST_REQUIRE_EQUAL << md5sum , segment_file
  */
@@ -295,25 +307,25 @@ BOOST_AUTO_TEST_CASE(Test_kturns_segments_disabled)
 	Sequence dummy = Sequence("A");
 	Settings settings = Settings(0, nullptr, dummy);
 	settings.segment_prediction_functionality = false;
-	
+
 	ReadData thermodynamics = ReadData();
 	std::vector<rna_example> rna_examples;
-	
+
 	//Keep segments empty. This is what disabling should do.
 	//ReadSegments r = ReadSegments(settings.segment_filename, thermodynamics.segments, rna_examples);
-	
+
 	DotBracket db = DotBracket();
-	
+
 	// Test each example separately
 	for(std::vector<rna_example>::iterator example = rna_examples.begin(); example != rna_examples.end(); ++example)
 	{
 		Zuker zuker = Zuker(settings, (*example).sequence, thermodynamics);
 		zuker.energy();
 		zuker.traceback();
-		
+
 		std::string predicted_structure = "";
 		zuker.dot_bracket.format((*example).sequence.size() , predicted_structure);
-		
+
 		BOOST_REQUIRE_EQUAL((*example).dot_bracket_pattern.size() , predicted_structure.size());
 		BOOST_CHECK_MESSAGE(db.match((*example).dot_bracket_pattern, predicted_structure) == false, "Predicted structure of '" << (*example).title << "' did match its true structure while it shouldn't:\n\t[" << predicted_structure << "] (predicted structure)\n\t[" << (*example).dot_bracket_pattern << "] (pattern of true structure)\n");
 	}
@@ -332,26 +344,25 @@ BOOST_AUTO_TEST_CASE(Test_segfault_01)
 {
 	Sequence sequence = Sequence("CCCUUUGACCCAAAAGGGGCGAGGG");
 	std::string true_structure = "(((...(((((......))))))))";
-	
+
 	// Load variables etc.
 	Settings settings = Settings(0, nullptr, sequence);
 	ReadData thermodynamics = ReadData();
 	std::vector<rna_example> rna_examples;
 	ReadSegments r = ReadSegments(settings.segment_filename);
 	r.parse(thermodynamics.segments, rna_examples);
-	
+
 	// Predict structure
 	Zuker zuker = Zuker(settings, sequence, thermodynamics);
 	zuker.energy();
 	zuker.traceback();
-	
+
 	// Obtain and compare results
 	std::string predicted_structure;
 	zuker.dot_bracket.format(sequence.size() , predicted_structure);
-	
+
 	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
 }
-
 
 
 ///@todo Test function with different minimum hairpin size

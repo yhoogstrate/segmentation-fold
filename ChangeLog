@@ -1,3 +1,8 @@
+2015-08-06  Youri Hoogstrate
+	* Added separate object for indendent traceback in Segment objects
+	* Changed behavior of <bonds> variables
+	* Changed traceback
+
 2015-07-23  Youri Hoogstrate
 	* Fixed a memory leak and changed organization of ReadSegments
 	* Added some tests and improved the energy utility

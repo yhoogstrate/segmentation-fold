@@ -1,6 +1,6 @@
 # @file CMakeLists.txt
 #
-# @date 2015-07-14
+# @date 2015-08-06
 #
 # @author Youri Hoogstrate
 #
@@ -149,6 +149,7 @@ add_executable(segmentation-fold
 					src/Pairing.cpp
 					src/PairingPlus.cpp
 					src/SubSequence.cpp
+					src/SegmentTraceback.cpp
 					src/Segment.cpp
 					src/SegmentTreeElement.cpp
 					src/SegmentTree.cpp

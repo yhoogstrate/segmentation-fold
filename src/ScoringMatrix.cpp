@@ -1,11 +1,12 @@
 /**
  * @file src/ScoringMatrix.cpp
  *
- * @date 2015-06-28
+ * @date 2015-08-06
  *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
+ * <PRE>
  * segmentation-fold can predict RNA 2D structures including K-turns.
  * Copyright (C) 2012-2015 Youri Hoogstrate
  *
@@ -24,6 +25,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * </PRE>
  */
 
 
@@ -269,7 +271,7 @@ template class ScoringMatrix<unsigned int>;
 template class ScoringMatrix<signed int>;
 template class ScoringMatrix<float>;
 template class ScoringMatrix<double>;
-template class ScoringMatrix<Segment *>;
+template class ScoringMatrix<SegmentTraceback *>;
 template class ScoringMatrix<short>;
 
 template class ScoringMatrix<bool>;

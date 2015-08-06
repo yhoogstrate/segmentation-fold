@@ -1,7 +1,7 @@
 /**
  * @file test/Zuker_test.cpp
  *
- * @date 2015-06-22
+ * @date 2015-08-06
  *
  * @author Youri Hoogstrate
  *
@@ -68,7 +68,7 @@ BOOST_AUTO_TEST_SUITE(Test_energy_loading) // Test energy loading
  *
  * @test
  *
- * @date 2015-06-22
+ * @date 2015-08-06
  */
 BOOST_AUTO_TEST_CASE(Test1)
 {
@@ -77,7 +77,7 @@ BOOST_AUTO_TEST_CASE(Test1)
 	
 	std::string        segment_01_name  = "C/D-box K-turn";
 	Sequence           segment_01_seq5p = Sequence("UGUGAU");
-	std::vector <Pair> segment_01_bonds = {{Pair({3, 2}), Pair({4, 1}), Pair({5, 0}) }};
+	std::vector <Pair> segment_01_bonds = {{Pair({4,1}), Pair({1, 1}), Pair({1, 1})}};
 	Sequence           segment_01_seq3p = Sequence("UGA");// dbl check for reverse
 	float              segment_01_nrg   = -100.0;
 	Segment            segment_01       = Segment(segment_01_name, segment_01_seq5p, segment_01_bonds, segment_01_seq3p, segment_01_nrg);

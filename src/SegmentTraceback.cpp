@@ -1,7 +1,7 @@
 /**
  * @file src/SegmentTraceback.cpp
  *
- * @date 2015-08-05
+ * @date 2015-08-06
  *
  * @author Youri Hoogstrate
  *
@@ -40,19 +40,19 @@
 
 /**
  * @brief Constructor of the Segment class.
- * 
+ *
  * @section DESCRIPTION
  * <PRE>
  * 5') ............(i)...(i')..
  *       |||  |||   | ::   |   .
  * 3') ............(j)...(j')..
  * </PRE>
- * 
+ *
  * tb:  --------->  [i,j], [i+1, j-1], [i+2, j-2] -----> [i', j']...
- * 
- * 
+ *
+ *
  * Double check the following:
- * 
+ *
  *     Alignment:       Bonds from i,j:    Traceback from i,j:
  * <PRE>
  * 5') (i) UGUGAUA      3,11               4,(-)3
@@ -66,9 +66,9 @@
  * 3') ............(j)...
  *</PRE>
  * tb:  --------->  [i,j], [i+1, j-1], [i+2, j-2]
- * 
+ *
  * @param arg_bonds The bonds are given from outside to inside (FiFo)
- * 
+ *
  * @date 2015-08-03
  */
 SegmentTraceback::SegmentTraceback(std::vector <Pair> arg_bonds):
@@ -108,12 +108,12 @@ size_t SegmentTraceback::size(void)
  *
  * @param i Reference to variable i that should be traced back
  * @param j Reference to variable j that should be traced back
- * 
+ *
  * @return Whether the return was VALID - if false is returned, the traceback is being reset to it's origin and will return true again.
  *
  * @date 2015-08-05
  */
-bool SegmentTraceback::pop_traceback(unsigned int &i, unsigned int &j)
+bool SegmentTraceback::traceback(signed int &i, signed int &j)
 {
 	if(this->it == this->bonds.end())
 	{
@@ -128,115 +128,6 @@ bool SegmentTraceback::pop_traceback(unsigned int &i, unsigned int &j)
 		
 		this->it++;
 		
-		return true;
-	}
-}
-
-
-
-
-
-/**
- * @brief FiFo popping of the Pairs, and reset the iterator if the end has reached
- *
- * @section DESCRIPTION
- * The following structure is an example:
- * 
- * <PRE>
- * 5') ............(i). ..(i')..
- *       |||  |||   | : :  |    .
- * 3') ............(j)....(j')..
- * </PRE>
- * 
- * If the bonds are parsed correctly, it would be a vector like this:
- * 
- * [ [1, 1], [2, 3] ], because the first bond after i,j is [i+1, j-1] and the second bond is [i+2, j-3]
- * 
- * - The very first pop should pop i=1, j=1 and return true because it has popped
- * - The second pop should pop i=2, j=3 and return true to indicate that it has popped
- * - The third pop should not pop and return false because there has not been popped
- * 
- * If there has not been popped, the iterator should be resetted and again:
- * 
- * - The first pop should pop i=1, j=1 and return true because it has popped
- * - The second pop should pop i=2, j=3 and return true to indicate that it has popped
- * - The third pop should not pop and return false because there has not been popped
- *
- * @param i Reference to variable i that should be set
- * @param j Reference to variable j that should be set
- * 
- * @return Whether the return was VALID - if false is returned, the traceback is being reset to it's origin and will return true again.
- *
- * @date 2015-08-05
- * 
- * @deprecated
- */
-bool SegmentTraceback::pop(signed int &i, signed int &j)
-{
-	if(this->it == this->bonds.end())
-	{
-		this->reset();
-		
-		return false;
-	}
-	else
-	{
-		i = (*this->it).first;
-		j = (*this->it).second;
-		
-		this->it++;
-		
-		return true;
-	}
-}
-
-
-
-/**
- * @brief FiFo popping of the Pairs, and reset the iterator if the end has reached
- * 
- * @section DESCRIPTION
- * The following structure is an example:
- * 
- * <PRE>
- * 5') ............(i). ..(i')..
- *       |||  |||   | : :  |    .
- * 3') ............(j)....(j')..
- * </PRE>
- * 
- * If the bonds are parsed correctly, it would be a vector like this:
- * 
- * [ [1, 1], [2, 3] ], because the first bond after i,j is [i+1, j-1] and the second bond is [i+2, j-3]
- * 
- * - The very first pop should pop i=1, j=1 and return true because the end has not reached
- * - The second pop should pop i=2, j=3 and return false, to indicate that the end of the vector has reached
- * 
- * If the end has reached, the iterator should be resetted and again:
- * 
- * - The first pop should pop i=1, j=1 and return true because the end has not reached
- * - The second pop should pop i=2, j=3 and return false, to indicate that the end of the vector has reached
- *
- * @return True if not the last, False if the last element has reached
- * 
- * @date 2015-08-05
- * 
- * @deprecated
- */
-bool SegmentTraceback::pop_short(signed int &i, signed int &j)
-{
-	i = (*this->it).first;
-	j = (*this->it).second;
-	
-	this->it++;
-	
-	if(this->it == this->bonds.end())
-	{
-		this->reset();
-		
-		return false;
-	}
-	else
-	{
 		return true;
 	}
 }

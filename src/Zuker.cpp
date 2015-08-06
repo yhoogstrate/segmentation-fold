@@ -1,7 +1,7 @@
 /**
  * @file src/Zuker.cpp
  *
- * @date 2015-07-20
+ * @date 2015-08-06
  *
  * @author Youri Hoogstrate
  * @author Lisa Yu
@@ -103,6 +103,7 @@ float Zuker::energy(void)
 		// Paralelization / threading: "still reachable" memory error seems normal (http://stackoverflow.com/questions/6973489/valgrind-and-openmp-still-reachable-and-possibly-lost-is-that-bad).. -num_threads can be defined here
 		// http://people.cs.pitt.edu/~melhem/courses/xx45p/OpenMp.pdf
 		// For each element in a diagonal, it can be calculated independent of the others - if num_threads = 0, it will take all possible threads
+		
 		#pragma omp parallel for num_threads(this->settings.num_threads) private(i)
 		for(i = 0; i < this->sequence.size() - k; i++)
 		{
@@ -111,7 +112,7 @@ float Zuker::energy(void)
 		}
 	}
 	
-	Pair pair = Pair(0, this->sequence.size() - 1);//return this->wij.get(0, this->sequence.size() - 1);
+	Pair pair = Pair(0, this->sequence.size() - 1);
 	return this->wij.get(pair);
 }
 
@@ -251,7 +252,7 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 			this->loopmatrix.set(p1.first, p1.second, tmp_loopmatrix_value);
 			if(tmp_segment != nullptr)
 			{
-				this->nij2.set(p1, tmp_segment);
+				this->nij2.set(p1, &tmp_segment->traceback);
 			}
 #if DEBUG
 		}
@@ -371,13 +372,13 @@ inline float Zuker::energy_bifurcation(Region &region)
  * traces can split up because of forks. Otherwise recursion was
  * essential.
  *
- * @date 2013-09-11
+ * @date 2053-08-06
  */
 void Zuker::traceback(void)
 {
 	int i, j, k, ip, jp;
 	int tmp_i, tmp_j;
-	Segment *tmp_segment;
+	SegmentTraceback *independent_segment_traceback;
 	
 	bool pick_from_v_path;
 	
@@ -409,13 +410,16 @@ void Zuker::traceback(void)
 			{
 				this->dot_bracket.store(i, j);
 				
-				tmp_segment = this->nij2.get(pair1);///@todo implement it as tmp_segment = this->nij.search(p); or sth like that
-				if(tmp_segment != nullptr)									// If a Segment is found, trace internal structure also back
+				independent_segment_traceback = this->nij2.get(pair1);					///@todo implement it as independent_segment_traceback = this->nij.search(p); or sth like that
+				
+				if(independent_segment_traceback != nullptr)								// If a Segment's traceback is found, trace its internal structure back
 				{
-					while(tmp_segment->pop(tmp_i, tmp_j))
+					tmp_i = i;
+					tmp_j = j;
+					
+					while(independent_segment_traceback->traceback(tmp_i, tmp_j))
 					{
-						//this->dot_bracket.store(ip + tmp_i, jp + tmp_j);
-						this->dot_bracket.store(ip + tmp_i, jp - tmp_j);
+						this->dot_bracket.store(tmp_i, tmp_j);
 					}
 				}
 				

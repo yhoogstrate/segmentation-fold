@@ -1,7 +1,7 @@
 /**
  * @file include/Segment.hpp
  *
- * @date 2015-05-02
+ * @date 2015-08-06
  *
  * @author Youri Hoogstrate
  *
@@ -32,6 +32,7 @@
 
 
 #include <array>
+#include "SegmentTraceback.hpp"
 
 
 /**
@@ -103,19 +104,12 @@
  */
 class Segment
 {
-	private:
-		std::vector<Pair>::reverse_iterator it;
-		
 	public:
 		Segment(std::string arg_name, Sequence arg_segment5p, std::vector<Pair> arg_bonds, Sequence arg_segment3p, float arg_gibbs_free_energy);
 		
 		std::string name;
 		Sequence sequence_5p;
 		Sequence sequence_3p;
-		std::vector<Pair> bonds;
-		
-		bool pop(int &i, int &j);
-		void reset_traceback(void);
 		
 		float gibbs_free_energy;
 		const float get_gibbs_free_energy(void);///@deprecated Getters and setters should be deprecated since the variable is public
@@ -125,6 +119,8 @@ class Segment
 		
 		size_t size(Direction &direction);
 		size_t size(Direction direction);
+		
+		SegmentTraceback traceback;
 };
 
 #endif	// SEGMENT_HPP

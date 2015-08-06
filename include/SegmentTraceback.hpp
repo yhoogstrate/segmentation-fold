@@ -35,7 +35,7 @@
 
 /**
  * @brief Container for traceback coordinates for segment objects, to avoid pathcrossing
- * 
+ *
  * @section DESCRIPTION
  * A container of coordinates that allow traceback with non-canonical
  * pairs, derived from either a Segment or SegmentLoop object.
@@ -55,16 +55,16 @@
  * 5') UGUGAU    3-8                 (i+)4,(j-)1
  *        |||    4-7                 (i+)5,(j-)2
  * 3')    AGU    5-6                 (i+)6,(j-)3
- * 
+ *
  * *pretend that the sequence is 5') UGUGAU UGA (3'
- * 
- * 
+ *
+ *
  * 5') ............(i)...(i')..
  *       |||  |||   | ::   |   .
  * 3') ............(j)...(j')..
 
  * tb:  --------->  [i,j], [i+1, j-1], [i+2, j-2] -----> [i', j']...
- * 
+ *
 
 
  * Double check the following:
@@ -93,7 +93,7 @@ class SegmentTraceback
 		
 		std::vector<Pair> bonds;
 		
-		bool pop_traceback(unsigned int &i, unsigned int &j);
+		bool traceback(signed int &i, signed int &j);
 		bool pop(int &i, int &j);
 		bool pop_short(int &i, int &j);
 		void reset(void);

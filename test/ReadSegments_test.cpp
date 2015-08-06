@@ -1,7 +1,7 @@
 /**
  * @file test/ReadSegments_test.cpp
  *
- * @date 2015-07-23
+ * @date 2015-08-06
  *
  * @author Youri Hoogstrate
  *
@@ -99,7 +99,7 @@ BOOST_AUTO_TEST_CASE(Test1)
  *
  * @test
  *
- * @date 2015-07-23
+ * @date 2015-08-06
  */
 BOOST_AUTO_TEST_CASE(Test2)
 {
@@ -145,16 +145,19 @@ BOOST_AUTO_TEST_CASE(Test2)
 	BOOST_CHECK_EQUAL(segment->gibbs_free_energy , (float) - 11.1072);
 	
 	// Check bonds
-	BOOST_CHECK_EQUAL(segment->bonds[0].first , 3);
-	BOOST_CHECK_EQUAL(segment->bonds[0].second , 2);
+	BOOST_CHECK_EQUAL(segment->traceback.bonds[0].first , 4);
+	BOOST_CHECK_EQUAL(segment->traceback.bonds[0].second , 1);
 	
-	BOOST_CHECK_EQUAL(segment->bonds[1].first , 4);
-	BOOST_CHECK_EQUAL(segment->bonds[1].second , 1);
+	BOOST_CHECK_EQUAL(segment->traceback.bonds[1].first , 1);
+	BOOST_CHECK_EQUAL(segment->traceback.bonds[1].second , 1);
 	
-	BOOST_CHECK_EQUAL(segment->bonds[2].first , 5);
-	BOOST_CHECK_EQUAL(segment->bonds[2].second , 0);
+	BOOST_CHECK_EQUAL(segment->traceback.bonds[2].first , 1);
+	BOOST_CHECK_EQUAL(segment->traceback.bonds[2].second , 1);
 	
-	signed int i, j;
+	signed int i = 10;
+	signed int j = 1000;
+	signed int pi = i;
+	signed int pj = j;
 	bool s;
 	
 	for(unsigned int k = 0; k < 12; k++)								// Check tracing back bonds:
@@ -162,24 +165,29 @@ BOOST_AUTO_TEST_CASE(Test2)
 		switch(k % 4)
 		{
 			case 0:
-				BOOST_CHECK_EQUAL(segment->pop(i, j), true);
-				BOOST_CHECK_EQUAL(i, -1);
-				BOOST_CHECK_EQUAL(j, -1);
+				BOOST_CHECK_EQUAL(segment->traceback.traceback(i, j), true);
+				BOOST_CHECK_EQUAL(i, pi + 4);
+				BOOST_CHECK_EQUAL(j, pj - 1);
 				break;
 			case 1:
-				BOOST_CHECK_EQUAL(segment->pop(i, j), true);
-				BOOST_CHECK_EQUAL(i, -2);
-				BOOST_CHECK_EQUAL(j, -2);
+				BOOST_CHECK_EQUAL(segment->traceback.traceback(i, j), true);
+				BOOST_CHECK_EQUAL(i, pi + 1);
+				BOOST_CHECK_EQUAL(j, pj - 1);
 				break;
 			case 2:
-				BOOST_CHECK_EQUAL(segment->pop(i, j), true);
-				BOOST_CHECK_EQUAL(i, -3);
-				BOOST_CHECK_EQUAL(j, -3);
+				BOOST_CHECK_EQUAL(segment->traceback.traceback(i, j), true);
+				BOOST_CHECK_EQUAL(i, pi + 1);
+				BOOST_CHECK_EQUAL(j, pj - 1);
 				break;
 			case 3:
-				BOOST_CHECK_EQUAL(segment->pop(i, j), false);
+				BOOST_CHECK_EQUAL(segment->traceback.traceback(i, j), false);
+				BOOST_CHECK_EQUAL(i, pi );
+				BOOST_CHECK_EQUAL(j, pj );
 				break;
 		}
+		
+		pi = i;
+		pj = j;
 	}
 	
 	unlink(filename.c_str());
@@ -189,6 +197,8 @@ BOOST_AUTO_TEST_CASE(Test2)
 
 /**
  * @brief checks whether parsing a custom file succeeds - testing with 3' -> 5'
+ * 
+ * @test
  *
  * @section DESCRIPTION
  * <PRE>
@@ -203,9 +213,7 @@ BOOST_AUTO_TEST_CASE(Test2)
  * 3') AAGAAG (5'
  * </PRE>
  *
- * @date 2015-07-23
- *
- * @test
+ * @date 2015-08-06
  *
  * @todo also check segments pop() function
  */
@@ -256,14 +264,14 @@ BOOST_AUTO_TEST_CASE(Test3)
 	
 	
 	// Check bonds
-	BOOST_CHECK_EQUAL(segment->bonds[0].first , 0);
-	BOOST_CHECK_EQUAL(segment->bonds[0].second , 5);
+	BOOST_CHECK_EQUAL(segment->traceback.bonds[0].first , 1);
+	BOOST_CHECK_EQUAL(segment->traceback.bonds[0].second , 1);
 	
-	BOOST_CHECK_EQUAL(segment->bonds[1].first , 1);
-	BOOST_CHECK_EQUAL(segment->bonds[1].second , 4);
+	BOOST_CHECK_EQUAL(segment->traceback.bonds[1].first , 1);
+	BOOST_CHECK_EQUAL(segment->traceback.bonds[1].second , 1);
 	
-	BOOST_CHECK_EQUAL(segment->bonds[2].first , 2);
-	BOOST_CHECK_EQUAL(segment->bonds[2].second , 3);
+	BOOST_CHECK_EQUAL(segment->traceback.bonds[2].first , 1);
+	BOOST_CHECK_EQUAL(segment->traceback.bonds[2].second , 1);
 	
 	unlink(filename.c_str());
 }
@@ -273,9 +281,9 @@ BOOST_AUTO_TEST_CASE(Test3)
 /**
  * @brief checks whether parsing a custom file succeeds - testing both 3' -> 5' && 5' -> 3'
  *
- * @date 2015-07-23
- *
  * @test
+ *
+ * @date 2015-07-23
  */
 BOOST_AUTO_TEST_CASE(Test4)
 {
@@ -297,7 +305,6 @@ BOOST_AUTO_TEST_CASE(Test4)
 		   "</root>\n";
 	myfile.close();
 	
-	
 	SegmentTree segments;
 	ReadSegments r = ReadSegments(filename);
 	r.parse(segments);
@@ -313,9 +320,9 @@ BOOST_AUTO_TEST_CASE(Test4)
 /**
  * @brief checks whether parsing a custom file succeeds
  *
- * @date 2015-07-23
- *
  * @test
+ *
+ * @date 2015-07-23
  */
 BOOST_AUTO_TEST_CASE(Test5)
 {
@@ -754,7 +761,7 @@ BOOST_AUTO_TEST_CASE(Test_E1)
  *
  * @test
  *
- * @date 2015-07-23
+ * @date 2015-08-06
  */
 BOOST_AUTO_TEST_CASE(Test6)
 {
@@ -801,24 +808,31 @@ BOOST_AUTO_TEST_CASE(Test6)
 	BOOST_CHECK(segment != nullptr);
 	
 	int i = 0;
-	int j = 0;
+	int j = 1000;
+	int pi = i;
+	int pj = j;
 	
 	unsigned int k;
 	for(k = 0; k < 5; k++)
 	{
-		BOOST_CHECK(segment->pop(i, j));
-		BOOST_CHECK_EQUAL(i, -1);
-		BOOST_CHECK_EQUAL(j, -1);
+		BOOST_CHECK(segment->traceback.traceback(i, j));
+		BOOST_CHECK_EQUAL(i, pi + 4);
+		BOOST_CHECK_EQUAL(j, pj - 1);
 		
-		BOOST_CHECK(segment->pop(i, j));
-		BOOST_CHECK_EQUAL(i, -2);
-		BOOST_CHECK_EQUAL(j, -2);
+		BOOST_CHECK(segment->traceback.traceback(i, j));
+		BOOST_CHECK_EQUAL(i, pi + 4 + 1);
+		BOOST_CHECK_EQUAL(j, pj - 1 - 1);
 		
-		BOOST_CHECK(segment->pop(i, j));
-		BOOST_CHECK_EQUAL(i, -3);
-		BOOST_CHECK_EQUAL(j, -3);
+		BOOST_CHECK(segment->traceback.traceback(i, j));
+		BOOST_CHECK_EQUAL(i, pi + 4 + 1 + 1);
+		BOOST_CHECK_EQUAL(j, pj - 1 - 1 - 1);
 		
-		BOOST_CHECK(segment->pop(i, j) == false);
+		BOOST_CHECK(segment->traceback.traceback(i, j) == false);
+		BOOST_CHECK_EQUAL(i, pi + 4 + 1 + 1 + 0);
+		BOOST_CHECK_EQUAL(j, pj - 1 - 1 - 1 - 0);
+		
+		pi = i;
+		pj = j;
 	}
 	
 	BOOST_CHECK_EQUAL(segment->size(Direction::FivePrime) , 6);

@@ -1,11 +1,12 @@
 /**
  * @file test/Segment_test.cpp
  *
- * @date 2015-05-02
+ * @date 2015-08-06
  *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
+ * <PRE>
  * segmentation-fold can predict RNA 2D structures including K-turns.
  * Copyright (C) 2012-2015 Youri Hoogstrate
  *
@@ -23,6 +24,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * </PRE>
  */
 
 
@@ -57,7 +59,7 @@ BOOST_AUTO_TEST_CASE(Test1)
 	std::string segment_name = "C/D-box K-turn";
 	
 	Sequence sequence_5p = Sequence("ACUUG");
-	std::vector <Pair> bonds = {{Pair({0, 2}), Pair({2, 1}), Pair({4, 0})}};
+	std::vector <Pair> bonds = {{Pair({0, 2}), Pair({2, 1}), Pair({4, 0})}};///@todo incorrect bonds
 	Sequence sequence_3p = Sequence("AUG");
 	
 	float energy = -1.234;
@@ -75,7 +77,7 @@ BOOST_AUTO_TEST_CASE(Test1)
  *
  * @test
  *
- * @date 2015-04-22
+ * @date 2015-08-06
  */
 BOOST_AUTO_TEST_CASE(Test2)
 {
@@ -91,45 +93,49 @@ BOOST_AUTO_TEST_CASE(Test2)
 	std::string segment_name   = "C/D-box K-turn";
 	
 	Sequence sequence_5p     = Sequence("UGUGAU");
-	std::vector <Pair> bonds = {{Pair({3, 2}), Pair({4, 1}), Pair({5, 0})}};
+	std::vector <Pair> bonds = {{Pair({4, 1}), Pair({1, 1}), Pair({1, 1})}};
 	Sequence     sequence_3p = Sequence("UGA");
 	
 	float energy = -1.234;
 	
 	int i = 0;
-	int j = 0;
+	int j = 1000;
 	
 	Segment segment = Segment(segment_name, sequence_5p, bonds, sequence_3p, energy);
 	
-	BOOST_CHECK(segment.pop(i, j));
-	BOOST_CHECK_EQUAL(i, -1);
-	BOOST_CHECK_EQUAL(j, -1);
+	BOOST_CHECK(segment.traceback.traceback(i, j));
+	BOOST_CHECK_EQUAL(i, 0 + 4);
+	BOOST_CHECK_EQUAL(j, 1000 - 1);
 	
-	BOOST_CHECK(segment.pop(i, j));
-	BOOST_CHECK_EQUAL(i, -2);
-	BOOST_CHECK_EQUAL(j, -2);
+	BOOST_CHECK(segment.traceback.traceback(i, j));
+	BOOST_CHECK_EQUAL(i, 0    + 4 + 1);
+	BOOST_CHECK_EQUAL(j, 1000 - 1 - 1);
 	
-	BOOST_CHECK(segment.pop(i, j));
-	BOOST_CHECK_EQUAL(i, -3);
-	BOOST_CHECK_EQUAL(j, -3);
+	BOOST_CHECK(segment.traceback.traceback(i, j));
+	BOOST_CHECK_EQUAL(i, 0    + 4 + 1 + 1);
+	BOOST_CHECK_EQUAL(j, 1000 - 1 - 1 - 1);
 	
-	BOOST_CHECK(segment.pop(i, j) == false);
+	BOOST_CHECK(segment.traceback.traceback(i, j) == false);
+	BOOST_CHECK_EQUAL(i, 0    + 4 + 1 + 1 + 0);
+	BOOST_CHECK_EQUAL(j, 1000 - 1 - 1 - 1 - 0);
 	
 	
 	// Second (but identical) traceback; checks if reset function works properly
-	BOOST_CHECK(segment.pop(i, j));
-	BOOST_CHECK_EQUAL(i, -1);
-	BOOST_CHECK_EQUAL(j, -1);
+	BOOST_CHECK(segment.traceback.traceback(i, j));
+	BOOST_CHECK_EQUAL(i, 0    + 4 + 1 + 1 + 0   + 4);
+	BOOST_CHECK_EQUAL(j, 1000 - 1 - 1 - 1 - 0   - 1);
 	
-	BOOST_CHECK(segment.pop(i, j));
-	BOOST_CHECK_EQUAL(i, -2);
-	BOOST_CHECK_EQUAL(j, -2);
+	BOOST_CHECK(segment.traceback.traceback(i, j));
+	BOOST_CHECK_EQUAL(i, 0    + 4 + 1 + 1 + 0   + 4 + 1);
+	BOOST_CHECK_EQUAL(j, 1000 - 1 - 1 - 1 - 0   - 1 - 1);
 	
-	BOOST_CHECK(segment.pop(i, j));
-	BOOST_CHECK_EQUAL(i, -3);
-	BOOST_CHECK_EQUAL(j, -3);
+	BOOST_CHECK(segment.traceback.traceback(i, j));
+	BOOST_CHECK_EQUAL(i, 0    + 4 + 1 + 1 + 0   + 4 + 1 + 1);
+	BOOST_CHECK_EQUAL(j, 1000 - 1 - 1 - 1 - 0   - 1 - 1 - 1);
 	
-	BOOST_CHECK(segment.pop(i, j) == false);
+	BOOST_CHECK(segment.traceback.traceback(i, j) == false);
+	BOOST_CHECK_EQUAL(i, 0    + 4 + 1 + 1 + 0   + 4 + 1 + 1 + 0);
+	BOOST_CHECK_EQUAL(j, 1000 - 1 - 1 - 1 - 0   - 1 - 1 - 1 + 0);
 }
 
 
@@ -139,59 +145,63 @@ BOOST_AUTO_TEST_CASE(Test2)
  *
  * @test
  *
- * @date 2015-04-22
+ * @date 2015-08-06
  */
 BOOST_AUTO_TEST_CASE(Test3)
 {
 	/*
 	Alignment:      Bonds:      Traceback:
-	AAAAAA          2-2         -1,-1
-	  | ||          4-1         -2,-2
-	  A AA          5-0         -4,-3
+	AAAAAA          2-2         3,1
+	  | ||          4-1         2,1
+	  A AA          5-0         1,1
 	*/
 	
 	std::string segment_name = "Articificial example";
 	
 	Sequence sequence_5p = Sequence("AAAAAA");
-	std::vector <Pair> bonds = {{Pair({2, 2}), Pair({4, 1}), Pair({5, 0})}};
+	std::vector <Pair> bonds = {{Pair({3, 1}), Pair({2, 1}), Pair({1, 1})}};
 	Sequence sequence_3p = Sequence("AAA");
 	
 	float energy = -1.234;
 	
 	int i = 0;
-	int j = 0;
+	int j = 1000;
 	
 	Segment segment = Segment(segment_name, sequence_5p, bonds, sequence_3p, energy);
 	
-	BOOST_CHECK(segment.pop(i, j));
-	BOOST_CHECK_EQUAL(i, -1);
-	BOOST_CHECK_EQUAL(j, -1);
+	BOOST_CHECK(segment.traceback.traceback(i, j));
+	BOOST_CHECK_EQUAL(i, 0    + 3);
+	BOOST_CHECK_EQUAL(j, 1000 - 1);
 	
-	BOOST_CHECK(segment.pop(i, j));
-	BOOST_CHECK_EQUAL(i, -2);
-	BOOST_CHECK_EQUAL(j, -2);
+	BOOST_CHECK(segment.traceback.traceback(i, j));
+	BOOST_CHECK_EQUAL(i, 0    + 3 + 2);
+	BOOST_CHECK_EQUAL(j, 1000 - 1 - 1);
 	
-	BOOST_CHECK(segment.pop(i, j));
-	BOOST_CHECK_EQUAL(i, -4);
-	BOOST_CHECK_EQUAL(j, -3);
+	BOOST_CHECK(segment.traceback.traceback(i, j));
+	BOOST_CHECK_EQUAL(i, 0    + 3 + 2 + 1);
+	BOOST_CHECK_EQUAL(j, 1000 - 1 - 1 - 1);
 	
-	BOOST_CHECK(segment.pop(i, j) == false);
+	BOOST_CHECK(segment.traceback.traceback(i, j) == false);
+	BOOST_CHECK_EQUAL(i, 0    + 3 + 2 + 1 + 0);
+	BOOST_CHECK_EQUAL(j, 1000 - 1 - 1 - 1 - 0);
 	
 	
-	// Second traceback; checks if reset functions properly
-	BOOST_CHECK(segment.pop(i, j));
-	BOOST_CHECK_EQUAL(i, -1);
-	BOOST_CHECK_EQUAL(j, -1);
+	// Second (but identical) traceback; checks if reset function works properly
+	BOOST_CHECK(segment.traceback.traceback(i, j));
+	BOOST_CHECK_EQUAL(i, 0    + 3 + 2 + 1 + 0   + 3);
+	BOOST_CHECK_EQUAL(j, 1000 - 1 - 1 - 1 - 0   - 1);
 	
-	BOOST_CHECK(segment.pop(i, j));
-	BOOST_CHECK_EQUAL(i, -2);
-	BOOST_CHECK_EQUAL(j, -2);
+	BOOST_CHECK(segment.traceback.traceback(i, j));
+	BOOST_CHECK_EQUAL(i, 0    + 3 + 2 + 1 + 0   + 3 + 2);
+	BOOST_CHECK_EQUAL(j, 1000 - 1 - 1 - 1 - 0   - 1 - 1);
 	
-	BOOST_CHECK(segment.pop(i, j));
-	BOOST_CHECK_EQUAL(i, -4);
-	BOOST_CHECK_EQUAL(j, -3);
+	BOOST_CHECK(segment.traceback.traceback(i, j));
+	BOOST_CHECK_EQUAL(i, 0    + 3 + 2 + 1 + 0   + 3 + 2 + 1);
+	BOOST_CHECK_EQUAL(j, 1000 - 1 - 1 - 1 - 0   - 1 - 1 - 1);
 	
-	BOOST_CHECK(segment.pop(i, j) == false);
+	BOOST_CHECK(segment.traceback.traceback(i, j) == false);
+	BOOST_CHECK_EQUAL(i, 0    + 3 + 2 + 1 + 0   + 3 + 2 + 1 + 0);
+	BOOST_CHECK_EQUAL(j, 1000 - 1 - 1 - 1 - 0   - 1 - 1 - 1 + 0);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
