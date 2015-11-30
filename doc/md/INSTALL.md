@@ -7,12 +7,13 @@ Segmentation-fold does **not** install on most systems of itself because
 it depends on two additional libraries and an installation library.
 
 	cmake
+	boost library (-system)
 	boost library (-test)
 	boost library (-xml)
 
 In Ubuntu and Debian you can install these packages with the following command:
 
-	sudo apt-get install libboost-test-dev libboost-filesystem-dev
+	sudo apt-get install libboost-system-dev libboost-test-dev libboost-filesystem-dev
 
 In Arch linux you can install these packages with the folllowing command:
 
