@@ -186,6 +186,8 @@ add_test(gibbsfreeenergy_test    "${BUILD_TEST_DIR}/gibbsfreeenergy_test")
 add_test(zuker_test              "${BUILD_TEST_DIR}/zuker_test")
 add_test(main_test               "${BUILD_TEST_DIR}/main_test")
 
+add_test(capture_error_test      "${BUILD_TEST_DIR}/capture_error_test")
+
 find_program(CTEST_MEMORYCHECK_COMMAND NAMES valgrind)					# 'ctest -T memcheck'
 INCLUDE(Dart)
 

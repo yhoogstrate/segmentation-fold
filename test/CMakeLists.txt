@@ -62,6 +62,8 @@ add_executable(gibbsfreeenergy_test    GibbsFreeEnergy_test.cpp ../src/GibbsFree
 add_executable(zuker_test              Zuker_test.cpp ../src/Zuker.cpp ../src/GibbsFreeEnergy.cpp ../src/ReadData.cpp ../src/ReadSegments.cpp ../src/SegmentTree.cpp ../src/SegmentTreeElement.cpp ../src/Segment.cpp ../src/Sequence.cpp ../src/Pairing.cpp ../src/PairingPlus.cpp ../src/SubSequence.cpp ../src/Utils/min.cpp ../src/Settings.cpp ../src/Utils/file_exists.cpp ../src/ScoringMatrix.cpp ../src/ScoringTree.cpp ../src/DotBracket.cpp)
 add_executable(main_test               main_test.cpp ../src/Zuker.cpp ../src/GibbsFreeEnergy.cpp ../src/ReadData.cpp ../src/ReadSegments.cpp ../src/SegmentTree.cpp ../src/SegmentTreeElement.cpp ../src/Segment.cpp ../src/Sequence.cpp ../src/Pairing.cpp ../src/PairingPlus.cpp ../src/SubSequence.cpp ../src/Utils/min.cpp ../src/Settings.cpp ../src/Utils/file_exists.cpp ../src/ScoringMatrix.cpp ../src/ScoringTree.cpp ../src/DotBracket.cpp)
 
+add_executable(capture_error_test      capture_error.cpp ../src/Zuker.cpp ../src/GibbsFreeEnergy.cpp ../src/ReadData.cpp ../src/ReadSegments.cpp ../src/SegmentTree.cpp ../src/SegmentTreeElement.cpp ../src/Segment.cpp ../src/Sequence.cpp ../src/Pairing.cpp ../src/PairingPlus.cpp ../src/SubSequence.cpp ../src/Utils/min.cpp ../src/Settings.cpp ../src/Utils/file_exists.cpp ../src/ScoringMatrix.cpp ../src/ScoringTree.cpp ../src/DotBracket.cpp)
+
 
 set_target_properties(direction_test
                       dotbracket_test
@@ -80,4 +82,6 @@ set_target_properties(direction_test
                       gibbsfreeenergy_test
                       zuker_test
                       main_test
+                      
+                      capture_error_test
                                       PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${BUILD_TEST_DIR}")

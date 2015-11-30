@@ -317,7 +317,7 @@ float Zuker::w(Pair &p1)
 			
 			this->pathmatrix_corrected_from.set(p1, true);
 			
-			for(k = p1.first; k < p1.second; k++)						// Find bifurcation in non-paired region
+			for(k = p1.first + 1; k < p1.second; k++)					// Find bifurcation in non-paired region
 			{
 				Pair p2 = Pair(p1.first, k);
 				Pair p3 = Pair(k + 1, p1.second);
@@ -410,7 +410,7 @@ void Zuker::traceback(void)
 				this->dot_bracket.store(i, j);
 				
 				tmp_segment = this->nij2.get(pair1);///@todo implement it as tmp_segment = this->nij.search(p); or sth like that
-				if(tmp_segment != nullptr)									// If a Segment is found, trace internal structure also back
+				if(tmp_segment != nullptr)								// If a Segment is found, trace internal structure also back
 				{
 					while(tmp_segment->pop(tmp_i, tmp_j))
 					{
@@ -447,7 +447,7 @@ void Zuker::traceback(void)
 /**
  * @brief Pushes (i,j) & matrix-flag onto the stack
  *
- * @date 06-dec-2012
+ * @date 2012-12-06
  *
  * @param i Nucleotide position of the sequence, paired to j, where i < j
  * @param j Nucleotide position of the sequence, paired to i, where i < j
