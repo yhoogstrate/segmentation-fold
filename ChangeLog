@@ -1,3 +1,10 @@
+2015-12-01  Youri Hoogstrate
+	* v1.1.0
+	  - Fixed a issue that seemed to randomly change data
+	  - Solved a bug that allowed w()-type bifurcations to act as a
+	    normal loop
+	  - Added more strict debug comparions and tests
+
 2015-07-23  Youri Hoogstrate
 	* Fixed a memory leak and changed organization of ReadSegments
 	* Added some tests and improved the energy utility

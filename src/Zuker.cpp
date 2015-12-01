@@ -1,7 +1,7 @@
 /**
  * @file src/Zuker.cpp
  *
- * @date 2015-07-20
+ * @date 2015-12-01
  *
  * @author Youri Hoogstrate
  *
@@ -283,7 +283,7 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 /**
  * @brief Wij Function - provided Gibbs free energy for sequence i...j
  *
- * @date 01-mar-2013
+ * @date 2015-12-01
  *
  * @param p1 A pair of positions refering to Nucleotide positions in the sequence, where pi.first < p1.second
  *
@@ -302,6 +302,7 @@ float Zuker::w(Pair &p1)
 	{
 		int k = 0;///@todo check whether it can be unset
 		float tmp;
+		bool tmp_path_matrix = 0;
 		
 		if((p1.second - p1.first) <= (this->settings.minimal_hairpin_length))
 		{
@@ -313,7 +314,7 @@ float Zuker::w(Pair &p1)
 		}
 		else
 		{
-			bool tmp_path_matrix = true;
+			tmp_path_matrix = 1;
 			
 			PairingPlus p1p = PairingPlus(this->sequence_begin + p1.first, this->sequence_begin + p1.second);
 			
@@ -351,16 +352,17 @@ float Zuker::w(Pair &p1)
 				if(tmp < energy)
 				{
 					// Can also be done by checking whether pathmatrix_corrected_from > 0 ? >> and only store those positions in a tree instead of an entire matrix
-					tmp_path_matrix = false;
+					tmp_path_matrix = 0;
 					
 					energy = tmp;
 					tmp_pij = k;
 				}
 			}
 			
-			this->pathmatrix_corrected_from.set(p1.first, p1.second, tmp_path_matrix);
 		}
 		
+		///@todo get some way to obtain the index just once? -> this could be generalized at the top level as well (add it to the pair for example)
+		this->pathmatrix_corrected_from.set(p1, tmp_path_matrix);
 		this->pij.set(p1, tmp_pij);
 		this->qij.set(p1, tmp_qij);
 		this->wij.set(p1, energy);
@@ -388,7 +390,9 @@ inline float Zuker::energy_bifurcation(Region &region)
 
 /**
  * @brief The traceback algorithm, finds the optimal path through the matrices.
- *
+ * 
+ * @date 2015-12-01
+ * 
  * @section DESCRIPTION
  * This function finds the path back. It will choose between
  * the route provided by V or W scoring.
@@ -396,8 +400,6 @@ inline float Zuker::energy_bifurcation(Region &region)
  * The usage of an additional push and pop system is essential because
  * traces can split up because of forks. Otherwise recursion was
  * essential.
- *
- * @date 2015-12-01
  */
 void Zuker::traceback(void)
 {
@@ -423,7 +425,7 @@ void Zuker::traceback(void)
 			jp = pair2.second;
 			
 			// [if from the v path ] or [from a fork; V or W fork?]
-			if(pick_from_v_path == true || this->pathmatrix_corrected_from.get(pair1))	// Decide which matrix to pick from
+			if(pick_from_v_path == true || this->pathmatrix_corrected_from.get(pair1) != 0)	// Decide which matrix to pick from
 			
 				/** @todo check whether it works whenever the FIRST fold is a MOTIF */
 			{
@@ -593,7 +595,7 @@ void Zuker::_print_pathmatrix_corrected_from(unsigned int matrix_length)
 			{
 				std::cout << " -";
 			}
-			else if(this->pathmatrix_corrected_from.get(p))
+			else if(this->pathmatrix_corrected_from.get(p) != 0)
 			{
 				std::cout << " t";
 			}
