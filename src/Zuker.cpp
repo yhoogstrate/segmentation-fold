@@ -390,9 +390,9 @@ inline float Zuker::energy_bifurcation(Region &region)
 
 /**
  * @brief The traceback algorithm, finds the optimal path through the matrices.
- * 
+ *
  * @date 2015-12-01
- * 
+ *
  * @section DESCRIPTION
  * This function finds the path back. It will choose between
  * the route provided by V or W scoring.

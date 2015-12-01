@@ -90,7 +90,7 @@ BOOST_AUTO_TEST_CASE(Test_unfolded)
 
 /**
  * @brief tests Hairpin sequence GGGAAACCC to be folded as (((...)))
- * 
+ *
  * @date 2015-12-01
  *
  * @test
@@ -121,9 +121,9 @@ BOOST_AUTO_TEST_CASE(Test_hairpin)
 
 /**
  * @brief tests Bulge loop prediction
- * 
+ *
  * @date 2015-12-01
- * 
+ *
  * @test
  *
  * @section DESCRIPTION
@@ -158,9 +158,9 @@ BOOST_AUTO_TEST_CASE(Test_bulge_loop)
 
 /**
  * @brief tests Interior loop prediction
- * 
+ *
  * @date 2015-12-01
- * 
+ *
  * @test
  *
  * @section DESCRIPTION
@@ -201,9 +201,9 @@ BOOST_AUTO_TEST_CASE(Test_interior_loop)
 
 /**
  * @brief tests Bifurcation prediction
- * 
+ *
  * @date 2015-12-01
- * 
+ *
  * @test
  *
  * @section DESCRIPTION
