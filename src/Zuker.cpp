@@ -137,7 +137,7 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 	Segment *tmp_segment2;
 	Pair tmp_loopmatrix_value;
 	
-	if(this->pij.get(p1) > NOT_YET_CALCULATED)			///@todo -create bool function > {pij}.is_calculated() // This point is already calculated; efficiency of dynamic programming
+	if(this->pij.get(p1) > NOT_YET_CALCULATED)			///@todo -create bool function > {pij}.is_calculated()    @todo2 use max unsigned int value  // This point is already calculated; efficiency of dynamic programming
 	{
 		energy = this->vij.get(p1);
 	}
@@ -317,7 +317,7 @@ float Zuker::w(Pair &p1)
 			
 			this->pathmatrix_corrected_from.set(p1, true);
 			
-			for(k = p1.first + 1; k < p1.second; k++)					// Find bifurcation in non-paired region
+			for(k = p1.first + 1; k < p1.second; k++)					// Find bifurcation in non-paired region  @todo check if i or (i + 1) is valid 
 			{
 				Pair p2 = Pair(p1.first, k);
 				Pair p3 = Pair(k + 1, p1.second);
@@ -385,8 +385,10 @@ void Zuker::traceback(void)
 	
 	while(this->traceback_pop(&i, &j, &pick_from_v_path))
 	{
+#if DEBUG
 		if(i < j)
 		{
+#endif //DEBUG
 			Pair pair1 = Pair(i, j);
 			k = this->pij.get(pair1);
 			
@@ -394,7 +396,7 @@ void Zuker::traceback(void)
 			ip = pair2.first;
 			jp = pair2.second;
 			
-			// [if from the v path    ] or [from a fork; V or W fork?]
+			// [if from the v path ] or [from a fork; V or W fork?]
 			//if(pick_from_v_path == true || this->pathmatrix_corrected_from.get(pair1))	// Decide which matrix to pick from
 			if(pick_from_v_path == true || this->pathmatrix_corrected_from.get(pair1))	// Decide which matrix to pick from
 			
@@ -429,6 +431,17 @@ void Zuker::traceback(void)
 				}
 				else
 				{
+#if DEBUG
+					if(i+1 == ip)
+					{
+						throw std::invalid_argument("Traceback introduced incorrect jumps (i+1 == ip): " + std::to_string(i+1) + "," + std::to_string(ip) + "\n");
+					}
+					
+					if(ip+1 == j-1)
+					{
+						throw std::invalid_argument("Traceback introduced incorrect jumps (ip+1 == j-1): " + std::to_string(ip+1) + "," + std::to_string( j=1) + "\n");
+					}
+#endif //DEBUG
 					this->traceback_push(i + 1, ip, false);
 					this->traceback_push(ip + 1, j - 1, false);
 				}
@@ -438,7 +451,13 @@ void Zuker::traceback(void)
 				this->traceback_push(i, k, false);
 				this->traceback_push(k + 1, j, false);
 			}
+#if DEBUG
 		}
+		else
+		{
+			throw std::invalid_argument("Traceback encountered an incorrect jump (i:" + std::to_string(i) + " >= j:" + std::to_string(j) + ")");
+		}
+#endif //DEBUG
 	}
 }
 
