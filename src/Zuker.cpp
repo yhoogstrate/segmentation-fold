@@ -230,12 +230,28 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 					}
 				}
 				
-				if(ip < p1.second - 1)									// Multi-loop element
+				/*
+				i=0, j=11 < indicated in brackets
+				     *       i' = 5
+				[(...)(...)]
+				
+				  *          i' = 2
+				[()(......)]
+				
+				        *    i' = 8
+				[(......)()]
+				
+				-> earlier versions compromised this function
+				   by using it to 'extend' their stack
+				   one bell of the fork was 0 size and the other bell
+				   was the remainder
+				*/
+				if(ip > p1.first + 1 && ip < p1.second - 2)												// Multi-loop element
 				{
 					Pair p3 = Pair(p1.first + 1, ip);
 					Pair p4 = Pair(ip + 1, p1.second - 1);
-					Region  region = Region {p3, p4};
-					tmp = this->energy_bifurcation(region);
+					Region region = Region {p3, p4};
+					tmp = this->energy_bifurcation(region);//@todo energy paired bifurcation?
 					
 					if(tmp < energy)
 					{
@@ -370,7 +386,7 @@ inline float Zuker::energy_bifurcation(Region &region)
  * traces can split up because of forks. Otherwise recursion was
  * essential.
  *
- * @date 2013-09-11
+ * @date 2015-12-01
  */
 void Zuker::traceback(void)
 {
@@ -416,6 +432,12 @@ void Zuker::traceback(void)
 					while(tmp_segment->pop(tmp_i, tmp_j))
 					{
 						//this->dot_bracket.store(ip + tmp_i, jp + tmp_j);
+#if DEBUG
+						if((jp - tmp_j) <= (ip + tmp_i))
+						{
+							throw std::invalid_argument("Traceback with segment introduced incorrect jump (" + std::to_string(ip + tmp_i) + "," + std::to_string(jp - tmp_j) + ")\n");
+						}
+#endif //DEBUG
 						this->dot_bracket.store(ip + tmp_i, jp - tmp_j);
 					}
 				}
@@ -431,14 +453,14 @@ void Zuker::traceback(void)
 				else
 				{
 #if DEBUG
-					if(i + 1 == ip)
+					if(ip <= i + 1)
 					{
-						throw std::invalid_argument("Traceback introduced incorrect jumps (i+1 == ip): " + std::to_string(i + 1) + "," + std::to_string(ip) + "\n");
+						throw std::invalid_argument("Traceback introduced incorrect jump (i+1 == i'): " + std::to_string(i + 1) + "," + std::to_string(ip) + "\n");
 					}
 					
-					if(ip + 1 == j - 1)
+					if(ip >= j - 2)
 					{
-						throw std::invalid_argument("Traceback introduced incorrect jumps (ip+1 == j-1): " + std::to_string(ip + 1) + "," + std::to_string(j = 1) + "\n");
+						throw std::invalid_argument("Traceback introduced incorrect jump (i'+1 == j-1): " + std::to_string(ip + 1) + "," + std::to_string(j = 1) + "\n");
 					}
 #endif //DEBUG
 					this->traceback_push(i + 1, ip, false);
