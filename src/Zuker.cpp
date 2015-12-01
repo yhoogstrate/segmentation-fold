@@ -56,7 +56,7 @@
 /**
  * @brief Constructs /initializes the Zuker class: include parameters and init an empty dotbracket output.
  *
- * @date 05-nov-2012
+ * @date 2012-11-05
  *
  * @todo move this to this->init(); and run this->init(); or rename it to this->reset();
  */
@@ -313,6 +313,8 @@ float Zuker::w(Pair &p1)
 		}
 		else
 		{
+			bool tmp_path_matrix = true;
+			
 			PairingPlus p1p = PairingPlus(this->sequence_begin + p1.first, this->sequence_begin + p1.second);
 			
 			if(!p1p.is_canonical())
@@ -330,8 +332,6 @@ float Zuker::w(Pair &p1)
 				energy = this->v(p1, p1p);
 			}
 			
-			this->pathmatrix_corrected_from.set(p1, true);
-			
 			/*
 			following extreme w()-directed bifurcations are possible
 			
@@ -341,7 +341,7 @@ float Zuker::w(Pair &p1)
 			     *   k = j - 2; k < j - 1
 			[....)(]
 			 */
-			for(k = p1.first + 1; k < p1.second - 1; k++)				// Find bifurcation in non-paired region  @todo check if i or (i + 1) is valid
+			for(k = p1.first + 1; k < p1.second - 1; k++)				// Find bifurcation in non-paired region
 			{
 				Pair p2 = Pair(p1.first, k);
 				Pair p3 = Pair(k + 1, p1.second);
@@ -351,12 +351,14 @@ float Zuker::w(Pair &p1)
 				if(tmp < energy)
 				{
 					// Can also be done by checking whether pathmatrix_corrected_from > 0 ? >> and only store those positions in a tree instead of an entire matrix
-					this->pathmatrix_corrected_from.set(p1, false);
+					tmp_path_matrix = false;
 					
 					energy = tmp;
 					tmp_pij = k;
 				}
 			}
+			
+			this->pathmatrix_corrected_from.set(p1.first, p1.second, tmp_path_matrix);
 		}
 		
 		this->pij.set(p1, tmp_pij);
@@ -421,7 +423,6 @@ void Zuker::traceback(void)
 			jp = pair2.second;
 			
 			// [if from the v path ] or [from a fork; V or W fork?]
-			//if(pick_from_v_path == true || this->pathmatrix_corrected_from.get(pair1))	// Decide which matrix to pick from
 			if(pick_from_v_path == true || this->pathmatrix_corrected_from.get(pair1))	// Decide which matrix to pick from
 			
 				/** @todo check whether it works whenever the FIRST fold is a MOTIF */
