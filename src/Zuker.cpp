@@ -4,7 +4,6 @@
  * @date 2015-07-20
  *
  * @author Youri Hoogstrate
- * @author Lisa Yu
  *
  * @section LICENSE
  * <PRE>
@@ -317,7 +316,7 @@ float Zuker::w(Pair &p1)
 			
 			this->pathmatrix_corrected_from.set(p1, true);
 			
-			for(k = p1.first + 1; k < p1.second; k++)					// Find bifurcation in non-paired region  @todo check if i or (i + 1) is valid 
+			for(k = p1.first + 1; k < p1.second; k++)					// Find bifurcation in non-paired region  @todo check if i or (i + 1) is valid
 			{
 				Pair p2 = Pair(p1.first, k);
 				Pair p3 = Pair(k + 1, p1.second);
@@ -432,14 +431,14 @@ void Zuker::traceback(void)
 				else
 				{
 #if DEBUG
-					if(i+1 == ip)
+					if(i + 1 == ip)
 					{
-						throw std::invalid_argument("Traceback introduced incorrect jumps (i+1 == ip): " + std::to_string(i+1) + "," + std::to_string(ip) + "\n");
+						throw std::invalid_argument("Traceback introduced incorrect jumps (i+1 == ip): " + std::to_string(i + 1) + "," + std::to_string(ip) + "\n");
 					}
 					
-					if(ip+1 == j-1)
+					if(ip + 1 == j - 1)
 					{
-						throw std::invalid_argument("Traceback introduced incorrect jumps (ip+1 == j-1): " + std::to_string(ip+1) + "," + std::to_string( j=1) + "\n");
+						throw std::invalid_argument("Traceback introduced incorrect jumps (ip+1 == j-1): " + std::to_string(ip + 1) + "," + std::to_string(j = 1) + "\n");
 					}
 #endif //DEBUG
 					this->traceback_push(i + 1, ip, false);
