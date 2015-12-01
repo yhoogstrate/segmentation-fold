@@ -2974,7 +2974,7 @@ void test_nij2(Zuker &zuker, size_t n)
 BOOST_AUTO_TEST_CASE(Test_bulge_loop)
 {
 	int f =  0;
-	for(int i = 0 ; i < 1000; i++)
+	for(int i = 0 ; i < 100; i++)
 	{
 		// Initialize variables
 		Sequence sequence = Sequence("GGGAAAGGGAAACCCCCC");
