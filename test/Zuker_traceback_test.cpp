@@ -3020,8 +3020,8 @@ BOOST_AUTO_TEST_CASE(Test_bulge_loop)
 		}
 		exit(1);
 		
-		test_wij
-		/*for(unsigned int x = 0;  x < (unsigned int) sequence.size(); x++)
+		//test_wij
+		for(unsigned int x = 0;  x < (unsigned int) sequence.size(); x++)
 		{
 			for(unsigned int y = x;  y < (unsigned int) sequence.size(); y++)
 			{
