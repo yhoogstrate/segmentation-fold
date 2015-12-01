@@ -1,7 +1,7 @@
 /**
  * @file src/ScoringMatrix.cpp
  *
- * @date 2015-06-28
+ * @date 2015-12-01
  *
  * @author Youri Hoogstrate
  *
@@ -265,12 +265,13 @@ void ScoringMatrix<T>::fill(T arg_value)
 
 
 // Explicit instantiation:
-template class ScoringMatrix<unsigned int>;
 template class ScoringMatrix<signed int>;
 template class ScoringMatrix<float>;
-template class ScoringMatrix<double>;
 template class ScoringMatrix<Segment *>;
-template class ScoringMatrix<short>;
-
-template class ScoringMatrix<bool>;
+template class ScoringMatrix<char>;
 template class ScoringMatrix<Pair>;
+
+//template class ScoringMatrix<unsigned int>;
+//template class ScoringMatrix<double>;
+//template class ScoringMatrix<short>;
+//template class ScoringMatrix<bool>; <- this one causes problems! do never use it.

@@ -1,10 +1,9 @@
 /**
  * @file src/Zuker.cpp
  *
- * @date 2015-07-20
+ * @date 2015-12-01
  *
  * @author Youri Hoogstrate
- * @author Lisa Yu
  *
  * @section LICENSE
  * <PRE>
@@ -57,7 +56,7 @@
 /**
  * @brief Constructs /initializes the Zuker class: include parameters and init an empty dotbracket output.
  *
- * @date 05-nov-2012
+ * @date 2012-11-05
  *
  * @todo move this to this->init(); and run this->init(); or rename it to this->reset();
  */
@@ -137,7 +136,7 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 	Segment *tmp_segment2;
 	Pair tmp_loopmatrix_value;
 	
-	if(this->pij.get(p1) > NOT_YET_CALCULATED)			///@todo -create bool function > {pij}.is_calculated() // This point is already calculated; efficiency of dynamic programming
+	if(this->pij.get(p1) > NOT_YET_CALCULATED)			///@todo -create bool function > {pij}.is_calculated()    @todo2 use max unsigned int value  // This point is already calculated; efficiency of dynamic programming
 	{
 		energy = this->vij.get(p1);
 	}
@@ -231,12 +230,28 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 					}
 				}
 				
-				if(ip < p1.second - 1)									// Multi-loop element
+				/*
+				i=0, j=11 < indicated in brackets
+				     *       i' = 5
+				[(...)(...)]
+				
+				  *          i' = 2
+				[()(......)]
+				
+				        *    i' = 8
+				[(......)()]
+				
+				-> earlier versions compromised this function
+				   by using it to 'extend' their stack
+				   one bell of the fork was 0 size and the other bell
+				   was the remainder
+				*/
+				if(ip > p1.first + 1 && ip < p1.second - 2)												// Multi-loop element
 				{
 					Pair p3 = Pair(p1.first + 1, ip);
 					Pair p4 = Pair(ip + 1, p1.second - 1);
-					Region  region = Region {p3, p4};
-					tmp = this->energy_bifurcation(region);
+					Region region = Region {p3, p4};
+					tmp = this->energy_bifurcation(region);//@todo energy paired bifurcation?
 					
 					if(tmp < energy)
 					{
@@ -268,7 +283,7 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 /**
  * @brief Wij Function - provided Gibbs free energy for sequence i...j
  *
- * @date 01-mar-2013
+ * @date 2015-12-01
  *
  * @param p1 A pair of positions refering to Nucleotide positions in the sequence, where pi.first < p1.second
  *
@@ -287,6 +302,7 @@ float Zuker::w(Pair &p1)
 	{
 		int k = 0;///@todo check whether it can be unset
 		float tmp;
+		bool tmp_path_matrix = 0;
 		
 		if((p1.second - p1.first) <= (this->settings.minimal_hairpin_length))
 		{
@@ -298,6 +314,8 @@ float Zuker::w(Pair &p1)
 		}
 		else
 		{
+			tmp_path_matrix = 1;
+			
 			PairingPlus p1p = PairingPlus(this->sequence_begin + p1.first, this->sequence_begin + p1.second);
 			
 			if(!p1p.is_canonical())
@@ -315,9 +333,16 @@ float Zuker::w(Pair &p1)
 				energy = this->v(p1, p1p);
 			}
 			
-			this->pathmatrix_corrected_from.set(p1, true);
+			/*
+			following extreme w()-directed bifurcations are possible
 			
-			for(k = p1.first; k < p1.second; k++)						// Find bifurcation in non-paired region
+			 *       k = i + 1
+			[)(....]
+			
+			     *   k = j - 2; k < j - 1
+			[....)(]
+			 */
+			for(k = p1.first + 1; k < p1.second - 1; k++)				// Find bifurcation in non-paired region
 			{
 				Pair p2 = Pair(p1.first, k);
 				Pair p3 = Pair(k + 1, p1.second);
@@ -327,14 +352,17 @@ float Zuker::w(Pair &p1)
 				if(tmp < energy)
 				{
 					// Can also be done by checking whether pathmatrix_corrected_from > 0 ? >> and only store those positions in a tree instead of an entire matrix
-					this->pathmatrix_corrected_from.set(p1, false);
+					tmp_path_matrix = 0;
 					
 					energy = tmp;
 					tmp_pij = k;
 				}
 			}
+			
 		}
 		
+		///@todo get some way to obtain the index just once? -> this could be generalized at the top level as well (add it to the pair for example)
+		this->pathmatrix_corrected_from.set(p1, tmp_path_matrix);
 		this->pij.set(p1, tmp_pij);
 		this->qij.set(p1, tmp_qij);
 		this->wij.set(p1, energy);
@@ -363,6 +391,8 @@ inline float Zuker::energy_bifurcation(Region &region)
 /**
  * @brief The traceback algorithm, finds the optimal path through the matrices.
  *
+ * @date 2015-12-01
+ *
  * @section DESCRIPTION
  * This function finds the path back. It will choose between
  * the route provided by V or W scoring.
@@ -370,8 +400,6 @@ inline float Zuker::energy_bifurcation(Region &region)
  * The usage of an additional push and pop system is essential because
  * traces can split up because of forks. Otherwise recursion was
  * essential.
- *
- * @date 2013-09-11
  */
 void Zuker::traceback(void)
 {
@@ -385,8 +413,10 @@ void Zuker::traceback(void)
 	
 	while(this->traceback_pop(&i, &j, &pick_from_v_path))
 	{
+#if DEBUG
 		if(i < j)
 		{
+#endif //DEBUG
 			Pair pair1 = Pair(i, j);
 			k = this->pij.get(pair1);
 			
@@ -394,9 +424,8 @@ void Zuker::traceback(void)
 			ip = pair2.first;
 			jp = pair2.second;
 			
-			// [if from the v path    ] or [from a fork; V or W fork?]
-			//if(pick_from_v_path == true || this->pathmatrix_corrected_from.get(pair1))	// Decide which matrix to pick from
-			if(pick_from_v_path == true || this->pathmatrix_corrected_from.get(pair1))	// Decide which matrix to pick from
+			// [if from the v path ] or [from a fork; V or W fork?]
+			if(pick_from_v_path == true || this->pathmatrix_corrected_from.get(pair1) != 0)	// Decide which matrix to pick from
 			
 				/** @todo check whether it works whenever the FIRST fold is a MOTIF */
 			{
@@ -410,11 +439,17 @@ void Zuker::traceback(void)
 				this->dot_bracket.store(i, j);
 				
 				tmp_segment = this->nij2.get(pair1);///@todo implement it as tmp_segment = this->nij.search(p); or sth like that
-				if(tmp_segment != nullptr)									// If a Segment is found, trace internal structure also back
+				if(tmp_segment != nullptr)								// If a Segment is found, trace internal structure also back
 				{
 					while(tmp_segment->pop(tmp_i, tmp_j))
 					{
 						//this->dot_bracket.store(ip + tmp_i, jp + tmp_j);
+#if DEBUG
+						if((jp - tmp_j) <= (ip + tmp_i))
+						{
+							throw std::invalid_argument("Traceback with segment introduced incorrect jump (" + std::to_string(ip + tmp_i) + "," + std::to_string(jp - tmp_j) + ")\n");
+						}
+#endif //DEBUG
 						this->dot_bracket.store(ip + tmp_i, jp - tmp_j);
 					}
 				}
@@ -427,18 +462,50 @@ void Zuker::traceback(void)
 				{
 					this->traceback_push(ip, jp, pick_from_v_path);
 				}
-				else
+				else													// fork from paired; v()
 				{
+#if DEBUG
+					if(ip <= i + 1)
+					{
+						throw std::invalid_argument("Traceback introduced incorrect jump from paired bifurcation (i+1 == i'): " + std::to_string(i + 1) + "," + std::to_string(ip) + "\n");
+					}
+					
+					if(ip >= j - 2)
+					{
+						throw std::invalid_argument("Traceback introduced incorrect jump from paired bifurcation (i'+1 == j-1): " + std::to_string(ip + 1) + "," + std::to_string(j = 1) + "\n");
+					}
+#endif //DEBUG
+					// There are two loops within the current pair
+					
 					this->traceback_push(i + 1, ip, false);
 					this->traceback_push(ip + 1, j - 1, false);
 				}
 			}
-			else if(k >= 0)
+			else if(k >= 0)												// fork from non paired; w()
 			{
+#if DEBUG
+				if(k <= i)
+				{
+					throw std::invalid_argument("Traceback introduced incorrect jump from unpaired bifurcation (i+1 == i'): " + std::to_string(i + 1) + "," + std::to_string(k) + "\n");
+				}
+				
+				if(k >= j - 1)
+				{
+					throw std::invalid_argument("Traceback introduced incorrect jump from unpaired bifurcation (i'+1 == j-1): " + std::to_string(k + 1) + "," + std::to_string(j = 1) + "\n");
+				}
+#endif //DEBUG
+				// The current pair actually forms 2 loops
+				
 				this->traceback_push(i, k, false);
 				this->traceback_push(k + 1, j, false);
 			}
+#if DEBUG
 		}
+		else
+		{
+			throw std::invalid_argument("Traceback encountered an incorrect jump (i:" + std::to_string(i) + " >= j:" + std::to_string(j) + ")");
+		}
+#endif //DEBUG
 	}
 }
 
@@ -447,7 +514,7 @@ void Zuker::traceback(void)
 /**
  * @brief Pushes (i,j) & matrix-flag onto the stack
  *
- * @date 06-dec-2012
+ * @date 2012-12-06
  *
  * @param i Nucleotide position of the sequence, paired to j, where i < j
  * @param j Nucleotide position of the sequence, paired to i, where i < j
@@ -528,7 +595,7 @@ void Zuker::_print_pathmatrix_corrected_from(unsigned int matrix_length)
 			{
 				std::cout << " -";
 			}
-			else if(this->pathmatrix_corrected_from.get(p))
+			else if(this->pathmatrix_corrected_from.get(p) != 0)
 			{
 				std::cout << " t";
 			}
