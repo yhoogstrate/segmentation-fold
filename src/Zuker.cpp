@@ -332,7 +332,16 @@ float Zuker::w(Pair &p1)
 			
 			this->pathmatrix_corrected_from.set(p1, true);
 			
-			for(k = p1.first + 1; k < p1.second; k++)					// Find bifurcation in non-paired region  @todo check if i or (i + 1) is valid
+			/*
+			following extreme w()-directed bifurcations are possible
+			
+			 *       k = i + 1
+			[)(....]
+			
+			     *   k = j - 2; k < j - 1
+			[....)(]
+			 */
+			for(k = p1.first + 1; k < p1.second - 1; k++)				// Find bifurcation in non-paired region  @todo check if i or (i + 1) is valid
 			{
 				Pair p2 = Pair(p1.first, k);
 				Pair p3 = Pair(k + 1, p1.second);
@@ -450,25 +459,40 @@ void Zuker::traceback(void)
 				{
 					this->traceback_push(ip, jp, pick_from_v_path);
 				}
-				else
+				else													// fork from paired; v()
 				{
 #if DEBUG
 					if(ip <= i + 1)
 					{
-						throw std::invalid_argument("Traceback introduced incorrect jump (i+1 == i'): " + std::to_string(i + 1) + "," + std::to_string(ip) + "\n");
+						throw std::invalid_argument("Traceback introduced incorrect jump from paired bifurcation (i+1 == i'): " + std::to_string(i + 1) + "," + std::to_string(ip) + "\n");
 					}
 					
 					if(ip >= j - 2)
 					{
-						throw std::invalid_argument("Traceback introduced incorrect jump (i'+1 == j-1): " + std::to_string(ip + 1) + "," + std::to_string(j = 1) + "\n");
+						throw std::invalid_argument("Traceback introduced incorrect jump from paired bifurcation (i'+1 == j-1): " + std::to_string(ip + 1) + "," + std::to_string(j = 1) + "\n");
 					}
 #endif //DEBUG
+					// There are two loops within the current pair
+					
 					this->traceback_push(i + 1, ip, false);
 					this->traceback_push(ip + 1, j - 1, false);
 				}
 			}
-			else if(k >= 0)
+			else if(k >= 0)												// fork from non paired; w()
 			{
+#if DEBUG
+				if(k <= i)
+				{
+					throw std::invalid_argument("Traceback introduced incorrect jump from unpaired bifurcation (i+1 == i'): " + std::to_string(i + 1) + "," + std::to_string(k) + "\n");
+				}
+				
+				if(k >= j - 1)
+				{
+					throw std::invalid_argument("Traceback introduced incorrect jump from unpaired bifurcation (i'+1 == j-1): " + std::to_string(k + 1) + "," + std::to_string(j = 1) + "\n");
+				}
+#endif //DEBUG
+				// The current pair actually forms 2 loops
+				
 				this->traceback_push(i, k, false);
 				this->traceback_push(k + 1, j, false);
 			}
