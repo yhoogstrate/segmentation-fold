@@ -129,7 +129,7 @@ void Settings::print_version(void)
 /**
  * @brief Parses the commandline parameters.
  *
- * @date 2015-06-23
+ * @date 2015-12-01
  */
 void Settings::parse_arguments(void)
 {
@@ -140,6 +140,11 @@ void Settings::parse_arguments(void)
 	bool proceed = true;
 	char c;
 	size_t i;
+	
+	if(this->argc > 1 && strcmp(this->argv[1], "--version") == 0)
+	{
+		this->argv[1] = (char *) "-V\0";
+	}
 	
 	while((c = getopt(this->argc, this->argv, "+h:f:s:p:x:t:V")) > 0 && proceed)
 	{
