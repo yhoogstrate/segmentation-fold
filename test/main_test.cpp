@@ -95,6 +95,8 @@ BOOST_AUTO_TEST_CASE(Test_unfolded)
 /**
  * @brief tests Hairpin sequence GGGAAACCC to be folded as (((...)))
  *
+ * @date 2015-12-01
+ *
  * @test
  *
  * @date 2015-07-23
@@ -107,6 +109,7 @@ BOOST_AUTO_TEST_CASE(Test_hairpin)
 	
 	Settings settings = Settings(0, nullptr, sequence);
 	ReadData thermodynamics = ReadData();
+	thermodynamics.triloop_map[Sequence("gaaac")] = -10.00;
 	
 	// Predict structure
 	Zuker zuker = Zuker(settings, sequence, thermodynamics);
@@ -124,6 +127,8 @@ BOOST_AUTO_TEST_CASE(Test_hairpin)
 
 /**
  * @brief tests Bulge loop prediction
+ *
+ * @date 2015-12-01
  *
  * @test
  *
@@ -145,6 +150,7 @@ BOOST_AUTO_TEST_CASE(Test_bulge_loop)
 	
 	Settings settings = Settings(0, nullptr, sequence);
 	ReadData thermodynamics = ReadData();
+	thermodynamics.triloop_map[Sequence("gaaac")] = -10.00;
 	
 	// Predict structure
 	Zuker zuker = Zuker(settings, sequence, thermodynamics);
@@ -160,6 +166,8 @@ BOOST_AUTO_TEST_CASE(Test_bulge_loop)
 
 /**
  * @brief tests Interior loop prediction
+ *
+ * @date 2015-12-01
  *
  * @test
  *
@@ -187,6 +195,7 @@ BOOST_AUTO_TEST_CASE(Test_interior_loop)
 	
 	Settings settings = Settings(0, nullptr, sequence);
 	ReadData thermodynamics = ReadData();
+	thermodynamics.triloop_map[Sequence("gaaac")] = -10.00;
 	
 	// Predict structure
 	Zuker zuker = Zuker(settings, sequence, thermodynamics);
@@ -202,6 +211,8 @@ BOOST_AUTO_TEST_CASE(Test_interior_loop)
 
 /**
  * @brief tests Bifurcation prediction
+ *
+ * @date 2015-12-01
  *
  * @test
  *
@@ -237,6 +248,7 @@ BOOST_AUTO_TEST_CASE(Test_bifurcation)
 	
 	Settings settings = Settings(0, nullptr, sequence);
 	ReadData thermodynamics = ReadData();
+	thermodynamics.triloop_map[Sequence("gaaac")] = -10.00;
 	
 	// Predict structure
 	Zuker zuker = Zuker(settings, sequence, thermodynamics);

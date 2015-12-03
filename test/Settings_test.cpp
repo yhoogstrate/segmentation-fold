@@ -1,7 +1,7 @@
 /**
  * @file test/Settings_test.cpp
  *
- * @date 2015-07-20
+ * @date 2015-12-01
  *
  * @author Youri Hoogstrate
  *
@@ -307,13 +307,46 @@ BOOST_AUTO_TEST_CASE(Test6)
 }
 
 /**
+ * @brief Tests whether the version command is being picked up (--version)
+ *
+ * @test
+ *
+ * @date 2015-12-01
+ */
+BOOST_AUTO_TEST_CASE(Test7)
+{
+	Sequence sequence;
+	int argc;
+	
+	{
+		// Check example file
+		char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", nullptr};
+		argc = sizeof(argv) / sizeof(char *) - 1;
+		
+		Settings settings = Settings(argc, argv, sequence);
+		
+		BOOST_CHECK_EQUAL(settings.run_print_version , false);
+	}
+	
+	{
+		// Check non existing file
+		char *argv[] = { (char *) PACKAGE_NAME, (char *) "--version", nullptr};
+		argc = sizeof(argv) / sizeof(char *) - 1;
+		
+		Settings settings = Settings(argc, argv, sequence);
+		
+		BOOST_CHECK_EQUAL(settings.run_print_version , true);
+	}
+}
+
+/**
  * @brief Tests whether the version command is being picked up (--help)
  *
  * @test
  *
  * @date 2015-06-22
  */
-BOOST_AUTO_TEST_CASE(Test7)
+BOOST_AUTO_TEST_CASE(Test8)
 {
 	Sequence sequence;
 	int argc;
@@ -346,7 +379,7 @@ BOOST_AUTO_TEST_CASE(Test7)
  *
  * @date 2015-07-20
  */
-BOOST_AUTO_TEST_CASE(Test8)
+BOOST_AUTO_TEST_CASE(Test9)
 {
 	Sequence sequence;
 	int argc;

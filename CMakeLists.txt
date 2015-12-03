@@ -35,7 +35,7 @@ cmake_minimum_required(VERSION 2.8)
 
 project(segmentation-fold)
 
-set(PROJECT_VERSION "1.0.0")
+set(PROJECT_VERSION "1.1.0")
 set(PACKAGE_URL "https://github.com/yhoogstrate/segmentation-fold")
 set(PACKAGE_BUGREPORT "${PACKAGE_URL}/issues")
 
@@ -187,6 +187,7 @@ add_test(scoringtree_test        "${BUILD_TEST_DIR}/scoringtree_test")
 add_test(scoringmatrix_test      "${BUILD_TEST_DIR}/scoringmatrix_test")
 add_test(gibbsfreeenergy_test    "${BUILD_TEST_DIR}/gibbsfreeenergy_test")
 add_test(zuker_test              "${BUILD_TEST_DIR}/zuker_test")
+add_test(zuker_traceback_test    "${BUILD_TEST_DIR}/zuker_traceback_test")
 add_test(main_test               "${BUILD_TEST_DIR}/main_test")
 
 find_program(CTEST_MEMORYCHECK_COMMAND NAMES valgrind)					# 'ctest -T memcheck'

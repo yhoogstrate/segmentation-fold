@@ -1,3 +1,10 @@
+2015-12-01  Youri Hoogstrate
+	* v1.1.0
+	  - Fixed a issue that seemed to randomly change data
+	  - Solved a bug that allowed w()-type bifurcations to act as a
+	    normal loop
+	  - Added more strict debug comparions and tests
+
 2015-08-06  Youri Hoogstrate
 	* Added separate object for indendent traceback in Segment objects
 	* Changed behavior of <bonds> variables

@@ -71,7 +71,7 @@ struct traceback_jump_pair
  * model with Segments/K-turns functionality for RNA secondary structure
  * prediction.
  *
- * @date 2014-05-16
+ * @date 2015-12-01
  */
 class Zuker: public GibbsFreeEnergy
 {
@@ -111,7 +111,7 @@ class Zuker: public GibbsFreeEnergy
 		ScoringMatrix<float> vij;
 		ScoringMatrix<float> wij;
 		
-		ScoringMatrix<bool> pathmatrix_corrected_from;					//@todo benchmark performance of std::vector<std::vector<bool>> pathmatrix_corrected_from; or make argument between fast and sparse
+		ScoringMatrix<char> pathmatrix_corrected_from;					//@todo benchmark performance of std::vector<std::vector<bool>> pathmatrix_corrected_from; or make argument between fast and sparse
 		ScoringMatrix<Pair> loopmatrix;									//@todo benchmark performance of std::vector<std::vector<bool>> pathmatrix_corrected_from; or make argument between fast and sparse
 		
 		ScoringMatrix<SegmentTraceback *> sij;							//@todo benchmark performance using std::map<SegmentTraceback *>
