@@ -112,7 +112,6 @@ class Segment
 		Sequence sequence_3p;
 		
 		float gibbs_free_energy;
-		const float get_gibbs_free_energy(void);///@deprecated Getters and setters should be deprecated since the variable is public
 		
 		Nucleotide get_nucleotide(Direction direction, unsigned int &i);// @todo operator: segment[Direction][arg_i]
 		Sequence  *get_sequence(Direction direction);					// @todo operator: segment[Direction]

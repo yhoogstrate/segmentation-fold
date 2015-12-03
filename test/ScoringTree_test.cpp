@@ -142,7 +142,7 @@ BOOST_AUTO_TEST_CASE(Test2)
  *
  * @test
  *
- * @date 2014-04-20
+ * @date 2015-12-03
  *
  * @todo check whether the segment is a deep-copy - otherwise make the test with *Segment
  */
@@ -165,7 +165,7 @@ BOOST_AUTO_TEST_CASE(Test3)
 	Segment *segment_1 = tree.search(key_1);
 	Segment *segment_2 = tree.search(key_2);
 	
-	BOOST_CHECK(segment_1 != NULL && segment_1->get_gibbs_free_energy() == energy);
+	BOOST_CHECK(segment_1 != NULL && segment_1->gibbs_free_energy == energy);
 	BOOST_CHECK(segment_2 == NULL);
 }
 BOOST_AUTO_TEST_SUITE_END()

@@ -1,7 +1,7 @@
 /**
  * @file src/Zuker.cpp
  *
- * @date 2015-08-06
+ * @date 2015-12-03
  *
  * @author Youri Hoogstrate
  * @author Lisa Yu
@@ -70,7 +70,7 @@ Zuker::Zuker(Settings &arg_settings, Sequence &arg_sequence, ReadData &arg_therm
 	wij(arg_sequence.size(), 0.0),
 	pathmatrix_corrected_from(arg_sequence.size(), false),
 	loopmatrix(arg_sequence.size(), Pair(0, 0)),
-	nij2(arg_sequence.size(), nullptr)
+	sij(arg_sequence.size(), nullptr)
 {
 	this->pij.fill(NOT_YET_CALCULATED);
 	
@@ -121,7 +121,7 @@ float Zuker::energy(void)
 /**
  * @brief Vij Function - energy if (i,j) pair, otherwise return infinity
  *
- * @date 2015-04-03
+ * @date 2015-12-03
  *
  * @param p1 A pair of positions refering to Nucleotide positions in the sequence, where pi.first < p1.second
  *
@@ -215,7 +215,7 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 								//Nucleotide n2 = this->sequence[p1.second];
 								//Pairing pairing = Pairing(n1, n2);
 								
-								tmp_k = tmp_segment2->get_gibbs_free_energy() + this->get_stacking_pair_without_surrounding(p1p) + v_ij_jp;
+								tmp_k = tmp_segment2->gibbs_free_energy + this->get_stacking_pair_without_surrounding(p1p) + v_ij_jp;
 							}
 							else
 							{
@@ -252,7 +252,7 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 			this->loopmatrix.set(p1.first, p1.second, tmp_loopmatrix_value);
 			if(tmp_segment != nullptr)
 			{
-				this->nij2.set(p1, &tmp_segment->traceback);
+				this->sij.set(p1, &tmp_segment->traceback);
 			}
 #if DEBUG
 		}
@@ -410,7 +410,7 @@ void Zuker::traceback(void)
 			{
 				this->dot_bracket.store(i, j);
 				
-				independent_segment_traceback = this->nij2.get(pair1);					///@todo implement it as independent_segment_traceback = this->nij.search(p); or sth like that
+				independent_segment_traceback = this->sij.get(pair1);					///@todo implement it as independent_segment_traceback = this->nij.search(p); or sth like that
 				
 				if(independent_segment_traceback != nullptr)								// If a Segment's traceback is found, trace its internal structure back
 				{
@@ -601,13 +601,13 @@ void Zuker::_print_nij(unsigned int matrix_length)
 			{
 				std::cout << " ----    ";
 			}
-			else if(this->nij2.get(p) == nullptr)
+			else if(this->sij.get(p) == nullptr)
 			{
 				std::cout << " null    ";
 			}
 			else
 			{
-				std::cout << " " << this->nij2.get(p);
+				std::cout << " " << this->sij.get(p);
 			}
 		}
 		std::cout << "\n";

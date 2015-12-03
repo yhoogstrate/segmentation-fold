@@ -181,8 +181,8 @@ BOOST_AUTO_TEST_CASE(Test2)
 				break;
 			case 3:
 				BOOST_CHECK_EQUAL(segment->traceback.traceback(i, j), false);
-				BOOST_CHECK_EQUAL(i, pi );
-				BOOST_CHECK_EQUAL(j, pj );
+				BOOST_CHECK_EQUAL(i, pi);
+				BOOST_CHECK_EQUAL(j, pj);
 				break;
 		}
 		
@@ -197,7 +197,7 @@ BOOST_AUTO_TEST_CASE(Test2)
 
 /**
  * @brief checks whether parsing a custom file succeeds - testing with 3' -> 5'
- * 
+ *
  * @test
  *
  * @section DESCRIPTION

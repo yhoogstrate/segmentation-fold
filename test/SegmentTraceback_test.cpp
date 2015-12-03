@@ -132,6 +132,8 @@ BOOST_AUTO_TEST_CASE(Test_3)
 /**
  * @brief Tests the Segment::pop() function
  *
+ * @date 2015-08-06
+ *
  * @test Segment::traceback()
  *
  * @section DESCRIPTION
@@ -146,8 +148,6 @@ BOOST_AUTO_TEST_CASE(Test_3)
  * If the bonds are parsed correctly, it would be a vector like this:
  *
  * [ [1, 1], [2, 3] ], because the first bond after i,j is [i+1, j-1] and the second bond is [i+2, j-3]
- *
- * @date 2015-08-06
  */
 BOOST_AUTO_TEST_CASE(Test_4)
 {

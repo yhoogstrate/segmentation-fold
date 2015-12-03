@@ -1,7 +1,7 @@
 /**
  * @file test/SegmentTreeElement_test.cpp
  *
- * @date 2015-07-15
+ * @date 2015-12-03
  *
  * @author Youri Hoogstrate
  *
@@ -70,7 +70,7 @@ BOOST_AUTO_TEST_CASE(Test1)
 	sequence_5p  = Sequence("ACUUG");
 	bonds        = {{ Pair({0, 2}), Pair({2, 1}), Pair({4, 0}) }};
 	sequence_3p  = Sequence("AUC");
-	Segment             segment_02   = Segment(segment_name, sequence_5p, bonds, sequence_3p, energy);
+	Segment            segment_02   = Segment(segment_name, sequence_5p, bonds, sequence_3p, energy);
 	
 	SegmentTreeElement element_01 = SegmentTreeElement(segment_01);
 	element_01.add_segment(segment_02);
@@ -83,7 +83,7 @@ BOOST_AUTO_TEST_CASE(Test1)
  *
  * @test
  *
- * @date 2015-05-01
+ * @date 2015-12-03
  */
 BOOST_AUTO_TEST_CASE(Test2)
 {
@@ -146,10 +146,10 @@ BOOST_AUTO_TEST_CASE(Test2)
 	BOOST_REQUIRE(segment_05 != nullptr);
 	BOOST_REQUIRE(segment_06 != nullptr);
 	
-	BOOST_CHECK(segment_03->get_gibbs_free_energy() == energy_01);
-	BOOST_CHECK(segment_04->get_gibbs_free_energy() == energy_02);
-	BOOST_CHECK(segment_05->get_gibbs_free_energy() == energy_01);
-	BOOST_CHECK(segment_06->get_gibbs_free_energy() == energy_02);
+	BOOST_CHECK(segment_03->gibbs_free_energy == energy_01);
+	BOOST_CHECK(segment_04->gibbs_free_energy == energy_02);
+	BOOST_CHECK(segment_05->gibbs_free_energy == energy_01);
+	BOOST_CHECK(segment_06->gibbs_free_energy == energy_02);
 }
 
 /**
@@ -157,7 +157,7 @@ BOOST_AUTO_TEST_CASE(Test2)
  *
  * @test
  *
- * @date 2015-05-01
+ * @date 2015-12-03
  */
 BOOST_AUTO_TEST_CASE(Test3)
 {
@@ -209,10 +209,10 @@ BOOST_AUTO_TEST_CASE(Test3)
 	BOOST_REQUIRE(segment_05 != nullptr);
 	BOOST_REQUIRE(segment_06 != nullptr);
 	
-	BOOST_CHECK(segment_03->get_gibbs_free_energy() == energy_01);
-	BOOST_CHECK(segment_04->get_gibbs_free_energy() == energy_02);
-	BOOST_CHECK(segment_05->get_gibbs_free_energy() == energy_01);
-	BOOST_CHECK(segment_06->get_gibbs_free_energy() == energy_02);
+	BOOST_CHECK(segment_03->gibbs_free_energy == energy_01);
+	BOOST_CHECK(segment_04->gibbs_free_energy == energy_02);
+	BOOST_CHECK(segment_05->gibbs_free_energy == energy_01);
+	BOOST_CHECK(segment_06->gibbs_free_energy == energy_02);
 }
 
 
@@ -221,7 +221,7 @@ BOOST_AUTO_TEST_CASE(Test3)
  *
  * @test
  *
- * @date 2015-05-01
+ * @date 2015-12-03
  */
 BOOST_AUTO_TEST_CASE(Test4)
 {
@@ -273,10 +273,10 @@ BOOST_AUTO_TEST_CASE(Test4)
 	BOOST_REQUIRE(segment_05 != nullptr);
 	BOOST_REQUIRE(segment_06 != nullptr);
 	
-	BOOST_CHECK(segment_03->get_gibbs_free_energy() == energy_01);
-	BOOST_CHECK(segment_04->get_gibbs_free_energy() == energy_02);
-	BOOST_CHECK(segment_05->get_gibbs_free_energy() == energy_01);
-	BOOST_CHECK(segment_06->get_gibbs_free_energy() == energy_02);
+	BOOST_CHECK(segment_03->gibbs_free_energy == energy_01);
+	BOOST_CHECK(segment_04->gibbs_free_energy == energy_02);
+	BOOST_CHECK(segment_05->gibbs_free_energy == energy_01);
+	BOOST_CHECK(segment_06->gibbs_free_energy == energy_02);
 }
 
 /**
@@ -284,7 +284,7 @@ BOOST_AUTO_TEST_CASE(Test4)
  *
  * @test
  *
- * @date 2015-05-01
+ * @date 2015-12-03
  */
 BOOST_AUTO_TEST_CASE(Test5)
 {
@@ -336,10 +336,10 @@ BOOST_AUTO_TEST_CASE(Test5)
 	BOOST_REQUIRE(segment_05 != nullptr);
 	BOOST_REQUIRE(segment_06 != nullptr);
 	
-	BOOST_CHECK(segment_03->get_gibbs_free_energy() == energy_01);
-	BOOST_CHECK(segment_04->get_gibbs_free_energy() == energy_02);
-	BOOST_CHECK(segment_05->get_gibbs_free_energy() == energy_01);
-	BOOST_CHECK(segment_06->get_gibbs_free_energy() == energy_02);
+	BOOST_CHECK(segment_03->gibbs_free_energy == energy_01);
+	BOOST_CHECK(segment_04->gibbs_free_energy == energy_02);
+	BOOST_CHECK(segment_05->gibbs_free_energy == energy_01);
+	BOOST_CHECK(segment_06->gibbs_free_energy == energy_02);
 }
 
 /**

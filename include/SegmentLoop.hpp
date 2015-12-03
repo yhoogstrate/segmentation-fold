@@ -1,7 +1,7 @@
 /**
  * @file include/SegmentLoop.hpp
  *
- * @date 2015-08-03
+ * @date 2015-12-03
  *
  * @author Youri Hoogstrate
  *
@@ -31,9 +31,13 @@
 
 
 #include <array>
+#include "SegmentTraceback.hpp"
+
 
 /**
  * @brief Loop element that allows traceback of non-canonical pairs
+ *
+ * @date 2015-12-03
  *
  * @section DESCRIPTION
  * Classical loops like triloops or tetraloops don't support the
@@ -52,8 +56,6 @@
  *     |||:: : A
  * 3') CCCCACUA
  * </PRE>
- *
- * @date 2015-08-03
  */
 class SegmentLoop
 {
@@ -68,6 +70,7 @@ class SegmentLoop
 		Nucleotide get_nucleotide(unsigned int &arg_i);
 		
 		size_t size(void);
+		Sequence *get_sequence(void);
 };
 
 #endif	// SEGMENTLOOP_HPP

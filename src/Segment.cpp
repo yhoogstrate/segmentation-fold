@@ -110,20 +110,6 @@ size_t Segment::size(Direction &direction)
 
 
 /**
- * @brief Returns the free energy that corresponds to the segment
- *
- * @date 2015-08-03
- *
- * @todo check if it is possible to do by sending the reference and see whether that's faster
- */
-const float Segment::get_gibbs_free_energy(void)
-{
-	return this->gibbs_free_energy;
-}
-
-
-
-/**
  * @brief Returns a particular nucleotide in one of the 2 sequences of the segment at a given direciton
  *
  * @param direction Direction::FivePrime is used if the sequence is located closest to the 5' end of the RNA sequence; Direction::ThreePrime otherwise

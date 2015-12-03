@@ -1,6 +1,6 @@
 # @file CMakeLists.txt
 #
-# @date 2015-08-06
+# @date 2015-12-03
 #
 # @author Youri Hoogstrate
 #
@@ -178,6 +178,7 @@ add_test(pairingplus_test        "${BUILD_TEST_DIR}/pairingplus_test")
 add_test(pairing_test            "${BUILD_TEST_DIR}/pairing_test")
 add_test(segmenttraceback_test   "${BUILD_TEST_DIR}/segmenttraceback_test")
 add_test(segment_test            "${BUILD_TEST_DIR}/segment_test")
+add_test(segment_test            "${BUILD_TEST_DIR}/segmentloop_test")
 add_test(segmenttreeelement_test "${BUILD_TEST_DIR}/segmenttreeelement_test")
 add_test(segmenttree_test        "${BUILD_TEST_DIR}/segmenttree_test")
 add_test(readsegments_test       "${BUILD_TEST_DIR}/readsegments_test")
