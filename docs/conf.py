@@ -21,7 +21,6 @@ def get_code_version():
 
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 if on_rtd:
-    
     call('command -v sed',shell=True)
     #call('command -v make',shell=True)
     #call('command -v cmake',shell=True)
@@ -54,7 +53,7 @@ project = 'segmentation-fold'
 copyright = ''
 
 # The short X.Y version.
-version = get_code_version
+version = get_code_version()
 # The full version, including alpha/beta/rc tags.
 release = version+"-"+get_git_revision()
 
