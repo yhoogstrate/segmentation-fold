@@ -180,6 +180,8 @@ if on_rtd:
             line = line.replace("@CMAKE_PROJECT_NAME@",project)
             line = line.replace("@PROJECT_VERSION@",version)
             
+            
+            line = line.replace("CLASS_DIAGRAMS         = YES","CLASS_DIAGRAMS         = NO")
             line = line.replace("GENERATE_XML           = NO", "GENERATE_XML           = YES")
             line = line.replace("GENERATE_HTML          = YES","GENERATE_HTML          = NO")
             
