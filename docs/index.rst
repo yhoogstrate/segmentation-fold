@@ -14,3 +14,6 @@ Contents:
 
 .. doxygenclass:: index
    :members:
+
+.. doxygenclass:: segmentation-fold
+   :members:
