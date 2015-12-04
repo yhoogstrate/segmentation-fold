@@ -42,14 +42,14 @@ if on_rtd:
         for line in fh:
             line = line.replace("@CMAKE_PROJECT_NAME@",project)
             line = line.replace("@PROJECT_VERSION@",version)
+            line = line.replace("OUTPUT_DIRECTORY       = doc","OUTPUT_DIRECTORY       = ../doc")
             fh_out.write(line)
     fh_out.close()
     
-    #os.symlink("../doc/Doxyfile","Doxyfile")
+    call(['doxygen','../doc/Doxyfile'])
     
     call(['pwd'])
     call(['ls'])
-    call(['doxygen','../doc/Doxyfile'])
 
 
 
