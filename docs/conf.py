@@ -6,7 +6,9 @@ import os
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 if on_rtd:
   from subprocess import call 
-  call('doxygen')
+  call(['cmake', '..'])
+  call('cd .. ; make doc',shell=True)
+  #call('doxygen')
 
 extensions = [
     'sphinx.ext.autodoc',
@@ -79,7 +81,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', '../doc/index.tex'),
+  ('index', '../doc/index.tex', 'latex segmentation-fold', 'me','manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
