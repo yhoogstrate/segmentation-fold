@@ -37,13 +37,15 @@ release = version+"-"+get_git_revision()
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 if on_rtd:
     # Do stuff that cmake is supposed to do...
-    fh_out = open('../doc/Doxyfile.', "w")
+    fh_out = open('../doc/Doxyfile', "w")
     with open('../doc/Doxyfile.in', "r") as fh:
         for line in fh:
             line = line.replace("@CMAKE_PROJECT_NAME@",project)
             line = line.replace("@PROJECT_VERSION@",version)
             fh_out.write(line)
     fh_out.close()
+    
+    #os.symlink("../doc/Doxyfile","Doxyfile")
     
     call(['pwd'])
     call(['ls'])
