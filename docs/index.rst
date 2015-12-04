@@ -3,19 +3,14 @@ segmentation-fold
 
 Contents:
 
-   :maxdepth: 5
+.. toctree::
+   :maxdepth: 3
 
    Class: Pairing <classes/Pairing>
 
    Class: pairing_plus.rst <classes/pairing_plus.rst>
 
    Class: DotBracket <classes/DotBracket>
-
-
-
-
-.. toctree::
-   :maxdepth: 3
 
 .. doxygen:: segmentation-fold
    :members:
