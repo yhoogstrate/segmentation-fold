@@ -6,11 +6,35 @@ Contents:
 .. toctree::
    :maxdepth: 3
 
+   Class: DotBracket <classes/DotBracket>
+
+   Class: GibbsFreeEnergy <classes/GibbsFreeEnergy>
+
+   Class: PairingPlus <classes/PairingPlus>
+
    Class: Pairing <classes/Pairing>
 
-   Class: pairing_plus.rst <classes/pairing_plus.rst>
+   Class: ReadData <classes/ReadData>
 
-   Class: DotBracket <classes/DotBracket>
+   Class: ReadSegments <classes/ReadSegments>
+
+   Class: ScoringMatrix <classes/ScoringMatrix>
+
+   Class: ScoringTree <classes/ScoringTree>
+
+   Class: SegmentTreeElement <classes/SegmentTreeElement>
+
+   Class: SegmentTree <classes/SegmentTree>
+
+   Class: Segment <classes/Segment>
+
+   Class: Sequence <classes/Sequence>
+
+   Class: Settings <classes/Settings>
+
+   Class: SubSequence <classes/SubSequence>
+
+   Class: Zuker <classes/Zuker>
 
 .. doxygen:: segmentation-fold
    :members:
