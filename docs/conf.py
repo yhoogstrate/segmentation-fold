@@ -17,7 +17,7 @@ def get_git_revision():
 def get_code_version():
     with open("../CMakeLists.txt","r") as fh:
         content = fh.read()
-    return re.search("set\(PROJECT_VERSION[ ]+['\"]([^'\"]+)['\"]\)",c).group(1)
+    return re.search("set\(PROJECT_VERSION[ ]+['\"]([^'\"]+)['\"]\)",content).group(1)
 
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 if on_rtd:
