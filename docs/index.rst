@@ -6,14 +6,33 @@ Contents:
 .. toctree::
    :maxdepth: 3
 
-.. doxygenclass:: Segment
+.. doxygen:: segmentation-fold
    :members:
 
-.. doxygenclass:: Zuker
+.. doxygen:: index
+   :members:
+
+.. doxygen:: main
+   :members:
+
+.. doxygenclass:: Segment
    :members:
 
 .. doxygenclass:: index
    :members:
 
-.. doxygenclass:: segmentation-fold
+.. doxygenclass:: annotated
    :members:
+
+.. doxygenclass:: bug
+   :members:
+
+.. doxygenclass:: class_zuker
+   :members:
+
+.. doxygenclass:: zuker
+   :members:
+
+.. doxygenclass:: Zuker
+   :members:
+
