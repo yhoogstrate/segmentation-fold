@@ -186,6 +186,11 @@ if on_rtd:
             line = line.replace("GENERATE_HTML          = YES","GENERATE_HTML          = NO")
             line = line.replace("GENERATE_LATEX         = YES","GENERATE_LATEX         = NO")
             
+            line = line.replace("EXTRACT_ALL            = YES","EXTRACT_ALL            = NO")
+            line = line.replace("EXTRACT_PRIVATE        = YES","EXTRACT_PRIVATE        = NO")
+            line = line.replace("                         include \\","                         include")
+            line = line.replace("                         test", "")
+            
             fh_out.write(line)
     fh_out.close()
     
