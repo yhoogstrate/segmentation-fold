@@ -11,3 +11,6 @@ Contents:
 
 .. doxygenclass:: Zuker
    :members:
+
+.. doxygenclass:: index
+   :members:
