@@ -186,11 +186,10 @@ if on_rtd:
     
     call('cd .. ; doxygen doc/Doxyfile',shell=True)
     
-    print "\n\n\n---\n\n\n"
-    call('ls -als ..',shell=True)
-    print "\n\n\n---\n\n\n"
-    call('ls -als ../doc',shell=True)
-    print "\n\n\n---\n\n\n"
-    call('ls -als ../doc/latex',shell=True)
-    print "\n\n\n---\n\n\n"
-    
+#    print "\n\n\n---\n\n\n"
+#    call('ls -als ..',shell=True)
+#    print "\n\n\n---\n\n\n"
+#    call('ls -als ../doc',shell=True)
+#    print "\n\n\n---\n\n\n"
+#    call('ls -als ../doc/latex',shell=True)
+#    print "\n\n\n---\n\n\n"
