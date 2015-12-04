@@ -188,8 +188,8 @@ if on_rtd:
             
             line = line.replace("EXTRACT_ALL            = YES","EXTRACT_ALL            = NO")
             line = line.replace("EXTRACT_PRIVATE        = YES","EXTRACT_PRIVATE        = NO")
-            line = line.replace("                         include \\","                         include")
-            line = line.replace("                         test", "")
+            #line = line.replace("                         include \\","                         include")
+            #line = line.replace("                         test", "")
             line = line.replace("HAVE_DOT               = YES","HAVE_DOT               = NO")
             
             fh_out.write(line)
