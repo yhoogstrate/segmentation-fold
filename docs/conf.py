@@ -117,7 +117,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', '../doc/latex/index.tex', 'latex segmentation-fold', 'me','manual'),
+  ('index', 'index.tex', 'latex segmentation-fold', 'me','manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
