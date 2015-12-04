@@ -10,7 +10,7 @@ if on_rtd:
   #call('cd .. ; make doc',shell=True)
   call('command -v make',shell=True)
   call('command -v cmake',shell=True)
-  call('lsdb_release -a',shell=True)
+  call('lsb_release -a',shell=True)
   call('whoami',shell=True)
   #call('doxygen')
 
