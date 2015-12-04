@@ -48,10 +48,14 @@ if on_rtd:
     
     call('cd .. ; doxygen doc/Doxyfile',shell=True)
     
+    print "\n\n\n---\n\n\n"
+    call('ls -als ..',shell=True)
+    print "\n\n\n---\n\n\n"
+    call('ls -als ../doc',shell=True)
+    print "\n\n\n---\n\n\n"
+    call('ls -als ../doc/latex',shell=True)
+    print "\n\n\n---\n\n\n"
     
-    call('cd .. ; ls',shell=True)
-    call('cd ../doc ; ls',shell=True)
-
 
 
 extensions = [
@@ -69,7 +73,7 @@ breathe_default_project = "segmentation-fold"
 templates_path = ['_templates']
 
 # The suffix of source filenames.
-source_suffix = '.md'
+source_suffix = '.rst'
 
 # The master toctree document.
 master_doc = 'index'
