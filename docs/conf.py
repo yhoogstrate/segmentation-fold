@@ -8,6 +8,7 @@ if on_rtd:
   from subprocess import call 
   #call(['cmake', '..'])
   #call('cd .. ; make doc',shell=True)
+  call('sudo apt-get install -qq -y cmake',shell=True)
   call('command -v make',shell=True)
   call('command -v cmake',shell=True)
   call('lsb_release -a',shell=True)
