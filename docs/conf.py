@@ -184,6 +184,7 @@ if on_rtd:
             line = line.replace("CLASS_DIAGRAMS         = YES","CLASS_DIAGRAMS         = NO")
             line = line.replace("GENERATE_XML           = NO", "GENERATE_XML           = YES")
             line = line.replace("GENERATE_HTML          = YES","GENERATE_HTML          = NO")
+            line = line.replace("GENERATE_LATEX         = YES","GENERATE_LATEX         = NO")
             
             fh_out.write(line)
     fh_out.close()
