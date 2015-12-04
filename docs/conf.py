@@ -124,6 +124,23 @@ latex_documents = [
     ('index', 'index.tex', 'latex segmentation-fold', 'me','manual'),
 ]
 
+# One entry per manual page. List of tuples
+# (source start file, name, description, authors, manual section).
+man_pages = [
+    ('index', 'index', 'Documentation',
+     ['me'], 1)
+]
+
+
+# Grouping the document tree into Texinfo files. List of tuples
+# (source start file, target name, title, author,
+#  dir menu entry, description, category)
+texinfo_documents = [
+  ('index', 'segmentation-fold', 'segmentation-fold',
+   'me', 'segmentation-fold', 'descr.',
+   'Miscellaneous'),
+]
+
 # The name of an image file (relative to this directory) to place at the top of
 # the title page.
 #latex_logo = None
