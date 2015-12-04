@@ -1,3 +1,6 @@
+2015-12-04  Youri Hoogstrate
+	* SegmentLoop object works + passing test case
+
 2015-12-01  Youri Hoogstrate
 	* v1.1.0
 	  - Fixed a issue that seemed to randomly change data

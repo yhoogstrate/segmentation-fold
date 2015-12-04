@@ -1,7 +1,7 @@
 /**
  * @file test/SegmentLoop_test.cpp
  *
- * @date 2015-12-03
+ * @date 2015-12-04
  *
  * @author Youri Hoogstrate
  *
@@ -52,163 +52,64 @@ BOOST_AUTO_TEST_SUITE(Testing)
  *
  * @test
  *
- * @date 2014-03-29
+ * @section DESCRIPTION
+ * <PRE>
+ *    Alignment:  Bonds relative to previous pair:  Traceback relative to (i,j):
+ * i) ACUUG\      +1,-1                             +1,-1
+ *    | | | a     +2,-1                             +3,-2
+ * j) A U G/      +2,-1                             +5,-3
+ * </PRE>
+ *
+ * @date 2015-12-04
  */
 BOOST_AUTO_TEST_CASE(Test1)
 {
-	std::string segment_name = "Arteficial segmentloop construct";
-	
-	// ACUUG\
-	// | | | a
-	// A U G/
-	
-	/*
-	Sequence sequence_5p = Sequence("ACUUGaGUC");
-	std::vector <Pair> bonds = {{Pair({0, 2}), Pair({2, 1}), Pair({4, 0})}};///@todo incorrect bonds
-	Sequence sequence_3p = Sequence("AUG");
-	*/
+	std::string segmentloop_name = "Arteficial SegmentLoop construct";
 	float energy = -1.234;
-	/*
-	SegmentLoop segment = SegmentLoop(segment_name, sequence_5p, bonds, sequence_3p, energy);
 	
-	BOOST_CHECK_EQUAL(segment.size(Direction::FivePrime),  5);
-	BOOST_CHECK_EQUAL(segment.size(Direction::ThreePrime), 3);
+	Sequence sequence     = Sequence("ACUUGaGUA");
+	std::vector <Pair> bonds = {{Pair({1, 1}), Pair({2, 1}), Pair({2, 1})}};
+	SegmentLoop segmentloop = SegmentLoop(segmentloop_name, sequence, bonds, energy);
 	
-	BOOST_CHECK_EQUAL(segment_name.compare(segment.name),  0);
-	*/
+	BOOST_CHECK_EQUAL(segmentloop.size(), sequence.size());
+	BOOST_CHECK_EQUAL(segmentloop_name.compare(segmentloop.name),  0);
+	
+	signed int i = 0;
+	signed int j = 1000;
+	
+	BOOST_CHECK(segmentloop.traceback.traceback(i, j));
+	BOOST_CHECK_EQUAL(i, 0    + 1);
+	BOOST_CHECK_EQUAL(j, 1000 - 1);
+	
+	BOOST_CHECK(segmentloop.traceback.traceback(i, j));
+	BOOST_CHECK_EQUAL(i, 0    + 1 + 2);
+	BOOST_CHECK_EQUAL(j, 1000 - 1 - 1);
+	
+	BOOST_CHECK(segmentloop.traceback.traceback(i, j));
+	BOOST_CHECK_EQUAL(i, 0    + 1 + 2 + 2);
+	BOOST_CHECK_EQUAL(j, 1000 - 1 - 1 - 1);
+	
+	BOOST_CHECK(segmentloop.traceback.traceback(i, j) == false);
+	BOOST_CHECK_EQUAL(i, 0    + 1 + 2 + 2 + 0);
+	BOOST_CHECK_EQUAL(j, 1000 - 1 - 1 - 1 - 0);
+	
+	
+	// Second (but identical) traceback; checks if reset function works properly
+	BOOST_CHECK(segmentloop.traceback.traceback(i, j));
+	BOOST_CHECK_EQUAL(i, 0    + 1 + 2 + 2 + 0   + 1);
+	BOOST_CHECK_EQUAL(j, 1000 - 1 - 1 - 1 - 0   - 1);
+	
+	BOOST_CHECK(segmentloop.traceback.traceback(i, j));
+	BOOST_CHECK_EQUAL(i, 0    + 1 + 2 + 2 + 0   + 1 + 2);
+	BOOST_CHECK_EQUAL(j, 1000 - 1 - 1 - 1 - 0   - 1 - 1);
+	
+	BOOST_CHECK(segmentloop.traceback.traceback(i, j));
+	BOOST_CHECK_EQUAL(i, 0    + 1 + 2 + 2 + 0   + 1 + 2 + 2);
+	BOOST_CHECK_EQUAL(j, 1000 - 1 - 1 - 1 - 0   - 1 - 1 - 1);
+	
+	BOOST_CHECK(segmentloop.traceback.traceback(i, j) == false);
+	BOOST_CHECK_EQUAL(i, 0    + 1 + 2 + 2 + 0   + 1 + 2 + 2 + 0);
+	BOOST_CHECK_EQUAL(j, 1000 - 1 - 1 - 1 - 0   - 1 - 1 - 1 + 0);
 }
-
-///**
-//* @brief Tests the SegmentLoop->pop() function
-//*
-//* @test
-//*
-//* @date 2015-08-06
-//*/
-//BOOST_AUTO_TEST_CASE(Test2)
-//{
-///*
-//'Simple' case; linear traceback
-
-//Alignment:      Bonds:      Traceback:
-//UGUGAU          3-2         -1,-1
-//|||          4-1         -2,-2
-//AGU          5-0         -3,-3
-//*/
-
-//std::string segment_name   = "C/D-box K-turn";
-
-//Sequence sequence_5p     = Sequence("UGUGAU");
-//std::vector <Pair> bonds = {{Pair({4, 1}), Pair({1, 1}), Pair({1, 1})}};
-//Sequence     sequence_3p = Sequence("UGA");
-
-//float energy = -1.234;
-
-//int i = 0;
-//int j = 1000;
-
-//SegmentLoop segment = SegmentLoop(segment_name, sequence_5p, bonds, sequence_3p, energy);
-
-//BOOST_CHECK(segment.traceback.traceback(i, j));
-//BOOST_CHECK_EQUAL(i, 0 + 4);
-//BOOST_CHECK_EQUAL(j, 1000 - 1);
-
-//BOOST_CHECK(segment.traceback.traceback(i, j));
-//BOOST_CHECK_EQUAL(i, 0    + 4 + 1);
-//BOOST_CHECK_EQUAL(j, 1000 - 1 - 1);
-
-//BOOST_CHECK(segment.traceback.traceback(i, j));
-//BOOST_CHECK_EQUAL(i, 0    + 4 + 1 + 1);
-//BOOST_CHECK_EQUAL(j, 1000 - 1 - 1 - 1);
-
-//BOOST_CHECK(segment.traceback.traceback(i, j) == false);
-//BOOST_CHECK_EQUAL(i, 0    + 4 + 1 + 1 + 0);
-//BOOST_CHECK_EQUAL(j, 1000 - 1 - 1 - 1 - 0);
-
-
-//// Second (but identical) traceback; checks if reset function works properly
-//BOOST_CHECK(segment.traceback.traceback(i, j));
-//BOOST_CHECK_EQUAL(i, 0    + 4 + 1 + 1 + 0   + 4);
-//BOOST_CHECK_EQUAL(j, 1000 - 1 - 1 - 1 - 0   - 1);
-
-//BOOST_CHECK(segment.traceback.traceback(i, j));
-//BOOST_CHECK_EQUAL(i, 0    + 4 + 1 + 1 + 0   + 4 + 1);
-//BOOST_CHECK_EQUAL(j, 1000 - 1 - 1 - 1 - 0   - 1 - 1);
-
-//BOOST_CHECK(segment.traceback.traceback(i, j));
-//BOOST_CHECK_EQUAL(i, 0    + 4 + 1 + 1 + 0   + 4 + 1 + 1);
-//BOOST_CHECK_EQUAL(j, 1000 - 1 - 1 - 1 - 0   - 1 - 1 - 1);
-
-//BOOST_CHECK(segment.traceback.traceback(i, j) == false);
-//BOOST_CHECK_EQUAL(i, 0    + 4 + 1 + 1 + 0   + 4 + 1 + 1 + 0);
-//BOOST_CHECK_EQUAL(j, 1000 - 1 - 1 - 1 - 0   - 1 - 1 - 1 + 0);
-//}
-
-
-
-///**
-//* @brief Tests the SegmentLoop->pop() function
-//*
-//* @test
-//*
-//* @date 2015-08-06
-//*/
-//BOOST_AUTO_TEST_CASE(Test3)
-//{
-///*
-//Alignment:      Bonds:      Traceback:
-//AAAAAA          2-2         3,1
-//| ||          4-1         2,1
-//A AA          5-0         1,1
-//*/
-
-//std::string segment_name = "Articificial example";
-
-//Sequence sequence_5p = Sequence("AAAAAA");
-//std::vector <Pair> bonds = {{Pair({3, 1}), Pair({2, 1}), Pair({1, 1})}};
-//Sequence sequence_3p = Sequence("AAA");
-
-//float energy = -1.234;
-
-//int i = 0;
-//int j = 1000;
-
-//SegmentLoop segment = SegmentLoop(segment_name, sequence_5p, bonds, sequence_3p, energy);
-
-//BOOST_CHECK(segment.traceback.traceback(i, j));
-//BOOST_CHECK_EQUAL(i, 0    + 3);
-//BOOST_CHECK_EQUAL(j, 1000 - 1);
-
-//BOOST_CHECK(segment.traceback.traceback(i, j));
-//BOOST_CHECK_EQUAL(i, 0    + 3 + 2);
-//BOOST_CHECK_EQUAL(j, 1000 - 1 - 1);
-
-//BOOST_CHECK(segment.traceback.traceback(i, j));
-//BOOST_CHECK_EQUAL(i, 0    + 3 + 2 + 1);
-//BOOST_CHECK_EQUAL(j, 1000 - 1 - 1 - 1);
-
-//BOOST_CHECK(segment.traceback.traceback(i, j) == false);
-//BOOST_CHECK_EQUAL(i, 0    + 3 + 2 + 1 + 0);
-//BOOST_CHECK_EQUAL(j, 1000 - 1 - 1 - 1 - 0);
-
-
-//// Second (but identical) traceback; checks if reset function works properly
-//BOOST_CHECK(segment.traceback.traceback(i, j));
-//BOOST_CHECK_EQUAL(i, 0    + 3 + 2 + 1 + 0   + 3);
-//BOOST_CHECK_EQUAL(j, 1000 - 1 - 1 - 1 - 0   - 1);
-
-//BOOST_CHECK(segment.traceback.traceback(i, j));
-//BOOST_CHECK_EQUAL(i, 0    + 3 + 2 + 1 + 0   + 3 + 2);
-//BOOST_CHECK_EQUAL(j, 1000 - 1 - 1 - 1 - 0   - 1 - 1);
-
-//BOOST_CHECK(segment.traceback.traceback(i, j));
-//BOOST_CHECK_EQUAL(i, 0    + 3 + 2 + 1 + 0   + 3 + 2 + 1);
-//BOOST_CHECK_EQUAL(j, 1000 - 1 - 1 - 1 - 0   - 1 - 1 - 1);
-
-//BOOST_CHECK(segment.traceback.traceback(i, j) == false);
-//BOOST_CHECK_EQUAL(i, 0    + 3 + 2 + 1 + 0   + 3 + 2 + 1 + 0);
-//BOOST_CHECK_EQUAL(j, 1000 - 1 - 1 - 1 - 0   - 1 - 1 - 1 + 0);
-//}
-
 
 BOOST_AUTO_TEST_SUITE_END()

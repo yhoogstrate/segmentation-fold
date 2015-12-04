@@ -1,7 +1,7 @@
 /**
  * @file test/Segment_test.cpp
  *
- * @date 2015-08-06
+ * @date 2015-12-04
  *
  * @author Youri Hoogstrate
  *
@@ -77,17 +77,17 @@ BOOST_AUTO_TEST_CASE(Test1)
  *
  * @test
  *
- * @date 2015-08-06
+ * @date 2015-12-04
  */
 BOOST_AUTO_TEST_CASE(Test2)
 {
 	/*
 	'Simple' case; linear traceback
 	
-	Alignment:      Bonds:      Traceback:
-	UGUGAU          3-2         -1,-1
-	   |||          4-1         -2,-2
-	   AGU          5-0         -3,-3
+	Alignment:  Bonds relative to previous pair:  Traceback relative to (i,j):
+	UGUGAU      +4,-1                             +4,-1
+	   |||      +1,-1                             +5,-2
+	   AGU      +1,-1                             +6,-3
 	*/
 	
 	std::string segment_name   = "C/D-box K-turn";
@@ -98,13 +98,13 @@ BOOST_AUTO_TEST_CASE(Test2)
 	
 	float energy = -1.234;
 	
-	int i = 0;
-	int j = 1000;
+	signed int i = 0;
+	signed int j = 1000;
 	
 	Segment segment = Segment(segment_name, sequence_5p, bonds, sequence_3p, energy);
 	
 	BOOST_CHECK(segment.traceback.traceback(i, j));
-	BOOST_CHECK_EQUAL(i, 0 + 4);
+	BOOST_CHECK_EQUAL(i, 0    + 4);
 	BOOST_CHECK_EQUAL(j, 1000 - 1);
 	
 	BOOST_CHECK(segment.traceback.traceback(i, j));
