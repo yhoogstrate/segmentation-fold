@@ -5,6 +5,8 @@ Contents:
 
 .. toctree::
    :maxdepth: 3
+   
+   README <../README.md>
 
    Class: DotBracket <classes/DotBracket>
 
