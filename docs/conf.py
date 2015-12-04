@@ -179,7 +179,9 @@ if on_rtd:
         for line in fh:
             line = line.replace("@CMAKE_PROJECT_NAME@",project)
             line = line.replace("@PROJECT_VERSION@",version)
-            line = line.replace("GENERATE_XML           = NO","GENERATE_XML           = YES")
+            
+            line = line.replace("GENERATE_XML           = NO", "GENERATE_XML           = YES")
+            line = line.replace("GENERATE_HTML          = YES","GENERATE_HTML          = NO")
             
             fh_out.write(line)
     fh_out.close()
