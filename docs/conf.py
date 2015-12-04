@@ -63,6 +63,7 @@ if on_rtd:
             line = line.replace("@CMAKE_PROJECT_NAME@",project)
             line = line.replace("@PROJECT_VERSION@",version)
             fh_out.write(line)
+    fh_out.close()
     
     call('doxygen')
 
