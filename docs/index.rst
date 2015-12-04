@@ -9,9 +9,6 @@ Contents:
 .. doxygen:: segmentation-fold
    :members:
 
-.. doxygen:: index
-   :members:
-
 .. doxygen:: main
    :members:
 
@@ -19,18 +16,6 @@ Contents:
    :members:
 
 .. doxygenclass:: index
-   :members:
-
-.. doxygenclass:: annotated
-   :members:
-
-.. doxygenclass:: bug
-   :members:
-
-.. doxygenclass:: class_zuker
-   :members:
-
-.. doxygenclass:: zuker
    :members:
 
 .. doxygenclass:: Zuker

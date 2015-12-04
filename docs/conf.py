@@ -184,7 +184,7 @@ if on_rtd:
             fh_out.write(line)
     fh_out.close()
     
-    call('cd .. ; doxygen doc/Doxyfile',shell=True)
+    call('cd .. ; nice doxygen doc/Doxyfile',shell=True)
     
 #    print "\n\n\n---\n\n\n"
 #    call('ls -als ..',shell=True)
