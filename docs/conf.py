@@ -6,8 +6,12 @@ import os
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 if on_rtd:
   from subprocess import call 
-  call(['cmake', '..'])
-  call('cd .. ; make doc',shell=True)
+  #call(['cmake', '..'])
+  #call('cd .. ; make doc',shell=True)
+  call('command -v make',shell=True)
+  call('command -v cmake',shell=True)
+  call('lsdb_release -a',shell=True)
+  call('whoami',shell=True)
   #call('doxygen')
 
 extensions = [
