@@ -3,7 +3,7 @@ segmentation-fold
 
 Contents:
 
-.. doxygenclass:: PairingPlus
+.. doxygenclass:: ScoringMatrix
    :members:
    :private-members:
    :undoc-members:

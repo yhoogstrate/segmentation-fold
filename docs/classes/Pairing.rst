@@ -1,3 +1,8 @@
+segmentation-fold
+==================
+
+Contents:
+
 .. doxygenclass:: Pairing
    :members:
    :private-members:

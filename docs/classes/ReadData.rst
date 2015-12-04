@@ -3,7 +3,7 @@ segmentation-fold
 
 Contents:
 
-.. doxygenclass:: PairingPlus
+.. doxygenclass:: ReadData
    :members:
    :private-members:
    :undoc-members:

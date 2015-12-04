@@ -1,3 +1,8 @@
+segmentation-fold
+==================
+
+Contents:
+
 .. doxygenclass:: GibbsFreeEnergy
    :members:
    :private-members:
