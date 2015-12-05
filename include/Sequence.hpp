@@ -1,7 +1,7 @@
 /**
  * @file include/Sequence.hpp
  *
- * @date 2015-05-02
+ * @date 2015-12-05
  *
  * @author Youri Hoogstrate
  *
@@ -41,7 +41,7 @@
 /**
  * @brief A RNA or DNA Sequence object, primarily used as the Sequence to be folded
  *
- * @date 2014-04-15
+ * @date 2015-12-05
  */
 class Sequence
 {
@@ -75,6 +75,8 @@ class Sequence
 		
 		///@note The following line is not being used in the code, but might be desired to include it as API
 		// inline bool operator>=(const Sequence &arg_left_sequence) const { return data >= arg_left_sequence.data;};
+		
+		char compare(Sequence &arg_query);// returns IS_EQUAL, IS_SMALLER (if this is smaller) or IS_LARGER (if arg_query is smaller)
 		
 		Nucleotide operator[](size_t);
 };

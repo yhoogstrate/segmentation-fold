@@ -1,7 +1,7 @@
 /**
  * @file src/Sequence.cpp
  *
- * @date 2015-05-02
+ * @date 2015-12-05
  *
  * @author Youri Hoogstrate
  *
@@ -248,4 +248,44 @@ std::string Sequence::str()
 	}
 	
 	return sequence;
+}
+
+
+
+/**
+ * @brief returns IS_EQUAL, IS_SMALLER (if this is smaller) or IS_LARGER (if arg_query is smaller)
+ * 
+ * @date 2015-12-05
+ * 
+ * @todo write tests
+ */
+char Sequence::compare(Sequence &arg_query)
+{
+	size_t size_this = this->size();
+	size_t size_query = arg_query.size();
+	
+	if(size_this < size_query)
+	{
+		return IS_SMALLER;
+	}
+	else if(size_this == size_query)
+	{
+		for(unsigned int i = 0; i < size_this; i++)
+		{
+			if(this->data[i] < arg_query[i])
+			{
+				return IS_SMALLER;
+			}
+			else if(this->data[i] > arg_query[i])
+			{
+				return IS_LARGER;
+			}
+		}
+		
+		return IS_EQUAL;
+	}
+	else
+	{
+		return IS_LARGER;
+	}
 }

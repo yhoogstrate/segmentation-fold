@@ -38,11 +38,8 @@ struct SegmentLoopTreeElement
 {
 	SegmentLoop &segmentloop;
 	
-	SegmentLoopTreeElement *link_size_smaller;
-	SegmentLoopTreeElement *link_size_larger;
-	
-	SegmentLoopTreeElement *link_segment_smaller;
-	SegmentLoopTreeElement *link_segment_larger;
+	SegmentLoopTreeElement *left;// = nullptr;
+	SegmentLoopTreeElement *right;// = nullptr;
 };
 
 
@@ -65,6 +62,7 @@ class SegmentLoopTree
 		~SegmentLoopTree();
 		
 		void insert(SegmentLoop &arg_segment);
+		void insert(SegmentLoop &arg_segment, SegmentLoopTreeElement *arg_element);
 		
 		SegmentLoop *search(SubSequence &arg_segment);
 		
