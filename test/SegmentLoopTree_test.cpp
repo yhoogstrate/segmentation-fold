@@ -1,7 +1,7 @@
 /**
  * @file test/SegmentTree_test.cpp
  *
- * @date 2015-12-05
+ * @date 2015-12-06
  *
  * @author Youri Hoogstrate
  *
@@ -57,7 +57,7 @@ BOOST_AUTO_TEST_SUITE(Testing)
  *
  * @test
  *
- * @date 2015-12-05
+ * @date 2015-12-06
  */
 BOOST_AUTO_TEST_CASE(Test1)
 {
@@ -72,17 +72,18 @@ BOOST_AUTO_TEST_CASE(Test1)
 	Sequence query_sequence     = Sequence("gACUUGaGUAg");
 	
 	Position p1a = query_sequence.data.begin() + 1;
-	Position p1b = query_sequence.data.begin() + 10;
+	Position p1b = query_sequence.data.begin() + 1 + 8;
 	
 	BOOST_CHECK_EQUAL(*p1a , Nucleotide::A);
-	BOOST_CHECK_EQUAL(*p1b , Nucleotide::G);
+	BOOST_CHECK_EQUAL(*p1b , Nucleotide::A);
 	
 	SubSequence p1 = SubSequence(p1a, p1b);
 	
-	SegmentLoopTree segmentloops = SegmentLoopTree();
-	segmentloops.insert(segmentloop);
+	SegmentLoopTree segmentloop_tree = SegmentLoopTree();
+	segmentloop_tree.insert(segmentloop);
 	
-	//BOOST CHECK segmentloops.scan(p1) != nullptr
+	BOOST_CHECK(segmentloop_tree.search(p1) != nullptr);
+	BOOST_CHECK(segmentloop_tree.search(p1)->sequence == sequence);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

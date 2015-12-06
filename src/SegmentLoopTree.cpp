@@ -94,7 +94,7 @@ SegmentLoop *SegmentLoopTree::search(SubSequence &arg_subsequence, SegmentLoopTr
 			default:
 				return &arg_element->segmentloop;
 				break;
-			
+				
 		}
 		
 		//return nullptr;
