@@ -1,7 +1,7 @@
 /**
  * @file include/SegmentLoopTree.hpp
  *
- * @date 2015-12-05
+ * @date 2015-12-06
  *
  * @author Youri Hoogstrate
  *
@@ -52,20 +52,21 @@ struct SegmentLoopTreeElement
  * @section DESCRIPTION
  * Stores all (K-turn) segments in memory.
  *
- * @date 2015-12-05
+ * @date 2015-12-06
  */
 class SegmentLoopTree
 {
 	private:
 		SegmentLoopTreeElement *root;
 		
+		void insert(SegmentLoop &arg_segment, SegmentLoopTreeElement *arg_element);
+		SegmentLoop *search(SubSequence &arg_segment, SegmentLoopTreeElement *arg_element);
+		
 	public:
 		SegmentLoopTree();
 		~SegmentLoopTree();
 		
 		void insert(SegmentLoop &arg_segment);
-		void insert(SegmentLoop &arg_segment, SegmentLoopTreeElement *arg_element);
-		
 		SegmentLoop *search(SubSequence &arg_segment);
 		
 		bool empty(void);

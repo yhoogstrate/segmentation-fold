@@ -71,11 +71,39 @@ SegmentLoopTree::~SegmentLoopTree()
  * @brief Searches a pair by using sets of iterators
  *
  * @date 2015-12-05
- *//*
-Segment *SegmentLoopTree::search(SubSequence &arg_segment5p, SubSequence &arg_segment3p)
+ */
+SegmentLoop *SegmentLoopTree::search(SubSequence &arg_subsequence)
 {
-	return (this->empty()) ? nullptr : this->root->search_segment(arg_segment5p, arg_segment3p);
-}*/
+	return this->search(arg_subsequence, this->root);
+}
+
+
+SegmentLoop *SegmentLoopTree::search(SubSequence &arg_subsequence, SegmentLoopTreeElement *arg_element)
+{
+	if(arg_element != nullptr)
+	{
+		switch(arg_element->segmentloop.sequence.compare(arg_subsequence))
+		{
+			case IS_SMALLER:// tree element is smaller, thus the subsequence is right (larger) of the current element
+				return this->search(arg_subsequence, arg_element->right);
+				break;
+			case IS_LARGER:// the tree element is larger, thus the subsequence is left (smaller) of the current element
+				return this->search(arg_subsequence, arg_element->left);
+				break;
+			//case IS_EQUAL:
+			default:
+				return &arg_element->segmentloop;
+				break;
+			
+		}
+		
+		//return nullptr;
+	}
+	else
+	{
+		return nullptr;
+	}
+}
 
 
 
@@ -90,9 +118,6 @@ void SegmentLoopTree::insert(SegmentLoop &arg_segmentloop)
 	{
 		SegmentLoopTreeElement *element;
 		element = new SegmentLoopTreeElement(arg_segmentloop);
-		//element.segmentloop = arg_segmentloop;
-		//element.left = nullptr;
-		//element.right = nullptr;
 		this->root = element;
 	}
 	else
@@ -104,15 +129,15 @@ void SegmentLoopTree::insert(SegmentLoop &arg_segmentloop)
 
 
 /**
- * 
+ *
  * @date 2015-12-05
  */
 void SegmentLoopTree::insert(SegmentLoop &arg_segmentloop, SegmentLoopTreeElement *arg_element)
 {
-	switch ( arg_element->segmentloop.sequence.compare(arg_segmentloop.sequence))
+	switch(arg_element->segmentloop.sequence.compare(arg_segmentloop.sequence))
 	{
 		case IS_SMALLER:
-			if(arg_element->left!=nullptr)
+			if(arg_element->left != nullptr)
 			{
 				insert(arg_segmentloop, arg_element->left);
 			}
@@ -121,9 +146,9 @@ void SegmentLoopTree::insert(SegmentLoop &arg_segmentloop, SegmentLoopTreeElemen
 				arg_element->left = new SegmentLoopTreeElement(arg_segmentloop);
 			}
 			break;
-		
+			
 		case IS_LARGER:
-			if(arg_element->right!=nullptr)
+			if(arg_element->right != nullptr)
 			{
 				insert(arg_segmentloop, arg_element->right);
 			}
@@ -131,10 +156,10 @@ void SegmentLoopTree::insert(SegmentLoop &arg_segmentloop, SegmentLoopTreeElemen
 			{
 				arg_element->right = new SegmentLoopTreeElement(arg_segmentloop);
 			}
-		break;
-		
-		//default:  inserting same element twice
-		// if debug: throw exception
+			break;
+			
+			//default:  inserting same element twice
+			// if debug: throw exception
 	}
 }
 

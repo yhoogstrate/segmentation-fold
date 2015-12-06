@@ -254,9 +254,9 @@ std::string Sequence::str()
 
 /**
  * @brief returns IS_EQUAL, IS_SMALLER (if this is smaller) or IS_LARGER (if arg_query is smaller)
- * 
+ *
  * @date 2015-12-05
- * 
+ *
  * @todo write tests
  */
 char Sequence::compare(Sequence &arg_query)
@@ -288,4 +288,40 @@ char Sequence::compare(Sequence &arg_query)
 	{
 		return IS_LARGER;
 	}
+}
+
+
+
+
+char Sequence::compare(SubSequence &arg_query)
+{
+	size_t size_this = this->size();
+	
+	if(size_this < arg_query.size)
+	{
+		return IS_SMALLER;
+	}
+	else if(size_this == arg_query.size)
+	{
+		for(size_t i = 0; i < size_this; i++)
+		{
+			Nucleotide n_i = arg_query[i];
+			if(this->data[i] < n_i)
+			{
+				return IS_SMALLER;
+			}
+			else if(this->data[i] > n_i)
+			{
+				return IS_LARGER;
+			}
+		}
+		
+		return IS_EQUAL;
+	}
+	else
+	{
+		return IS_LARGER;
+	}
+	
+	return IS_EQUAL;
 }

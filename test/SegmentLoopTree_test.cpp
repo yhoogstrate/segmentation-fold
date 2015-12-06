@@ -80,6 +80,9 @@ BOOST_AUTO_TEST_CASE(Test1)
 	SubSequence p1 = SubSequence(p1a, p1b);
 	
 	SegmentLoopTree segmentloops = SegmentLoopTree();
+	segmentloops.insert(segmentloop);
+	
+	//BOOST CHECK segmentloops.scan(p1) != nullptr
 }
 
 BOOST_AUTO_TEST_SUITE_END()
