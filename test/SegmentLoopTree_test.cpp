@@ -78,6 +78,8 @@ BOOST_AUTO_TEST_CASE(Test1)
 	BOOST_CHECK_EQUAL(*p1b , Nucleotide::G);
 	
 	SubSequence p1 = SubSequence(p1a, p1b);
+	
+	SegmentLoopTree segmentloops = SegmentLoopTree();
 }
 
 BOOST_AUTO_TEST_SUITE_END()

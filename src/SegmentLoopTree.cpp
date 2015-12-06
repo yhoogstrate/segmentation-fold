@@ -84,17 +84,20 @@ Segment *SegmentLoopTree::search(SubSequence &arg_segment5p, SubSequence &arg_se
  *
  * @date 2015-12-05
  */
-void SegmentLoopTree::insert(Segment &arg_segment)
+void SegmentLoopTree::insert(SegmentLoop &arg_segmentloop)
 {
 	if(this->empty())
 	{
 		SegmentLoopTreeElement *element;
-		element = new SegmentLoopTreeElement(arg_segment, nullptr, nullptr);
+		element = new SegmentLoopTreeElement(arg_segmentloop);
+		//element.segmentloop = arg_segmentloop;
+		//element.left = nullptr;
+		//element.right = nullptr;
 		this->root = element;
 	}
 	else
 	{
-		this->insert(arg_segment,this->root);
+		this->insert(arg_segmentloop, this->root);
 	}
 }
 
@@ -106,7 +109,7 @@ void SegmentLoopTree::insert(Segment &arg_segment)
  */
 void SegmentLoopTree::insert(SegmentLoop &arg_segmentloop, SegmentLoopTreeElement *arg_element)
 {
-	switch ( (arg_element->sequence.compare(arg_segmentloop.sequence))
+	switch ( arg_element->segmentloop.sequence.compare(arg_segmentloop.sequence))
 	{
 		case IS_SMALLER:
 			if(arg_element->left!=nullptr)
@@ -115,7 +118,7 @@ void SegmentLoopTree::insert(SegmentLoop &arg_segmentloop, SegmentLoopTreeElemen
 			}
 			else
 			{
-				arg_element->left=new SegmentLoopTreeElement(arg_segmentloop, nullptr, nullptr);
+				arg_element->left = new SegmentLoopTreeElement(arg_segmentloop);
 			}
 			break;
 		
@@ -123,9 +126,10 @@ void SegmentLoopTree::insert(SegmentLoop &arg_segmentloop, SegmentLoopTreeElemen
 			if(arg_element->right!=nullptr)
 			{
 				insert(arg_segmentloop, arg_element->right);
+			}
 			else
 			{
-				arg_element->right=new SegmentLoopTreeElement(arg_segmentloop, nullptr, nullptr);
+				arg_element->right = new SegmentLoopTreeElement(arg_segmentloop);
 			}
 		break;
 		
@@ -157,5 +161,5 @@ bool SegmentLoopTree::empty(void)
  */
 size_t SegmentLoopTree::size(void)
 {
-	return this->empty() ? 0 : this->root->size();
+	return this->empty() ? 0 :    0;//@todo this->root->size();
 }

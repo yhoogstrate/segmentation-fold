@@ -56,7 +56,7 @@ add_executable(segment_test            Segment_test.cpp ../src/SegmentTraceback.
 add_executable(segmentloop_test        SegmentLoop_test.cpp ../src/SegmentTraceback.cpp ../src/SegmentLoop.cpp ../src/Sequence.cpp)
 add_executable(segmenttreeelement_test SegmentTreeElement_test.cpp ../src/SegmentTreeElement.cpp ../src/SegmentTraceback.cpp ../src/Segment.cpp ../src/Sequence.cpp  ../src/SubSequence.cpp)
 add_executable(segmenttree_test        SegmentTree_test.cpp ../src/SegmentTree.cpp ../src/SegmentTreeElement.cpp ../src/SegmentTraceback.cpp ../src/Segment.cpp ../src/Sequence.cpp ../src/SubSequence.cpp)
-add_executable(segmentlooptree_test    SegmentLoopTree_test.cpp ../src/SegmentTraceback.cpp ../src/SegmentLoop.cpp ../src/Sequence.cpp ../src/SubSequence.cpp)
+add_executable(segmentlooptree_test    SegmentLoopTree_test.cpp ../src/SegmentTraceback.cpp ../src/SegmentLoop.cpp ../src/SegmentLoopTree.cpp ../src/Sequence.cpp ../src/SubSequence.cpp)
 add_executable(readsegments_test       ReadSegments_test.cpp ../src/ReadSegments.cpp ../src/SegmentTree.cpp ../src/SegmentTreeElement.cpp ../src/SegmentTraceback.cpp ../src/Segment.cpp ../src/Sequence.cpp ../src/PairingPlus.cpp ../src/SubSequence.cpp)
 add_executable(settings_test           Settings_test.cpp ../src/Settings.cpp ../src/Utils/file_exists.cpp ../src/SegmentTree.cpp ../src/SegmentTreeElement.cpp ../src/SegmentTraceback.cpp ../src/Segment.cpp ../src/Sequence.cpp ../src/SubSequence.cpp)
 add_executable(scoringtree_test        ScoringTree_test.cpp ../src/ScoringTree.cpp ../src/SegmentTraceback.cpp ../src/Segment.cpp ../src/Sequence.cpp)

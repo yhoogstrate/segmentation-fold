@@ -40,6 +40,8 @@ struct SegmentLoopTreeElement
 	
 	SegmentLoopTreeElement *left;// = nullptr;
 	SegmentLoopTreeElement *right;// = nullptr;
+	
+	SegmentLoopTreeElement(SegmentLoop &arg_segmentloop) : segmentloop(arg_segmentloop), left(nullptr), right(nullptr) {}
 };
 
 
