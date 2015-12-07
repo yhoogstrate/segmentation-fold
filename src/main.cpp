@@ -6,10 +6,9 @@
  * The program implements the Zuker's minimum free energy model with
  * Segment/K-turn functionality for RNA secondary structure prediction.
  *
- * @date 2015-07-23
+ * @date 2015-12-07
  *
  * @author Youri Hoogstrate
- * @author Lisa Yu
  *
  * @section LICENSE
  * <PRE>
@@ -47,8 +46,10 @@
 
 #include "Direction.hpp"
 #include "Segment.hpp"
+#include "SegmentLoop.hpp"
 #include "SegmentTreeElement.hpp"
 #include "SegmentTree.hpp"
+#include "SegmentLoopTree.hpp"
 #include "ReadSegments.hpp"
 
 #include "ScoringTree.hpp"
@@ -67,7 +68,7 @@
  * @param argc Number of commandline arguments.
  * @param argv Array of strings with the actual commandline arguments.
  *
- * @date 2015-07-23
+ * @date 2015-12-07
  *
  * @return 0 For success; 1 for abnormal termination
  */
@@ -85,7 +86,7 @@ int main(int argc, char *argv[])
 		
 		if(settings.segment_prediction_functionality)
 		{
-			readsegments.parse(thermodynamics.segments);
+			readsegments.parse(thermodynamics.segments, thermodynamics.segmentloops);
 		}
 		
 		// Run algorithm

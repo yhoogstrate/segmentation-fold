@@ -1,7 +1,7 @@
 /**
  * @file src/Zuker.cpp
  *
- * @date 2015-12-03
+ * @date 2015-12-07
  *
  * @author Youri Hoogstrate
  *
@@ -39,8 +39,10 @@
 
 #include "Direction.hpp"
 #include "Segment.hpp"
+#include "SegmentLoop.hpp"
 #include "SegmentTreeElement.hpp"
 #include "SegmentTree.hpp"
+#include "SegmentLoopTree.hpp"
 
 #include "ScoringTree.hpp"
 
@@ -120,7 +122,7 @@ float Zuker::energy(void)
 /**
  * @brief Vij Function - energy if (i,j) pair, otherwise return infinity
  *
- * @date 2015-12-03
+ * @date 2015-12-07
  *
  * @param p1 A pair of positions refering to Nucleotide positions in the sequence, where pi.first < p1.second
  *
@@ -133,8 +135,10 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 	
 	float energy, tmp, tmp_k;
 	
-	Segment *tmp_segment = nullptr;
-	Segment *tmp_segment2;
+	Segment *tmp_segment;
+	//SegmentLoop *tmp_segmentloop;
+	SegmentTraceback  *tmp_segmenttraceback = nullptr;
+	
 	Pair tmp_loopmatrix_value;
 	
 	if(this->pij.get(p1) > NOT_YET_CALCULATED)			///@todo -create bool function > {pij}.is_calculated()    @todo2 use max unsigned int value  // This point is already calculated; efficiency of dynamic programming
@@ -156,6 +160,27 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 			energy = this->get_hairpin_loop_element(p1);				// Hairpin element
 			tmp_loopmatrix_value = {p1.first + 1, p1.second - 1};
 			
+			///@todo find SegmentLoopElement() and set tmp_segmenttraceback
+			/*
+			SubSequence p1 = SubSequence(this->sequence_begin + p1.first + 1, this->sequence_begin + ip - 1);
+			tmp_segment = this->thermodynamics.segments.search(pp1 , pp2);
+			
+			if(tmp_segment != nullptr)
+			{
+				tmp_k = tmp_segment->gibbs_free_energy + this->get_stacking_pair_without_surrounding(p1p) + v_ij_jp;
+			}
+			else
+			{
+				tmp_k = N_INFINITY;
+			}
+			if(tmp_k < energy)
+			{
+				energy = tmp_k;
+			
+				tmp_segmenttraceback = &tmp_segmentloop->traceback;
+			}
+			 */
+			
 			for(ip = p1.first + 1; ip < p1.second; ip++)
 			{
 				for(jp = p1.second - 1; jp > ip; jp--)
@@ -176,7 +201,7 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 								energy = tmp;
 								
 								tmp_loopmatrix_value = {p1.first + 1, p1.second - 1};
-								tmp_segment = nullptr;
+								tmp_segmenttraceback = nullptr;
 							}
 						}
 						else if(ip == (p1.first + 1) || jp == (p1.second - 1))// Bulge-loop element
@@ -188,7 +213,7 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 								energy = tmp;
 								
 								tmp_loopmatrix_value = {ip, jp};
-								tmp_segment = nullptr;
+								tmp_segmenttraceback = nullptr;
 							}
 						}
 						else											// Interior loop or Segment
@@ -200,32 +225,25 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 								energy = tmp;
 								
 								tmp_loopmatrix_value = {ip, jp};
-								tmp_segment = nullptr;
+								tmp_segmenttraceback = nullptr;
 							}
 							
 							// Find segments:
-							SubSequence pp1 = SubSequence(this->sequence_begin + p1.first + 1, this->sequence_begin + ip - 1);
-							SubSequence pp2 = SubSequence(this->sequence_begin + jp + 1, this->sequence_begin + p1.second - 1);
-							tmp_segment2 = this->thermodynamics.segments.search(pp1 , pp2);
+							SubSequence pp1 = this->sequence.ssubseq(p1.first + 1, ip - 1);
+							SubSequence pp2 = this->sequence.ssubseq(jp + 1, p1.second - 1);
+							tmp_segment = this->thermodynamics.segments.search(pp1 , pp2);
 							
-							if(tmp_segment2 != nullptr)
+							if(tmp_segment != nullptr)
 							{
-								//Nucleotide n1 = this->sequence[p1.first];
-								//Nucleotide n2 = this->sequence[p1.second];
-								//Pairing pairing = Pairing(n1, n2);
+								tmp_k = tmp_segment->gibbs_free_energy + this->get_stacking_pair_without_surrounding(p1p) + v_ij_jp;
 								
-								tmp_k = tmp_segment2->gibbs_free_energy + this->get_stacking_pair_without_surrounding(p1p) + v_ij_jp;
-							}
-							else
-							{
-								tmp_k = N_INFINITY;
-							}
-							if(tmp_k < energy)
-							{
-								energy = tmp_k;
-								
-								tmp_loopmatrix_value = {ip, jp};
-								tmp_segment = tmp_segment2;
+								if(tmp_k < energy)
+								{
+									energy = tmp_k;
+									
+									tmp_loopmatrix_value = {ip, jp};
+									tmp_segmenttraceback = &tmp_segment->traceback;
+								}
 							}
 						}
 					}
@@ -233,13 +251,13 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 				
 				/*
 				i=0, j=11 < indicated in brackets
-				     *       i' = 5
+				     |       i' = 5
 				[(...)(...)]
 				
-				  *          i' = 2
+				  |          i' = 2
 				[()(......)]
 				
-				        *    i' = 8
+				        |    i' = 8
 				[(......)()]
 				
 				-> earlier versions compromised this function
@@ -259,15 +277,15 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 						energy = tmp;
 						
 						tmp_loopmatrix_value = {ip, jp};
-						tmp_segment = nullptr;
+						tmp_segmenttraceback = nullptr;
 					}
 				}
 			}
 			
 			this->loopmatrix.set(p1.first, p1.second, tmp_loopmatrix_value);
-			if(tmp_segment != nullptr)
+			if(tmp_segmenttraceback != nullptr)
 			{
-				this->sij.set(p1, &tmp_segment->traceback);
+				this->sij.set(p1, tmp_segmenttraceback);
 			}
 #if DEBUG
 		}
@@ -337,10 +355,10 @@ float Zuker::w(Pair &p1)
 			/*
 			following extreme w()-directed bifurcations are possible
 			
-			 *       k = i + 1
+			 |       k = i + 1
 			[)(....]
 			
-			     *   k = j - 2; k < j - 1
+			     |   k = j - 2; k < j - 1
 			[....)(]
 			 */
 			for(k = p1.first + 1; k < p1.second - 1; k++)				// Find bifurcation in non-paired region

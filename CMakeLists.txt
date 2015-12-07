@@ -1,6 +1,6 @@
 # @file CMakeLists.txt
 #
-# @date 2015-12-03
+# @date 2015-12-07
 #
 # @author Youri Hoogstrate
 #
@@ -151,8 +151,10 @@ add_executable(segmentation-fold
 					src/SubSequence.cpp
 					src/SegmentTraceback.cpp
 					src/Segment.cpp
+					src/SegmentLoop.cpp
 					src/SegmentTreeElement.cpp
 					src/SegmentTree.cpp
+					src/SegmentLoopTree.cpp
 					src/ScoringMatrix.cpp
 					src/Sequence.cpp
 					src/ScoringTree.cpp

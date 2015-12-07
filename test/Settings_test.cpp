@@ -1,7 +1,7 @@
 /**
  * @file test/Settings_test.cpp
  *
- * @date 2015-12-01
+ * @date 2015-12-07
  *
  * @author Youri Hoogstrate
  *
@@ -48,8 +48,10 @@
 
 #include "Direction.hpp"
 #include "Segment.hpp"
+#include "SegmentLoop.hpp"
 #include "SegmentTreeElement.hpp"
 #include "SegmentTree.hpp"
+#include "SegmentLoopTree.hpp"
 #include "ReadSegments.hpp"
 
 #include "ScoringTree.hpp"

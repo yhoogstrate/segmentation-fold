@@ -1,7 +1,7 @@
 /**
  * @file test/ReadSegments_test.cpp
  *
- * @date 2015-08-06
+ * @date 2015-12-07
  *
  * @author Youri Hoogstrate
  *
@@ -44,8 +44,10 @@
 
 #include "Direction.hpp"
 #include "Segment.hpp"
+#include "SegmentLoop.hpp"
 #include "SegmentTreeElement.hpp"
 #include "SegmentTree.hpp"
+#include "SegmentLoopTree.hpp"
 
 #include "ReadSegments.hpp"
 
@@ -66,7 +68,9 @@ BOOST_AUTO_TEST_SUITE(Testing_Segments)
 /**
  * @brief checks whether parsing a custom file succeeds
  *
- * @date 2015-07-23
+ * @test
+ *
+ * @date 2015-12-07
  */
 BOOST_AUTO_TEST_CASE(Test1)
 {
@@ -83,8 +87,9 @@ BOOST_AUTO_TEST_CASE(Test1)
 	
 	
 	SegmentTree segments;
+	SegmentLoopTree segmentloops;
 	ReadSegments r = ReadSegments(filename);
-	r.parse(segments);
+	r.parse(segments, segmentloops);
 	
 	BOOST_CHECK_EQUAL(segments.empty() , true);
 	BOOST_CHECK_EQUAL(segments.size() , 0);
@@ -99,7 +104,7 @@ BOOST_AUTO_TEST_CASE(Test1)
  *
  * @test
  *
- * @date 2015-08-06
+ * @date 2015-12-07
  */
 BOOST_AUTO_TEST_CASE(Test2)
 {
@@ -125,8 +130,9 @@ BOOST_AUTO_TEST_CASE(Test2)
 	myfile.close();
 	
 	SegmentTree segments;
+	SegmentLoopTree segmentloops;
 	ReadSegments r = ReadSegments(filename);
-	r.parse(segments);
+	r.parse(segments, segmentloops);
 	
 	BOOST_CHECK_EQUAL(segments.empty() , false);
 	BOOST_CHECK_EQUAL(segments.size() , 1);
@@ -213,7 +219,7 @@ BOOST_AUTO_TEST_CASE(Test2)
  * 3') AAGAAG (5'
  * </PRE>
  *
- * @date 2015-08-06
+ * @date 2015-12-07
  *
  * @todo also check segments pop() function
  */
@@ -241,8 +247,9 @@ BOOST_AUTO_TEST_CASE(Test3)
 	myfile.close();
 	
 	SegmentTree segments;
+	SegmentLoopTree segmentloops;
 	ReadSegments r = ReadSegments(filename);
-	r.parse(segments);
+	r.parse(segments, segmentloops);
 	
 	
 	BOOST_CHECK_EQUAL(segments.empty() , false);
@@ -283,7 +290,7 @@ BOOST_AUTO_TEST_CASE(Test3)
  *
  * @test
  *
- * @date 2015-07-23
+ * @date 2015-12-07
  */
 BOOST_AUTO_TEST_CASE(Test4)
 {
@@ -306,8 +313,9 @@ BOOST_AUTO_TEST_CASE(Test4)
 	myfile.close();
 	
 	SegmentTree segments;
+	SegmentLoopTree segmentloops;
 	ReadSegments r = ReadSegments(filename);
-	r.parse(segments);
+	r.parse(segments, segmentloops);
 	
 	BOOST_CHECK_EQUAL(segments.empty() , false);
 	BOOST_CHECK_EQUAL(segments.size() , 2);
@@ -322,7 +330,7 @@ BOOST_AUTO_TEST_CASE(Test4)
  *
  * @test
  *
- * @date 2015-07-23
+ * @date 2015-12-08
  */
 BOOST_AUTO_TEST_CASE(Test5)
 {
@@ -643,8 +651,9 @@ BOOST_AUTO_TEST_CASE(Test5)
 	myfile.close();
 	
 	SegmentTree segment_tree;
+	SegmentLoopTree segmentloop_tree;
 	ReadSegments r = ReadSegments(filename);
-	r.parse(segment_tree);
+	r.parse(segment_tree, segmentloop_tree);
 	
 	const int n = 61;
 	int i = 0;
@@ -741,15 +750,18 @@ BOOST_AUTO_TEST_CASE(Test5)
  *
  * @test
  *
- * @date 2015-07-23
+ * @date 2015-12-07
  */
 BOOST_AUTO_TEST_CASE(Test_E1)
 {
 	std::string filename = "share/segmentation-fold/segments.xml";
+	
 	SegmentTree segments;
+	SegmentLoopTree segmentloops;
 	std::vector<rna_example> rna_examples;
+	
 	ReadSegments r = ReadSegments(filename);
-	r.parse(segments, rna_examples);
+	r.parse(segments, segmentloops, rna_examples);
 	
 	BOOST_CHECK_EQUAL(rna_examples.size() , 28);
 }
@@ -761,7 +773,7 @@ BOOST_AUTO_TEST_CASE(Test_E1)
  *
  * @test
  *
- * @date 2015-08-06
+ * @date 2015-12-07
  */
 BOOST_AUTO_TEST_CASE(Test6)
 {
@@ -789,8 +801,9 @@ BOOST_AUTO_TEST_CASE(Test6)
 	myfile.close();
 	
 	SegmentTree segments;
+	SegmentLoopTree segmentloops;
 	ReadSegments r = ReadSegments(filename);
-	r.parse(segments);
+	r.parse(segments, segmentloops);
 	
 	BOOST_CHECK_EQUAL(segments.empty() , false);
 	BOOST_CHECK_EQUAL(segments.size() , 2);

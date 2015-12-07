@@ -1,7 +1,7 @@
 /**
  * @file include/ReadSegments.hpp
  *
- * @date 2015-07-23
+ * @date 2015-12-07
  *
  * @author Youri Hoogstrate
  *
@@ -47,6 +47,7 @@ struct rna_example
 	Sequence sequence;
 	
 	std::vector<Segment *> segments;
+	//std::vector<SegmentLoop *> segmentloops;
 	std::string dot_bracket_pattern;
 };
 
@@ -55,7 +56,7 @@ struct rna_example
 /**
  * @brief Parses the segment XML file
  *
- * @date 2015-07-23
+ * @date 2015-12-07
  */
 class ReadSegments
 {
@@ -64,6 +65,7 @@ class ReadSegments
 		
 		SegmentTree *segments;
 		std::vector<Segment *> segment_list;
+		std::vector<SegmentLoop *> segmentloop_list;
 		std::vector<rna_example> *rna_examples;
 		
 		void parse(bool arg_parse_examples);
@@ -76,8 +78,8 @@ class ReadSegments
 	public:
 		ReadSegments(std::string &arg_filename);
 		
-		void parse(SegmentTree &arg_segments);
-		void parse(SegmentTree &arg_segments, std::vector<rna_example> &arg_examples);
+		void parse(SegmentTree &arg_segments, SegmentLoopTree &arg_segmentloops);
+		void parse(SegmentTree &arg_segments, SegmentLoopTree &arg_segmentloops, std::vector<rna_example> &arg_examples);
 		
 		void clear(void);
 		~ReadSegments();

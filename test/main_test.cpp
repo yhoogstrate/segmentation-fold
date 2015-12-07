@@ -1,7 +1,7 @@
 /**
  * @file test/main_test.cpp
  *
- * @date 2015-08-06
+ * @date 2015-12-07
  *
  * @author Youri Hoogstrate
  *
@@ -43,8 +43,10 @@
 
 #include "Direction.hpp"
 #include "Segment.hpp"
+#include "SegmentLoop.hpp"
 #include "SegmentTreeElement.hpp"
 #include "SegmentTree.hpp"
+#include "SegmentLoopTree.hpp"
 #include "ReadSegments.hpp"
 
 #include "ScoringTree.hpp"
@@ -274,7 +276,7 @@ BOOST_AUTO_TEST_CASE(Test_bifurcation)
  * functional test is executed with a modified version of this file
  * this might result into unneccesairy errors.
  *
- * @date 2015-07-23
+ * @date 2015-12-07
  *
  * @todo BOOST_REQUIRE_EQUAL << md5sum , segment_file
  */
@@ -286,7 +288,7 @@ BOOST_AUTO_TEST_CASE(Test_kturns)
 	ReadData thermodynamics = ReadData();
 	std::vector<rna_example> rna_examples;
 	ReadSegments r = ReadSegments(settings.segment_filename);
-	r.parse(thermodynamics.segments, rna_examples);
+	r.parse(thermodynamics.segments, thermodynamics.segmentloops, rna_examples);
 	
 	DotBracket db = DotBracket();
 	
@@ -350,7 +352,7 @@ BOOST_AUTO_TEST_CASE(Test_kturns_segments_disabled)
  *
  * @test
  *
- * @date 2015-07-23
+ * @date 2015-12-07
  */
 BOOST_AUTO_TEST_CASE(Test_segfault_01)
 {
@@ -362,7 +364,7 @@ BOOST_AUTO_TEST_CASE(Test_segfault_01)
 	ReadData thermodynamics = ReadData();
 	std::vector<rna_example> rna_examples;
 	ReadSegments r = ReadSegments(settings.segment_filename);
-	r.parse(thermodynamics.segments, rna_examples);
+	r.parse(thermodynamics.segments, thermodynamics.segmentloops, rna_examples);
 	
 	// Predict structure
 	Zuker zuker = Zuker(settings, sequence, thermodynamics);

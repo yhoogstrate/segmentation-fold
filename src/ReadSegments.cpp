@@ -1,7 +1,7 @@
 /**
  * @file src/ReadSegments.cpp
  *
- * @date 2015-08-06
+ * @date 2015-12-07
  *
  * @author Youri Hoogstrate
  *
@@ -46,8 +46,10 @@
 #include "Direction.hpp"
 #include "Sequence.hpp"
 #include "Segment.hpp"
+#include "SegmentLoop.hpp"
 #include "SegmentTreeElement.hpp"
 #include "SegmentTree.hpp"
+#include "SegmentLoopTree.hpp"
 
 #include "ReadSegments.hpp"
 
@@ -80,7 +82,7 @@ ReadSegments::ReadSegments(std::string &arg_filename):
  *
  * @date 2015-07-23
  */
-void ReadSegments::parse(SegmentTree &arg_segments)
+void ReadSegments::parse(SegmentTree &arg_segments, SegmentLoopTree &arg_segmentloops)
 {
 	this->segments = (&arg_segments);
 	
@@ -94,7 +96,7 @@ void ReadSegments::parse(SegmentTree &arg_segments)
  *
  * @date 2015-07-23
  */
-void ReadSegments::parse(SegmentTree &arg_segments, std::vector<rna_example> &arg_examples)
+void ReadSegments::parse(SegmentTree &arg_segments, SegmentLoopTree &arg_segmentloops, std::vector<rna_example> &arg_examples)
 {
 	this->segments = (&arg_segments);
 	this->rna_examples = (&arg_examples);
@@ -241,7 +243,8 @@ void ReadSegments::parse_examples(ptree &xml_examples)
 				}
 			}
 			
-			this->rna_examples->push_back(rna_example { title ,  organism ,  sequence , std::vector<Segment *>() , dot_bracket });
+			//this->rna_examples->push_back(rna_example { title ,  organism ,  sequence , std::vector<Segment *>(), std::vector<Segment *>() , dot_bracket });
+			this->rna_examples->push_back(rna_example { title ,  organism ,  sequence , std::vector<Segment *>(), dot_bracket });
 		}
 	}
 }

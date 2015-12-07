@@ -1,7 +1,7 @@
 /**
  * @file test/GibbsFreeEnergy_test.cpp
  *
- * @date 2015-07-10
+ * @date 2015-12-07
  *
  * @author Youri Hoogstrate
  *
@@ -47,8 +47,10 @@
 #include "Region.hpp"
 
 #include "Segment.hpp"
+#include "SegmentLoop.hpp"
 #include "SegmentTreeElement.hpp"
 #include "SegmentTree.hpp"
+#include "SegmentLoopTree.hpp"
 
 #include "ReadData.hpp"
 #include "ReadSegments.hpp"
