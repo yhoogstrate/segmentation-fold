@@ -52,7 +52,7 @@ class SubSequence
 		Position position1;
 		Position position2;
 		
-		size_t size;/// The length of the subsequence [18,18] << subsequence of only one nucleotide has size 1
+		size_t size;/// The length of the subsequence [18,18] << subsequence if only one nucleotide has size 1
 		
 		SubSequence(Position arg_position1, Position arg_position2);
 		SubSequence(Position arg_position1, Position arg_position2, size_t arg_nucleotides_inbetween);

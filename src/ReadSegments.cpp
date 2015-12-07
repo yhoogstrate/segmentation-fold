@@ -1,7 +1,7 @@
 /**
  * @file src/ReadSegments.cpp
  *
- * @date 2015-07-23
+ * @date 2015-12-07
  *
  * @author Youri Hoogstrate
  *
@@ -46,8 +46,10 @@
 #include "Direction.hpp"
 #include "Sequence.hpp"
 #include "Segment.hpp"
+#include "SegmentLoop.hpp"
 #include "SegmentTreeElement.hpp"
 #include "SegmentTree.hpp"
+#include "SegmentLoopTree.hpp"
 
 #include "ReadSegments.hpp"
 
@@ -71,6 +73,7 @@ ReadSegments::ReadSegments(std::string &arg_filename):
 	filename(arg_filename)
 {
 	this->segments = nullptr;
+	this->segmentloops = nullptr;
 }
 
 
@@ -80,9 +83,10 @@ ReadSegments::ReadSegments(std::string &arg_filename):
  *
  * @date 2015-07-23
  */
-void ReadSegments::parse(SegmentTree &arg_segments)
+void ReadSegments::parse(SegmentTree &arg_segments, SegmentLoopTree &arg_segmentloops)
 {
 	this->segments = (&arg_segments);
+	this->segmentloops = (&arg_segmentloops);
 	
 	this->parse(false);
 }
@@ -94,7 +98,7 @@ void ReadSegments::parse(SegmentTree &arg_segments)
  *
  * @date 2015-07-23
  */
-void ReadSegments::parse(SegmentTree &arg_segments, std::vector<rna_example> &arg_examples)
+void ReadSegments::parse(SegmentTree &arg_segments, SegmentLoopTree &arg_segmentloops, std::vector<rna_example> &arg_examples)
 {
 	this->segments = (&arg_segments);
 	this->rna_examples = (&arg_examples);
@@ -107,7 +111,7 @@ void ReadSegments::parse(SegmentTree &arg_segments, std::vector<rna_example> &ar
 /**
  * @brief Parses an XML file using boost xml library
  *
- * @date 2015-07-15
+ * @date 2015-12-07
  */
 void ReadSegments::parse(bool arg_parse_examples)
 {
@@ -116,10 +120,19 @@ void ReadSegments::parse(bool arg_parse_examples)
 	ptree xml_root;
 	read_xml(ifs, xml_root);
 	
-	ptree xml_segments = xml_root.get_child("root.segments");
-	this->parse_segments(xml_segments);
+	if(xml_root.get_child_optional("root.segments"))
+	{
+		ptree xml_segments = xml_root.get_child("root.segments");
+		this->parse_segments(xml_segments);
+	}
 	
-	if(arg_parse_examples)
+	if(xml_root.get_child_optional("root.segmentloops"))
+	{
+		ptree xml_segmentloops = xml_root.get_child("root.segmentloops");
+		this->parse_segmentloops(xml_segmentloops);
+	}
+	
+	if(arg_parse_examples && xml_root.get_child_optional("root.rnas"))
 	{
 		ptree xml_examples = xml_root.get_child("root.rnas");
 		this->parse_examples(xml_examples);
@@ -212,6 +225,30 @@ void ReadSegments::parse_segments(ptree &xml_segments)
 
 
 /**
+ * @brief Parses the <segmentloops> section of the XML file
+ *
+ * @date 2015-12-07
+ */
+void ReadSegments::parse_segmentloops(ptree &xml_segments)
+{
+	BOOST_FOREACH(ptree::value_type const & xml_segment, xml_segments)
+	{
+		if(xml_segment.first == "segmentloop")
+		{
+			std::string id = xml_segment.second.get<std::string>("id");
+			std::string sequence = xml_segment.second.get<std::string>("sequence");
+			std::string dot_bracket = xml_segment.second.get<std::string>("dot_bracket");
+			std::string energy = xml_segment.second.get<std::string>("energy");
+			
+			///@todo figure out how many copies of these objects are stored
+			this->segmentloops->insert(*( this->parse_segmentloop(id, sequence, dot_bracket, energy) ));
+		}
+	}
+}
+
+
+
+/**
  * @brief Parses the <rna> section of the XML file
  *
  * @date 2015-07-15
@@ -241,7 +278,8 @@ void ReadSegments::parse_examples(ptree &xml_examples)
 				}
 			}
 			
-			this->rna_examples->push_back(rna_example { title ,  organism ,  sequence , std::vector<Segment *>() , dot_bracket });
+			//this->rna_examples->push_back(rna_example { title ,  organism ,  sequence , std::vector<Segment *>(), std::vector<Segment *>() , dot_bracket });
+			this->rna_examples->push_back(rna_example { title ,  organism ,  sequence , std::vector<Segment *>(), dot_bracket });
 		}
 	}
 }
@@ -251,7 +289,7 @@ void ReadSegments::parse_examples(ptree &xml_examples)
 /**
  * @brief Parses a single segment (correct bonds) based on the XML data
  *
- * @date 2014-03-21
+ * @date 2015-08-06
  */
 Segment *ReadSegments::parse_segment(std::string arg_name, std::string arg_sequence_5p, std::string arg_bonds, std::string arg_sequence_3p, std::string arg_energy)
 {
@@ -270,9 +308,8 @@ Segment *ReadSegments::parse_segment(std::string arg_name, std::string arg_seque
 	
 	float energy = std::atof(arg_energy.c_str());
 	
-	
-	int i = 0;
-	int j = abs_sequence_3p.size() - 1;
+	int i = 1;
+	int j = 1;
 	
 	unsigned int k;
 	
@@ -281,6 +318,8 @@ Segment *ReadSegments::parse_segment(std::string arg_name, std::string arg_seque
 		if(arg_bonds[k] != ' ')
 		{
 			bonds.push_back(Pair {i, j});
+			i = 0;
+			j = 0;
 		}
 		
 		if(arg_sequence_5p[k] != ' ')
@@ -289,7 +328,7 @@ Segment *ReadSegments::parse_segment(std::string arg_name, std::string arg_seque
 		}
 		if(arg_sequence_3p[k] != ' ')
 		{
-			j--;
+			j++;
 		}
 	}
 	
@@ -299,6 +338,83 @@ Segment *ReadSegments::parse_segment(std::string arg_name, std::string arg_seque
 	return m;
 }
 
+
+
+/**
+ * @brief Parses a single segmentloop based on the XML data
+ *
+ * @date 2015-12-07
+ */
+SegmentLoop *ReadSegments::parse_segmentloop(std::string arg_name, std::string arg_sequence, std::string arg_dot_bracket, std::string arg_energy)
+{
+	std::vector<Pair> bonds = this->dotbracket_to_bonds(arg_dot_bracket);
+	
+	std::string abs_sequence = arg_sequence;
+	abs_sequence.erase(std::remove(abs_sequence.begin(), abs_sequence.end(), ' '), abs_sequence.end());
+	Sequence sequence = Sequence(abs_sequence);
+	
+	float energy = std::atof(arg_energy.c_str());
+	
+	SegmentLoop *m = new SegmentLoop(arg_name, sequence, bonds, energy);
+	this->segmentloop_list.push_back(m);
+	
+	return m;
+}
+
+
+
+/**
+ * @brief converts "((.((..))).)" into (1,1),(1,2),(2,1),(1,1)
+ * 
+ * @date 2015-12-07
+ * 
+ * @todo fix for:  ((( ))) ((( )))
+ */
+std::vector<Pair> ReadSegments::dotbracket_to_bonds(std::string &arg_dot_bracket)
+{
+	std::vector<Pair> bonds = std::vector<Pair>();
+	
+	signed int i = 0;
+	signed int previous_i = -1;
+	
+	signed int j = arg_dot_bracket.size() -1 ;
+	signed int previous_j = arg_dot_bracket.size() ;
+	
+	while(i < j)
+	{
+		if(arg_dot_bracket[i] != '(' && arg_dot_bracket[j] == ')')
+		{
+			// .)
+			// i++
+			
+			i++;
+		}
+		else if(arg_dot_bracket[j] == '(' && arg_dot_bracket[j] != ')')
+		{
+			// (.
+			// j--
+			
+			j--;
+		}
+		else
+		{
+			// () || ..
+			// i++
+			// j--
+			
+			
+			if(arg_dot_bracket[i] == '(' && arg_dot_bracket[j] == ')')
+			{
+				bonds.push_back(Pair { i - previous_i, previous_j - j});
+			}
+			
+			previous_i = i++;
+			previous_j = j--;
+		}
+	}
+	
+	return bonds;
+}
 
 
 /**

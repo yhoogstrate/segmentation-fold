@@ -1,7 +1,7 @@
 /**
  * @file test/main_test.cpp
  *
- * @date 2015-07-23
+ * @date 2015-12-07
  *
  * @author Youri Hoogstrate
  *
@@ -43,8 +43,10 @@
 
 #include "Direction.hpp"
 #include "Segment.hpp"
+#include "SegmentLoop.hpp"
 #include "SegmentTreeElement.hpp"
 #include "SegmentTree.hpp"
+#include "SegmentLoopTree.hpp"
 #include "ReadSegments.hpp"
 
 #include "ScoringTree.hpp"
@@ -66,6 +68,8 @@ BOOST_AUTO_TEST_SUITE(Testing)
  * @brief Tests whether an unstructured RNA is indeed unstructured
  *
  * @test
+ *
+ * @date 2015-07-23
  */
 BOOST_AUTO_TEST_CASE(Test_unfolded)
 {
@@ -88,12 +92,16 @@ BOOST_AUTO_TEST_CASE(Test_unfolded)
 	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
 }
 
+
+
 /**
  * @brief tests Hairpin sequence GGGAAACCC to be folded as (((...)))
  *
  * @date 2015-12-01
  *
  * @test
+ *
+ * @date 2015-07-23
  */
 BOOST_AUTO_TEST_CASE(Test_hairpin)
 {
@@ -133,6 +141,8 @@ BOOST_AUTO_TEST_CASE(Test_hairpin)
  *     \\\   ///  A
  * 3') CCC CCC A
  * </PRE>
+ *
+ * @date 2015-07-23
  */
 BOOST_AUTO_TEST_CASE(Test_bulge_loop)
 {
@@ -176,6 +186,8 @@ BOOST_AUTO_TEST_CASE(Test_bulge_loop)
  * GGGGAAAGGGGAAACCCCAAACCCC
  * ((((...((((...))))...))))
  * </PRE>
+ *
+ * @date 2015-07-23
  */
 BOOST_AUTO_TEST_CASE(Test_interior_loop)
 {
@@ -227,6 +239,8 @@ BOOST_AUTO_TEST_CASE(Test_interior_loop)
  * GGGGgggaaaCCCgggAAAcccCCCC
  * (((((((...)))(((...)))))))
  * </PRE>
+ *
+ * @date 2015-07-23
  */
 BOOST_AUTO_TEST_CASE(Test_bifurcation)
 {
@@ -255,14 +269,14 @@ BOOST_AUTO_TEST_CASE(Test_bifurcation)
 /**
  * @brief Runs the function al tests of all the segments in the test-file
  *
+ * @test
+ *
  * @section DESCRIPTION
  * Uses the same segment_file as it would use normally. In case this
  * functional test is executed with a modified version of this file
  * this might result into unneccesairy errors.
  *
- * @date 2015-07-23
- *
- * @test
+ * @date 2015-12-07
  *
  * @todo BOOST_REQUIRE_EQUAL << md5sum , segment_file
  */
@@ -274,7 +288,7 @@ BOOST_AUTO_TEST_CASE(Test_kturns)
 	ReadData thermodynamics = ReadData();
 	std::vector<rna_example> rna_examples;
 	ReadSegments r = ReadSegments(settings.segment_filename);
-	r.parse(thermodynamics.segments, rna_examples);
+	r.parse(thermodynamics.segments, thermodynamics.segmentloops, rna_examples);
 	
 	DotBracket db = DotBracket();
 	
@@ -338,7 +352,7 @@ BOOST_AUTO_TEST_CASE(Test_kturns_segments_disabled)
  *
  * @test
  *
- * @date 2015-07-23
+ * @date 2015-12-07
  */
 BOOST_AUTO_TEST_CASE(Test_segfault_01)
 {
@@ -350,7 +364,7 @@ BOOST_AUTO_TEST_CASE(Test_segfault_01)
 	ReadData thermodynamics = ReadData();
 	std::vector<rna_example> rna_examples;
 	ReadSegments r = ReadSegments(settings.segment_filename);
-	r.parse(thermodynamics.segments, rna_examples);
+	r.parse(thermodynamics.segments, thermodynamics.segmentloops, rna_examples);
 	
 	// Predict structure
 	Zuker zuker = Zuker(settings, sequence, thermodynamics);
@@ -363,7 +377,6 @@ BOOST_AUTO_TEST_CASE(Test_segfault_01)
 	
 	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
 }
-
 
 
 ///@todo Test function with different minimum hairpin size

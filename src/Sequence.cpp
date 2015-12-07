@@ -1,7 +1,7 @@
 /**
  * @file src/Sequence.cpp
  *
- * @date 2015-05-02
+ * @date 2015-12-07
  *
  * @author Youri Hoogstrate
  *
@@ -175,6 +175,24 @@ Sequence Sequence::subseq(size_t arg_start, size_t arg_stop)
 
 
 /**
+ * @brief Creates a subsequence of the sequence
+ *
+ * @section DESCRIPTION
+ * The arg_stop is more appropriate than arg_length, since the entire Zuker algorithm works with positions rather than lengths.
+ *
+ * @param arg_start is the (0-based offset) nucleotide in the sequence where the subsequence starts
+ * @param arg_stop is the (0-based offset) nucleotide in the sequence where the subsequence ends
+ *
+ * @date 2015-12-07
+ */
+SubSequence Sequence::ssubseq(size_t arg_start, size_t arg_stop)
+{
+	return SubSequence(this->data.begin() + arg_start, this->data.begin() + arg_stop);
+}
+
+
+
+/**
  * @brief Gives the number of Nucleotides in the Sequence
  *
  * @date 2014-05-18
@@ -248,4 +266,82 @@ std::string Sequence::str()
 	}
 	
 	return sequence;
+}
+
+
+
+/**
+ * @brief returns IS_EQUAL, IS_SMALLER (if this is smaller) or IS_LARGER (if arg_query is smaller)
+ *
+ * @date 2015-12-05
+ */
+char Sequence::compare(Sequence &arg_query)
+{
+	size_t size_this = this->size();
+	size_t size_query = arg_query.size();
+	
+	if(size_this < size_query)
+	{
+		return IS_SMALLER;
+	}
+	else if(size_this == size_query)
+	{
+		for(unsigned int i = 0; i < size_this; i++)
+		{
+			if(this->data[i] < arg_query[i])
+			{
+				return IS_SMALLER;
+			}
+			else if(this->data[i] > arg_query[i])
+			{
+				return IS_LARGER;
+			}
+		}
+		
+		return IS_EQUAL;
+	}
+	else
+	{
+		return IS_LARGER;
+	}
+}
+
+
+
+/**
+ * @brief Compares whether this sequence is smaller, larger or equal compared to a given SubSequence
+ *
+ * @date 2015-12-07
+ */
+char Sequence::compare(SubSequence &arg_query)
+{
+	size_t size_this = this->size();
+	
+	if(size_this < arg_query.size)
+	{
+		return IS_SMALLER;
+	}
+	else if(size_this == arg_query.size)
+	{
+		for(size_t i = 0; i < size_this; i++)
+		{
+			Nucleotide n_i = arg_query[i];
+			if(this->data[i] < n_i)
+			{
+				return IS_SMALLER;
+			}
+			else if(this->data[i] > n_i)
+			{
+				return IS_LARGER;
+			}
+		}
+		
+		return IS_EQUAL;
+	}
+	else
+	{
+		return IS_LARGER;
+	}
+	
+	return IS_EQUAL;
 }

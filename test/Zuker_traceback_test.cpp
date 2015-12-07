@@ -1,7 +1,7 @@
 /**
  * @file test/Zuker_traceback_test.cpp
  *
- * @date 2015-12-01
+ * @date 2015-12-07
  *
  * @author Youri Hoogstrate
  *
@@ -43,8 +43,10 @@
 
 #include "Direction.hpp"
 #include "Segment.hpp"
+#include "SegmentLoop.hpp"
 #include "SegmentTreeElement.hpp"
 #include "SegmentTree.hpp"
+#include "SegmentLoopTree.hpp"
 #include "ReadSegments.hpp"
 
 #include "ScoringTree.hpp"
@@ -2944,7 +2946,7 @@ void test_loopmatrix(Zuker &zuker)
 	BOOST_CHECK_EQUAL(p2.second, 0);
 }
 
-void test_nij2(Zuker &zuker, size_t n)
+void test_sij(Zuker &zuker, size_t n)
 {
 	Pair p = Pair();
 	for(unsigned int x = 0;  x < (unsigned int) n; x++)
@@ -2952,7 +2954,7 @@ void test_nij2(Zuker &zuker, size_t n)
 		for(unsigned int y = x; y < (unsigned int) n; y++)
 		{
 			p = {x, y};
-			BOOST_CHECK(zuker.nij2.get(p) == nullptr);
+			BOOST_CHECK(zuker.sij.get(p) == nullptr);
 		}
 	}
 }
@@ -2992,7 +2994,7 @@ BOOST_AUTO_TEST_CASE(Test_bulge_loop)
 		test_qij(zuker);
 		test_vij(zuker);
 		test_wij(zuker);
-		test_nij2(zuker, sequence.size());
+		test_sij(zuker, sequence.size());
 		test_loopmatrix(zuker);
 		test_pathmatrix_corrected_from(zuker);
 		

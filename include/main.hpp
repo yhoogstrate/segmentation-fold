@@ -86,4 +86,9 @@
 #define DOTBRACKET__PAIRING_RIGHT ')'
 #define DOTBRACKET__NO_PAIRING    '.'
 
+#define IS_EQUAL                  0
+#define IS_SMALLER                1
+#define IS_LARGER                 2
+
+
 #endif	// MAIN_HPP

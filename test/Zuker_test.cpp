@@ -1,7 +1,7 @@
 /**
  * @file test/Zuker_test.cpp
  *
- * @date 2015-06-22
+ * @date 2015-12-07
  *
  * @author Youri Hoogstrate
  *
@@ -44,8 +44,10 @@
 
 #include "Direction.hpp"
 #include "Segment.hpp"
+#include "SegmentLoop.hpp"
 #include "SegmentTreeElement.hpp"
 #include "SegmentTree.hpp"
+#include "SegmentLoopTree.hpp"
 
 #include "ScoringTree.hpp"
 
@@ -68,7 +70,7 @@ BOOST_AUTO_TEST_SUITE(Test_energy_loading) // Test energy loading
  *
  * @test
  *
- * @date 2015-06-22
+ * @date 2015-08-06
  */
 BOOST_AUTO_TEST_CASE(Test1)
 {
@@ -77,7 +79,7 @@ BOOST_AUTO_TEST_CASE(Test1)
 	
 	std::string        segment_01_name  = "C/D-box K-turn";
 	Sequence           segment_01_seq5p = Sequence("UGUGAU");
-	std::vector <Pair> segment_01_bonds = {{Pair({3, 2}), Pair({4, 1}), Pair({5, 0}) }};
+	std::vector <Pair> segment_01_bonds = { Pair({4, 1}), Pair({1, 1}), Pair({1, 1}) };
 	Sequence           segment_01_seq3p = Sequence("UGA");// dbl check for reverse
 	float              segment_01_nrg   = -100.0;
 	Segment            segment_01       = Segment(segment_01_name, segment_01_seq5p, segment_01_bonds, segment_01_seq3p, segment_01_nrg);
@@ -117,7 +119,6 @@ BOOST_AUTO_TEST_CASE(Test1)
 	Settings settings = Settings(argc, argv, sequence);
 	Zuker zuker = Zuker(settings, sequence , thermodynamics);
 	
-	zuker.energy();
 	BOOST_REQUIRE_EQUAL(zuker.energy() ,
 						(float)
 						- 100.0 +
@@ -136,6 +137,67 @@ BOOST_AUTO_TEST_CASE(Test1)
 	
 	BOOST_REQUIRE_EQUAL(dotbracket_predicted.compare(dotbracket_valid) , 0);
 }
+
+
+
+/**
+ * @brief Tests prediction of the segmentloop
+ *
+ * @test
+ *
+ * @date 2015-12-07
+ */
+BOOST_AUTO_TEST_CASE(Test2_segmentloop)
+{
+	//5') gAA
+	//    |||u
+	//3') cAA
+	Sequence rna_1 =   Sequence("gAAuAAc");
+	size_t n = rna_1.size();
+	
+	std::string        segmentloop_01_name     = "k-loop test";
+	Sequence           segmentloop_01_sequence = Sequence("AAuAA");
+	std::vector <Pair> segmentloop_01_bonds    = { Pair({1, 1}), Pair({1, 1}) };
+	float              segmentloop_01_nrg      = -100.0;
+	SegmentLoop        segmentloop_01          = SegmentLoop(segmentloop_01_name, segmentloop_01_sequence , segmentloop_01_bonds, segmentloop_01_nrg);
+	
+	
+	// subsequence
+	unsigned int i = 1;
+	unsigned int j = 5;
+	
+	Nucleotide n1 = rna_1[i];
+	Nucleotide n2 = rna_1[j];
+	
+	Pairing pairing = Pairing(n1, n2);
+	
+	
+	// settings
+	Sequence sequence = Sequence();
+	ReadData thermodynamics = ReadData();
+	thermodynamics.loop_hairpin[5] = -5.0;
+	
+	//k-loop
+	thermodynamics.segmentloops.insert(segmentloop_01);
+	
+	// Init & run algorithm
+	char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "cAAuAAg" , NULL};
+	int argc = sizeof(argv) / sizeof(char *) - 1;
+	Settings settings = Settings(argc, argv, sequence);
+	Zuker zuker = Zuker(settings, sequence , thermodynamics);
+	
+	BOOST_CHECK_CLOSE_FRACTION(zuker.energy() , -100.0 + -2.10, 0.0001);
+	
+	zuker.traceback();
+	
+	std::string dotbracket_predicted;
+	std::string dotbracket_valid = "(((.)))";
+	
+	zuker.dot_bracket.format(n, dotbracket_predicted);
+	
+	BOOST_REQUIRE_EQUAL(dotbracket_predicted.compare(dotbracket_valid) , 0);
+}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 

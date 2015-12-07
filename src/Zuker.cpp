@@ -1,7 +1,7 @@
 /**
  * @file src/Zuker.cpp
  *
- * @date 2015-12-01
+ * @date 2015-12-07
  *
  * @author Youri Hoogstrate
  *
@@ -39,8 +39,10 @@
 
 #include "Direction.hpp"
 #include "Segment.hpp"
+#include "SegmentLoop.hpp"
 #include "SegmentTreeElement.hpp"
 #include "SegmentTree.hpp"
+#include "SegmentLoopTree.hpp"
 
 #include "ScoringTree.hpp"
 
@@ -69,7 +71,7 @@ Zuker::Zuker(Settings &arg_settings, Sequence &arg_sequence, ReadData &arg_therm
 	wij(arg_sequence.size(), 0.0),
 	pathmatrix_corrected_from(arg_sequence.size(), false),
 	loopmatrix(arg_sequence.size(), Pair(0, 0)),
-	nij2(arg_sequence.size(), nullptr)
+	sij(arg_sequence.size(), nullptr)
 {
 	this->pij.fill(NOT_YET_CALCULATED);
 	
@@ -102,6 +104,7 @@ float Zuker::energy(void)
 		// Paralelization / threading: "still reachable" memory error seems normal (http://stackoverflow.com/questions/6973489/valgrind-and-openmp-still-reachable-and-possibly-lost-is-that-bad).. -num_threads can be defined here
 		// http://people.cs.pitt.edu/~melhem/courses/xx45p/OpenMp.pdf
 		// For each element in a diagonal, it can be calculated independent of the others - if num_threads = 0, it will take all possible threads
+		
 		#pragma omp parallel for num_threads(this->settings.num_threads) private(i)
 		for(i = 0; i < this->sequence.size() - k; i++)
 		{
@@ -110,7 +113,7 @@ float Zuker::energy(void)
 		}
 	}
 	
-	Pair pair = Pair(0, this->sequence.size() - 1);//return this->wij.get(0, this->sequence.size() - 1);
+	Pair pair = Pair(0, this->sequence.size() - 1);
 	return this->wij.get(pair);
 }
 
@@ -119,7 +122,7 @@ float Zuker::energy(void)
 /**
  * @brief Vij Function - energy if (i,j) pair, otherwise return infinity
  *
- * @date 2015-04-03
+ * @date 2015-12-07
  *
  * @param p1 A pair of positions refering to Nucleotide positions in the sequence, where pi.first < p1.second
  *
@@ -132,8 +135,10 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 	
 	float energy, tmp, tmp_k;
 	
-	Segment *tmp_segment = nullptr;
-	Segment *tmp_segment2;
+	Segment *tmp_segment;
+	SegmentLoop *tmp_segmentloop;
+	SegmentTraceback  *tmp_segmenttraceback = nullptr;
+	
 	Pair tmp_loopmatrix_value;
 	
 	if(this->pij.get(p1) > NOT_YET_CALCULATED)			///@todo -create bool function > {pij}.is_calculated()    @todo2 use max unsigned int value  // This point is already calculated; efficiency of dynamic programming
@@ -155,6 +160,19 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 			energy = this->get_hairpin_loop_element(p1);				// Hairpin element
 			tmp_loopmatrix_value = {p1.first + 1, p1.second - 1};
 			
+			// SegmentLoop element
+			SubSequence ps1 = this->sequence.ssubseq(p1.first + 1 , p1.second - 1); ///@todo use Pair()
+			tmp_segmentloop = this->thermodynamics.segmentloops.search(ps1);
+			if(tmp_segmentloop != nullptr)
+			{
+				tmp_k = tmp_segmentloop->gibbs_free_energy + this->get_stacking_pair_without_surrounding(p1p);
+				if(tmp_k < energy)
+				{
+					energy = tmp_k;
+					tmp_segmenttraceback = &tmp_segmentloop->traceback;
+				}
+			}
+			
 			for(ip = p1.first + 1; ip < p1.second; ip++)
 			{
 				for(jp = p1.second - 1; jp > ip; jp--)
@@ -175,7 +193,7 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 								energy = tmp;
 								
 								tmp_loopmatrix_value = {p1.first + 1, p1.second - 1};
-								tmp_segment = nullptr;
+								tmp_segmenttraceback = nullptr;
 							}
 						}
 						else if(ip == (p1.first + 1) || jp == (p1.second - 1))// Bulge-loop element
@@ -187,7 +205,7 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 								energy = tmp;
 								
 								tmp_loopmatrix_value = {ip, jp};
-								tmp_segment = nullptr;
+								tmp_segmenttraceback = nullptr;
 							}
 						}
 						else											// Interior loop or Segment
@@ -199,32 +217,25 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 								energy = tmp;
 								
 								tmp_loopmatrix_value = {ip, jp};
-								tmp_segment = nullptr;
+								tmp_segmenttraceback = nullptr;
 							}
 							
 							// Find segments:
-							SubSequence pp1 = SubSequence(this->sequence_begin + p1.first + 1, this->sequence_begin + ip - 1);
-							SubSequence pp2 = SubSequence(this->sequence_begin + jp + 1, this->sequence_begin + p1.second - 1);
-							tmp_segment2 = this->thermodynamics.segments.search(pp1 , pp2);
+							SubSequence pp1 = this->sequence.ssubseq(p1.first + 1, ip - 1);
+							SubSequence pp2 = this->sequence.ssubseq(jp + 1, p1.second - 1);
+							tmp_segment = this->thermodynamics.segments.search(pp1 , pp2);
 							
-							if(tmp_segment2 != nullptr)
+							if(tmp_segment != nullptr)
 							{
-								//Nucleotide n1 = this->sequence[p1.first];
-								//Nucleotide n2 = this->sequence[p1.second];
-								//Pairing pairing = Pairing(n1, n2);
+								tmp_k = tmp_segment->gibbs_free_energy + this->get_stacking_pair_without_surrounding(p1p) + v_ij_jp;
 								
-								tmp_k = tmp_segment2->get_gibbs_free_energy() + this->get_stacking_pair_without_surrounding(p1p) + v_ij_jp;
-							}
-							else
-							{
-								tmp_k = N_INFINITY;
-							}
-							if(tmp_k < energy)
-							{
-								energy = tmp_k;
-								
-								tmp_loopmatrix_value = {ip, jp};
-								tmp_segment = tmp_segment2;
+								if(tmp_k < energy)
+								{
+									energy = tmp_k;
+									
+									tmp_loopmatrix_value = {ip, jp};
+									tmp_segmenttraceback = &tmp_segment->traceback;
+								}
 							}
 						}
 					}
@@ -232,13 +243,13 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 				
 				/*
 				i=0, j=11 < indicated in brackets
-				     *       i' = 5
+				     |       i' = 5
 				[(...)(...)]
 				
-				  *          i' = 2
+				  |          i' = 2
 				[()(......)]
 				
-				        *    i' = 8
+				        |    i' = 8
 				[(......)()]
 				
 				-> earlier versions compromised this function
@@ -258,15 +269,15 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 						energy = tmp;
 						
 						tmp_loopmatrix_value = {ip, jp};
-						tmp_segment = nullptr;
+						tmp_segmenttraceback = nullptr;
 					}
 				}
 			}
 			
 			this->loopmatrix.set(p1.first, p1.second, tmp_loopmatrix_value);
-			if(tmp_segment != nullptr)
+			if(tmp_segmenttraceback != nullptr)
 			{
-				this->nij2.set(p1, tmp_segment);
+				this->sij.set(p1, tmp_segmenttraceback);
 			}
 #if DEBUG
 		}
@@ -336,10 +347,10 @@ float Zuker::w(Pair &p1)
 			/*
 			following extreme w()-directed bifurcations are possible
 			
-			 *       k = i + 1
+			 |       k = i + 1
 			[)(....]
 			
-			     *   k = j - 2; k < j - 1
+			     |   k = j - 2; k < j - 1
 			[....)(]
 			 */
 			for(k = p1.first + 1; k < p1.second - 1; k++)				// Find bifurcation in non-paired region
@@ -405,7 +416,7 @@ void Zuker::traceback(void)
 {
 	int i, j, k, ip, jp;
 	int tmp_i, tmp_j;
-	Segment *tmp_segment;
+	SegmentTraceback *independent_segment_traceback;
 	
 	bool pick_from_v_path;
 	
@@ -438,19 +449,22 @@ void Zuker::traceback(void)
 			{
 				this->dot_bracket.store(i, j);
 				
-				tmp_segment = this->nij2.get(pair1);///@todo implement it as tmp_segment = this->nij.search(p); or sth like that
-				if(tmp_segment != nullptr)								// If a Segment is found, trace internal structure also back
+				independent_segment_traceback = this->sij.get(pair1);					///@todo implement it as independent_segment_traceback = this->nij.search(p); or sth like that
+				
+				if(independent_segment_traceback != nullptr)								// If a Segment's traceback is found, trace its internal structure back
 				{
-					while(tmp_segment->pop(tmp_i, tmp_j))
+					tmp_i = i;
+					tmp_j = j;
+					
+					while(independent_segment_traceback->traceback(tmp_i, tmp_j))
 					{
-						//this->dot_bracket.store(ip + tmp_i, jp + tmp_j);
 #if DEBUG
-						if((jp - tmp_j) <= (ip + tmp_i))
+						if(tmp_j <= tmp_i)
 						{
-							throw std::invalid_argument("Traceback with segment introduced incorrect jump (" + std::to_string(ip + tmp_i) + "," + std::to_string(jp - tmp_j) + ")\n");
+							throw std::invalid_argument("Traceback with segment introduced incorrect jump (" + std::to_string(tmp_i) + "," + std::to_string(tmp_j) + ")\n");
 						}
 #endif //DEBUG
-						this->dot_bracket.store(ip + tmp_i, jp - tmp_j);
+						this->dot_bracket.store(tmp_i, tmp_j);
 					}
 				}
 				
@@ -664,13 +678,13 @@ void Zuker::_print_nij(unsigned int matrix_length)
 			{
 				std::cout << " ----    ";
 			}
-			else if(this->nij2.get(p) == nullptr)
+			else if(this->sij.get(p) == nullptr)
 			{
 				std::cout << " null    ";
 			}
 			else
 			{
-				std::cout << " " << this->nij2.get(p);
+				std::cout << " " << this->sij.get(p);
 			}
 		}
 		std::cout << "\n";

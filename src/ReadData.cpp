@@ -49,8 +49,10 @@
 #include "Sequence.hpp"
 
 #include "Segment.hpp"
+#include "SegmentLoop.hpp"
 #include "SegmentTreeElement.hpp"
 #include "SegmentTree.hpp"
+#include "SegmentLoopTree.hpp"
 #include "ReadData.hpp"
 
 

@@ -1,7 +1,7 @@
 /**
  * @file include/Segment.hpp
  *
- * @date 2015-05-02
+ * @date 2015-08-06
  *
  * @author Youri Hoogstrate
  *
@@ -32,11 +32,12 @@
 
 
 #include <array>
+#include "SegmentTraceback.hpp"
 
 
 /**
  * @brief This object represents a *non-canonical RNA pairing segment* which requires to be surrounded by canonical pairings, like the K-turn.
- * @date 2015-04-20
+ *
  * @section DESCRIPTION
  *
  * The following can be converted into a dot-bracket format:
@@ -99,32 +100,26 @@
  *  -2 U  0
  *  -1 G  1
  *
- * @date 2014-04-15
+ * @date 2015-04-20
  */
 class Segment
 {
-	private:
-		std::vector<Pair>::reverse_iterator it;
-		
 	public:
 		Segment(std::string arg_name, Sequence arg_segment5p, std::vector<Pair> arg_bonds, Sequence arg_segment3p, float arg_gibbs_free_energy);
 		
 		std::string name;
 		Sequence sequence_5p;
 		Sequence sequence_3p;
-		std::vector<Pair> bonds;
-		
-		bool pop(int &i, int &j);
-		void reset_traceback(void);
 		
 		float gibbs_free_energy;
-		float get_gibbs_free_energy(void);
 		
 		Nucleotide get_nucleotide(Direction direction, unsigned int &i);// @todo operator: segment[Direction][arg_i]
 		Sequence  *get_sequence(Direction direction);					// @todo operator: segment[Direction]
 		
 		size_t size(Direction &direction);
 		size_t size(Direction direction);
+		
+		SegmentTraceback traceback;
 };
 
 #endif	// SEGMENT_HPP

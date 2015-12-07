@@ -1,6 +1,6 @@
 # @file CMakeLists.txt
 #
-# @date 2015-12-01
+# @date 2015-12-07
 #
 # @author Youri Hoogstrate
 #
@@ -35,7 +35,7 @@ cmake_minimum_required(VERSION 2.8)
 
 project(segmentation-fold)
 
-set(PROJECT_VERSION "1.1.0")
+set(PROJECT_VERSION "1.2.0")
 set(PACKAGE_URL "https://github.com/yhoogstrate/segmentation-fold")
 set(PACKAGE_BUGREPORT "${PACKAGE_URL}/issues")
 
@@ -149,9 +149,12 @@ add_executable(segmentation-fold
 					src/Pairing.cpp
 					src/PairingPlus.cpp
 					src/SubSequence.cpp
+					src/SegmentTraceback.cpp
 					src/Segment.cpp
+					src/SegmentLoop.cpp
 					src/SegmentTreeElement.cpp
 					src/SegmentTree.cpp
+					src/SegmentLoopTree.cpp
 					src/ScoringMatrix.cpp
 					src/Sequence.cpp
 					src/ScoringTree.cpp
@@ -175,9 +178,12 @@ add_test(position_test           "${BUILD_TEST_DIR}/position_test")
 add_test(sequence_test           "${BUILD_TEST_DIR}/sequence_test")
 add_test(pairingplus_test        "${BUILD_TEST_DIR}/pairingplus_test")
 add_test(pairing_test            "${BUILD_TEST_DIR}/pairing_test")
+add_test(segmenttraceback_test   "${BUILD_TEST_DIR}/segmenttraceback_test")
 add_test(segment_test            "${BUILD_TEST_DIR}/segment_test")
+add_test(segment_test            "${BUILD_TEST_DIR}/segmentloop_test")
 add_test(segmenttreeelement_test "${BUILD_TEST_DIR}/segmenttreeelement_test")
 add_test(segmenttree_test        "${BUILD_TEST_DIR}/segmenttree_test")
+add_test(segmentlooptree_test    "${BUILD_TEST_DIR}/segmentlooptree_test")
 add_test(readsegments_test       "${BUILD_TEST_DIR}/readsegments_test")
 add_test(settings_test           "${BUILD_TEST_DIR}/settings_test")
 add_test(scoringtree_test        "${BUILD_TEST_DIR}/scoringtree_test")

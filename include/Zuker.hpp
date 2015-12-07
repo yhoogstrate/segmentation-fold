@@ -114,7 +114,7 @@ class Zuker: public GibbsFreeEnergy
 		ScoringMatrix<char> pathmatrix_corrected_from;					//@todo benchmark performance of std::vector<std::vector<bool>> pathmatrix_corrected_from; or make argument between fast and sparse
 		ScoringMatrix<Pair> loopmatrix;									//@todo benchmark performance of std::vector<std::vector<bool>> pathmatrix_corrected_from; or make argument between fast and sparse
 		
-		ScoringMatrix<Segment *> nij2;									//@todo benchmark performance using std::map<Pair &>
+		ScoringMatrix<SegmentTraceback *> sij;							//@todo benchmark performance using std::map<SegmentTraceback *>
 		
 #if DEBUG
 		// Functions only useful for plotting and debugging

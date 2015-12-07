@@ -1,7 +1,7 @@
 /**
  * @file test/ReadSegments_test.cpp
  *
- * @date 2015-07-23
+ * @date 2015-12-07
  *
  * @author Youri Hoogstrate
  *
@@ -44,8 +44,10 @@
 
 #include "Direction.hpp"
 #include "Segment.hpp"
+#include "SegmentLoop.hpp"
 #include "SegmentTreeElement.hpp"
 #include "SegmentTree.hpp"
+#include "SegmentLoopTree.hpp"
 
 #include "ReadSegments.hpp"
 
@@ -66,7 +68,9 @@ BOOST_AUTO_TEST_SUITE(Testing_Segments)
 /**
  * @brief checks whether parsing a custom file succeeds
  *
- * @date 2015-07-23
+ * @test
+ *
+ * @date 2015-12-07
  */
 BOOST_AUTO_TEST_CASE(Test1)
 {
@@ -76,15 +80,16 @@ BOOST_AUTO_TEST_CASE(Test1)
 	myfile.open(filename.c_str());
 	myfile <<   "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
 		   "<root>\n"
-		   "	<segments>\n"
-		   "	</segments>\n"
+		   "	<segments />\n"
+		   "	<segmentloops />\n"
 		   "</root>\n";
 	myfile.close();
 	
 	
 	SegmentTree segments;
+	SegmentLoopTree segmentloops;
 	ReadSegments r = ReadSegments(filename);
-	r.parse(segments);
+	r.parse(segments, segmentloops);
 	
 	BOOST_CHECK_EQUAL(segments.empty() , true);
 	BOOST_CHECK_EQUAL(segments.size() , 0);
@@ -99,7 +104,7 @@ BOOST_AUTO_TEST_CASE(Test1)
  *
  * @test
  *
- * @date 2015-07-23
+ * @date 2015-12-07
  */
 BOOST_AUTO_TEST_CASE(Test2)
 {
@@ -121,12 +126,14 @@ BOOST_AUTO_TEST_CASE(Test2)
 		   "			</directions>\n"
 		   "		</segment>\n"
 		   "	</segments>\n"
+		   "	<segmentloops />\n"
 		   "</root>\n";
 	myfile.close();
 	
 	SegmentTree segments;
+	SegmentLoopTree segmentloops;
 	ReadSegments r = ReadSegments(filename);
-	r.parse(segments);
+	r.parse(segments, segmentloops);
 	
 	BOOST_CHECK_EQUAL(segments.empty() , false);
 	BOOST_CHECK_EQUAL(segments.size() , 1);
@@ -145,16 +152,19 @@ BOOST_AUTO_TEST_CASE(Test2)
 	BOOST_CHECK_EQUAL(segment->gibbs_free_energy , (float) - 11.1072);
 	
 	// Check bonds
-	BOOST_CHECK_EQUAL(segment->bonds[0].first , 3);
-	BOOST_CHECK_EQUAL(segment->bonds[0].second , 2);
+	BOOST_CHECK_EQUAL(segment->traceback.bonds[0].first , 4);
+	BOOST_CHECK_EQUAL(segment->traceback.bonds[0].second , 1);
 	
-	BOOST_CHECK_EQUAL(segment->bonds[1].first , 4);
-	BOOST_CHECK_EQUAL(segment->bonds[1].second , 1);
+	BOOST_CHECK_EQUAL(segment->traceback.bonds[1].first , 1);
+	BOOST_CHECK_EQUAL(segment->traceback.bonds[1].second , 1);
 	
-	BOOST_CHECK_EQUAL(segment->bonds[2].first , 5);
-	BOOST_CHECK_EQUAL(segment->bonds[2].second , 0);
+	BOOST_CHECK_EQUAL(segment->traceback.bonds[2].first , 1);
+	BOOST_CHECK_EQUAL(segment->traceback.bonds[2].second , 1);
 	
-	signed int i, j;
+	signed int i = 10;
+	signed int j = 1000;
+	signed int pi = i;
+	signed int pj = j;
 	bool s;
 	
 	for(unsigned int k = 0; k < 12; k++)								// Check tracing back bonds:
@@ -162,24 +172,29 @@ BOOST_AUTO_TEST_CASE(Test2)
 		switch(k % 4)
 		{
 			case 0:
-				BOOST_CHECK_EQUAL(segment->pop(i, j), true);
-				BOOST_CHECK_EQUAL(i, -1);
-				BOOST_CHECK_EQUAL(j, -1);
+				BOOST_CHECK_EQUAL(segment->traceback.traceback(i, j), true);
+				BOOST_CHECK_EQUAL(i, pi + 4);
+				BOOST_CHECK_EQUAL(j, pj - 1);
 				break;
 			case 1:
-				BOOST_CHECK_EQUAL(segment->pop(i, j), true);
-				BOOST_CHECK_EQUAL(i, -2);
-				BOOST_CHECK_EQUAL(j, -2);
+				BOOST_CHECK_EQUAL(segment->traceback.traceback(i, j), true);
+				BOOST_CHECK_EQUAL(i, pi + 1);
+				BOOST_CHECK_EQUAL(j, pj - 1);
 				break;
 			case 2:
-				BOOST_CHECK_EQUAL(segment->pop(i, j), true);
-				BOOST_CHECK_EQUAL(i, -3);
-				BOOST_CHECK_EQUAL(j, -3);
+				BOOST_CHECK_EQUAL(segment->traceback.traceback(i, j), true);
+				BOOST_CHECK_EQUAL(i, pi + 1);
+				BOOST_CHECK_EQUAL(j, pj - 1);
 				break;
 			case 3:
-				BOOST_CHECK_EQUAL(segment->pop(i, j), false);
+				BOOST_CHECK_EQUAL(segment->traceback.traceback(i, j), false);
+				BOOST_CHECK_EQUAL(i, pi);
+				BOOST_CHECK_EQUAL(j, pj);
 				break;
 		}
+		
+		pi = i;
+		pj = j;
 	}
 	
 	unlink(filename.c_str());
@@ -189,6 +204,8 @@ BOOST_AUTO_TEST_CASE(Test2)
 
 /**
  * @brief checks whether parsing a custom file succeeds - testing with 3' -> 5'
+ *
+ * @test
  *
  * @section DESCRIPTION
  * <PRE>
@@ -203,9 +220,7 @@ BOOST_AUTO_TEST_CASE(Test2)
  * 3') AAGAAG (5'
  * </PRE>
  *
- * @date 2015-07-23
- *
- * @test
+ * @date 2015-12-07
  *
  * @todo also check segments pop() function
  */
@@ -229,12 +244,14 @@ BOOST_AUTO_TEST_CASE(Test3)
 		   "			</directions>\n"
 		   "		</segment>\n"
 		   "	</segments>\n"
+		   "	<segmentloops />\n"
 		   "</root>\n";
 	myfile.close();
 	
 	SegmentTree segments;
+	SegmentLoopTree segmentloops;
 	ReadSegments r = ReadSegments(filename);
-	r.parse(segments);
+	r.parse(segments, segmentloops);
 	
 	
 	BOOST_CHECK_EQUAL(segments.empty() , false);
@@ -256,14 +273,14 @@ BOOST_AUTO_TEST_CASE(Test3)
 	
 	
 	// Check bonds
-	BOOST_CHECK_EQUAL(segment->bonds[0].first , 0);
-	BOOST_CHECK_EQUAL(segment->bonds[0].second , 5);
+	BOOST_CHECK_EQUAL(segment->traceback.bonds[0].first , 1);
+	BOOST_CHECK_EQUAL(segment->traceback.bonds[0].second , 1);
 	
-	BOOST_CHECK_EQUAL(segment->bonds[1].first , 1);
-	BOOST_CHECK_EQUAL(segment->bonds[1].second , 4);
+	BOOST_CHECK_EQUAL(segment->traceback.bonds[1].first , 1);
+	BOOST_CHECK_EQUAL(segment->traceback.bonds[1].second , 1);
 	
-	BOOST_CHECK_EQUAL(segment->bonds[2].first , 2);
-	BOOST_CHECK_EQUAL(segment->bonds[2].second , 3);
+	BOOST_CHECK_EQUAL(segment->traceback.bonds[2].first , 1);
+	BOOST_CHECK_EQUAL(segment->traceback.bonds[2].second , 1);
 	
 	unlink(filename.c_str());
 }
@@ -273,9 +290,9 @@ BOOST_AUTO_TEST_CASE(Test3)
 /**
  * @brief checks whether parsing a custom file succeeds - testing both 3' -> 5' && 5' -> 3'
  *
- * @date 2015-07-23
- *
  * @test
+ *
+ * @date 2015-12-07
  */
 BOOST_AUTO_TEST_CASE(Test4)
 {
@@ -294,13 +311,14 @@ BOOST_AUTO_TEST_CASE(Test4)
 		   "			<directions><five_prime>true</five_prime><three_prime>true</three_prime></directions>\n"
 		   "		</segment>\n"
 		   "	</segments>\n"
+		   "	<segmentloops />\n"
 		   "</root>\n";
 	myfile.close();
 	
-	
 	SegmentTree segments;
+	SegmentLoopTree segmentloops;
 	ReadSegments r = ReadSegments(filename);
-	r.parse(segments);
+	r.parse(segments, segmentloops);
 	
 	BOOST_CHECK_EQUAL(segments.empty() , false);
 	BOOST_CHECK_EQUAL(segments.size() , 2);
@@ -313,9 +331,9 @@ BOOST_AUTO_TEST_CASE(Test4)
 /**
  * @brief checks whether parsing a custom file succeeds
  *
- * @date 2015-07-23
- *
  * @test
+ *
+ * @date 2015-12-07
  */
 BOOST_AUTO_TEST_CASE(Test5)
 {
@@ -632,12 +650,14 @@ BOOST_AUTO_TEST_CASE(Test5)
 		   "			<directions><five_prime>true</five_prime><three_prime>true</three_prime></directions>\n"
 		   "		</segment>\n"
 		   "	</segments>\n"
+		   "	<segmentloops />\n"
 		   "</root>\n";
 	myfile.close();
 	
 	SegmentTree segment_tree;
+	SegmentLoopTree segmentloop_tree;
 	ReadSegments r = ReadSegments(filename);
-	r.parse(segment_tree);
+	r.parse(segment_tree, segmentloop_tree);
 	
 	const int n = 61;
 	int i = 0;
@@ -734,15 +754,18 @@ BOOST_AUTO_TEST_CASE(Test5)
  *
  * @test
  *
- * @date 2015-07-23
+ * @date 2015-12-07
  */
 BOOST_AUTO_TEST_CASE(Test_E1)
 {
 	std::string filename = "share/segmentation-fold/segments.xml";
+	
 	SegmentTree segments;
+	SegmentLoopTree segmentloops;
 	std::vector<rna_example> rna_examples;
+	
 	ReadSegments r = ReadSegments(filename);
-	r.parse(segments, rna_examples);
+	r.parse(segments, segmentloops, rna_examples);
 	
 	BOOST_CHECK_EQUAL(rna_examples.size() , 28);
 }
@@ -754,7 +777,7 @@ BOOST_AUTO_TEST_CASE(Test_E1)
  *
  * @test
  *
- * @date 2015-07-23
+ * @date 2015-12-07
  */
 BOOST_AUTO_TEST_CASE(Test6)
 {
@@ -778,12 +801,14 @@ BOOST_AUTO_TEST_CASE(Test6)
 		   "			</directions>\n"
 		   "		</segment>\n"
 		   "	</segments>\n"
+		   "	<segmentloops2 />\n"
 		   "</root>\n";
 	myfile.close();
 	
 	SegmentTree segments;
+	SegmentLoopTree segmentloops;
 	ReadSegments r = ReadSegments(filename);
-	r.parse(segments);
+	r.parse(segments, segmentloops);
 	
 	BOOST_CHECK_EQUAL(segments.empty() , false);
 	BOOST_CHECK_EQUAL(segments.size() , 2);
@@ -801,24 +826,31 @@ BOOST_AUTO_TEST_CASE(Test6)
 	BOOST_CHECK(segment != nullptr);
 	
 	int i = 0;
-	int j = 0;
+	int j = 1000;
+	int pi = i;
+	int pj = j;
 	
 	unsigned int k;
 	for(k = 0; k < 5; k++)
 	{
-		BOOST_CHECK(segment->pop(i, j));
-		BOOST_CHECK_EQUAL(i, -1);
-		BOOST_CHECK_EQUAL(j, -1);
+		BOOST_CHECK(segment->traceback.traceback(i, j));
+		BOOST_CHECK_EQUAL(i, pi + 4);
+		BOOST_CHECK_EQUAL(j, pj - 1);
 		
-		BOOST_CHECK(segment->pop(i, j));
-		BOOST_CHECK_EQUAL(i, -2);
-		BOOST_CHECK_EQUAL(j, -2);
+		BOOST_CHECK(segment->traceback.traceback(i, j));
+		BOOST_CHECK_EQUAL(i, pi + 4 + 1);
+		BOOST_CHECK_EQUAL(j, pj - 1 - 1);
 		
-		BOOST_CHECK(segment->pop(i, j));
-		BOOST_CHECK_EQUAL(i, -3);
-		BOOST_CHECK_EQUAL(j, -3);
+		BOOST_CHECK(segment->traceback.traceback(i, j));
+		BOOST_CHECK_EQUAL(i, pi + 4 + 1 + 1);
+		BOOST_CHECK_EQUAL(j, pj - 1 - 1 - 1);
 		
-		BOOST_CHECK(segment->pop(i, j) == false);
+		BOOST_CHECK(segment->traceback.traceback(i, j) == false);
+		BOOST_CHECK_EQUAL(i, pi + 4 + 1 + 1 + 0);
+		BOOST_CHECK_EQUAL(j, pj - 1 - 1 - 1 - 0);
+		
+		pi = i;
+		pj = j;
 	}
 	
 	BOOST_CHECK_EQUAL(segment->size(Direction::FivePrime) , 6);
@@ -842,6 +874,60 @@ BOOST_AUTO_TEST_CASE(Test6)
 	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::ThreePrime, n0) , Nucleotide::C);
 	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::ThreePrime, n1) , Nucleotide::G);
 	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::ThreePrime, n2) , Nucleotide::A);
+	
+	unlink(filename.c_str());
+}
+
+
+
+/**
+ * @brief checks whether parsing a custom file with a segmentloop succeeds
+ *
+ * @test
+ *
+ * @date 2015-12-07
+ */
+BOOST_AUTO_TEST_CASE(Test7)
+{
+	std::string filename = "tmp.readsegments_test_test7";
+	
+	std::ofstream myfile;
+	myfile.open(filename.c_str());
+	myfile << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+		   "<root>\n"
+		   "	<segments />\n"
+		   "	<segmentloops>\n"
+		   "		<segmentloop><id>Arteficial segmentloop</id>\n"
+		   "			<sequence>CAAGAA</sequence>\n"
+		   "			<dot_bracket type=\"full\">((..))</dot_bracket>\n"
+		   "			<energy>-5.0</energy>\n"
+		   "		</segmentloop>\n"
+		   "	</segmentloops>\n"
+		   "</root>\n";
+	myfile.close();
+	
+	SegmentTree segments;
+	SegmentLoopTree segmentloops;
+	ReadSegments r = ReadSegments(filename);
+	r.parse(segments, segmentloops);
+	
+	BOOST_CHECK_EQUAL(segmentloops.empty() , false);
+	BOOST_CHECK_EQUAL(segmentloops.size() , 1);
+	
+	Sequence sequence = Sequence("CAAGAA");
+	SubSequence subsequence = sequence.ssubseq(0, sequence.size() - 1);
+	SegmentLoop *segmentloop = segmentloops.search(subsequence);
+	
+	BOOST_REQUIRE(segmentloop != nullptr);
+	BOOST_CHECK_EQUAL(segmentloop->gibbs_free_energy , (float) - 5.0);
+	
+	
+	// Check bonds
+	BOOST_CHECK_EQUAL(segmentloop->traceback.bonds[0].first , 1);
+	BOOST_CHECK_EQUAL(segmentloop->traceback.bonds[0].second , 1);
+	
+	BOOST_CHECK_EQUAL(segmentloop->traceback.bonds[1].first , 1);
+	BOOST_CHECK_EQUAL(segmentloop->traceback.bonds[1].second , 1);
 	
 	unlink(filename.c_str());
 }

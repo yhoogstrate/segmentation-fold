@@ -1,9 +1,24 @@
+2015-12-07  Youri Hoogstrate
+	* v1.2.0
+	  - Full support for SegmentLoops
+	  - Fixes a XML bug (if <segments /> or <segmentloops /> is missing
+	  - SegmentLoopTree works + passing test cases
+	  - Using universal traceback mechanism for SegmentLoops and Segments
+
+2015-12-04  Youri Hoogstrate
+	* SegmentLoop object works + passing test case
+
 2015-12-01  Youri Hoogstrate
 	* v1.1.0
 	  - Fixed a issue that seemed to randomly change data
 	  - Solved a bug that allowed w()-type bifurcations to act as a
 	    normal loop
 	  - Added more strict debug comparions and tests
+
+2015-08-06  Youri Hoogstrate
+	* Added separate object for indendent traceback in Segment objects
+	* Changed behavior of <bonds> variables
+	* Changed traceback
 
 2015-07-23  Youri Hoogstrate
 	* Fixed a memory leak and changed organization of ReadSegments

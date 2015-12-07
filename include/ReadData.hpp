@@ -1,7 +1,7 @@
 /**
  * @file include/ReadData.hpp
  *
- * @date 2015-06-22
+ * @date 2015-12-07
  *
  * @author Youri Hoogstrate
  * @author Lisa Yu
@@ -45,6 +45,8 @@
 
 /**
  * @brief Reads the thermodynamic Gibbs energy parameters.
+ *
+ * @date 2015-12-07
  *
  * @section DESCRIPTION
  * Read thermodynamics data (Turners dataset for now, Andronescu maybe
@@ -100,6 +102,7 @@ class ReadData
 		std::vector<float> poppen_p;
 		
 		SegmentTree segments;
+		SegmentLoopTree segmentloops;
 		
 		unsigned int minimal_hairpin_length;							///@todo this is an algorithmic setting - move it to Settings
 		
@@ -125,8 +128,6 @@ class ReadData
 		void load_triloop();
 		void load_tloop();
 		void load_miscloop();
-	private:
-	
 };
 
 #endif	// READDATA_HPP
