@@ -73,6 +73,7 @@ ReadSegments::ReadSegments(std::string &arg_filename):
 	filename(arg_filename)
 {
 	this->segments = nullptr;
+	this->segmentloops = nullptr;
 }
 
 
@@ -85,6 +86,7 @@ ReadSegments::ReadSegments(std::string &arg_filename):
 void ReadSegments::parse(SegmentTree &arg_segments, SegmentLoopTree &arg_segmentloops)
 {
 	this->segments = (&arg_segments);
+	this->segmentloops = (&arg_segmentloops);
 	
 	this->parse(false);
 }
@@ -403,7 +405,7 @@ std::vector<Pair> ReadSegments::dotbracket_to_bonds(std::string &arg_dot_bracket
 			
 			if(arg_dot_bracket[i] == '(' && arg_dot_bracket[j] == ')')
 			{
-				bonds.push_back(Pair { - previous_i - i, - j -  previous_j});
+				bonds.push_back(Pair { i - previous_i, previous_j - j});
 			}
 			
 			previous_i = i++;

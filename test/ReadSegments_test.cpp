@@ -914,28 +914,22 @@ BOOST_AUTO_TEST_CASE(Test7)
 	BOOST_CHECK_EQUAL(segmentloops.empty() , false);
 	BOOST_CHECK_EQUAL(segmentloops.size() , 1);
 	
-	/*
 	Sequence sequence = Sequence("CAAGAA");
-	SubSequence subsequence = Sequence.ssubset(0, 6);///@todo use sequence.size() - ?
-	Segment *segmentloop = segmentloops.search(subsequence);
+	SubSequence subsequence = sequence.ssubseq(0, sequence.size() - 1);
+	SegmentLoop *segmentloop = segmentloops.search(subsequence);
 	
-	
-	BOOST_REQUIRE(segmentloop != NULL);
-	BOOST_CHECK_EQUAL(segment->gibbs_free_energy , (float) - 5.0);
+	BOOST_REQUIRE(segmentloop != nullptr);
+	BOOST_CHECK_EQUAL(segmentloop->gibbs_free_energy , (float) - 5.0);
 	
 	
 	// Check bonds
-	BOOST_CHECK_EQUAL(segment->traceback.bonds[0].first , 1);
-	BOOST_CHECK_EQUAL(segment->traceback.bonds[0].second , 1);
+	BOOST_CHECK_EQUAL(segmentloop->traceback.bonds[0].first , 1);
+	BOOST_CHECK_EQUAL(segmentloop->traceback.bonds[0].second , 1);
 	
-	BOOST_CHECK_EQUAL(segment->traceback.bonds[1].first , 1);
-	BOOST_CHECK_EQUAL(segment->traceback.bonds[1].second , 1);
-	
-	BOOST_CHECK_EQUAL(segment->traceback.bonds[2].first , 1);
-	BOOST_CHECK_EQUAL(segment->traceback.bonds[2].second , 1);
+	BOOST_CHECK_EQUAL(segmentloop->traceback.bonds[1].first , 1);
+	BOOST_CHECK_EQUAL(segmentloop->traceback.bonds[1].second , 1);
 	
 	unlink(filename.c_str());
-	*/
 }
 
 BOOST_AUTO_TEST_SUITE_END()
