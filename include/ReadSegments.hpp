@@ -63,17 +63,24 @@ class ReadSegments
 	private:
 		std::string &filename;
 		
+		///@todo WHY BOTH? WHICH ONE STORES POINTERS?
 		SegmentTree *segments;
+		SegmentLoopTree *segmentloops;
 		std::vector<Segment *> segment_list;
 		std::vector<SegmentLoop *> segmentloop_list;
+		
 		std::vector<rna_example> *rna_examples;
 		
 		void parse(bool arg_parse_examples);
 		
 		void parse_segments(ptree &xml_motifs);
+		void parse_segmentloops(ptree &xml_motifs);
 		void parse_examples(ptree &xml_examples);
 		
+		std::vector<Pair> dotbracket_to_bonds(std::string &arg_dot_bracket);
+		
 		Segment *parse_segment(std::string arg_name, std::string arg_sequence_5p, std::string arg_bonds, std::string arg_sequence_3p, std::string arg_energy);
+		SegmentLoop *parse_segmentloop(std::string arg_name, std::string arg_sequence, std::string arg_dot_bracket, std::string arg_energy);
 		
 	public:
 		ReadSegments(std::string &arg_filename);

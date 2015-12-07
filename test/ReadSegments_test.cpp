@@ -80,8 +80,8 @@ BOOST_AUTO_TEST_CASE(Test1)
 	myfile.open(filename.c_str());
 	myfile <<   "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
 		   "<root>\n"
-		   "	<segments>\n"
-		   "	</segments>\n"
+		   "	<segments />\n"
+		   "	<segmentloops />\n"
 		   "</root>\n";
 	myfile.close();
 	
@@ -126,6 +126,7 @@ BOOST_AUTO_TEST_CASE(Test2)
 		   "			</directions>\n"
 		   "		</segment>\n"
 		   "	</segments>\n"
+		   "	<segmentloops />\n"
 		   "</root>\n";
 	myfile.close();
 	
@@ -243,6 +244,7 @@ BOOST_AUTO_TEST_CASE(Test3)
 		   "			</directions>\n"
 		   "		</segment>\n"
 		   "	</segments>\n"
+		   "	<segmentloops />\n"
 		   "</root>\n";
 	myfile.close();
 	
@@ -309,6 +311,7 @@ BOOST_AUTO_TEST_CASE(Test4)
 		   "			<directions><five_prime>true</five_prime><three_prime>true</three_prime></directions>\n"
 		   "		</segment>\n"
 		   "	</segments>\n"
+		   "	<segmentloops />\n"
 		   "</root>\n";
 	myfile.close();
 	
@@ -330,7 +333,7 @@ BOOST_AUTO_TEST_CASE(Test4)
  *
  * @test
  *
- * @date 2015-12-08
+ * @date 2015-12-07
  */
 BOOST_AUTO_TEST_CASE(Test5)
 {
@@ -647,6 +650,7 @@ BOOST_AUTO_TEST_CASE(Test5)
 		   "			<directions><five_prime>true</five_prime><three_prime>true</three_prime></directions>\n"
 		   "		</segment>\n"
 		   "	</segments>\n"
+		   "	<segmentloops />\n"
 		   "</root>\n";
 	myfile.close();
 	
@@ -797,6 +801,7 @@ BOOST_AUTO_TEST_CASE(Test6)
 		   "			</directions>\n"
 		   "		</segment>\n"
 		   "	</segments>\n"
+		   "	<segmentloops2 />\n"
 		   "</root>\n";
 	myfile.close();
 	
@@ -871,6 +876,66 @@ BOOST_AUTO_TEST_CASE(Test6)
 	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::ThreePrime, n2) , Nucleotide::A);
 	
 	unlink(filename.c_str());
+}
+
+
+
+/**
+ * @brief checks whether parsing a custom file with a segmentloop succeeds
+ *
+ * @test
+ *
+ * @date 2015-12-07
+ */
+BOOST_AUTO_TEST_CASE(Test7)
+{
+	std::string filename = "tmp.readsegments_test_test7";
+	
+	std::ofstream myfile;
+	myfile.open(filename.c_str());
+	myfile << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+		   "<root>\n"
+		   "	<segments />\n"
+		   "	<segmentloops>\n"
+		   "		<segmentloop><id>Arteficial segmentloop</id>\n"
+		   "			<sequence>CAAGAA</sequence>\n"
+		   "			<dot_bracket type=\"full\">((..))</dot_bracket>\n"
+		   "			<energy>-5.0</energy>\n"
+		   "		</segmentloop>\n"
+		   "	</segmentloops>\n"
+		   "</root>\n";
+	myfile.close();
+	
+	SegmentTree segments;
+	SegmentLoopTree segmentloops;
+	ReadSegments r = ReadSegments(filename);
+	r.parse(segments, segmentloops);
+	
+	BOOST_CHECK_EQUAL(segmentloops.empty() , false);
+	BOOST_CHECK_EQUAL(segmentloops.size() , 1);
+	
+	/*
+	Sequence sequence = Sequence("CAAGAA");
+	SubSequence subsequence = Sequence.ssubset(0, 6);///@todo use sequence.size() - ?
+	Segment *segmentloop = segmentloops.search(subsequence);
+	
+	
+	BOOST_REQUIRE(segmentloop != NULL);
+	BOOST_CHECK_EQUAL(segment->gibbs_free_energy , (float) - 5.0);
+	
+	
+	// Check bonds
+	BOOST_CHECK_EQUAL(segment->traceback.bonds[0].first , 1);
+	BOOST_CHECK_EQUAL(segment->traceback.bonds[0].second , 1);
+	
+	BOOST_CHECK_EQUAL(segment->traceback.bonds[1].first , 1);
+	BOOST_CHECK_EQUAL(segment->traceback.bonds[1].second , 1);
+	
+	BOOST_CHECK_EQUAL(segment->traceback.bonds[2].first , 1);
+	BOOST_CHECK_EQUAL(segment->traceback.bonds[2].second , 1);
+	
+	unlink(filename.c_str());
+	*/
 }
 
 BOOST_AUTO_TEST_SUITE_END()
