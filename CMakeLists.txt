@@ -35,7 +35,7 @@ cmake_minimum_required(VERSION 2.8)
 
 project(segmentation-fold)
 
-set(PROJECT_VERSION "1.1.0")
+set(PROJECT_VERSION "1.2.0")
 set(PACKAGE_URL "https://github.com/yhoogstrate/segmentation-fold")
 set(PACKAGE_BUGREPORT "${PACKAGE_URL}/issues")
 
