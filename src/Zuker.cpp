@@ -136,7 +136,7 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 	float energy, tmp, tmp_k;
 	
 	Segment *tmp_segment;
-	//SegmentLoop *tmp_segmentloop;
+	SegmentLoop *tmp_segmentloop;
 	SegmentTraceback  *tmp_segmenttraceback = nullptr;
 	
 	Pair tmp_loopmatrix_value;
@@ -160,26 +160,18 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 			energy = this->get_hairpin_loop_element(p1);				// Hairpin element
 			tmp_loopmatrix_value = {p1.first + 1, p1.second - 1};
 			
-			///@todo find SegmentLoopElement() and set tmp_segmenttraceback
-			/*
-			SubSequence p1 = SubSequence(this->sequence_begin + p1.first + 1, this->sequence_begin + ip - 1);
-			tmp_segment = this->thermodynamics.segments.search(pp1 , pp2);
-			
-			if(tmp_segment != nullptr)
+			// SegmentLoop element
+			SubSequence ps1 = this->sequence.ssubseq(p1.first + 1 , p1.second - 1); ///@todo use Pair()
+			tmp_segmentloop = this->thermodynamics.segmentloops.search(ps1);
+			if(tmp_segmentloop != nullptr)
 			{
-				tmp_k = tmp_segment->gibbs_free_energy + this->get_stacking_pair_without_surrounding(p1p) + v_ij_jp;
+				tmp_k = tmp_segmentloop->gibbs_free_energy + this->get_stacking_pair_without_surrounding(p1p);
+				if(tmp_k < energy)
+				{
+					energy = tmp_k;
+					tmp_segmenttraceback = &tmp_segmentloop->traceback;
+				}
 			}
-			else
-			{
-				tmp_k = N_INFINITY;
-			}
-			if(tmp_k < energy)
-			{
-				energy = tmp_k;
-			
-				tmp_segmenttraceback = &tmp_segmentloop->traceback;
-			}
-			 */
 			
 			for(ip = p1.first + 1; ip < p1.second; ip++)
 			{
