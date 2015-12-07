@@ -1,7 +1,7 @@
 /**
  * @file src/SegmentLoopTree.cpp
  *
- * @date 2015-12-05
+ * @date 2015-12-07
  *
  * @author Youri Hoogstrate
  *
@@ -68,7 +68,7 @@ SegmentLoopTree::~SegmentLoopTree()
 
 
 /**
- * @brief Searches a pair by using sets of iterators
+ * @brief
  *
  * @date 2015-12-05
  */
@@ -78,6 +78,12 @@ SegmentLoop *SegmentLoopTree::search(SubSequence &arg_subsequence)
 }
 
 
+
+/**
+ * @brief
+ *
+ * @date 2015-12-07
+ */
 SegmentLoop *SegmentLoopTree::search(SubSequence &arg_subsequence, SegmentLoopTreeElement *arg_element)
 {
 	if(arg_element != nullptr)
@@ -94,7 +100,6 @@ SegmentLoop *SegmentLoopTree::search(SubSequence &arg_subsequence, SegmentLoopTr
 			default:
 				return &arg_element->segmentloop;
 				break;
-				
 		}
 		
 		//return nullptr;
@@ -129,6 +134,7 @@ void SegmentLoopTree::insert(SegmentLoop &arg_segmentloop)
 
 
 /**
+ * @brief
  *
  * @date 2015-12-05
  */
@@ -136,18 +142,7 @@ void SegmentLoopTree::insert(SegmentLoop &arg_segmentloop, SegmentLoopTreeElemen
 {
 	switch(arg_element->segmentloop.sequence.compare(arg_segmentloop.sequence))
 	{
-		case IS_SMALLER:
-			if(arg_element->left != nullptr)
-			{
-				insert(arg_segmentloop, arg_element->left);
-			}
-			else
-			{
-				arg_element->left = new SegmentLoopTreeElement(arg_segmentloop);
-			}
-			break;
-			
-		case IS_LARGER:
+		case IS_SMALLER:// element is smaller than the inserted loop, means it has to go the the right
 			if(arg_element->right != nullptr)
 			{
 				insert(arg_segmentloop, arg_element->right);
@@ -158,10 +153,26 @@ void SegmentLoopTree::insert(SegmentLoop &arg_segmentloop, SegmentLoopTreeElemen
 			}
 			break;
 			
-			//default:  inserting same element twice
-			// if debug: throw exception
+		case IS_LARGER:
+			if(arg_element->left != nullptr)
+			{
+				insert(arg_segmentloop, arg_element->left);
+			}
+			else
+			{
+				arg_element->left = new SegmentLoopTreeElement(arg_segmentloop);
+			}
+			break;
+			
+#if DEBUG
+		default://  inserting same element twice
+			throw std::invalid_argument("SegmentLoopTree - inserting same element twice.");
+			break;
+#endif //DEBUG
+			
 	}
 }
+
 
 
 /**
@@ -177,14 +188,23 @@ bool SegmentLoopTree::empty(void)
 
 
 /**
- * @brief Counts recursively the elements in the tree
+ * @brief Counts the elements in the subtree recursively
  *
- * @date 2015-12-05
+ * @date 2015-12-07
+ */
+size_t SegmentLoopTree::size(SegmentLoopTreeElement *arg_element)
+{
+	return (arg_element == nullptr) ? 0 : 1 + this->size(arg_element->left) + this->size(arg_element->right);
+}
+
+
+
+/**
+ * @brief Counts the elements in the tree recursively
  *
- * @todo If this function becomes inline, it can not be found anymore... This is probably because its kinda recursive since it uses another inline function? Inlines seem to have to be defined in a header file
- * @link http://www.parashift.com/c++-faq-lite/inline-member-fns.html
+ * @date 2015-12-07
  */
 size_t SegmentLoopTree::size(void)
 {
-	return this->empty() ? 0 :    0;//@todo this->root->size();
+	return this->empty() ? 0 : this->size(this->root);
 }

@@ -1,7 +1,7 @@
 /**
  * @file src/Sequence.cpp
  *
- * @date 2015-12-05
+ * @date 2015-12-07
  *
  * @author Youri Hoogstrate
  *
@@ -175,6 +175,24 @@ Sequence Sequence::subseq(size_t arg_start, size_t arg_stop)
 
 
 /**
+ * @brief Creates a subsequence of the sequence
+ *
+ * @section DESCRIPTION
+ * The arg_stop is more appropriate than arg_length, since the entire Zuker algorithm works with positions rather than lengths.
+ *
+ * @param arg_start is the (0-based offset) nucleotide in the sequence where the subsequence starts
+ * @param arg_stop is the (0-based offset) nucleotide in the sequence where the subsequence ends
+ *
+ * @date 2015-12-07
+ */
+SubSequence Sequence::ssubseq(size_t arg_start, size_t arg_stop)
+{
+	return SubSequence(this->data.begin() + arg_start, this->data.begin() + arg_stop);
+}
+
+
+
+/**
  * @brief Gives the number of Nucleotides in the Sequence
  *
  * @date 2014-05-18
@@ -256,8 +274,6 @@ std::string Sequence::str()
  * @brief returns IS_EQUAL, IS_SMALLER (if this is smaller) or IS_LARGER (if arg_query is smaller)
  *
  * @date 2015-12-05
- *
- * @todo write tests
  */
 char Sequence::compare(Sequence &arg_query)
 {
@@ -292,7 +308,11 @@ char Sequence::compare(Sequence &arg_query)
 
 
 
-
+/**
+ * @brief Compares whether this sequence is smaller, larger or equal compared to a given SubSequence
+ *
+ * @date 2015-12-07
+ */
 char Sequence::compare(SubSequence &arg_query)
 {
 	size_t size_this = this->size();

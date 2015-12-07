@@ -1,3 +1,6 @@
+2015-12-07  Youri Hoogstrate
+	* SegmentLoopTree works + passing test cases
+
 2015-12-04  Youri Hoogstrate
 	* SegmentLoop object works + passing test case
 

@@ -1,7 +1,7 @@
 /**
  * @file test/SegmentTree_test.cpp
  *
- * @date 2015-12-06
+ * @date 2015-12-07
  *
  * @author Youri Hoogstrate
  *
@@ -84,6 +84,175 @@ BOOST_AUTO_TEST_CASE(Test1)
 	
 	BOOST_CHECK(segmentloop_tree.search(p1) != nullptr);
 	BOOST_CHECK(segmentloop_tree.search(p1)->sequence == sequence);
+}
+
+
+
+/**
+ * @brief Tests whether left and right are chosen correctly
+ *
+ * @test
+ *
+ * @date 2015-12-07
+ */
+BOOST_AUTO_TEST_CASE(Test2)
+{
+	std::string segmentloop_name_01 = "A";
+	float energy_01 = -1.00;
+	Sequence sequence_01     = Sequence("AAAA");
+	std::vector <Pair> bonds_01 = {{Pair({1, 1})}};
+	SegmentLoop segmentloop_01 = SegmentLoop(segmentloop_name_01, sequence_01, bonds_01, energy_01);
+	
+	std::string segmentloop_name_02 = "B";
+	float energy_02 = -2.00;
+	Sequence sequence_02     = Sequence("AA");
+	std::vector <Pair> bonds_02 = {{Pair({1, 1})}};
+	SegmentLoop segmentloop_02 = SegmentLoop(segmentloop_name_02, sequence_02, bonds_02, energy_02);
+	
+	std::string segmentloop_name_03 = "C";
+	float energy_03 = -3.00;
+	Sequence sequence_03     = Sequence("AAA");
+	std::vector <Pair> bonds_03 = {{Pair({1, 1})}};
+	SegmentLoop segmentloop_03 = SegmentLoop(segmentloop_name_03, sequence_03, bonds_03, energy_03);
+	
+	
+	//Requires the Test_SegmentLoopTree object because the SegmentLoopTree::root is private
+	Test_SegmentLoopTree segmentloop_tree = Test_SegmentLoopTree();
+	segmentloop_tree.insert(segmentloop_01);
+	segmentloop_tree.insert(segmentloop_02);
+	segmentloop_tree.insert(segmentloop_03);
+	
+	BOOST_CHECK(&(segmentloop_tree.root->segmentloop) == &segmentloop_01);
+	
+	BOOST_CHECK(&(segmentloop_tree.root->left->segmentloop) == &segmentloop_02);
+	BOOST_CHECK(segmentloop_tree.root->right == nullptr);
+	
+	BOOST_CHECK(&(segmentloop_tree.root->left->right->segmentloop) == &segmentloop_03);
+	BOOST_CHECK(segmentloop_tree.root->left->left == nullptr);
+}
+
+
+
+/**
+ * @brief Tests whether the tree queries correctly when multiple elements are inserted
+ *
+ * @test
+ *
+ * @date 2015-12-07
+ */
+BOOST_AUTO_TEST_CASE(Test3)
+{
+	std::string segmentloop_name_01 = "A";
+	float energy_01 = -1.00;
+	Sequence sequence_01     = Sequence("AAAAA");
+	std::vector <Pair> bonds_01 = {{Pair({1, 1}), Pair({2, 1}), Pair({2, 1})}};
+	SegmentLoop segmentloop_01 = SegmentLoop(segmentloop_name_01, sequence_01, bonds_01, energy_01);
+	
+	std::string segmentloop_name_02 = "B";
+	float energy_02 = -2.00;
+	Sequence sequence_02     = Sequence("CAAAA");
+	std::vector <Pair> bonds_02 = {{Pair({1, 1}), Pair({2, 1}), Pair({2, 1})}};
+	SegmentLoop segmentloop_02 = SegmentLoop(segmentloop_name_02, sequence_02, bonds_02, energy_02);
+	
+	std::string segmentloop_name_03 = "C";
+	float energy_03 = -3.00;
+	Sequence sequence_03     = Sequence("ACAAA");
+	std::vector <Pair> bonds_03 = {{Pair({1, 1}), Pair({2, 1}), Pair({2, 1})}};
+	SegmentLoop segmentloop_03 = SegmentLoop(segmentloop_name_03, sequence_03, bonds_03, energy_03);
+	
+	std::string segmentloop_name_04 = "D";
+	float energy_04 = -4.00;
+	Sequence sequence_04     = Sequence("AACAA");
+	std::vector <Pair> bonds_04 = {{Pair({1, 1}), Pair({2, 1}), Pair({2, 1})}};
+	SegmentLoop segmentloop_04 = SegmentLoop(segmentloop_name_04, sequence_04, bonds_04, energy_04);
+	
+	std::string segmentloop_name_05 = "E";
+	float energy_05 = -5.00;
+	Sequence sequence_05     = Sequence("AACA");
+	std::vector <Pair> bonds_05 = {{Pair({1, 1}), Pair({2, 1}) }};
+	SegmentLoop segmentloop_05 = SegmentLoop(segmentloop_name_05, sequence_05, bonds_05, energy_05);
+	
+	std::string segmentloop_name_06 = "F";
+	float energy_06 = -6.00;
+	Sequence sequence_06     = Sequence("AAAAC");
+	std::vector <Pair> bonds_06 = {{Pair({1, 1}), Pair({2, 1}), Pair({2, 1})}};
+	SegmentLoop segmentloop_06 = SegmentLoop(segmentloop_name_06, sequence_06, bonds_06, energy_06);
+	
+	
+	Sequence query_sequence     = Sequence("gAAAAAg");
+	
+	Position p1a = query_sequence.data.begin() + 1;
+	Position p1b = query_sequence.data.begin() + 1 + 4;
+	
+	BOOST_CHECK_EQUAL(*p1a , Nucleotide::A);
+	BOOST_CHECK_EQUAL(*p1b , Nucleotide::A);
+	
+	SubSequence p1 = SubSequence(p1a, p1b);
+	
+	BOOST_CHECK_EQUAL(p1.size , 5);
+	
+	SegmentLoopTree segmentloop_tree_01 = SegmentLoopTree();
+	segmentloop_tree_01.insert(segmentloop_01);
+	segmentloop_tree_01.insert(segmentloop_02);
+	segmentloop_tree_01.insert(segmentloop_03);
+	segmentloop_tree_01.insert(segmentloop_04);
+	segmentloop_tree_01.insert(segmentloop_05);
+	segmentloop_tree_01.insert(segmentloop_06);
+	
+	BOOST_CHECK(segmentloop_tree_01.search(p1) != nullptr);
+	BOOST_CHECK(segmentloop_tree_01.search(p1)->gibbs_free_energy == -1.0);
+	
+	
+	SegmentLoopTree segmentloop_tree_02 = SegmentLoopTree();
+	segmentloop_tree_02.insert(segmentloop_06);
+	segmentloop_tree_02.insert(segmentloop_05);
+	segmentloop_tree_02.insert(segmentloop_04);
+	segmentloop_tree_02.insert(segmentloop_03);
+	segmentloop_tree_02.insert(segmentloop_02);
+	segmentloop_tree_02.insert(segmentloop_01);
+	
+	BOOST_CHECK(segmentloop_tree_02.search(p1) != nullptr);
+	BOOST_CHECK(segmentloop_tree_02.search(p1)->gibbs_free_energy == -1.0);
+	
+	
+	SegmentLoopTree segmentloop_tree_03 = SegmentLoopTree();
+	segmentloop_tree_03.insert(segmentloop_04);
+	segmentloop_tree_03.insert(segmentloop_05);
+	segmentloop_tree_03.insert(segmentloop_06);
+	segmentloop_tree_03.insert(segmentloop_01);
+	segmentloop_tree_03.insert(segmentloop_02);
+	segmentloop_tree_03.insert(segmentloop_03);
+	
+	BOOST_CHECK(segmentloop_tree_03.search(p1) != nullptr);
+	BOOST_CHECK(segmentloop_tree_03.search(p1)->gibbs_free_energy == -1.0);
+	
+	
+	SegmentLoopTree segmentloop_tree_04 = SegmentLoopTree();
+	segmentloop_tree_04.insert(segmentloop_01);
+	segmentloop_tree_04.insert(segmentloop_06);
+	segmentloop_tree_04.insert(segmentloop_02);
+	segmentloop_tree_04.insert(segmentloop_05);
+	segmentloop_tree_04.insert(segmentloop_03);
+	segmentloop_tree_04.insert(segmentloop_04);
+	
+	BOOST_CHECK(segmentloop_tree_04.search(p1) != nullptr);
+	BOOST_CHECK(segmentloop_tree_04.search(p1)->gibbs_free_energy == -1.0);
+	
+	
+	SegmentLoopTree segmentloop_tree_05 = SegmentLoopTree();
+	segmentloop_tree_05.insert(segmentloop_01);
+	segmentloop_tree_05.insert(segmentloop_05);
+	segmentloop_tree_05.insert(segmentloop_02);
+	segmentloop_tree_05.insert(segmentloop_04);
+	segmentloop_tree_05.insert(segmentloop_06);
+	segmentloop_tree_05.insert(segmentloop_03);
+	
+	BOOST_CHECK(segmentloop_tree_05.search(p1) != nullptr);
+	BOOST_CHECK(segmentloop_tree_05.search(p1)->gibbs_free_energy == -1.0);
+	
+	
+	
+	BOOST_CHECK(segmentloop_tree_05.size() == 6);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

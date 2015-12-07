@@ -64,6 +64,7 @@ class Sequence
 		bool empty();
 		
 		Sequence subseq(size_t arg_start, size_t arg_stop);
+		SubSequence ssubseq(size_t arg_start, size_t arg_stop);
 		
 		std::string str();
 		

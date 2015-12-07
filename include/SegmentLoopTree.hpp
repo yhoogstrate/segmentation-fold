@@ -1,7 +1,7 @@
 /**
  * @file include/SegmentLoopTree.hpp
  *
- * @date 2015-12-06
+ * @date 2015-12-07
  *
  * @author Youri Hoogstrate
  *
@@ -26,8 +26,8 @@
  */
 
 
-#ifndef SEGMENTTREE_HPP
-#define	SEGMENTTREE_HPP
+#ifndef SEGMENTLOOPTREE_HPP
+#define	SEGMENTLOOPTREE_HPP
 
 
 #include "SubSequence.hpp"
@@ -38,8 +38,8 @@ struct SegmentLoopTreeElement
 {
 	SegmentLoop &segmentloop;
 	
-	SegmentLoopTreeElement *left;// = nullptr;
-	SegmentLoopTreeElement *right;// = nullptr;
+	SegmentLoopTreeElement *left;
+	SegmentLoopTreeElement *right;
 	
 	SegmentLoopTreeElement(SegmentLoop &arg_segmentloop) : segmentloop(arg_segmentloop), left(nullptr), right(nullptr) {}
 };
@@ -52,15 +52,19 @@ struct SegmentLoopTreeElement
  * @section DESCRIPTION
  * Stores all (K-turn) segments in memory.
  *
- * @date 2015-12-06
+ * @date 2015-12-07
  */
 class SegmentLoopTree
 {
+		friend class Test_SegmentLoopTree;
+		
 	private:
-		SegmentLoopTreeElement *root;
+		SegmentLoopTreeElement *root;//@todo move back to private
 		
 		void insert(SegmentLoop &arg_segment, SegmentLoopTreeElement *arg_element);
 		SegmentLoop *search(SubSequence &arg_segment, SegmentLoopTreeElement *arg_element);
+		
+		size_t size(SegmentLoopTreeElement *arg_element);
 		
 	public:
 		SegmentLoopTree();
@@ -74,4 +78,14 @@ class SegmentLoopTree
 };
 
 
-#endif	// SEGMENTTREE_HPP
+
+// allows testing private members
+class Test_SegmentLoopTree: public SegmentLoopTree
+{
+	public:
+		using SegmentLoopTree::root;
+};
+
+
+
+#endif	// SEGMENTLOOPTREE_HPP

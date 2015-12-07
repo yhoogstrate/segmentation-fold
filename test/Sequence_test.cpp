@@ -47,7 +47,7 @@ BOOST_AUTO_TEST_SUITE(Testing)
  *
  * @date 2014-03-11
  */
-BOOST_AUTO_TEST_CASE(Test1)
+BOOST_AUTO_TEST_CASE(Test01)
 {
 	Sequence s;
 	
@@ -83,7 +83,7 @@ BOOST_AUTO_TEST_CASE(Test1)
  *
  * @date 2014-03-12
  */
-BOOST_AUTO_TEST_CASE(Test2)
+BOOST_AUTO_TEST_CASE(Test02)
 {
 	std::string s2_str = std::string("ACUG");
 	Sequence s1 = Sequence("ACGU");
@@ -108,7 +108,7 @@ BOOST_AUTO_TEST_CASE(Test2)
  *
  * @date 2014-04-15
  */
-BOOST_AUTO_TEST_CASE(Test3)
+BOOST_AUTO_TEST_CASE(Test03)
 {
 	Sequence sequence;
 	unsigned char c;
@@ -145,7 +145,7 @@ BOOST_AUTO_TEST_CASE(Test3)
  *
  * @date 2014-04-15
  */
-BOOST_AUTO_TEST_CASE(Test4)
+BOOST_AUTO_TEST_CASE(Test04)
 {
 	Sequence sequence;
 	std::string sequence_str;
@@ -190,7 +190,7 @@ BOOST_AUTO_TEST_CASE(Test4)
  * U = 3
  * A sequence of AA must be the 'smallest' of the two-letter sequences.
  */
-BOOST_AUTO_TEST_CASE(Test5)
+BOOST_AUTO_TEST_CASE(Test05)
 {
 	Sequence s1  = Sequence("AA");
 	Sequence s2  = Sequence("CC");
@@ -245,7 +245,7 @@ BOOST_AUTO_TEST_CASE(Test5)
  *
  * @date 2014-05-19
  */
-BOOST_AUTO_TEST_CASE(Test6)
+BOOST_AUTO_TEST_CASE(Test06)
 {
 	Sequence s1 = Sequence("AAGAA");
 	Sequence s2 = Sequence("aAGAA");
@@ -281,7 +281,7 @@ BOOST_AUTO_TEST_CASE(Test6)
  *
  * @date 2015-02-19
  */
-BOOST_AUTO_TEST_CASE(Test7)
+BOOST_AUTO_TEST_CASE(Test07)
 {
 	Sequence sequence = Sequence("ACTG");
 	
@@ -327,10 +327,120 @@ BOOST_AUTO_TEST_CASE(Test7)
  *
  * @date 2015-07-23
  */
-BOOST_AUTO_TEST_CASE(Test8)
+BOOST_AUTO_TEST_CASE(Test08)
 {
 	Sequence sequence = Sequence();
 	BOOST_REQUIRE_EQUAL(sequence.size(), 0);
+}
+
+
+
+
+/**
+ * @brief Tests Sequence::compare(&Sequence)
+ *
+ * @test
+ *
+ * @date 2015-12-07
+ */
+BOOST_AUTO_TEST_CASE(Test09)
+{
+	/*
+	A = 0,
+	C = 1,
+	G = 2,
+	U, T = 3
+	*/
+	
+	Sequence sequence = Sequence("CCC");
+	
+	Sequence smaller_sequence_01 = Sequence("ACC");
+	Sequence smaller_sequence_02 = Sequence("CCA");
+	Sequence smaller_sequence_03 = Sequence("AA");
+	Sequence smaller_sequence_04 = Sequence("CC");
+	Sequence smaller_sequence_05 = Sequence("TT");
+	
+	Sequence larger_sequence_01 = Sequence("ACCC");
+	Sequence larger_sequence_02 = Sequence("CCCA");
+	Sequence larger_sequence_03 = Sequence("CCG");
+	Sequence larger_sequence_04 = Sequence("GCC");
+	Sequence larger_sequence_05 = Sequence("TTT");
+	
+	BOOST_REQUIRE_EQUAL(sequence.compare(smaller_sequence_01), IS_LARGER);// left sequence is larger than the 'smaller_' sequence
+	BOOST_REQUIRE_EQUAL(sequence.compare(smaller_sequence_02), IS_LARGER);
+	BOOST_REQUIRE_EQUAL(sequence.compare(smaller_sequence_03), IS_LARGER);
+	BOOST_REQUIRE_EQUAL(sequence.compare(smaller_sequence_04), IS_LARGER);
+	BOOST_REQUIRE_EQUAL(sequence.compare(smaller_sequence_05), IS_LARGER);
+	
+	BOOST_REQUIRE_EQUAL(sequence.compare(larger_sequence_01), IS_SMALLER);// left sequence is larger than the 'larger_' sequence
+	BOOST_REQUIRE_EQUAL(sequence.compare(larger_sequence_02), IS_SMALLER);
+	BOOST_REQUIRE_EQUAL(sequence.compare(larger_sequence_03), IS_SMALLER);
+	BOOST_REQUIRE_EQUAL(sequence.compare(larger_sequence_04), IS_SMALLER);
+	BOOST_REQUIRE_EQUAL(sequence.compare(larger_sequence_05), IS_SMALLER);
+}
+
+
+
+/**
+ * @brief Tests Sequence::ssubseq and Sequence::compare(&SubSequence)
+ *
+ * @test
+ *
+ * @date 2015-12-07
+ */
+BOOST_AUTO_TEST_CASE(Test10)
+{
+	Sequence sequence = Sequence("CCC");
+	
+	Sequence smaller_sequence_01 = Sequence("ACC");
+	Sequence smaller_sequence_02 = Sequence("CCA");
+	Sequence smaller_sequence_03 = Sequence("AA");
+	Sequence smaller_sequence_04 = Sequence("CC");
+	Sequence smaller_sequence_05 = Sequence("TT");
+	
+	SubSequence smaller_subsequence_01 = smaller_sequence_01.ssubseq(0, smaller_sequence_01.size() - 1);
+	SubSequence smaller_subsequence_02 = smaller_sequence_02.ssubseq(0, smaller_sequence_02.size() - 1);
+	SubSequence smaller_subsequence_03 = smaller_sequence_03.ssubseq(0, smaller_sequence_03.size() - 1);
+	SubSequence smaller_subsequence_04 = smaller_sequence_04.ssubseq(0, smaller_sequence_04.size() - 1);
+	SubSequence smaller_subsequence_05 = smaller_sequence_05.ssubseq(0, smaller_sequence_05.size() - 1);
+	
+	BOOST_CHECK(smaller_subsequence_01[0] == Nucleotide::A);
+	BOOST_CHECK(smaller_subsequence_01[1] == Nucleotide::C);
+	BOOST_CHECK(smaller_subsequence_01[2] == Nucleotide::C);
+	BOOST_CHECK(smaller_subsequence_01.size == 3);
+	
+	
+	Sequence larger_sequence_01 = Sequence("ACCC");
+	Sequence larger_sequence_02 = Sequence("CCCA");
+	Sequence larger_sequence_03 = Sequence("CCG");
+	Sequence larger_sequence_04 = Sequence("GCC");
+	Sequence larger_sequence_05 = Sequence("TTT");
+	
+	SubSequence larger_subsequence_01 = larger_sequence_01.ssubseq(0, larger_sequence_01.size() - 1);
+	SubSequence larger_subsequence_02 = larger_sequence_02.ssubseq(0, larger_sequence_02.size() - 1);
+	SubSequence larger_subsequence_03 = larger_sequence_03.ssubseq(0, larger_sequence_03.size() - 1);
+	SubSequence larger_subsequence_04 = larger_sequence_04.ssubseq(0, larger_sequence_04.size() - 1);
+	SubSequence larger_subsequence_05 = larger_sequence_05.ssubseq(0, larger_sequence_05.size() - 1);
+	
+	BOOST_CHECK(larger_subsequence_01[0] == Nucleotide::A);
+	BOOST_CHECK(larger_subsequence_01[1] == Nucleotide::C);
+	BOOST_CHECK(larger_subsequence_01[2] == Nucleotide::C);
+	BOOST_CHECK(larger_subsequence_01[2] == Nucleotide::C);
+	BOOST_CHECK(larger_subsequence_01.size == 4);
+	
+	
+	// test the compare function
+	BOOST_REQUIRE_EQUAL(sequence.compare(smaller_subsequence_01), IS_LARGER);// left sequence is larger than the 'smaller_' subsequence
+	BOOST_REQUIRE_EQUAL(sequence.compare(smaller_subsequence_02), IS_LARGER);
+	BOOST_REQUIRE_EQUAL(sequence.compare(smaller_subsequence_03), IS_LARGER);
+	BOOST_REQUIRE_EQUAL(sequence.compare(smaller_subsequence_04), IS_LARGER);
+	BOOST_REQUIRE_EQUAL(sequence.compare(smaller_subsequence_05), IS_LARGER);
+	
+	BOOST_REQUIRE_EQUAL(sequence.compare(larger_subsequence_01), IS_SMALLER);// left sequence is larger than the 'larger_' subsequence
+	BOOST_REQUIRE_EQUAL(sequence.compare(larger_subsequence_02), IS_SMALLER);
+	BOOST_REQUIRE_EQUAL(sequence.compare(larger_subsequence_03), IS_SMALLER);
+	BOOST_REQUIRE_EQUAL(sequence.compare(larger_subsequence_04), IS_SMALLER);
+	BOOST_REQUIRE_EQUAL(sequence.compare(larger_subsequence_05), IS_SMALLER);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
