@@ -37,7 +37,7 @@
 
 
 /**
- * @brief
+ * @brief Pointer based subsequence of a Sequence to avoid deep-copying
  *
  * @date 2015-05-06
  */

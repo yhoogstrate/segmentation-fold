@@ -84,7 +84,7 @@ class SegmentLoopTree
 
 
 
-// allows testing private members
+///@brief Friend class of SegmentLoopTree that allows testing its private members
 class Test_SegmentLoopTree: public SegmentLoopTree
 {
 	public:

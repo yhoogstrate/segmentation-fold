@@ -51,13 +51,6 @@ struct traceback_jump
 	bool jump_to_v_path;
 };
 
-struct traceback_jump_pair
-{
-	Pair pair;
-	bool jump_to_v_path;
-};
-
-
 
 #include "GibbsFreeEnergy.hpp"
 
@@ -75,6 +68,8 @@ struct traceback_jump_pair
  */
 class Zuker: public GibbsFreeEnergy
 {
+	friend class Test_Zuker;
+	
 	private:
 		Settings &settings;
 		
@@ -82,7 +77,7 @@ class Zuker: public GibbsFreeEnergy
 		int traceback_stacktop;
 		
 		Position sequence_begin;
-		
+	
 	public:
 		Zuker(Settings &arg_settings, Sequence &arg_sequence, ReadData &arg_thermodynamics);
 		
@@ -114,7 +109,7 @@ class Zuker: public GibbsFreeEnergy
 		ScoringMatrix<char> pathmatrix_corrected_from;					//@todo benchmark performance of std::vector<std::vector<bool>> pathmatrix_corrected_from; or make argument between fast and sparse
 		ScoringMatrix<Pair> loopmatrix;									//@todo benchmark performance of std::vector<std::vector<bool>> pathmatrix_corrected_from; or make argument between fast and sparse
 		
-		ScoringMatrix<SegmentTraceback *> sij;							//@todo benchmark performance using std::map<SegmentTraceback *>
+		ScoringMatrix<SegmentTraceback *> sij;
 		
 #if DEBUG
 		// Functions only useful for plotting and debugging
@@ -126,5 +121,17 @@ class Zuker: public GibbsFreeEnergy
 		void _print_wij(unsigned int matrix_length);
 #endif //DEBUG
 };
+
+
+
+///@brief Friend class of Zuker that allows testing its private members
+class Test_Zuker: public Zuker
+{
+	public:
+		using Zuker::vij;
+		using Zuker::Zuker;
+};
+
+
 
 #endif	// ZUKER_HPP
