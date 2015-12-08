@@ -52,8 +52,6 @@
 #include "SegmentLoopTree.hpp"
 #include "ReadSegments.hpp"
 
-#include "ScoringTree.hpp"
-
 #include "Settings.hpp"
 #include "DotBracket.hpp"
 #include "ReadData.hpp"

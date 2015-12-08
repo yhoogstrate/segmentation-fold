@@ -49,8 +49,6 @@
 #include "SegmentLoopTree.hpp"
 #include "ReadSegments.hpp"
 
-#include "ScoringTree.hpp"
-
 #include "ScoringMatrix.hpp"
 #include "Settings.hpp"
 #include "DotBracket.hpp"

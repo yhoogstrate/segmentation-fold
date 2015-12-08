@@ -28,9 +28,9 @@ and
 ## Tests ##
 
 To simplify the reviewing process of submitted code the project contains
-unit and functional tests. These past have to be passed in order to get
-a positive review. RThat these tests also inspect memory leaks using
-valgrind. To test your own code before doing a pull request, run:
+unit and functional tests. These tests have to be passed in order to get
+a positive review. These tests also inspect memory leaks using valgrind.
+To run the test on (your copy of the) code before doing a pull request, run:
 
 	cmake .
 	make clean
@@ -39,7 +39,7 @@ valgrind. To test your own code before doing a pull request, run:
 	make check
 	ctest -V -T memcheck
 
-This will re-build the readme, re-compile, do testing with and without
-memory leak checking. If you can't get it working but you still believe
-your change is worth submitting, don't worry. Whenever you do a pull
-request TravisCI will automatically run the tests for you.
+This will re-build the readme, re-compile the code, and does testing with and
+without memory leak checking. If you can't get it working but you still believe
+your change is worth submitting, don't worry. Whenever you do a pull request
+TravisCI will automatically run the tests for you.

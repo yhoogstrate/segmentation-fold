@@ -35,6 +35,8 @@
 
 
 /**
+ * @brief Container of two Nucleotides
+ * 
  * @date 2015-04-22
  */
 class Pairing

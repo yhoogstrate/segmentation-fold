@@ -32,6 +32,7 @@
 #include <utility>
 
 
+///@brief A struct that describes a region, from (i,j) to (i',j'), as two Pair objects
 struct Region
 {
 	Pair &pair1, &pair2;

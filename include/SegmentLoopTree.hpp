@@ -34,6 +34,11 @@
 
 
 
+/**
+ * @brief Struct used in the SegmentLoopTree data structure
+ *
+ * @date 2015-12-07
+ */
 struct SegmentLoopTreeElement
 {
 	SegmentLoop &segmentloop;
@@ -79,7 +84,7 @@ class SegmentLoopTree
 
 
 
-// allows testing private members
+///@brief Friend class of SegmentLoopTree that allows testing its private members
 class Test_SegmentLoopTree: public SegmentLoopTree
 {
 	public:

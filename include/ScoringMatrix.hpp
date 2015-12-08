@@ -36,7 +36,7 @@
 
 
 /**
- * @brief A (memory efficient) lower triangle of an n*n scoring matrix, with an additional vertical.
+ * @brief A (memory efficient) lower triangle of an n*n scoring matrix plus an additional vertical.
  *
  * @date 25-jul-2013
  * @section DESCRIPTION
