@@ -31,6 +31,15 @@
 #define	GIBBSFREEENERGY_HPP
 
 
+
+/**
+ * @brief Gibbs free energy table (including caching functions)
+ *
+ * @section DESCRIPTION
+ * Provides the energy values to the Zuker class
+ *
+ * @date 2015-12-08
+ */
 class GibbsFreeEnergy
 {
 	private:

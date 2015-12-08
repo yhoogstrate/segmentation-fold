@@ -34,6 +34,11 @@
 
 
 
+/**
+ * @brief Struct used in the SegmentLoopTree data structure
+ *
+ * @date 2015-12-07
+ */
 struct SegmentLoopTreeElement
 {
 	SegmentLoop &segmentloop;

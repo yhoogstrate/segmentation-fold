@@ -157,7 +157,6 @@ add_executable(segmentation-fold
 					src/SegmentLoopTree.cpp
 					src/ScoringMatrix.cpp
 					src/Sequence.cpp
-					src/ScoringTree.cpp
 				)
 
 set_target_properties(segmentation-fold PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${BUILD_DIR}")
@@ -186,7 +185,6 @@ add_test(segmenttree_test        "${BUILD_TEST_DIR}/segmenttree_test")
 add_test(segmentlooptree_test    "${BUILD_TEST_DIR}/segmentlooptree_test")
 add_test(readsegments_test       "${BUILD_TEST_DIR}/readsegments_test")
 add_test(settings_test           "${BUILD_TEST_DIR}/settings_test")
-add_test(scoringtree_test        "${BUILD_TEST_DIR}/scoringtree_test")
 add_test(scoringmatrix_test      "${BUILD_TEST_DIR}/scoringmatrix_test")
 add_test(gibbsfreeenergy_test    "${BUILD_TEST_DIR}/gibbsfreeenergy_test")
 add_test(zuker_test              "${BUILD_TEST_DIR}/zuker_test")

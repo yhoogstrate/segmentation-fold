@@ -41,7 +41,6 @@
 #include "Nucleotide.hpp"
 #include "Sequence.hpp"
 #include "Segment.hpp"
-#include "ScoringTree.hpp"
 
 
 
