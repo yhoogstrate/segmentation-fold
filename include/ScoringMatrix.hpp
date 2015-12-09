@@ -72,17 +72,16 @@ class ScoringMatrix
 	public:
 		ScoringMatrix(unsigned int arg_length, T arg_initialization_value);///@todo use size_t instead of unsigned int?
 		
-		signed int get_position(unsigned int x, unsigned int y);
 		signed int get_position(Pair &p);
 		
-		T get(unsigned int x, unsigned int y);
 		T get(Pair &p);
 		
-		void set(unsigned int x, unsigned int y, T arg_value);
 		void set(Pair &p, T arg_value);
 		
 		size_t size(void);
 		size_t number_of_elements(size_t n);
+		
+		///@todo Nucleotide operator[](size_t); << directly obtain from the vector this->m, allows caching of its iterator
 		
 		void fill(T arg_value);
 };

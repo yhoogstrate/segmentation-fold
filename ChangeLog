@@ -1,3 +1,7 @@
+2015-12-09  Youri Hoogstrate
+	 - Code cleanup
+	 - Removal of functions that did not make use of Pair objects
+
 2015-12-07  Youri Hoogstrate
 	* v1.2.0
 	  - Full support for SegmentLoops

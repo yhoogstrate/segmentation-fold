@@ -68,8 +68,8 @@ struct traceback_jump
  */
 class Zuker: public GibbsFreeEnergy
 {
-	friend class Test_Zuker;
-	
+		friend class Test_Zuker;
+		
 	private:
 		Settings &settings;
 		
@@ -77,7 +77,7 @@ class Zuker: public GibbsFreeEnergy
 		int traceback_stacktop;
 		
 		Position sequence_begin;
-	
+		
 	public:
 		Zuker(Settings &arg_settings, Sequence &arg_sequence, ReadData &arg_thermodynamics);
 		

@@ -241,7 +241,7 @@ void ReadSegments::parse_segmentloops(ptree &xml_segments)
 			std::string energy = xml_segment.second.get<std::string>("energy");
 			
 			///@todo figure out how many copies of these objects are stored
-			this->segmentloops->insert(*( this->parse_segmentloop(id, sequence, dot_bracket, energy) ));
+			this->segmentloops->insert(*(this->parse_segmentloop(id, sequence, dot_bracket, energy)));
 		}
 	}
 }
@@ -365,9 +365,9 @@ SegmentLoop *ReadSegments::parse_segmentloop(std::string arg_name, std::string a
 
 /**
  * @brief converts "((.((..))).)" into (1,1),(1,2),(2,1),(1,1)
- * 
+ *
  * @date 2015-12-07
- * 
+ *
  * @todo fix for:  ((( ))) ((( )))
  */
 std::vector<Pair> ReadSegments::dotbracket_to_bonds(std::string &arg_dot_bracket)
@@ -377,7 +377,7 @@ std::vector<Pair> ReadSegments::dotbracket_to_bonds(std::string &arg_dot_bracket
 	signed int i = 0;
 	signed int previous_i = -1;
 	
-	signed int j = arg_dot_bracket.size() -1 ;
+	signed int j = arg_dot_bracket.size() - 1 ;
 	signed int previous_j = arg_dot_bracket.size() ;
 	
 	while(i < j)

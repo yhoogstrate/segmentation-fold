@@ -1,7 +1,7 @@
 /**
  * @file include/DotBracket.hpp
  *
- * @date 2015-05-02
+ * @date 2015-12-09
  *
  * @author Youri Hoogstrate
  * @author Lisa Yu
@@ -37,15 +37,21 @@
 
 
 /**
- * @brief 2D structure in DotBracket format.
+ * @brief Container of secondary structure as DotBracket format.
  *
  * @section DESCRIPTION
  * Maintains a DotBracket formatted 2D structure (without pseudo-knotting)
+ *
+ * Specification of the file format:
+ * <a href="https://wiki.galaxyproject.org/Learn/Datatypes#Dbn">https://wiki.galaxyproject.org/Learn/Datatypes#Dbn</a>
  *
  * @date 2015-04-20
  */
 class DotBracket
 {
+	private:
+		std::vector <std::pair<int, int>> pairings;
+		
 	public:
 		DotBracket();
 		
@@ -54,9 +60,6 @@ class DotBracket
 		void format(unsigned int n, std::string &output);
 		
 		bool match(std::string &dot_bracket_pattern, std::string &dot_bracket_subject);
-		
-	private:
-		std::vector <std::pair<int, int>> pairings;
 };
 
 
