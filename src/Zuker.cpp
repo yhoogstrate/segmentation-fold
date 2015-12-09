@@ -120,7 +120,7 @@ float Zuker::energy(void)
 /**
  * @brief Vij Function - energy if (i,j) pair, otherwise return infinity
  *
- * @date 2015-12-07
+ * @date 2015-12-09
  *
  * @param p1 A pair of positions refering to Nucleotide positions in the sequence, where pi.first < p1.second
  *
@@ -272,7 +272,7 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 				}
 			}
 			
-			this->loopmatrix.set(p1.first, p1.second, tmp_loopmatrix_value);
+			this->loopmatrix.set(p1, tmp_loopmatrix_value);
 			if(tmp_segmenttraceback != nullptr)
 			{
 				this->sij.set(p1, tmp_segmenttraceback);
@@ -281,7 +281,7 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 		}
 #endif //DEBUG
 		
-		this->vij.set(p1.first, p1.second, energy);
+		this->vij.set(p1, energy);
 	}
 	
 	return energy;

@@ -1,7 +1,7 @@
 /**
  * @file src/ScoringMatrix.cpp
  *
- * @date 2015-12-01
+ * @date 2015-12-09
  *
  * @author Youri Hoogstrate
  *
@@ -101,20 +101,15 @@ T ScoringMatrix<T>::get(Pair &pair)
 
 
 /**
- * @brief
+ * @brief Calculates the position (x,y) in the matrix corresponds to the position in the vector
  *
  * @date 2015-06-26
  *
  * @todo MAKE CONSTANT OF -2
  * @todo MAKE CONSTANT OF -1
+ *
+ * @todo put constant in ScoringMatrix.hpp
  */
-template <class T>
-inline signed int ScoringMatrix<T>::get_position(unsigned int x, unsigned int y)
-{
-	Pair pair = Pair(x, y);
-	return this->get_position(pair);
-}
-
 template <class T>
 signed int ScoringMatrix<T>::get_position(Pair &p)
 {
@@ -168,22 +163,9 @@ signed int ScoringMatrix<T>::get_position(Pair &p)
 
 
 /**
- * @deprecated use pairs instead
- */
-template <class T>
-inline void ScoringMatrix<T>::set(unsigned int x, unsigned int y, T arg_value)
-{
-	Pair pair = Pair(x, y);
-	
-	return this->set(pair, arg_value);
-}
-
-
-
-/**
  * @brief Sets a value in the matrix
  *
- * @date 2015-06-27
+ * @date 2015-12-09
  *
  * @todo Check whether diagonals are initiated; it takes unnecessairy computations
  */
@@ -191,7 +173,7 @@ template <class T>
 void ScoringMatrix<T>::set(Pair &pair, T arg_value)
 {
 #if DEBUG
-	signed int position = this->get_position(pair.first, pair.second);
+	signed int position = this->get_position(pair);
 	
 	if(position >= 0)
 	{

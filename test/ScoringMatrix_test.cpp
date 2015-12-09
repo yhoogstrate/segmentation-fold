@@ -1,7 +1,7 @@
 /**
  * @file test/ScoringMatrix_test.cpp
  *
- * @date 2015-06-28
+ * @date 2015-12-09
  *
  * @author Youri Hoogstrate
  *
@@ -117,7 +117,7 @@ BOOST_AUTO_TEST_CASE(Test1)
  *
  * @test
  *
- * @date 2015-06-24
+ * @date 2015-12-09
  *
  * @note This test is testing a function that originally was planned to be private. Hopefully one day we succeed in testing a private function: http://boost.2283326.n4.nabble.com/Testing-private-methods-in-Boost-td2599819.html
  *
@@ -135,53 +135,91 @@ BOOST_AUTO_TEST_CASE(Test1)
 BOOST_AUTO_TEST_CASE(Test2)
 {
 	ScoringMatrix<signed int> matrix = ScoringMatrix<signed int>(5, 0);
+	Pair p = Pair();
 	
 	// Test correct elements from the lower triangle:
-	BOOST_CHECK_EQUAL(0, matrix.get_position(0, 1));
-	BOOST_CHECK_EQUAL(1, matrix.get_position(0, 2));
-	BOOST_CHECK_EQUAL(2, matrix.get_position(0, 3));
-	BOOST_CHECK_EQUAL(3, matrix.get_position(0, 4));
+	p.first = 0;
+	p.second = 1;
+	BOOST_CHECK_EQUAL(0, matrix.get_position(p));
+	p.second = 2;
+	BOOST_CHECK_EQUAL(1, matrix.get_position(p));
+	p.second = 3;
+	BOOST_CHECK_EQUAL(2, matrix.get_position(p));
+	p.second = 4;
+	BOOST_CHECK_EQUAL(3, matrix.get_position(p));
 	
-	BOOST_CHECK_EQUAL(4, matrix.get_position(1, 2));
-	BOOST_CHECK_EQUAL(5, matrix.get_position(1, 3));
-	BOOST_CHECK_EQUAL(6, matrix.get_position(1, 4));
+	p.first = 1;
+	p.second = 2;
+	BOOST_CHECK_EQUAL(4, matrix.get_position(p));
+	p.second = 3;
+	BOOST_CHECK_EQUAL(5, matrix.get_position(p));
+	p.second = 4;
+	BOOST_CHECK_EQUAL(6, matrix.get_position(p));
 	
-	BOOST_CHECK_EQUAL(7, matrix.get_position(2, 3));
-	BOOST_CHECK_EQUAL(8, matrix.get_position(2, 4));
+	p.first = 2;
+	p.second = 3;
+	BOOST_CHECK_EQUAL(7, matrix.get_position(p));
+	p.second = 4;
+	BOOST_CHECK_EQUAL(8, matrix.get_position(p));
 	
-	BOOST_CHECK_EQUAL(9, matrix.get_position(3, 4));
+	p.first = 3;
+	p.second = 4;
+	BOOST_CHECK_EQUAL(9, matrix.get_position(p));
 	
 	
 	// Test correct element positions of the diagonals
-	BOOST_CHECK_EQUAL(-1, matrix.get_position(0, 0));
-	BOOST_CHECK_EQUAL(-1, matrix.get_position(1, 1));
-	BOOST_CHECK_EQUAL(-1, matrix.get_position(2, 2));
-	BOOST_CHECK_EQUAL(-1, matrix.get_position(3, 3));
-	BOOST_CHECK_EQUAL(-1, matrix.get_position(4, 4));
+	for(p.first = 0; p.first <= 4; p.first++)
+	{
+		p.second = p.first;
+		BOOST_CHECK_EQUAL(-1, matrix.get_position(p));
+	}
 	
-	BOOST_CHECK_EQUAL(-1, matrix.get_position(1, 0));
-	BOOST_CHECK_EQUAL(-1, matrix.get_position(2, 1));
-	BOOST_CHECK_EQUAL(-1, matrix.get_position(3, 2));
-	BOOST_CHECK_EQUAL(-1, matrix.get_position(4, 3));
+	// Test correct element positions of the diagonals
+	for(p.first = 1; p.first <= 4; p.first++)
+	{
+		p.second = p.first - 1;
+		BOOST_CHECK_EQUAL(-1, matrix.get_position(p));
+	}
+	
 	
 #if DEBUG
 	// Located at the not allocated upper triangle:
-	BOOST_CHECK_THROW(matrix.get_position(2, 0), std::invalid_argument);
-	BOOST_CHECK_THROW(matrix.get_position(3, 1), std::invalid_argument);
-	BOOST_CHECK_THROW(matrix.get_position(4, 2), std::invalid_argument);
+	p.first = 2;
+	p.second = 0;
+	BOOST_CHECK_THROW(matrix.get_position(p), std::invalid_argument);
+	p.first = 3;
+	p.second = 1;
+	BOOST_CHECK_THROW(matrix.get_position(p), std::invalid_argument);
+	p.first = 4;
+	p.second = 2;
+	BOOST_CHECK_THROW(matrix.get_position(p), std::invalid_argument);
 	
-	BOOST_CHECK_THROW(matrix.get_position(3, 0), std::invalid_argument);
-	BOOST_CHECK_THROW(matrix.get_position(4, 1), std::invalid_argument);
+	p.first = 3;
+	p.second = 0;
+	BOOST_CHECK_THROW(matrix.get_position(p), std::invalid_argument);
+	p.first = 4;
+	p.second = 1;
+	BOOST_CHECK_THROW(matrix.get_position(p), std::invalid_argument);
 	
-	BOOST_CHECK_THROW(matrix.get_position(4, 0), std::invalid_argument);
+	p.first = 4;
+	p.second = 0;
+	BOOST_CHECK_THROW(matrix.get_position(p), std::invalid_argument);
 	
 	// Positions that fall outside the entire matrix:
 	for(int i = 5; i <= 100; i += 5)
 	{
-		BOOST_CHECK_THROW(matrix.get_position(2, i), std::invalid_argument);
-		BOOST_CHECK_THROW(matrix.get_position(i, 2), std::invalid_argument);
-		BOOST_CHECK_THROW(matrix.get_position(5, i), std::invalid_argument);
-		BOOST_CHECK_THROW(matrix.get_position(i, 5), std::invalid_argument);
+		p.first = 2;
+		p.second = i;
+		BOOST_CHECK_THROW(matrix.get_position(p), std::invalid_argument);
+		p.first = i;
+		p.second = 2;
+		BOOST_CHECK_THROW(matrix.get_position(p), std::invalid_argument);
+		p.first = 5;
+		p.second = i;
+		BOOST_CHECK_THROW(matrix.get_position(p), std::invalid_argument);
+		p.first = i;
+		p.second = 5;
+		BOOST_CHECK_THROW(matrix.get_position(p), std::invalid_argument);
 	}
 #endif //DEBUG
 }
@@ -193,7 +231,7 @@ BOOST_AUTO_TEST_CASE(Test2)
  *
  * @test
  *
- * @date 2015-06-28
+ * @date 2015-12-09
  */
 BOOST_AUTO_TEST_CASE(Test3)
 {

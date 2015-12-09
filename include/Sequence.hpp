@@ -47,9 +47,8 @@
 class Sequence
 {
 	public:
-	
 		/// The sequence as vector of nucleotides
-		std::vector<Nucleotide> data;
+		std::vector<Nucleotide> data;///@todo make private
 		
 		Sequence();
 		Sequence(const char *);
@@ -70,9 +69,9 @@ class Sequence
 		
 		
 		/// Smaller than operator that compares whether the vector of Nucleotides is smaller than the other
-		inline bool operator<(const Sequence &arg_left_sequence) const { return data < arg_left_sequence.data;};
+		inline bool operator<(const Sequence &arg_left_sequence) const { return this->data < arg_left_sequence.data;};
 		/// The equality operator that returns equal only if the sequences have the same composition
-		inline bool operator==(const Sequence &arg_left_sequence) const {return data == arg_left_sequence.data;};
+		inline bool operator==(const Sequence &arg_left_sequence) const {return this->data == arg_left_sequence.data;};
 		
 		
 		///@note The following line is not being used in the code, but might be desired to include it as API
