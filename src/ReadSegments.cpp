@@ -388,8 +388,9 @@ std::vector<Pair> ReadSegments::dotbracket_to_bonds(std::string &arg_dot_bracket
 			// i++
 			
 			i++;
+		
 		}
-		else if(arg_dot_bracket[j] == '(' && arg_dot_bracket[j] != ')')
+		else if(arg_dot_bracket[i] == '(' && arg_dot_bracket[j] != ')')
 		{
 			// (.
 			// j--
@@ -401,7 +402,6 @@ std::vector<Pair> ReadSegments::dotbracket_to_bonds(std::string &arg_dot_bracket
 			// () || ..
 			// i++
 			// j--
-			
 			
 			if(arg_dot_bracket[i] == '(' && arg_dot_bracket[j] == ')')
 			{
