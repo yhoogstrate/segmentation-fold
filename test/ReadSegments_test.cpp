@@ -104,7 +104,7 @@ BOOST_AUTO_TEST_CASE(Test1)
  *
  * @test
  *
- * @date 2015-12-07
+ * @date 2015-12-11
  */
 BOOST_AUTO_TEST_CASE(Test2)
 {
@@ -151,15 +151,18 @@ BOOST_AUTO_TEST_CASE(Test2)
 	BOOST_REQUIRE(segment != NULL);
 	BOOST_CHECK_EQUAL(segment->gibbs_free_energy , (float) - 11.1072);
 	
-	// Check bonds
-	BOOST_CHECK_EQUAL(segment->traceback.bonds[0].first , 4);
-	BOOST_CHECK_EQUAL(segment->traceback.bonds[0].second , 1);
 	
-	BOOST_CHECK_EQUAL(segment->traceback.bonds[1].first , 1);
-	BOOST_CHECK_EQUAL(segment->traceback.bonds[1].second , 1);
+	Test_SegmentTraceback *segmenttraceback_test = static_cast<Test_SegmentTraceback *>(& segment->traceback);
 	
-	BOOST_CHECK_EQUAL(segment->traceback.bonds[2].first , 1);
-	BOOST_CHECK_EQUAL(segment->traceback.bonds[2].second , 1);
+	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[0].first , 4);
+	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[0].second , 1);
+	
+	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[1].first , 1);
+	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[1].second , 1);
+	
+	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[2].first , 1);
+	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[2].second , 1);
+	
 	
 	signed int i = 10;
 	signed int j = 1000;
@@ -220,7 +223,7 @@ BOOST_AUTO_TEST_CASE(Test2)
  * 3') AAGAAG (5'
  * </PRE>
  *
- * @date 2015-12-07
+ * @date 2015-12-11
  *
  * @todo also check segments pop() function
  */
@@ -272,15 +275,18 @@ BOOST_AUTO_TEST_CASE(Test3)
 	BOOST_CHECK_EQUAL(segment->gibbs_free_energy , (float) - 11.1072);
 	
 	
+	// Allow testing private members
+	Test_SegmentTraceback *segmenttraceback_test = static_cast<Test_SegmentTraceback *>(& segment->traceback);
+	
 	// Check bonds
-	BOOST_CHECK_EQUAL(segment->traceback.bonds[0].first , 1);
-	BOOST_CHECK_EQUAL(segment->traceback.bonds[0].second , 1);
+	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[0].first , 1);
+	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[0].second , 1);
 	
-	BOOST_CHECK_EQUAL(segment->traceback.bonds[1].first , 1);
-	BOOST_CHECK_EQUAL(segment->traceback.bonds[1].second , 1);
+	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[1].first , 1);
+	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[1].second , 1);
 	
-	BOOST_CHECK_EQUAL(segment->traceback.bonds[2].first , 1);
-	BOOST_CHECK_EQUAL(segment->traceback.bonds[2].second , 1);
+	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[2].first , 1);
+	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[2].second , 1);
 	
 	unlink(filename.c_str());
 }
@@ -885,7 +891,7 @@ BOOST_AUTO_TEST_CASE(Test6)
  *
  * @test
  *
- * @date 2015-12-07
+ * @date 2015-12-11
  */
 BOOST_AUTO_TEST_CASE(Test7)
 {
@@ -922,14 +928,62 @@ BOOST_AUTO_TEST_CASE(Test7)
 	BOOST_CHECK_EQUAL(segmentloop->gibbs_free_energy , (float) - 5.0);
 	
 	
-	// Check bonds
-	BOOST_CHECK_EQUAL(segmentloop->traceback.bonds[0].first , 1);
-	BOOST_CHECK_EQUAL(segmentloop->traceback.bonds[0].second , 1);
+	// Allow testing private members
+	Test_SegmentTraceback *segmenttraceback_test = static_cast<Test_SegmentTraceback *>(& segmentloop->traceback);
 	
-	BOOST_CHECK_EQUAL(segmentloop->traceback.bonds[1].first , 1);
-	BOOST_CHECK_EQUAL(segmentloop->traceback.bonds[1].second , 1);
+	// Check bonds
+	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[0].first , 1);
+	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[0].second , 1);
+	
+	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[1].first , 1);
+	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[1].second , 1);
 	
 	unlink(filename.c_str());
+}
+
+
+
+/**
+ * @brief tests bonds parsing
+ *
+ * @test
+ *
+ * @date 2015-12-11
+ */
+BOOST_AUTO_TEST_CASE(Test8)
+{
+	std::string filename = "tmp.readsegments_test_test8";
+	
+	//ReadSegments rs = ReadSegments(filename);
+	Test_ReadSegments trs = Test_ReadSegments(filename);
+	
+	
+	//pairs = [0,6], [1,5], [2,4]
+	//relative to previous bond this equals:
+	//[1,1], [1,1], [1,1]
+	std::string dbn1 = "(((.)))";
+	std::vector<Pair> dbn1_bonds = trs.dotbracket_to_bonds(dbn1);
+	BOOST_CHECK_EQUAL(dbn1_bonds.size() , 3);
+	BOOST_CHECK_EQUAL(dbn1_bonds[0].first , 1);
+	BOOST_CHECK_EQUAL(dbn1_bonds[0].second , 1);
+	BOOST_CHECK_EQUAL(dbn1_bonds[1].first , 1);
+	BOOST_CHECK_EQUAL(dbn1_bonds[1].second , 1);
+	BOOST_CHECK_EQUAL(dbn1_bonds[2].first , 1);
+	BOOST_CHECK_EQUAL(dbn1_bonds[2].second , 1);
+	
+	
+	//should convert into (1,1),(1,2),(2,1),(1,1)
+	std::string dbn2 = "((.(())).)";
+	std::vector<Pair> dbn2_bonds = trs.dotbracket_to_bonds(dbn2);
+	BOOST_CHECK_EQUAL(dbn2_bonds.size() , 4);
+	BOOST_CHECK_EQUAL(dbn2_bonds[0].first , 1);
+	BOOST_CHECK_EQUAL(dbn2_bonds[0].second , 1);
+	BOOST_CHECK_EQUAL(dbn2_bonds[1].first , 1);
+	BOOST_CHECK_EQUAL(dbn2_bonds[1].second , 2);
+	BOOST_CHECK_EQUAL(dbn2_bonds[2].first , 2);
+	BOOST_CHECK_EQUAL(dbn2_bonds[2].second , 1);
+	BOOST_CHECK_EQUAL(dbn2_bonds[3].first , 1);
+	BOOST_CHECK_EQUAL(dbn2_bonds[3].second , 1);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

@@ -60,6 +60,8 @@ struct rna_example
  */
 class ReadSegments
 {
+	friend class Test_ReadSegments;
+	
 	private:
 		std::string &filename;
 		
@@ -90,4 +92,14 @@ class ReadSegments
 		
 		void clear(void);
 		~ReadSegments();
+};
+
+
+
+///@brief Friend class of ReadSegments that allows testing its private members
+class Test_ReadSegments: public ReadSegments
+{
+	public:
+		using ReadSegments::ReadSegments;// Always use the tested class its constructor
+		using ReadSegments::dotbracket_to_bonds;
 };

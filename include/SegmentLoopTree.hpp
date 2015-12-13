@@ -1,7 +1,7 @@
 /**
  * @file include/SegmentLoopTree.hpp
  *
- * @date 2015-12-07
+ * @date 2015-12-11
  *
  * @author Youri Hoogstrate
  *
@@ -88,6 +88,7 @@ class SegmentLoopTree
 class Test_SegmentLoopTree: public SegmentLoopTree
 {
 	public:
+		using SegmentLoopTree::SegmentLoopTree;
 		using SegmentLoopTree::root;
 };
 

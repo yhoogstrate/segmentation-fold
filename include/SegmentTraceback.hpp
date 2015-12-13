@@ -1,7 +1,7 @@
 /**
  * @file include/SegmentTraceback.hpp
  *
- * @date 2015-08-05
+ * @date 2015-12-11
  *
  * @author Youri Hoogstrate
  *
@@ -81,24 +81,36 @@
  * tb:  --------->  [i,j], [i+1, j-1], [i+2, j-2]
 
  *
- * @date 2015-08-05
+ * @date 2015-12-11
  */
 class SegmentTraceback
 {
+	friend class Test_SegmentTraceback;
+	
 	private:
 		std::vector<Pair>::iterator it;
+		std::vector<Pair> bonds;
 		
 	public:
 		SegmentTraceback(std::vector<Pair> arg_bonds);
 		
-		std::vector<Pair> bonds;
-		
 		bool traceback(signed int &i, signed int &j);
-		bool pop(int &i, int &j);
-		bool pop_short(int &i, int &j);
 		void reset(void);
 		
 		size_t size(void);
 };
+
+
+
+///@brief Friend class of SegmentTraceback that allows testing its private members
+class Test_SegmentTraceback: public SegmentTraceback
+{
+	public:
+		using SegmentTraceback::SegmentTraceback;
+		using SegmentTraceback::it;
+		using SegmentTraceback::bonds;
+};
+
+
 
 #endif	// SEGMENTTRACEBACK_HPP
