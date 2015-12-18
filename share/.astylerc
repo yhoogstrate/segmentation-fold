@@ -9,7 +9,7 @@
 --add-brackets
 --add-one-line-brackets
 --align-pointer=name
---align-reference=name
+#--align-reference=name
 
 --fill-empty-lines
  
@@ -24,5 +24,5 @@
 --pad-oper
 --unpad-paren
 
---style=break
+#--style=break
 --suffix=none															# no backups - we have subversion
