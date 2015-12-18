@@ -25,7 +25,7 @@ addons:
 
 script:
   - ctest -V -T memcheck
-  - if make tidy | grep "Formatted " ; then return -2; else return $(make tidy); fi;
+  - if make tidy | grep "Formatted " ; then exit 2; else exit $(make tidy); fi;
 
 notifications:
   email: false
