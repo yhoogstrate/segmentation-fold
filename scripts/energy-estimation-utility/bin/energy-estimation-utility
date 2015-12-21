@@ -34,10 +34,14 @@ from energy_estimation_utility.RNA import *
 from energy_estimation_utility.DataController import *
 from energy_estimation_utility.BinarySplit import *
 from energy_estimation_utility.CLI import *
+from energy_estimation_utility.FoldController import *
 
 if __name__ == "__main__":
     args = CLI()
     data = DataController(args.xml_file)
+    
+    fc = FoldController(args.segmentation_fold,args.temp_dir+"/segments_test_","", None)
+    fc.get_version()
     
     for segment in data:
         for structure in segment.structures:
@@ -53,4 +57,3 @@ if __name__ == "__main__":
                 for transition in b.find_transitions():
                     print transition['structure_max']+"\t"+transition['structure_min']+"\t"+str(transition['energy'])
                 print
-    

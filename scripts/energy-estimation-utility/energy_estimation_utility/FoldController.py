@@ -32,11 +32,13 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
 
-import shlex,subprocess
+import shlex,subprocess,re,warnings
 
 
 
 class FoldController:
+    version_re = re.compile("\[Version\][\n ]+segmentation-fold[ \t]+([^\-\n]+)([^\n]*)")
+    
     def __init__(self,binary,xml_file,sequence,associated_segments):
         self.binary = binary
         self.xml_file = xml_file
@@ -91,3 +93,25 @@ class FoldController:
     def findDE(self,string):
         e = string.split('dE:',1)[1].lstrip().split(' ',1)[0].strip()
         return round(float(e),4)
+    
+    def get_version(self):
+        argv = [self.binary,'--version']
+        
+        try:
+            output,error = subprocess.Popen(argv,stdout = subprocess.PIPE, stderr= subprocess.PIPE).communicate()
+        except:
+            raise EnvironmentError('Binary \''+self.binary+'\' not executable, are you sure segmentation-fold is installed?')
+        
+        version_match = re.search(self.version_re,output)
+        if version_match:
+            version = version_match.group(1)
+            suffix = version_match.group(2)
+            if version[0:4] != "1.2.":
+                raise EnvironmentError('Installed version of segmentation-fold ('+str(version)+') is out of date.')
+            
+            if suffix.find("(debug)") != -1:
+                warnings.warn("Installed version of segmentation-fold was compiled in debug mode which is significantly slower than the release mode. We advice to recompile in relesae mode.", RuntimeWarning)
+            
+            return version
+        else:
+            raise EnvironmentError('Running \''+self.binary+' --version\' does not give the version in the right format. Aare you sure segmentation-fold is installed and up to date?')
