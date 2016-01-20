@@ -30,54 +30,71 @@
 
 /**
  * @date 2014-03-10
- *
- * @author Youri Hoogstrate
  */
-Pairing::Pairing(Nucleotide &arg_n1, Nucleotide &arg_n2)
+Pairing::Pairing(Nucleotide arg_n1, Nucleotide arg_n2)
 {
-	this->n1 = &arg_n1;
-	this->n2 = &arg_n2;
-	
 	this->init(arg_n1, arg_n2);
 }
 
 
 
 /**
- * @date 04-apr-2015
- *
- * @todo check whether a multiplication and a switch can be more efficient
+ * @date 2016-01-20
  */
-void Pairing::init(Nucleotide &arg_n1, Nucleotide &arg_n2)
+void Pairing::init(Nucleotide arg_n1, Nucleotide arg_n2)
 {
-	if(arg_n1 == Nucleotide::A && arg_n2 == Nucleotide::U)
+	switch(arg_n1)
 	{
-		this->type = PairingType::AU;
+		case Nucleotide::A:
+			switch(arg_n2)
+			{
+				case Nucleotide::U:
+					this->type = PairingType::AU;
+					return void();
+				break;
+			}
+		break;
+		
+		case Nucleotide::C:
+			switch(arg_n2)
+			{
+				case Nucleotide::G:
+					this->type = PairingType::CG;
+					return void();
+				break;
+			}
+		break;
+		
+		case Nucleotide::G:
+			switch(arg_n2)
+			{
+				case Nucleotide::U:
+					this->type = PairingType::GU;
+					return void();
+				break;
+				case Nucleotide::C:
+					this->type = PairingType::GC;
+					return void();
+				break;
+			}
+		break;
+		
+		case Nucleotide::U:
+			switch(arg_n2)
+			{
+				case Nucleotide::A:
+					this->type = PairingType::UA;
+					return void();
+				break;
+				case Nucleotide::G:
+					this->type = PairingType::UG;
+					return void();
+				break;
+			}
+		break;
 	}
-	else if(arg_n1 == Nucleotide::C && arg_n2 == Nucleotide::G)
-	{
-		this->type = PairingType::CG;
-	}
-	else if(arg_n1 == Nucleotide::G && arg_n2 == Nucleotide::C)
-	{
-		this->type = PairingType::GC;
-	}
-	else if(arg_n1 == Nucleotide::U && arg_n2 == Nucleotide::A)
-	{
-		this->type = PairingType::UA;
-	}
-	else if(arg_n1 == Nucleotide::G && arg_n2 == Nucleotide::U)
-	{
-		this->type = PairingType::GU;
-	}
-	else if(arg_n1 == Nucleotide::U && arg_n2 == Nucleotide::G)
-	{
-		this->type = PairingType::UG;
-	}
-	else
-	{
-		this->type = PairingType::None;
-	}
+	
+	this->type = PairingType::None;
 }
 
 
