@@ -39,6 +39,8 @@
 #include "Segment.hpp"
 #include "ScoringMatrix.hpp"
 
+#include "ZukerTraceback.hpp"
+
 
 
 /**
@@ -254,6 +256,8 @@ template class ScoringMatrix<float>;
 template class ScoringMatrix<SegmentTraceback *>;
 template class ScoringMatrix<char>;
 template class ScoringMatrix<Pair>;
+
+template class ScoringMatrix<traceback_jump2>;
 
 //template class ScoringMatrix<unsigned int>;
 //template class ScoringMatrix<double>;

@@ -69,6 +69,10 @@ Zuker::Zuker(Settings &arg_settings, Sequence &arg_sequence, ReadData &arg_therm
 	wij(arg_sequence.size(), 0.0),
 	pathmatrix_corrected_from(arg_sequence.size(), false),
 	loopmatrix(arg_sequence.size(), Pair(0, 0)),
+	
+	
+	tij(arg_sequence.size(), {false,Pair(UNBOUND, UNBOUND)} ),							//@todo use N instead of 0? >> if so, set UNBOUND to N  + 1 or so
+	
 	sij(arg_sequence.size(), nullptr)
 {
 	this->pij.fill(NOT_YET_CALCULATED);
@@ -266,13 +270,14 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 					{
 						energy = tmp;
 						
-						tmp_loopmatrix_value = {ip, jp};
+						tmp_loopmatrix_value = {ip, ip}; // bifurcation via V - (i,ip),(ip+1,j)
 						tmp_segmenttraceback = nullptr;
 					}
 				}
 			}
 			
 			this->loopmatrix.set(p1, tmp_loopmatrix_value);
+			this->tij.set(p1,{true, tmp_loopmatrix_value});//set to True because i,j are paired
 			if(tmp_segmenttraceback != nullptr)
 			{
 				this->sij.set(p1, tmp_segmenttraceback);
@@ -375,6 +380,15 @@ float Zuker::w(Pair &p1)
 		this->pij.set(p1, tmp_pij);
 		this->qij.set(p1, tmp_qij);
 		this->wij.set(p1, energy);
+		
+		
+		// UNBOUND means dead end
+		// if it is BOUND it is being set by Vij in advance
+		printf("t(%i,%i) = (f) %i, %i\n",p1.first, p1.second,tmp_pij , tmp_pij);
+		if(tmp_pij != BOUND)
+		{
+			this->tij.set(p1,{ false, {tmp_pij, tmp_pij} });
+		}
 	}
 	
 	return energy;
@@ -411,6 +425,97 @@ inline float Zuker::energy_bifurcation(Region &region)
  * essential.
  */
 void Zuker::traceback(void)
+{
+	int i, j, k, ip, jp;
+	int tmp_i, tmp_j;
+	SegmentTraceback *independent_segment_traceback;
+	
+	bool pick_from_v_path;
+	
+	
+	traceback_jump2 action;
+	
+	
+	this->traceback_push(0, this->sequence.size() - 1, false);
+	
+	while(this->traceback_pop(&i, &j, &pick_from_v_path))
+	{
+#if DEBUG
+		if(i < j)
+		{
+#endif //DEBUG
+			Pair pair1 = Pair(i, j);
+			action = this->tij.get(pair1);
+			
+			if(action.store_pair)
+			{
+				printf("tb( %i , %i ) -> (true) ( %i , %i )      BOUND=%i        UNBOUND=%i\n",i , j, action.target.first, action.target.second , BOUND , UNBOUND);
+			}
+			else
+			{
+				printf("tb( %i , %i ) -> (false) ( %i , %i )      BOUND=%i        UNBOUND=%i\n",i , j, action.target.first, action.target.second , BOUND , UNBOUND);
+			}
+			
+			
+			// Check whether the action for the current position is to STORE
+			if(action.store_pair)										// Store current pair (i,j)
+			{
+				this->dot_bracket.store(i, j);
+				
+				independent_segment_traceback = this->sij.get(pair1);	///@todo implement it as independent_segment_traceback = this->nij.search(p); or sth like that
+				if(independent_segment_traceback != nullptr)// If a Segment's traceback is found, trace its internal structure back
+				{
+					tmp_i = i;
+					tmp_j = j;
+					
+					while(independent_segment_traceback->traceback(tmp_i, tmp_j))
+					{
+#if DEBUG
+						if(tmp_j <= tmp_i)
+						{
+							throw std::invalid_argument("Traceback with segment introduced incorrect jump (" + std::to_string(tmp_i) + "," + std::to_string(tmp_j) + ")\n");
+						}
+#endif //DEBUG
+						this->dot_bracket.store(tmp_i, tmp_j);
+					}
+				}
+			}
+			
+			
+			// For the next action (target), check whether this is a bifurcation, a threads end, or a jump to another pair
+			if(action.target.first != UNBOUND)
+			{
+				if(action.target.first == action.target.second)
+				{
+					if(action.store_pair)
+					{
+						this->traceback_push(pair1.first + 1 , action.target.first , false);
+						this->traceback_push(action.target.first + 1, pair1.second - 1, false);
+					}
+					else
+					{
+						this->traceback_push(pair1.first , action.target.first , false);
+						this->traceback_push(action.target.first + 1, pair1.second, false);
+					}
+				}
+				else
+				{
+					this->traceback_push(action.target.first , action.target.second, false);
+				}
+			}
+			
+			// else -> end of line / end of loop
+#if DEBUG
+		}
+		else
+		{
+			throw std::invalid_argument("Traceback encountered an incorrect jump (i:" + std::to_string(i) + " >= j:" + std::to_string(j) + ")");
+		}
+#endif //DEBUG
+	}
+}
+
+void Zuker::traceback_old(void)
 {
 	int i, j, k, ip, jp;
 	int tmp_i, tmp_j;

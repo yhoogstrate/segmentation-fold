@@ -4,7 +4,6 @@
  * @date 2015-07-13
  *
  * @author Youri Hoogstrate
- * @author Lisa Yu
  *
  * @section LICENSE
  * <PRE>
@@ -52,6 +51,7 @@ struct traceback_jump
 };
 
 
+#include "ZukerTraceback.hpp"
 #include "GibbsFreeEnergy.hpp"
 
 
@@ -94,20 +94,24 @@ class Zuker: public GibbsFreeEnergy
 		
 		// Trace-back related:
 		void traceback(void);
+		void traceback_old(void);///@deprecated
 		void traceback_push(int i, int j, bool pick_from_v_path);
 		bool traceback_pop(int *i, int *j, bool *pick_from_v_path);
 		
 		// Output functions
 		void print_2D_structure(void);
 		
-		ScoringMatrix<int> pij;// Pathmatrix
-		ScoringMatrix<int> qij;// Pathmatrix <if from bifurcation>
+		ScoringMatrix<traceback_jump2> tij;// Traceback matrix, merges pij and qij and loopmatrix and pathmatrix_corrected_from
 		
 		ScoringMatrix<float> vij;
 		ScoringMatrix<float> wij;
 		
+		// Traceback matrices
+		ScoringMatrix<int> pij;// Pathmatrix
+		ScoringMatrix<int> qij;// Pathmatrix <if from bifurcation>
 		ScoringMatrix<char> pathmatrix_corrected_from;					//@todo benchmark performance of std::vector<std::vector<bool>> pathmatrix_corrected_from; or make argument between fast and sparse
 		ScoringMatrix<Pair> loopmatrix;									//@todo benchmark performance of std::vector<std::vector<bool>> pathmatrix_corrected_from; or make argument between fast and sparse
+		
 		
 		ScoringMatrix<SegmentTraceback *> sij;
 		
