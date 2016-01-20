@@ -206,7 +206,7 @@ BOOST_AUTO_TEST_CASE(Test2)
 	BOOST_CHECK_THROW(matrix.get_position(p), std::invalid_argument);
 	
 	// Positions that fall outside the entire matrix:
-	for(int i = 5; i <= 100; i += 5)
+	for(unsigned int i = 5; i <= 100; i += 5)
 	{
 		p.first = 2;
 		p.second = i;
@@ -235,7 +235,8 @@ BOOST_AUTO_TEST_CASE(Test2)
  */
 BOOST_AUTO_TEST_CASE(Test3)
 {
-	unsigned int n, k;
+	unsigned int n;
+	signed int k;
 	
 	k = 0;
 	

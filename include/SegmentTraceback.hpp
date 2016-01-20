@@ -94,7 +94,7 @@ class SegmentTraceback
 	public:
 		SegmentTraceback(std::vector<Pair> arg_bonds);
 		
-		bool traceback(signed int &i, signed int &j);
+		bool traceback(unsigned int &i, unsigned int &j);
 		void reset(void);
 		
 		size_t size(void);

@@ -43,7 +43,7 @@
 SubSequence::SubSequence(Position arg_position1, Position arg_position2):
 	position1(arg_position1),
 	position2(arg_position2),
-	size(arg_position2 - arg_position1  + 1)
+	size( (size_t) (arg_position2 - arg_position1  + 1))
 {
 	this->init();
 }
@@ -92,7 +92,7 @@ Nucleotide SubSequence::operator[](size_t arg_position)
 		throw std::invalid_argument("SubSequence::operator[]: Out of bound SubSequence");
 	}
 #endif //DEBUG
-	return *(this->position1 + arg_position);
+	return *(this->position1 + (long) arg_position);
 }
 
 

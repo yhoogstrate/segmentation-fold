@@ -64,9 +64,9 @@
  * @param arg_sequence An empty Sequence object that will be set by this class
  */
 Settings::Settings(int arg_argc, char **arg_argv, Sequence &arg_sequence) :
-	obj_sequence(arg_sequence),
 	argc(arg_argc),
-	argv(arg_argv)
+	argv(arg_argv),
+	obj_sequence(arg_sequence)
 {
 	this->minimal_hairpin_length = 3;
 	this->segment_prediction_functionality = true;
@@ -139,7 +139,7 @@ void Settings::parse_arguments(void)
 	optind = 1;
 	
 	bool proceed = true;
-	char c;
+	int c;
 	size_t i;
 	
 	if(this->argc > 1 && strcmp(this->argv[1], "--version") == 0)
@@ -232,9 +232,9 @@ void Settings::parse_arguments(void)
  */
 void Settings::parse_sequence_from_stream(FILE *stream)
 {
-	char buffer;
+	int buffer;
 	
-	while(((buffer = fgetc(stream)) != EOF))// and (obj_sequence.size() < MAXLEN - 2))
+	while(((buffer = fgetc(stream)) != EOF))
 	{
 		if(buffer == '>')												// comment line for FASTA format start with '>'
 		{
@@ -256,7 +256,7 @@ void Settings::parse_sequence_from_stream(FILE *stream)
 			if(buffer == 'A' || buffer == 'U' || buffer == 'T' || buffer == 'C' || buffer == 'G' ||
 					buffer == 'a' || buffer == 'u' || buffer == 't' || buffer == 'c' || buffer == 'g')
 			{
-				this->obj_sequence.push_back(buffer);
+				this->obj_sequence.push_back((char) buffer);
 			}
 		}
 	}

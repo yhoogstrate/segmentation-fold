@@ -168,7 +168,7 @@ void Sequence::push_back(char arg_char)
  */
 Sequence Sequence::subseq(size_t arg_start, size_t arg_stop)
 {
-	std::vector<Nucleotide> vec = std::vector<Nucleotide>(this->data.begin() + arg_start, this->data.begin() + arg_stop + 1);
+	std::vector<Nucleotide> vec = std::vector<Nucleotide>(this->data.begin() + (long) arg_start, this->data.begin() + (long) arg_stop + 1);
 	return Sequence(vec);
 }
 
@@ -187,7 +187,7 @@ Sequence Sequence::subseq(size_t arg_start, size_t arg_stop)
  */
 SubSequence Sequence::ssubseq(size_t arg_start, size_t arg_stop)
 {
-	return SubSequence(this->data.begin() + arg_start, this->data.begin() + arg_stop);
+	return SubSequence(this->data.begin() + (long) arg_start, this->data.begin() + (long) arg_stop);
 }
 
 

@@ -113,7 +113,7 @@ size_t SegmentTraceback::size(void)
  *
  * @date 2015-08-05
  */
-bool SegmentTraceback::traceback(signed int &i, signed int &j)
+bool SegmentTraceback::traceback(unsigned int &i, unsigned int &j)
 {
 	if(this->it == this->bonds.end())
 	{

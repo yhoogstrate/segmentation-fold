@@ -81,7 +81,7 @@ BOOST_AUTO_TEST_CASE(Test1)
 	
 	BOOST_REQUIRE_EQUAL(sequence.size() , 16);
 	
-	int i = 0;
+	size_t i = 0;
 	
 	BOOST_CHECK_EQUAL(sequence[i++], Nucleotide::A);
 	BOOST_CHECK_EQUAL(sequence[i++], Nucleotide::C);
@@ -134,7 +134,7 @@ BOOST_AUTO_TEST_CASE(Test2)
 	
 	BOOST_REQUIRE_EQUAL(sequence.size() , 16);
 	
-	int i = 0;
+	size_t i = 0;
 	
 	BOOST_CHECK_EQUAL(sequence[i++], Nucleotide::A);
 	BOOST_CHECK_EQUAL(sequence[i++], Nucleotide::C);

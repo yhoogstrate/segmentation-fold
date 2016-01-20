@@ -52,6 +52,8 @@ void Pairing::init(Nucleotide arg_n1, Nucleotide arg_n2)
 					this->type = PairingType::AU;
 					return void();
 					break;
+				default:														// Makes the compiler happy..
+					break;
 			}
 			break;
 			
@@ -61,6 +63,8 @@ void Pairing::init(Nucleotide arg_n1, Nucleotide arg_n2)
 				case Nucleotide::G:
 					this->type = PairingType::CG;
 					return void();
+					break;
+				default:														// Makes the compiler happy..
 					break;
 			}
 			break;
@@ -76,6 +80,8 @@ void Pairing::init(Nucleotide arg_n1, Nucleotide arg_n2)
 					this->type = PairingType::GC;
 					return void();
 					break;
+				default:														// Makes the compiler happy..
+					break;
 			}
 			break;
 			
@@ -89,6 +95,8 @@ void Pairing::init(Nucleotide arg_n1, Nucleotide arg_n2)
 				case Nucleotide::G:
 					this->type = PairingType::UG;
 					return void();
+				default:														// Makes the compiler happy..
+					break;
 					break;
 			}
 			break;

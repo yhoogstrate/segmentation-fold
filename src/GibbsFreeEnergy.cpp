@@ -378,17 +378,17 @@ inline float GibbsFreeEnergy::get_poppen(unsigned int arg_n_unpaired_in_smallest
  */
 inline void GibbsFreeEnergy::interpolate_loop_hairpin()
 {
-	unsigned int n = this->sequence.size();
+	size_t n = this->sequence.size();
 	
 	if(n > 30 + 2)														// if you set n = size - 2, it may become negative which is tricky since its a unsigned int
 	{
 		n -= 2;
 		this->thermodynamics.loop_hairpin.reserve(n);					// reserve should be used, and during the for loop it should be filled using push_backs
 		
-		unsigned int i;
+		size_t i;
 		for(i = this->thermodynamics.loop_hairpin.size(); i <= n; i++)
 		{
-			this->thermodynamics.loop_hairpin.push_back(this->get_loop_hairpin(30) + (this->get_miscloop(MISCLOOP_PRELOG) * log((float) i / 30)));
+			this->thermodynamics.loop_hairpin.push_back(this->get_loop_hairpin(30) +	(this->get_miscloop(MISCLOOP_PRELOG) *	(float) log((float) i / 30)));
 		}
 	}
 }
@@ -420,14 +420,14 @@ inline void GibbsFreeEnergy::interpolate_loop_bulge()
 {
 	if(this->sequence.size() > 30 + 4 + this->thermodynamics.minimal_hairpin_length)///@todo move this comparison into the for-loop comparison -> init the loop with i = 30 ?
 	{
-		unsigned int i, n;
+		size_t i, n;
 		n = this->sequence.size() - 5 - this->thermodynamics.minimal_hairpin_length;
 		
 		this->thermodynamics.loop_bulge.reserve(n);						// reserve should be used, and during the for loop it should be filled using push_backs
 		
 		for(i = this->thermodynamics.loop_bulge.size(); i <= n; i++)
 		{
-			this->thermodynamics.loop_bulge.push_back(this->get_loop_bulge(30) + (this->get_miscloop(MISCLOOP_PRELOG) * log((float) i / 30)));
+			this->thermodynamics.loop_bulge.push_back(this->get_loop_bulge((unsigned int) 30) + (this->get_miscloop(MISCLOOP_PRELOG) * (float) log((float) i / 30)));
 		}
 	}
 }
@@ -461,7 +461,7 @@ inline void GibbsFreeEnergy::interpolate_loop_interior()
 	
 	// the following code ensures that i and n will always be >= 0 and so unsigned numbers can be used
 	unsigned int i = std::max((unsigned int) 30 + 1, (unsigned int) this->thermodynamics.loop_interior.size()) + accepted_diff;
-	unsigned int n = this->sequence.size() - this->thermodynamics.minimal_hairpin_length;
+	size_t n = this->sequence.size() - this->thermodynamics.minimal_hairpin_length;
 	
 	if(n > accepted_diff)
 	{
@@ -473,7 +473,7 @@ inline void GibbsFreeEnergy::interpolate_loop_interior()
 		for(; i <= n; i++)
 		{
 			this->thermodynamics.loop_interior.push_back(
-				this->thermodynamics.loop_interior[30] + (this->get_miscloop(MISCLOOP_PRELOG) * log((float) i / 30))
+				this->thermodynamics.loop_interior[30] + (this->get_miscloop(MISCLOOP_PRELOG) * (float) log((float) i / 30))
 			);
 		}
 	}
@@ -492,8 +492,8 @@ inline void GibbsFreeEnergy::interpolate_loop_interior()
  */
 inline void GibbsFreeEnergy::interpolate_loop_hairpin_C_penalty()
 {
-	unsigned int n = this->sequence.size();
-	unsigned int i;
+	size_t n = this->sequence.size();
+	size_t i;
 	
 	if(n > 2)
 	{
@@ -741,8 +741,14 @@ float GibbsFreeEnergy::get_interior_loop_element(Region &arg_region)
 	
 	float energy = 0.0;
 	
-	n_unpaired = (arg_region.pair2.first - arg_region.pair1.first) + (arg_region.pair1.second - arg_region.pair2.second) - 2;// saves one CPU operation
-	n_asym = (arg_region.pair2.first - arg_region.pair1.first) - (arg_region.pair1.second - arg_region.pair2.second);// saves two CPU operations
+	unsigned int l1 = (arg_region.pair2.first - arg_region.pair1.first);
+	unsigned int l2 = (arg_region.pair1.second - arg_region.pair2.second);
+	
+	n_unpaired = l1 + l2 - 2;// saves one CPU operation
+	
+	///@todo the following conversion is WEIRD but seems to solve the error
+	///Only the results should be converted, so max(l1,l2) , min(l1,l2) and make negative if l2 > l1
+	n_asym = ((signed int) l1 - (signed int) l2); // saves two CPU operations
 	
 	
 	// 5') [i] ... [...] [i'] ... (3'
@@ -790,7 +796,7 @@ float GibbsFreeEnergy::get_interior_loop_element(Region &arg_region)
 		
 		if(n_unpaired > 30)///@todo it is not logical to have this equation only above nup=30? dbl check this with other folding algorithms >> "the f(m) array (see Ninio for details)"
 		{
-			energy += std::min(this->get_miscloop(MISCLOOP_ASYMETRIC_INTENRAL_LOOP), ((float) abs(n_asym) * this->get_poppen(min((int) this->thermodynamics.poppen_p.size() , min(arg_region.pair2.first - arg_region.pair1.first, arg_region.pair1.second - arg_region.pair2.second)) - 1)));
+			energy += std::min(this->get_miscloop(MISCLOOP_ASYMETRIC_INTENRAL_LOOP), ((float) abs(n_asym) * this->get_poppen(std::min((unsigned int) this->thermodynamics.poppen_p.size() , std::min(arg_region.pair2.first - arg_region.pair1.first, arg_region.pair1.second - arg_region.pair2.second)) - 1)));
 		}
 	}
 	else
@@ -955,24 +961,24 @@ float GibbsFreeEnergy::get_stacking_pair_without_surrounding(PairingPlus &arg_p)
 	switch(arg_p.type)
 	{
 		case PairingType::GC:
-			energy = -2.55;
+			energy = -2.55f;
 			break;
 		case PairingType::CG:
-			energy = -2.10;
+			energy = -2.10f;
 			break;
 			
 		case PairingType::UA:
-			energy = -1.50;
+			energy = -1.50f;
 			break;
 		case PairingType::AU:
-			energy = -1.38;
+			energy = -1.38f;
 			break;
 			
 		case PairingType::GU:
-			energy = -1.01;
+			energy = -1.01f;
 			break;
 		case PairingType::UG:
-			energy = -0.78;
+			energy = -0.78f;
 			break;
 		default:
 			energy = N_INFINITY;

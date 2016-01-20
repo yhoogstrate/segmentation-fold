@@ -45,9 +45,8 @@
  */
 struct traceback_jump
 {
-	int i;
-	int j;
-	//bool jump_to_v_path;
+	unsigned int i;
+	unsigned int j;
 };
 
 
@@ -94,9 +93,8 @@ class Zuker: public GibbsFreeEnergy
 		
 		// Trace-back related:
 		void traceback(void);
-		void traceback_old(void);///@deprecated
-		void traceback_push(int i, int j);//, bool pick_from_v_path);
-		bool traceback_pop(int *i, int *j);//, bool *pick_from_v_path);
+		void traceback_push(unsigned int i, unsigned int j);
+		bool traceback_pop(unsigned int *i, unsigned int *j);
 		
 		// Output functions
 		void print_2D_structure(void);

@@ -1,7 +1,7 @@
 /**
  * @file src/Zuker.cpp
  *
- * @date 2015-12-07
+ * @date 2016-01-20
  *
  * @author Youri Hoogstrate
  *
@@ -63,13 +63,10 @@
 Zuker::Zuker(Settings &arg_settings, Sequence &arg_sequence, ReadData &arg_thermodynamics) :
 	GibbsFreeEnergy(arg_sequence, arg_thermodynamics),
 	settings(arg_settings),
-	pij(arg_sequence.size(), UNBOUND),
+	tij(arg_sequence.size(), {false, Pair(UNBOUND, UNBOUND)}),							//@todo use N instead of 0? >> if so, set UNBOUND to N  + 1 or so
 	vij(arg_sequence.size(), N_INFINITY),
 	wij(arg_sequence.size(), 0.0),
-
-
-	tij(arg_sequence.size(), {false, Pair(UNBOUND, UNBOUND)}),							//@todo use N instead of 0? >> if so, set UNBOUND to N  + 1 or so
-
+	pij(arg_sequence.size(), UNBOUND),
 	sij(arg_sequence.size(), nullptr)
 {
 	this->pij.fill(NOT_YET_CALCULATED);
@@ -311,7 +308,7 @@ float Zuker::w(Pair &p1)
 	}
 	else
 	{
-		int k = 0;///@todo check whether it can be unset
+		unsigned int k = 0;///@todo check whether it can be unset
 		float tmp;
 		bool tmp_path_matrix = 0;
 		
@@ -375,7 +372,7 @@ float Zuker::w(Pair &p1)
 					tmp_path_matrix = 0;
 					
 					energy = tmp;
-					tmp_pij = k;
+					tmp_pij = (int) k;///@todo make tmp_pij unsigned by setting BOUND and UNBOUND to MAX_VAL(size_t)-1 and MAX_VAL(size_t)-2
 				}
 			}
 			
@@ -429,14 +426,14 @@ inline float Zuker::energy_bifurcation(Region &region)
  */
 void Zuker::traceback(void)
 {
-	int i, j, k, ip, jp;
-	int tmp_i, tmp_j;
+	unsigned int i, j;
+	unsigned int tmp_i, tmp_j;
 	SegmentTraceback *independent_segment_traceback;
 	
 	traceback_jump2 action;
 	Pair pair1;
 	
-	this->traceback_push(0, this->sequence.size() - 1);
+	this->traceback_push(0, (unsigned int) this->sequence.size() - 1);///@todo use size_t
 	
 	while(this->traceback_pop(&i, &j))
 	{
@@ -519,7 +516,7 @@ void Zuker::traceback(void)
  *
  * @todo use Pair() instead of i and j
  */
-void Zuker::traceback_push(int i, int j)
+void Zuker::traceback_push(unsigned int i, unsigned int j)
 {
 	this->traceback_stack.push_back({i, j});
 }
@@ -537,7 +534,7 @@ void Zuker::traceback_push(int i, int j)
  *
  * @return True for success; False otherwise.
  */
-bool Zuker::traceback_pop(int *i, int *j)//, bool *pick_from_v_path)
+bool Zuker::traceback_pop(unsigned int *i, unsigned int *j)
 {
 	if(not this->traceback_stack.empty())
 	{
@@ -571,7 +568,7 @@ void Zuker::print_2D_structure(void)
 	Pair pair = Pair(0, n - 1);
 	
 	std::string dotbracket = "";
-	this->dot_bracket.format(n, dotbracket);
+	this->dot_bracket.format( (unsigned int) n, dotbracket);///@todo use size_t
 	
 	printf(">Sequence length: %zubp, dE: %g kcal/mole\n", n, this->wij.get(pair));
 	printf("%s\n", this->sequence.str().c_str());

@@ -60,8 +60,8 @@ BOOST_AUTO_TEST_CASE(Test_1)
 	
 	BOOST_CHECK_EQUAL(segmenttraceback.size() , 3);
 	
-	signed int i = 0;
-	signed int j = 20;
+	unsigned int i = 0;
+	unsigned int j = 20;
 	
 	while(segmenttraceback.traceback(i, j))
 	{
@@ -88,8 +88,8 @@ BOOST_AUTO_TEST_CASE(Test_2)
 	
 	BOOST_CHECK_EQUAL(segmenttraceback.size() , 0);
 	
-	signed int i;
-	signed int j;
+	unsigned int i = 0;
+	unsigned int j = 0;
 	
 	while(segmenttraceback.traceback(i, j))
 	{
@@ -116,8 +116,8 @@ BOOST_AUTO_TEST_CASE(Test_3)
 	
 	BOOST_CHECK_EQUAL(segmenttraceback.size() , 9);
 	
-	signed int i;
-	signed int j;
+	unsigned int i = 0;
+	unsigned int j = 8;
 	
 	while(segmenttraceback.traceback(i, j))
 	{
@@ -154,8 +154,8 @@ BOOST_AUTO_TEST_CASE(Test_4)
 	// [1,1] , [2,3] -> differentiate -> [1,1] -> [1,2]
 	std::vector <Pair> bonds = {{Pair({1, 1}), Pair({1, 2}) }};
 	
-	signed int i = 12;
-	signed int j = 27;
+	unsigned int i = 12;
+	unsigned int j = 27;
 	
 	SegmentTraceback segmenttraceback = SegmentTraceback(bonds);
 	

@@ -1195,7 +1195,7 @@ BOOST_AUTO_TEST_CASE(Test_bulge_loop)
 		
 		// Obtain and compare results
 		std::string predicted_structure;
-		zuker.dot_bracket.format(sequence.size() , predicted_structure);
+		zuker.dot_bracket.format( (unsigned int) sequence.size() , predicted_structure);///@todo unsigned int -> size_t
 		
 		bool valid_structure = predicted_structure.compare(true_structure) == 0;
 		BOOST_CHECK_MESSAGE(valid_structure, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");

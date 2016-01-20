@@ -65,7 +65,7 @@ BOOST_AUTO_TEST_SUITE(Testing)
 BOOST_AUTO_TEST_CASE(Test1)
 {
 	std::string segmentloop_name = "Arteficial SegmentLoop construct";
-	float energy = -1.234;
+	float energy = -1.234f;
 	
 	Sequence sequence     = Sequence("ACUUGaGUA");
 	std::vector <Pair> bonds = {{Pair({1, 1}), Pair({2, 1}), Pair({2, 1})}};
@@ -74,8 +74,8 @@ BOOST_AUTO_TEST_CASE(Test1)
 	BOOST_CHECK_EQUAL(segmentloop.size(), sequence.size());
 	BOOST_CHECK_EQUAL(segmentloop_name.compare(segmentloop.name),  0);
 	
-	signed int i = 0;
-	signed int j = 1000;
+	unsigned int i = 0;
+	unsigned int j = 1000;
 	
 	BOOST_CHECK(segmentloop.traceback.traceback(i, j));
 	BOOST_CHECK_EQUAL(i, 0    + 1);

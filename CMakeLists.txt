@@ -1,6 +1,6 @@
 # @file CMakeLists.txt
 #
-# @date 2015-12-07
+# @date 2016-01-20
 #
 # @author Youri Hoogstrate
 #
@@ -137,7 +137,7 @@ if(OPENMP_FOUND)
 endif()
 
 if(DEBUG)
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror")# @todo add and fix: -Wconversion 
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wconversion")# add and fix: -Wconversion and finally -Werror to make this part of travis
 else()
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
 endif()
@@ -151,7 +151,6 @@ add_executable(segmentation-fold
 					src/GibbsFreeEnergy.cpp
 					src/Zuker.cpp
 					src/Utils/file_exists.cpp
-					src/Utils/min.cpp
 					src/Pairing.cpp
 					src/PairingPlus.cpp
 					src/SubSequence.cpp

@@ -63,7 +63,7 @@ BOOST_AUTO_TEST_CASE(Test1)
 	Sequence           sequence_5p   = Sequence("ACUUG");
 	std::vector <Pair> bonds         = {{ Pair({0, 2}), Pair({2, 1}), Pair({4, 0}) }};
 	Sequence           sequence_3p   = Sequence("AUG");
-	float              energy        = -1.234;
+	float              energy        = -1.234f;
 	Segment            segment_01    = Segment(segment_name, sequence_5p, bonds, sequence_3p, energy);
 	
 	segment_name = "C/D-box K-turn";

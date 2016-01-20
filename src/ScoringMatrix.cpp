@@ -1,7 +1,7 @@
 /**
  * @file src/ScoringMatrix.cpp
  *
- * @date 2015-12-09
+ * @date 2016-01-20
  *
  * @author Youri Hoogstrate
  *
@@ -78,7 +78,7 @@
  * </PRE>
  */
 template <class T>
-ScoringMatrix<T>::ScoringMatrix(unsigned int arg_length, T arg_initialization_value):
+ScoringMatrix<T>::ScoringMatrix(size_t arg_length, T arg_initialization_value):
 	m(this->number_of_elements(arg_length))
 {
 	this->grid_size = arg_length;///@todo double check whether grid_size shouldn't be renamed to sequence_size or 1D size
@@ -90,14 +90,14 @@ ScoringMatrix<T>::ScoringMatrix(unsigned int arg_length, T arg_initialization_va
 /**
  * @brief Gets the value at matrix point [x,y]
  *
- * @date 2015-06-28
+ * @date 2016-01-20
  */
 template <class T>
 T ScoringMatrix<T>::get(Pair &pair)
 {
 	signed int position = this->get_position(pair);
 	
-	return (position < 0) ? this->initialization_value : this->m[position];
+	return (position < 0) ? this->initialization_value : this->m[ (size_t) position];
 }
 
 
@@ -105,7 +105,7 @@ T ScoringMatrix<T>::get(Pair &pair)
 /**
  * @brief Calculates the position (x,y) in the matrix corresponds to the position in the vector
  *
- * @date 2015-06-26
+ * @date 2016-01-20
  *
  * @todo MAKE CONSTANT OF -2
  * @todo MAKE CONSTANT OF -1
@@ -116,7 +116,7 @@ template <class T>
 signed int ScoringMatrix<T>::get_position(Pair &p)
 {
 #if DEBUG
-	int output;
+	signed int output;
 	
 	if(p.first < this->grid_size && p.second < this->grid_size)
 	{
@@ -126,11 +126,12 @@ signed int ScoringMatrix<T>::get_position(Pair &p)
 		}
 		else if(p.second > p.first)
 		{
-			unsigned int r = this->grid_size - p.first - 1;
-			unsigned int bottom = this->number_of_elements(r);
-			unsigned int row = (this->grid_size - 1) - p.second;
+			size_t r = this->grid_size - p.first - 1;
+			size_t bottom = this->number_of_elements(r);
+			size_t row = (this->grid_size - 1) - p.second;
 			
-			return this->m.size() - bottom - row - 1;
+			///@todo change tis into size_t, and if out of bounds have to be returned, change this to MAX VALsize_t -1 and MAX VAL size_t -2
+			return (signed int) this->m.size() - (signed int) bottom - (signed int) row - 1;
 		}
 		
 	}
@@ -179,14 +180,14 @@ void ScoringMatrix<T>::set(Pair &pair, T arg_value)
 	
 	if(position >= 0)
 	{
-		this->m[position] = arg_value;
+		this->m[ (size_t) position] = arg_value;
 	}
 	else
 	{
 		throw std::invalid_argument("ScoringMatrix::set: Out of bound");
 	}
 #else //DEBUG
-	this->m[this->get_position(pair)] = arg_value;
+	this->m[ (size_t) this->get_position(pair)] = arg_value;
 #endif //DEBUG
 }
 

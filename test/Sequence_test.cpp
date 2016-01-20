@@ -111,9 +111,9 @@ BOOST_AUTO_TEST_CASE(Test02)
 BOOST_AUTO_TEST_CASE(Test03)
 {
 	Sequence sequence;
-	unsigned char c;
+	signed char c;
 	
-	for(c = 0; c < 255; c++)
+	for(c = -128; c < 127; c++)
 	{
 		sequence = Sequence();
 		
@@ -149,9 +149,9 @@ BOOST_AUTO_TEST_CASE(Test04)
 {
 	Sequence sequence;
 	std::string sequence_str;
-	unsigned char c;
+	signed char c;
 	
-	for(c = 0; c < 255; c++)
+	for(c = -128; c < 127; c++)
 	{
 		sequence_str = "ActuG";
 		sequence_str += c;

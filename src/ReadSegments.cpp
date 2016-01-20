@@ -306,7 +306,8 @@ Segment *ReadSegments::parse_segment(std::string arg_name, std::string arg_seque
 	Sequence sequence_5p = Sequence(abs_sequence_5p);
 	Sequence sequence_3p = Sequence(abs_sequence_3p);
 	
-	float energy = std::atof(arg_energy.c_str());
+	//float energy = (float) std::atof(arg_energy.c_str());
+	float energy = std::stof(arg_energy);
 	
 	int i = 1;
 	int j = 1;
@@ -353,7 +354,8 @@ SegmentLoop *ReadSegments::parse_segmentloop(std::string arg_name, std::string a
 	abs_sequence.erase(std::remove(abs_sequence.begin(), abs_sequence.end(), ' '), abs_sequence.end());
 	Sequence sequence = Sequence(abs_sequence);
 	
-	float energy = std::atof(arg_energy.c_str());
+	float energy = std::stof(arg_energy);
+	//float energy = std::atof(arg_energy.c_str());
 	
 	SegmentLoop *m = new SegmentLoop(arg_name, sequence, bonds, energy);
 	this->segmentloop_list.push_back(m);
@@ -377,12 +379,12 @@ std::vector<Pair> ReadSegments::dotbracket_to_bonds(std::string &arg_dot_bracket
 	signed int i = 0;
 	signed int previous_i = -1;
 	
-	signed int j = arg_dot_bracket.size() - 1 ;
-	signed int previous_j = arg_dot_bracket.size() ;
+	signed int j = (signed int) arg_dot_bracket.size() - 1 ;
+	signed int previous_j = (signed int) arg_dot_bracket.size() ;
 	
 	while(i < j)
 	{
-		if(arg_dot_bracket[i] != '(' && arg_dot_bracket[j] == ')')
+		if(arg_dot_bracket[(size_t) i] != '(' && arg_dot_bracket[(size_t) j] == ')')
 		{
 			// .)
 			// i++
@@ -390,7 +392,7 @@ std::vector<Pair> ReadSegments::dotbracket_to_bonds(std::string &arg_dot_bracket
 			i++;
 			
 		}
-		else if(arg_dot_bracket[i] == '(' && arg_dot_bracket[j] != ')')
+		else if(arg_dot_bracket[(size_t) i] == '(' && arg_dot_bracket[(size_t) j] != ')')
 		{
 			// (.
 			// j--
@@ -403,7 +405,7 @@ std::vector<Pair> ReadSegments::dotbracket_to_bonds(std::string &arg_dot_bracket
 			// i++
 			// j--
 			
-			if(arg_dot_bracket[i] == '(' && arg_dot_bracket[j] == ')')
+			if(arg_dot_bracket[(size_t) i] == '(' && arg_dot_bracket[(size_t) j] == ')')
 			{
 				bonds.push_back(Pair { i - previous_i, previous_j - j});
 			}

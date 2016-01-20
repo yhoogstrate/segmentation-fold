@@ -131,7 +131,7 @@ BOOST_AUTO_TEST_CASE(Test1)
 	std::string dotbracket_predicted;
 	std::string dotbracket_valid = "((...((((...))))))";
 	
-	zuker.dot_bracket.format(n, dotbracket_predicted);
+	zuker.dot_bracket.format( (unsigned int) n, dotbracket_predicted);///@todo unsigned int -> size_t
 	
 	BOOST_REQUIRE_EQUAL(dotbracket_predicted.compare(dotbracket_valid) , 0);
 }
@@ -160,15 +160,6 @@ BOOST_AUTO_TEST_CASE(Test2_segmentloop)
 	SegmentLoop        segmentloop_01          = SegmentLoop(segmentloop_01_name, segmentloop_01_sequence , segmentloop_01_bonds, segmentloop_01_nrg);
 	
 	
-	// subsequence
-	unsigned int i = 1;
-	unsigned int j = 5;
-	
-	Nucleotide n1 = rna_1[i];
-	Nucleotide n2 = rna_1[j];
-	
-	Pairing pairing = Pairing(n1, n2);
-	
 	
 	// settings
 	Sequence sequence = Sequence();
@@ -191,7 +182,7 @@ BOOST_AUTO_TEST_CASE(Test2_segmentloop)
 	std::string dotbracket_predicted;
 	std::string dotbracket_valid = "(((.)))";
 	
-	zuker.dot_bracket.format(n, dotbracket_predicted);
+	zuker.dot_bracket.format( (unsigned int) n, dotbracket_predicted);///@todo unsigned int -> size_t
 	
 	BOOST_REQUIRE_EQUAL(dotbracket_predicted.compare(dotbracket_valid) , 0);
 }
@@ -319,7 +310,7 @@ BOOST_AUTO_TEST_CASE(Test_Sequence_GGGAAACCC)
 	//                          -   -   -
 	//                              -   -
 	//                                  -
-	Pair pend = Pair(0, 8);
+	//Pair pend = Pair(0, 8);
 	///@todo replace with new matrix
 	/*
 	Pair jump_1 = zuker.loopmatrix.get(pend);
@@ -386,12 +377,7 @@ BOOST_AUTO_TEST_CASE(Test_vij_wij_01)
 	Nucleotide ph1 = sequence[i];
 	Nucleotide ph2 = sequence[j];
 	
-	// Stack positions
-	Nucleotide ps1 = sequence[i - 1];
-	Nucleotide ps2 = sequence[j + 1];
-	
 	Pairing pairing_h = Pairing(ph1, ph2);
-	Pairing pairing_s = Pairing(ps1, ps2);
 	
 	ReadData thermodynamics = ReadData();
 	thermodynamics.tstackh[pairing_h.type][Nucleotide::A][Nucleotide::A] = -2.5;
@@ -408,21 +394,7 @@ BOOST_AUTO_TEST_CASE(Test_vij_wij_01)
 	zuker.pij.set(p, BOUND);
 	zuker.vij.set(p, -100.0);
 	
-	/*
-	#if DEBUG
-		zuker._print_vij(9);
-		zuker._print_wij(9);
-	#endif //DEBUG
-	*/
-	
-	float energy = zuker.energy();
-	
-	/*
-	#if DEBUG
-		zuker._print_vij(9);
-		zuker._print_wij(9);
-	#endif //DEBUG
-	*/
+	zuker.energy();
 	
 	// Ensure the total dge is -100 (hairpin) + -10 (for the stack)
 	Pair q = Pair(0, 8);

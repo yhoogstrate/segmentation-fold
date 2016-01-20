@@ -70,7 +70,7 @@ class ScoringMatrix
 		std::vector<T> m;
 		
 	public:
-		ScoringMatrix(unsigned int arg_length, T arg_initialization_value);///@todo use size_t instead of unsigned int?
+		ScoringMatrix(size_t arg_length, T arg_initialization_value);///@todo use size_t instead of unsigned int?
 		
 		signed int get_position(Pair &p);
 		
