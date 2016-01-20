@@ -1,7 +1,7 @@
 /**
  * @file include/Pairing.hpp
  *
- * @date 2014-05-16
+ * @date 2016-01-20
  *
  * @author Youri Hoogstrate
  *
@@ -37,20 +37,16 @@
 /**
  * @brief Container of two Nucleotides
  *
- * @date 2015-04-22
+ * @date 2016-01-20
  */
 class Pairing
 {
-	private:
-		Nucleotide *n1;
-		Nucleotide *n2;
-		
 	public:
 		PairingType type;
 		
-		Pairing(Nucleotide &arg_n1, Nucleotide &arg_n2);
+		Pairing(Nucleotide arg_n1, Nucleotide arg_n2);
 		
-		void init(Nucleotide &arg_n1, Nucleotide &arg_n2);
+		void init(Nucleotide arg_n1, Nucleotide arg_n2);
 		
 		bool is_canonical(void);
 };
