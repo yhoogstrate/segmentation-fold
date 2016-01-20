@@ -1,7 +1,7 @@
 /**
  * @file include/Pairing.hpp
  *
- * @date 2014-05-16
+ * @date 2016-01-20
  *
  * @author Youri Hoogstrate
  *
