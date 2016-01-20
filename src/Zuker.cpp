@@ -66,10 +66,10 @@ Zuker::Zuker(Settings &arg_settings, Sequence &arg_sequence, ReadData &arg_therm
 	pij(arg_sequence.size(), UNBOUND),
 	vij(arg_sequence.size(), N_INFINITY),
 	wij(arg_sequence.size(), 0.0),
-	
-	
-	tij(arg_sequence.size(), {false,Pair(UNBOUND, UNBOUND)} ),							//@todo use N instead of 0? >> if so, set UNBOUND to N  + 1 or so
-	
+
+
+	tij(arg_sequence.size(), {false, Pair(UNBOUND, UNBOUND)}),							//@todo use N instead of 0? >> if so, set UNBOUND to N  + 1 or so
+
 	sij(arg_sequence.size(), nullptr)
 {
 	this->pij.fill(NOT_YET_CALCULATED);
@@ -274,7 +274,7 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 			}
 			
 			//this->loopmatrix.set(p1, tmp_loopmatrix_value);
-			this->tij.set(p1,{true, tmp_loopmatrix_value});//set to True because i,j are paired
+			this->tij.set(p1, {true, tmp_loopmatrix_value}); //set to True because i,j are paired
 			if(tmp_segmenttraceback != nullptr)
 			{
 				this->sij.set(p1, tmp_segmenttraceback);
@@ -390,7 +390,7 @@ float Zuker::w(Pair &p1)
 		// if it is BOUND it is being set by Vij in advance
 		if(tmp_pij != BOUND)
 		{
-			this->tij.set(p1,{ false, {tmp_pij, tmp_pij} });
+			this->tij.set(p1, { false, {tmp_pij, tmp_pij} });
 		}
 	}
 	
@@ -480,12 +480,12 @@ void Zuker::traceback(void)
 				{
 					if(action.store_pair)
 					{
-						this->traceback_push(pair1.first + 1 , action.target.first );
+						this->traceback_push(pair1.first + 1 , action.target.first);
 						this->traceback_push(action.target.first + 1, pair1.second - 1);
 					}
 					else
 					{
-						this->traceback_push(pair1.first , action.target.first );
+						this->traceback_push(pair1.first , action.target.first);
 						this->traceback_push(action.target.first + 1, pair1.second);
 					}
 				}

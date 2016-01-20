@@ -60,8 +60,8 @@ struct rna_example
  */
 class ReadSegments
 {
-	friend class Test_ReadSegments;
-	
+		friend class Test_ReadSegments;
+		
 	private:
 		std::string &filename;
 		

@@ -85,8 +85,8 @@
  */
 class SegmentTraceback
 {
-	friend class Test_SegmentTraceback;
-	
+		friend class Test_SegmentTraceback;
+		
 	private:
 		std::vector<Pair>::iterator it;
 		std::vector<Pair> bonds;
