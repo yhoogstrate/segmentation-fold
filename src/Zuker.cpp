@@ -64,11 +64,8 @@ Zuker::Zuker(Settings &arg_settings, Sequence &arg_sequence, ReadData &arg_therm
 	GibbsFreeEnergy(arg_sequence, arg_thermodynamics),
 	settings(arg_settings),
 	pij(arg_sequence.size(), UNBOUND),
-	qij(arg_sequence.size(), UNBOUND),
 	vij(arg_sequence.size(), N_INFINITY),
 	wij(arg_sequence.size(), 0.0),
-	pathmatrix_corrected_from(arg_sequence.size(), false),
-	loopmatrix(arg_sequence.size(), Pair(0, 0)),
 	
 	
 	tij(arg_sequence.size(), {false,Pair(UNBOUND, UNBOUND)} ),							//@todo use N instead of 0? >> if so, set UNBOUND to N  + 1 or so
@@ -276,7 +273,7 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 				}
 			}
 			
-			this->loopmatrix.set(p1, tmp_loopmatrix_value);
+			//this->loopmatrix.set(p1, tmp_loopmatrix_value);
 			this->tij.set(p1,{true, tmp_loopmatrix_value});//set to True because i,j are paired
 			if(tmp_segmenttraceback != nullptr)
 			{
@@ -350,13 +347,22 @@ float Zuker::w(Pair &p1)
 			/*
 			following extreme w()-directed bifurcations are possible
 			
-			 |       k = i + 1
-			[)(....]
+			You want to test for differences of size 0, because you get:
 			
-			     |   k = j - 2; k < j - 1
-			[....)(]
+			CCCAAAGGGA
+			|        |  (iter 1)
+			|       |   (iter 2) and the last one should be skipped
+			
+			Also, you want:
+			CCCAAAGGGA
+			|        |  (iter 1)
+			 |       |  (iter 2) and the last one should be skipped
+			
+			For the top one, k is equal to j-1:  (0,j-1),(j-1+1,j)  = (0,j-1),(j,j)
+			For the bottom one, k is equal to 0: (0,0),(0+1,j)
+			
 			 */
-			for(k = p1.first + 1; k < p1.second - 1; k++)				// Find bifurcation in non-paired region
+			for(k = p1.first ; k < p1.second ; k++)				// Find bifurcation in non-paired region
 			{
 				Pair p2 = Pair(p1.first, k);
 				Pair p3 = Pair(k + 1, p1.second);
@@ -376,15 +382,12 @@ float Zuker::w(Pair &p1)
 		}
 		
 		///@todo get some way to obtain the index just once? -> this could be generalized at the top level as well (add it to the pair for example)
-		this->pathmatrix_corrected_from.set(p1, tmp_path_matrix);
 		this->pij.set(p1, tmp_pij);
-		this->qij.set(p1, tmp_qij);
 		this->wij.set(p1, energy);
 		
 		
 		// UNBOUND means dead end
 		// if it is BOUND it is being set by Vij in advance
-		printf("t(%i,%i) = (f) %i, %i\n",p1.first, p1.second,tmp_pij , tmp_pij);
 		if(tmp_pij != BOUND)
 		{
 			this->tij.set(p1,{ false, {tmp_pij, tmp_pij} });
@@ -430,31 +433,19 @@ void Zuker::traceback(void)
 	int tmp_i, tmp_j;
 	SegmentTraceback *independent_segment_traceback;
 	
-	bool pick_from_v_path;
-	
-	
 	traceback_jump2 action;
+	Pair pair1;
 	
+	this->traceback_push(0, this->sequence.size() - 1);
 	
-	this->traceback_push(0, this->sequence.size() - 1, false);
-	
-	while(this->traceback_pop(&i, &j, &pick_from_v_path))
+	while(this->traceback_pop(&i, &j))
 	{
 #if DEBUG
 		if(i < j)
 		{
 #endif //DEBUG
-			Pair pair1 = Pair(i, j);
+			pair1 = Pair(i, j);
 			action = this->tij.get(pair1);
-			
-			if(action.store_pair)
-			{
-				printf("tb( %i , %i ) -> (true) ( %i , %i )      BOUND=%i        UNBOUND=%i\n",i , j, action.target.first, action.target.second , BOUND , UNBOUND);
-			}
-			else
-			{
-				printf("tb( %i , %i ) -> (false) ( %i , %i )      BOUND=%i        UNBOUND=%i\n",i , j, action.target.first, action.target.second , BOUND , UNBOUND);
-			}
 			
 			
 			// Check whether the action for the current position is to STORE
@@ -489,133 +480,22 @@ void Zuker::traceback(void)
 				{
 					if(action.store_pair)
 					{
-						this->traceback_push(pair1.first + 1 , action.target.first , false);
-						this->traceback_push(action.target.first + 1, pair1.second - 1, false);
+						this->traceback_push(pair1.first + 1 , action.target.first );
+						this->traceback_push(action.target.first + 1, pair1.second - 1);
 					}
 					else
 					{
-						this->traceback_push(pair1.first , action.target.first , false);
-						this->traceback_push(action.target.first + 1, pair1.second, false);
+						this->traceback_push(pair1.first , action.target.first );
+						this->traceback_push(action.target.first + 1, pair1.second);
 					}
 				}
 				else
 				{
-					this->traceback_push(action.target.first , action.target.second, false);
+					this->traceback_push(action.target.first , action.target.second);
 				}
 			}
 			
 			// else -> end of line / end of loop
-#if DEBUG
-		}
-		else
-		{
-			throw std::invalid_argument("Traceback encountered an incorrect jump (i:" + std::to_string(i) + " >= j:" + std::to_string(j) + ")");
-		}
-#endif //DEBUG
-	}
-}
-
-void Zuker::traceback_old(void)
-{
-	int i, j, k, ip, jp;
-	int tmp_i, tmp_j;
-	SegmentTraceback *independent_segment_traceback;
-	
-	bool pick_from_v_path;
-	
-	this->traceback_push(0, this->sequence.size() - 1, false);
-	
-	while(this->traceback_pop(&i, &j, &pick_from_v_path))
-	{
-#if DEBUG
-		if(i < j)
-		{
-#endif //DEBUG
-			Pair pair1 = Pair(i, j);
-			k = this->pij.get(pair1);
-			
-			Pair pair2 = this->loopmatrix.get(pair1); // continue with Pair object instead
-			ip = pair2.first;
-			jp = pair2.second;
-			
-			// [if from the v path ] or [from a fork; V or W fork?]
-			if(pick_from_v_path == true || this->pathmatrix_corrected_from.get(pair1) != 0)	// Decide which matrix to pick from
-			
-				/** @todo check whether it works whenever the FIRST fold is a MOTIF */
-			{
-				k = this->qij.get(pair1);
-				pick_from_v_path = true;
-			}
-			
-			
-			if(k == BOUND)												// Parse the route
-			{
-				this->dot_bracket.store(i, j);
-				
-				independent_segment_traceback = this->sij.get(pair1);					///@todo implement it as independent_segment_traceback = this->nij.search(p); or sth like that
-				
-				if(independent_segment_traceback != nullptr)								// If a Segment's traceback is found, trace its internal structure back
-				{
-					tmp_i = i;
-					tmp_j = j;
-					
-					while(independent_segment_traceback->traceback(tmp_i, tmp_j))
-					{
-#if DEBUG
-						if(tmp_j <= tmp_i)
-						{
-							throw std::invalid_argument("Traceback with segment introduced incorrect jump (" + std::to_string(tmp_i) + "," + std::to_string(tmp_j) + ")\n");
-						}
-#endif //DEBUG
-						this->dot_bracket.store(tmp_i, tmp_j);
-					}
-				}
-				
-				// Continue with enclosing base pair.
-				ip = this->loopmatrix.get(pair1).first;
-				jp = this->loopmatrix.get(pair1).second;
-				
-				if(ip != jp)
-				{
-					this->traceback_push(ip, jp, pick_from_v_path);
-				}
-				else													// fork from paired; v()
-				{
-#if DEBUG
-					if(ip <= i + 1)
-					{
-						throw std::invalid_argument("Traceback introduced incorrect jump from paired bifurcation (i+1 == i'): " + std::to_string(i + 1) + "," + std::to_string(ip) + "\n");
-					}
-					
-					if(ip >= j - 2)
-					{
-						throw std::invalid_argument("Traceback introduced incorrect jump from paired bifurcation (i'+1 == j-1): " + std::to_string(ip + 1) + "," + std::to_string(j = 1) + "\n");
-					}
-#endif //DEBUG
-					// There are two loops within the current pair
-					
-					this->traceback_push(i + 1, ip, false);
-					this->traceback_push(ip + 1, j - 1, false);
-				}
-			}
-			else if(k >= 0)												// fork from non paired; w()
-			{
-#if DEBUG
-				if(k <= i)
-				{
-					throw std::invalid_argument("Traceback introduced incorrect jump from unpaired bifurcation (i+1 == i'): " + std::to_string(i + 1) + "," + std::to_string(k) + "\n");
-				}
-				
-				if(k >= j - 1)
-				{
-					throw std::invalid_argument("Traceback introduced incorrect jump from unpaired bifurcation (i'+1 == j-1): " + std::to_string(k + 1) + "," + std::to_string(j = 1) + "\n");
-				}
-#endif //DEBUG
-				// The current pair actually forms 2 loops
-				
-				this->traceback_push(i, k, false);
-				this->traceback_push(k + 1, j, false);
-			}
 #if DEBUG
 		}
 		else
@@ -639,9 +519,9 @@ void Zuker::traceback_old(void)
  *
  * @todo use Pair() instead of i and j
  */
-void Zuker::traceback_push(int i, int j, bool pick_from_v_path)
+void Zuker::traceback_push(int i, int j)
 {
-	this->traceback_stack.push_back({i, j, pick_from_v_path});
+	this->traceback_stack.push_back({i, j});
 }
 
 
@@ -657,7 +537,7 @@ void Zuker::traceback_push(int i, int j, bool pick_from_v_path)
  *
  * @return True for success; False otherwise.
  */
-bool Zuker::traceback_pop(int *i, int *j, bool *pick_from_v_path)
+bool Zuker::traceback_pop(int *i, int *j)//, bool *pick_from_v_path)
 {
 	if(not this->traceback_stack.empty())
 	{
@@ -666,7 +546,7 @@ bool Zuker::traceback_pop(int *i, int *j, bool *pick_from_v_path)
 		(*i) = jump.i;
 		(*j) = jump.j;
 		
-		(*pick_from_v_path) = jump.jump_to_v_path;
+		//(*pick_from_v_path) = jump.jump_to_v_path;
 		
 		this->traceback_stack.pop_back();
 		
@@ -701,75 +581,7 @@ void Zuker::print_2D_structure(void)
 
 
 #if DEBUG
-void Zuker::_print_pathmatrix_corrected_from(unsigned int matrix_length)
-{
-	for(int i = 0; i  < matrix_length; i++)
-	{
-		for(int j = 0; j  < matrix_length; j++)
-		{
-			Pair p = Pair(i, j);
-			if(i > j)
-			{
-				std::cout << " -";
-			}
-			else if(this->pathmatrix_corrected_from.get(p) != 0)
-			{
-				std::cout << " t";
-			}
-			else
-			{
-				std::cout << " f";
-			}
-		}
-		
-		std::cout << "\n";
-	}
-	
-	for(int i = 0; i < matrix_length; i++)
-	{
-		std::cout << "--";
-	}
-	
-	std::cout << "\n\n";
-}
-#endif // DEBUG
-
-
-
-#if DEBUG
-void Zuker::_print_loopmatrix(unsigned int matrix_length)
-{
-	for(int i = 0; i  < matrix_length; i++)
-	{
-		for(int j = 0; j  < matrix_length; j++)
-		{
-			Pair p1 = Pair(i, j);
-			if(i > j)
-			{
-				std::cout << " -,-";
-			}
-			else
-			{
-				Pair p = this->loopmatrix.get(p1);
-				std::cout << " " << p.first << "," << p.second;
-			}
-		}
-		std::cout << "\n";
-	}
-	
-	for(int i = 0; i  < matrix_length * 2; i++)
-	{
-		std::cout << "--";
-	}
-	
-	std::cout << "\n\n";
-}
-#endif // DEBUG
-
-
-
-#if DEBUG
-void Zuker::_print_nij(unsigned int matrix_length)
+void Zuker::_print_sij(unsigned int matrix_length)
 {
 	for(int i = 0; i  < matrix_length; i++)
 	{

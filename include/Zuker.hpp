@@ -47,7 +47,7 @@ struct traceback_jump
 {
 	int i;
 	int j;
-	bool jump_to_v_path;
+	//bool jump_to_v_path;
 };
 
 
@@ -95,8 +95,8 @@ class Zuker: public GibbsFreeEnergy
 		// Trace-back related:
 		void traceback(void);
 		void traceback_old(void);///@deprecated
-		void traceback_push(int i, int j, bool pick_from_v_path);
-		bool traceback_pop(int *i, int *j, bool *pick_from_v_path);
+		void traceback_push(int i, int j);//, bool pick_from_v_path);
+		bool traceback_pop(int *i, int *j);//, bool *pick_from_v_path);
 		
 		// Output functions
 		void print_2D_structure(void);
@@ -108,18 +108,11 @@ class Zuker: public GibbsFreeEnergy
 		
 		// Traceback matrices
 		ScoringMatrix<int> pij;// Pathmatrix
-		ScoringMatrix<int> qij;// Pathmatrix <if from bifurcation>
-		ScoringMatrix<char> pathmatrix_corrected_from;					//@todo benchmark performance of std::vector<std::vector<bool>> pathmatrix_corrected_from; or make argument between fast and sparse
-		ScoringMatrix<Pair> loopmatrix;									//@todo benchmark performance of std::vector<std::vector<bool>> pathmatrix_corrected_from; or make argument between fast and sparse
-		
-		
 		ScoringMatrix<SegmentTraceback *> sij;
 		
 #if DEBUG
 		// Functions only useful for plotting and debugging
-		void _print_pathmatrix_corrected_from(unsigned int matrix_length);
-		void _print_loopmatrix(unsigned int matrix_length);
-		void _print_nij(unsigned int matrix_length);
+		void _print_sij(unsigned int matrix_length);
 		void _print_pij(unsigned int matrix_length);
 		void _print_vij(unsigned int matrix_length);
 		void _print_wij(unsigned int matrix_length);
