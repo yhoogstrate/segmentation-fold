@@ -139,6 +139,8 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 	
 	if(this->pij.get(p1) > NOT_YET_CALCULATED)			///@todo -create bool function > {pij}.is_calculated()    @todo2 use max unsigned int value  // This point is already calculated; efficiency of dynamic programming
 	{
+		//printf(" BADDDD \n");
+		//exit(1);
 		energy = this->vij.get(p1);
 	}
 	else
@@ -151,7 +153,7 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 		}
 #endif //DEBUG
 		
-		energy = this->get_hairpin_loop_element(p1);				// Hairpin element
+		energy = this->get_hairpin_loop_element(p1);					// Hairpin element
 		tmp_loopmatrix_value = {p1.first + 1, p1.second - 1};
 		
 		// SegmentLoop element
@@ -175,7 +177,7 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 				if(pairing2.type != PairingType::None)				// The following structure elements must be enclosed by pairings on both sides
 				{
 					Pair p2 = Pair(ip, jp);
-					float v_ij_jp = this->v(p2, pairing2);
+					float v_ij_jp = this->vij.get(p2);
 					
 					Region region = Region {p1, p2};
 					
@@ -255,8 +257,7 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 			{
 				Pair p3 = Pair(p1.first + 1, ip);
 				Pair p4 = Pair(ip + 1, p1.second - 1);
-				Region region = Region {p3, p4};
-				tmp = this->energy_bifurcation(region);//@todo energy paired bifurcation?
+				tmp = this->w(p3) + this->w(p4);///@todo from V or W?
 				
 				if(tmp < energy)
 				{
@@ -403,21 +404,6 @@ float Zuker::w(Pair &p1)
 
 
 /**
- * @brief Calculates the energy of a fork / bifurcation
- *
- * @section DESCRIPTION
- * This function is part of the Zuker class because its an energy
- * function using only values from the w-matrix
- *
- * @date 2015-04-03
- */
-inline float Zuker::energy_bifurcation(Region &region)
-{
-	return this->w(region.pair1) + this->w(region.pair2);
-}
-
-
-/**
  * @brief The traceback algorithm, finds the optimal path through the matrices.
  *
  * @date 2015-12-01
@@ -443,69 +429,66 @@ void Zuker::traceback(void)
 	
 	while(this->traceback_pop(&i, &j))
 	{
+		
 #if DEBUG
-		if(i < j)
-		{
-#endif //DEBUG
-			pair1 = Pair(i, j);
-			action = this->tij.get(pair1);
-			
-			
-			// Check whether the action for the current position is to STORE
-			if(action.store_pair)										// Store current pair (i,j)
-			{
-				this->dot_bracket.store(i, j);
-				
-				independent_segment_traceback = this->sij.get(pair1);	///@todo implement it as independent_segment_traceback = this->nij.search(p); or sth like that
-				if(independent_segment_traceback != nullptr)// If a Segment's traceback is found, trace its internal structure back
-				{
-					tmp_i = i;
-					tmp_j = j;
-					
-					while(independent_segment_traceback->traceback(tmp_i, tmp_j))
-					{
-#if DEBUG
-						if(tmp_j <= tmp_i)
-						{
-							throw std::invalid_argument("Traceback with segment introduced incorrect jump (" + std::to_string(tmp_i) + "," + std::to_string(tmp_j) + ")\n");
-						}
-#endif //DEBUG
-						this->dot_bracket.store(tmp_i, tmp_j);
-					}
-				}
-			}
-			
-			
-			// For the next action (target), check whether this is a bifurcation, a threads end, or a jump to another pair
-			if(action.target.first != (unsigned int) UNBOUND)
-			{
-				if(action.target.first == action.target.second)
-				{
-					if(action.store_pair)
-					{
-						this->traceback_push(pair1.first + 1 , action.target.first);
-						this->traceback_push(action.target.first + 1, pair1.second - 1);
-					}
-					else
-					{
-						this->traceback_push(pair1.first , action.target.first);
-						this->traceback_push(action.target.first + 1, pair1.second);
-					}
-				}
-				else
-				{
-					this->traceback_push(action.target.first , action.target.second);
-				}
-			}
-			
-			// else -> end of line / end of loop
-#if DEBUG
-		}
-		else
+		if(i >= j)
 		{
 			throw std::invalid_argument("Traceback encountered an incorrect jump (i:" + std::to_string(i) + " >= j:" + std::to_string(j) + ")");
 		}
 #endif //DEBUG
+		
+		pair1 = Pair(i, j);
+		action = this->tij.get(pair1);
+		
+		
+		// Check whether the action for the current position is to STORE
+		if(action.store_pair)										// Store current pair (i,j)
+		{
+			this->dot_bracket.store(i, j);
+			
+			independent_segment_traceback = this->sij.get(pair1);	///@todo implement it as independent_segment_traceback = this->nij.search(p); or sth like that
+			if(independent_segment_traceback != nullptr)// If a Segment's traceback is found, trace its internal structure back
+			{
+				tmp_i = i;
+				tmp_j = j;
+				
+				while(independent_segment_traceback->traceback(tmp_i, tmp_j))
+				{
+#if DEBUG
+					if(tmp_i >= tmp_j)
+					{
+						throw std::invalid_argument("Traceback with segment introduced incorrect jump (" + std::to_string(tmp_i) + "," + std::to_string(tmp_j) + ")\n");
+					}
+#endif //DEBUG
+					this->dot_bracket.store(tmp_i, tmp_j);
+				}
+			}
+		}
+		
+		
+		// For the next action (target), check whether this is a bifurcation, a threads end, or a jump to another pair
+		if(action.target.first != (unsigned int) UNBOUND)
+		{
+			if(action.target.first == action.target.second)
+			{
+				if(action.store_pair)
+				{
+					this->traceback_push(pair1.first + 1 , action.target.first);
+					this->traceback_push(action.target.first + 1, pair1.second - 1);
+				}
+				else
+				{
+					this->traceback_push(pair1.first , action.target.first);
+					this->traceback_push(action.target.first + 1, pair1.second);
+				}
+			}
+			else
+			{
+				this->traceback_push(action.target.first , action.target.second);
+			}
+		}
+		
+		// else -> end of line / end of loop
 	}
 }
 

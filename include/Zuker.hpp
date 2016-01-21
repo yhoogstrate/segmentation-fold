@@ -89,8 +89,6 @@ class Zuker: public GibbsFreeEnergy
 		float v(Pair &p1, PairingPlus &p1p);
 		float w(Pair &p1);
 		
-		inline float energy_bifurcation(Region &region);
-		
 		// Trace-back related:
 		void traceback(void);
 		void traceback_push(unsigned int i, unsigned int j);
