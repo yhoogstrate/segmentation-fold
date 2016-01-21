@@ -298,10 +298,11 @@ float Zuker::w(Pair &p1)
 	}
 	else
 	{
+		signed int n = (signed int)(p1.second - p1.first);
 		unsigned int k = 0;///@todo check whether it can be unset
 		float tmp;
 		
-		if((signed int)(p1.second - p1.first) <= (this->settings.minimal_hairpin_length))
+		if(n <= (this->settings.minimal_hairpin_length))
 		{
 			this->vij.set(p1, N_INFINITY);
 			energy = 0.0;
