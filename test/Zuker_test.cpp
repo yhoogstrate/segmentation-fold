@@ -131,7 +131,7 @@ BOOST_AUTO_TEST_CASE(Test1)
 	std::string dotbracket_predicted;
 	std::string dotbracket_valid = "((...((((...))))))";
 	
-	zuker.dot_bracket.format( (unsigned int) n, dotbracket_predicted);///@todo unsigned int -> size_t
+	zuker.dot_bracket.format((unsigned int) n, dotbracket_predicted); ///@todo unsigned int -> size_t
 	
 	BOOST_REQUIRE_EQUAL(dotbracket_predicted.compare(dotbracket_valid) , 0);
 }
@@ -182,7 +182,7 @@ BOOST_AUTO_TEST_CASE(Test2_segmentloop)
 	std::string dotbracket_predicted;
 	std::string dotbracket_valid = "(((.)))";
 	
-	zuker.dot_bracket.format( (unsigned int) n, dotbracket_predicted);///@todo unsigned int -> size_t
+	zuker.dot_bracket.format((unsigned int) n, dotbracket_predicted); ///@todo unsigned int -> size_t
 	
 	BOOST_REQUIRE_EQUAL(dotbracket_predicted.compare(dotbracket_valid) , 0);
 }

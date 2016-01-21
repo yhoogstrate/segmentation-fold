@@ -85,7 +85,7 @@ BOOST_AUTO_TEST_CASE(Test_unfolded)
 	
 	// Obtain and compare results
 	std::string predicted_structure;
-	zuker.dot_bracket.format( (unsigned int) sequence.size() , predicted_structure);///@todo make it size_t
+	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure); ///@todo make it size_t
 	
 	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
 }
@@ -118,7 +118,7 @@ BOOST_AUTO_TEST_CASE(Test_hairpin)
 	
 	// Obtain and compare results
 	std::string predicted_structure;
-	zuker.dot_bracket.format( (unsigned int) sequence.size() , predicted_structure);///@todo make it size_t
+	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure); ///@todo make it size_t
 	
 	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
 }
@@ -159,7 +159,7 @@ BOOST_AUTO_TEST_CASE(Test_bulge_loop)
 	
 	// Obtain and compare results
 	std::string predicted_structure;
-	zuker.dot_bracket.format( (unsigned int) sequence.size() , predicted_structure);///@size_t
+	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure); ///@size_t
 	
 	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
 }
@@ -204,7 +204,7 @@ BOOST_AUTO_TEST_CASE(Test_interior_loop)
 	
 	// Obtain and compare results
 	std::string predicted_structure;
-	zuker.dot_bracket.format( (unsigned int) sequence.size() , predicted_structure);///@todo unsinged int -> size_t
+	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure); ///@todo unsinged int -> size_t
 	
 	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
 }
@@ -257,7 +257,7 @@ BOOST_AUTO_TEST_CASE(Test_bifurcation)
 	
 	// Obtain and compare results
 	std::string predicted_structure;
-	zuker.dot_bracket.format( (unsigned int) sequence.size() , predicted_structure);///@todo unsigned int -> size_t
+	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure); ///@todo unsigned int -> size_t
 	
 	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
 }
@@ -298,7 +298,7 @@ BOOST_AUTO_TEST_CASE(Test_kturns)
 		zuker.traceback();
 		
 		std::string predicted_structure = "";
-		zuker.dot_bracket.format( (unsigned int) (*example).sequence.size() , predicted_structure);///@todo unsigned int -> size_t
+		zuker.dot_bracket.format((unsigned int)(*example).sequence.size() , predicted_structure);  ///@todo unsigned int -> size_t
 		
 		BOOST_REQUIRE_EQUAL((*example).dot_bracket_pattern.size() , predicted_structure.size());
 		BOOST_CHECK_MESSAGE(db.match((*example).dot_bracket_pattern, predicted_structure), "Predicted structure of '" << (*example).title << "' doesn't match it's true structure:\n\t[" << predicted_structure << "] (predicted structure)\n\t[" << (*example).dot_bracket_pattern << "] (pattern of true structure)\n");
@@ -336,7 +336,7 @@ BOOST_AUTO_TEST_CASE(Test_kturns_segments_disabled)
 		zuker.traceback();
 		
 		std::string predicted_structure = "";
-		zuker.dot_bracket.format( (unsigned int) (*example).sequence.size() , predicted_structure);///@todo unsigned int -> size_t
+		zuker.dot_bracket.format((unsigned int)(*example).sequence.size() , predicted_structure);  ///@todo unsigned int -> size_t
 		
 		BOOST_REQUIRE_EQUAL((*example).dot_bracket_pattern.size() , predicted_structure.size());
 		BOOST_CHECK_MESSAGE(db.match((*example).dot_bracket_pattern, predicted_structure) == false, "Predicted structure of '" << (*example).title << "' did match its true structure while it shouldn't:\n\t[" << predicted_structure << "] (predicted structure)\n\t[" << (*example).dot_bracket_pattern << "] (pattern of true structure)\n");
@@ -371,7 +371,7 @@ BOOST_AUTO_TEST_CASE(Test_segfault_01)
 	
 	// Obtain and compare results
 	std::string predicted_structure;
-	zuker.dot_bracket.format( (unsigned int) sequence.size() , predicted_structure);///@todo unsigned int -> size_t
+	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure); ///@todo unsigned int -> size_t
 	
 	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
 }

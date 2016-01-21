@@ -397,7 +397,7 @@ BOOST_AUTO_TEST_CASE(Test9)
 	
 	
 	// Check argumented values
-	for(signed int i = 0; i < 100; i ++)
+	for(unsigned int i = 0; i < 100; i ++)
 	{
 		is = std::to_string(i);
 		char *ics = (char *) is.c_str();

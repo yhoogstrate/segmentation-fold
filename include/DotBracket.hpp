@@ -4,7 +4,6 @@
  * @date 2016-01-20
  *
  * @author Youri Hoogstrate
- * @author Lisa Yu
  *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.

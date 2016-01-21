@@ -145,140 +145,135 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 	{
 	
 #if DEBUG
-		if(!p1p.is_canonical() || (p1.second - p1.first) <= this->settings.minimal_hairpin_length)
+		if(!p1p.is_canonical() || ((signed int)(p1.second - p1.first)) <= this->settings.minimal_hairpin_length)
 		{
 			throw std::invalid_argument("Zuker::(" + std::to_string(p1.first) + ", " + std::to_string(p1.second) + "): this pair should never be checked within this function because it's energy is infinity by definition");
 		}
-		else
-		{
 #endif //DEBUG
 		
-			energy = this->get_hairpin_loop_element(p1);				// Hairpin element
-			tmp_loopmatrix_value = {p1.first + 1, p1.second - 1};
-			
-			// SegmentLoop element
-			SubSequence ps1 = this->sequence.ssubseq(p1.first + 1 , p1.second - 1); ///@todo use Pair()
-			tmp_segmentloop = this->thermodynamics.segmentloops.search(ps1);
-			if(tmp_segmentloop != nullptr)
+		energy = this->get_hairpin_loop_element(p1);				// Hairpin element
+		tmp_loopmatrix_value = {p1.first + 1, p1.second - 1};
+		
+		// SegmentLoop element
+		SubSequence ps1 = this->sequence.ssubseq(p1.first + 1 , p1.second - 1); ///@todo use Pair()
+		tmp_segmentloop = this->thermodynamics.segmentloops.search(ps1);
+		if(tmp_segmentloop != nullptr)
+		{
+			tmp_k = tmp_segmentloop->gibbs_free_energy + this->get_stacking_pair_without_surrounding(p1p);
+			if(tmp_k < energy)
 			{
-				tmp_k = tmp_segmentloop->gibbs_free_energy + this->get_stacking_pair_without_surrounding(p1p);
-				if(tmp_k < energy)
-				{
-					energy = tmp_k;
-					tmp_segmenttraceback = &tmp_segmentloop->traceback;
-				}
+				energy = tmp_k;
+				tmp_segmenttraceback = &tmp_segmentloop->traceback;
 			}
-			
-			for(ip = p1.first + 1; ip < p1.second; ip++)
-			{
-				for(jp = p1.second - 1; jp > ip; jp--)
-				{
-					PairingPlus pairing2 = PairingPlus(this->sequence_begin + ip, this->sequence_begin + jp);
-					if(pairing2.type != PairingType::None)				// The following structure elements must be enclosed by pairings on both sides
-					{
-						Pair p2 = Pair(ip, jp);
-						float v_ij_jp = this->v(p2, pairing2);
-						
-						Region region = Region {p1, p2};
-						
-						if(ip == (p1.first + 1) && jp == (p1.second - 1))// Stacking element
-						{
-							tmp = this->get_stacking_pair_element(p1) + v_ij_jp;
-							if(tmp < energy)
-							{
-								energy = tmp;
-								
-								tmp_loopmatrix_value = {p1.first + 1, p1.second - 1};
-								tmp_segmenttraceback = nullptr;
-							}
-						}
-						else if(ip == (p1.first + 1) || jp == (p1.second - 1))// Bulge-loop element
-						{
-							tmp = this->get_bulge_loop_element(region) + v_ij_jp;
-							
-							if(tmp < energy)
-							{
-								energy = tmp;
-								
-								tmp_loopmatrix_value = {ip, jp};
-								tmp_segmenttraceback = nullptr;
-							}
-						}
-						else											// Interior loop or Segment
-						{
-							tmp = this->get_interior_loop_element(region) + v_ij_jp;
-							
-							if(tmp < energy)
-							{
-								energy = tmp;
-								
-								tmp_loopmatrix_value = {ip, jp};
-								tmp_segmenttraceback = nullptr;
-							}
-							
-							// Find segments:
-							SubSequence pp1 = this->sequence.ssubseq(p1.first + 1, ip - 1);
-							SubSequence pp2 = this->sequence.ssubseq(jp + 1, p1.second - 1);
-							tmp_segment = this->thermodynamics.segments.search(pp1 , pp2);
-							
-							if(tmp_segment != nullptr)
-							{
-								tmp_k = tmp_segment->gibbs_free_energy + this->get_stacking_pair_without_surrounding(p1p) + v_ij_jp;
-								
-								if(tmp_k < energy)
-								{
-									energy = tmp_k;
-									
-									tmp_loopmatrix_value = {ip, jp};
-									tmp_segmenttraceback = &tmp_segment->traceback;
-								}
-							}
-						}
-					}
-				}
-				
-				/*
-				i=0, j=11 < indicated in brackets
-				     |       i' = 5
-				[(...)(...)]
-				
-				  |          i' = 2
-				[()(......)]
-				
-				        |    i' = 8
-				[(......)()]
-				
-				-> earlier versions compromised this function
-				   by using it to 'extend' their stack
-				   one bell of the fork was 0 size and the other bell
-				   was the remainder
-				*/
-				if(ip > p1.first + 1 && ip < p1.second - 2)												// Multi-loop element
-				{
-					Pair p3 = Pair(p1.first + 1, ip);
-					Pair p4 = Pair(ip + 1, p1.second - 1);
-					Region region = Region {p3, p4};
-					tmp = this->energy_bifurcation(region);//@todo energy paired bifurcation?
-					
-					if(tmp < energy)
-					{
-						energy = tmp;
-						
-						tmp_loopmatrix_value = {ip, ip}; // bifurcation via V - (i,ip),(ip+1,j)
-						tmp_segmenttraceback = nullptr;
-					}
-				}
-			}
-			
-			//this->loopmatrix.set(p1, tmp_loopmatrix_value);
-			this->tij.set(p1, {true, tmp_loopmatrix_value}); //set to True because i,j are paired
-			if(tmp_segmenttraceback != nullptr)
-			{
-				this->sij.set(p1, tmp_segmenttraceback);
-			}
-#if DEBUG
 		}
-#endif //DEBUG
+		
+		for(ip = p1.first + 1; ip < p1.second; ip++)
+		{
+			for(jp = p1.second - 1; jp > ip; jp--)
+			{
+				PairingPlus pairing2 = PairingPlus(this->sequence_begin + ip, this->sequence_begin + jp);
+				if(pairing2.type != PairingType::None)				// The following structure elements must be enclosed by pairings on both sides
+				{
+					Pair p2 = Pair(ip, jp);
+					float v_ij_jp = this->v(p2, pairing2);
+					
+					Region region = Region {p1, p2};
+					
+					if(ip == (p1.first + 1) && jp == (p1.second - 1))// Stacking element
+					{
+						tmp = this->get_stacking_pair_element(p1) + v_ij_jp;
+						if(tmp < energy)
+						{
+							energy = tmp;
+							
+							tmp_loopmatrix_value = {p1.first + 1, p1.second - 1};
+							tmp_segmenttraceback = nullptr;
+						}
+					}
+					else if(ip == (p1.first + 1) || jp == (p1.second - 1))// Bulge-loop element
+					{
+						tmp = this->get_bulge_loop_element(region) + v_ij_jp;
+						
+						if(tmp < energy)
+						{
+							energy = tmp;
+							
+							tmp_loopmatrix_value = {ip, jp};
+							tmp_segmenttraceback = nullptr;
+						}
+					}
+					else											// Interior loop or Segment
+					{
+						tmp = this->get_interior_loop_element(region) + v_ij_jp;
+						
+						if(tmp < energy)
+						{
+							energy = tmp;
+							
+							tmp_loopmatrix_value = {ip, jp};
+							tmp_segmenttraceback = nullptr;
+						}
+						
+						// Find segments:
+						SubSequence pp1 = this->sequence.ssubseq(p1.first + 1, ip - 1);
+						SubSequence pp2 = this->sequence.ssubseq(jp + 1, p1.second - 1);
+						tmp_segment = this->thermodynamics.segments.search(pp1 , pp2);
+						
+						if(tmp_segment != nullptr)
+						{
+							tmp_k = tmp_segment->gibbs_free_energy + this->get_stacking_pair_without_surrounding(p1p) + v_ij_jp;
+							
+							if(tmp_k < energy)
+							{
+								energy = tmp_k;
+								
+								tmp_loopmatrix_value = {ip, jp};
+								tmp_segmenttraceback = &tmp_segment->traceback;
+							}
+						}
+					}
+				}
+			}
+			
+			/*
+			i=0, j=11 < indicated in brackets
+				 |       i' = 5
+			[(...)(...)]
+			
+			  |          i' = 2
+			[()(......)]
+			
+					|    i' = 8
+			[(......)()]
+			
+			-> earlier versions compromised this function
+			   by using it to 'extend' their stack
+			   one bell of the fork was 0 size and the other bell
+			   was the remainder
+			*/
+			if(ip > p1.first + 1 && ip < p1.second - 2)												// Multi-loop element
+			{
+				Pair p3 = Pair(p1.first + 1, ip);
+				Pair p4 = Pair(ip + 1, p1.second - 1);
+				Region region = Region {p3, p4};
+				tmp = this->energy_bifurcation(region);//@todo energy paired bifurcation?
+				
+				if(tmp < energy)
+				{
+					energy = tmp;
+					
+					tmp_loopmatrix_value = {ip, ip}; // bifurcation via V - (i,ip),(ip+1,j)
+					tmp_segmenttraceback = nullptr;
+				}
+			}
+		}
+		
+		//this->loopmatrix.set(p1, tmp_loopmatrix_value);
+		this->tij.set(p1, {true, tmp_loopmatrix_value}); //set to True because i,j are paired
+		if(tmp_segmenttraceback != nullptr)
+		{
+			this->sij.set(p1, tmp_segmenttraceback);
+		}
 		
 		this->vij.set(p1, energy);
 	}
@@ -310,9 +305,8 @@ float Zuker::w(Pair &p1)
 	{
 		unsigned int k = 0;///@todo check whether it can be unset
 		float tmp;
-		bool tmp_path_matrix = 0;
 		
-		if((p1.second - p1.first) <= (this->settings.minimal_hairpin_length))
+		if((signed int)(p1.second - p1.first) <= (this->settings.minimal_hairpin_length))
 		{
 			this->vij.set(p1, N_INFINITY);
 			energy = 0.0;
@@ -322,8 +316,6 @@ float Zuker::w(Pair &p1)
 		}
 		else
 		{
-			tmp_path_matrix = 1;
-			
 			PairingPlus p1p = PairingPlus(this->sequence_begin + p1.first, this->sequence_begin + p1.second);
 			
 			if(!p1p.is_canonical())
@@ -369,15 +361,15 @@ float Zuker::w(Pair &p1)
 				if(tmp < energy)
 				{
 					// Can also be done by checking whether pathmatrix_corrected_from > 0 ? >> and only store those positions in a tree instead of an entire matrix
-					tmp_path_matrix = 0;
 					
 					energy = tmp;
+					///@todo -> move these two if statements out of the loop, and do iteration over p1.first+1 ; k< p1.second - 1 or sth like that
 					if(k == p1.first)
 					{
-						tmp_pij = k+1;
+						tmp_pij = k + 1;
 						tmp_qij = p1.second;
 					}
-					else if (k + 1 == p1.second)
+					else if(k + 1 == p1.second)
 					{
 						tmp_pij = p1.first;///@todo make tmp_pij unsigned by setting BOUND and UNBOUND to MAX_VAL(size_t)-1 and MAX_VAL(size_t)-2
 						tmp_qij = (int) k;///@todo make tmp_pij unsigned by setting BOUND and UNBOUND to MAX_VAL(size_t)-1 and MAX_VAL(size_t)-2
@@ -485,7 +477,7 @@ void Zuker::traceback(void)
 			
 			
 			// For the next action (target), check whether this is a bifurcation, a threads end, or a jump to another pair
-			if(action.target.first != UNBOUND)
+			if(action.target.first != (unsigned int) UNBOUND)
 			{
 				if(action.target.first == action.target.second)
 				{
@@ -557,8 +549,6 @@ bool Zuker::traceback_pop(unsigned int *i, unsigned int *j)
 		(*i) = jump.i;
 		(*j) = jump.j;
 		
-		//(*pick_from_v_path) = jump.jump_to_v_path;
-		
 		this->traceback_stack.pop_back();
 		
 		return true;
@@ -582,7 +572,7 @@ void Zuker::print_2D_structure(void)
 	Pair pair = Pair(0, n - 1);
 	
 	std::string dotbracket = "";
-	this->dot_bracket.format( (unsigned int) n, dotbracket);///@todo use size_t
+	this->dot_bracket.format((unsigned int) n, dotbracket); ///@todo use size_t
 	
 	printf(">Sequence length: %zubp, dE: %g kcal/mole\n", n, this->wij.get(pair));
 	printf("%s\n", this->sequence.str().c_str());
@@ -594,9 +584,11 @@ void Zuker::print_2D_structure(void)
 #if DEBUG
 void Zuker::_print_sij(unsigned int matrix_length)
 {
-	for(int i = 0; i  < matrix_length; i++)
+	unsigned int i, j;
+	
+	for(i = 0; i < matrix_length; i++)
 	{
-		for(int j = 0; j  < matrix_length; j++)
+		for(j = 0; j < matrix_length; j++)
 		{
 			Pair p = Pair(i, j);
 			
@@ -616,7 +608,7 @@ void Zuker::_print_sij(unsigned int matrix_length)
 		std::cout << "\n";
 	}
 	
-	for(int i = 0; i  < matrix_length * 4.4; i++)
+	for(i = 0; i  < matrix_length * 4.4; i++)
 	{
 		std::cout << "--";
 	}
@@ -630,11 +622,12 @@ void Zuker::_print_sij(unsigned int matrix_length)
 #if DEBUG
 void Zuker::_print_pij(unsigned int matrix_length)
 {
-	int p;
+	unsigned int i, j;
+	signed int p;
 	
-	for(int i = 0; i < matrix_length; i++)
+	for(i = 0; i < matrix_length; i++)
 	{
-		for(int j = 0; j < matrix_length; j++)
+		for(j = 0; j < matrix_length; j++)
 		{
 			Pair pair = Pair(i, j);
 			
@@ -661,7 +654,7 @@ void Zuker::_print_pij(unsigned int matrix_length)
 		std::cout << "\n";
 	}
 	
-	for(int i = 0; i  < matrix_length * 2; i++)
+	for(i = 0; i  < matrix_length * 2; i++)
 	{
 		std::cout << "--";
 	}
@@ -675,11 +668,12 @@ void Zuker::_print_pij(unsigned int matrix_length)
 #if DEBUG
 void Zuker::_print_vij(unsigned int matrix_length)
 {
+	unsigned int i, j;
 	float p;
 	
-	for(int i = 0; i < matrix_length; i++)
+	for(i = 0; i < matrix_length; i++)
 	{
-		for(int j = 0; j < matrix_length; j++)
+		for(j = 0; j < matrix_length; j++)
 		{
 			Pair pair = Pair(i, j);
 			
@@ -696,7 +690,7 @@ void Zuker::_print_vij(unsigned int matrix_length)
 		std::cout << "\n";
 	}
 	
-	for(int i = 0; i  < (matrix_length + 1) * 2; i++)
+	for(i = 0; i  < (matrix_length + 1) * 2; i++)
 	{
 		std::cout << "----";
 	}
@@ -710,11 +704,12 @@ void Zuker::_print_vij(unsigned int matrix_length)
 #if DEBUG
 void Zuker::_print_wij(unsigned int matrix_length)
 {
+	unsigned int i, j;
 	float p;
 	
-	for(int i = 0; i < matrix_length; i++)
+	for(i = 0; i < matrix_length; i++)
 	{
-		for(int j = 0; j < matrix_length; j++)
+		for(j = 0; j < matrix_length; j++)
 		{
 			Pair pair = Pair(i, j);
 			
@@ -731,7 +726,7 @@ void Zuker::_print_wij(unsigned int matrix_length)
 		std::cout << "\n";
 	}
 	
-	for(int i = 0; i  < (matrix_length + 1) * 2; i++)
+	for(i = 0; i  < (matrix_length + 1) * 2; i++)
 	{
 		std::cout << "----";
 	}

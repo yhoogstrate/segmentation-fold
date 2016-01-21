@@ -216,7 +216,7 @@ inline float GibbsFreeEnergy::get_loop_hairpin(unsigned int arg_n_unpaired)
 {
 #if DEBUG
 	///@todo Throw exception
-	if(arg_n_unpaired >= (int) this->thermodynamics.loop_hairpin.size())
+	if(arg_n_unpaired >= (unsigned int) this->thermodynamics.loop_hairpin.size())
 	{
 		fprintf(stderr, "GibbsFreeEnergy::get_loop_hairpin - Out of bound: %i ,size = %i" "\n", arg_n_unpaired, (int)this->thermodynamics.loop_hairpin.size());
 		exit(1);
@@ -237,7 +237,7 @@ inline float GibbsFreeEnergy::get_loop_bulge(unsigned int arg_n_unpaired)
 {
 #if DEBUG
 	///@todo Throw exception
-	if(arg_n_unpaired >= (int) this->thermodynamics.loop_bulge.size())
+	if(arg_n_unpaired >= (unsigned int) this->thermodynamics.loop_bulge.size())
 	{
 		fprintf(stderr, "GibbsFreeEnergy::get_loop_bulge - Out of bound: %i (size = %i)\n", arg_n_unpaired , (int) this->thermodynamics.loop_bulge.size());
 		exit(1);
@@ -258,7 +258,7 @@ inline float GibbsFreeEnergy::get_loop_interior(unsigned int arg_n_unpaired)
 {
 #if DEBUG
 	///@todo Throw exception
-	if(arg_n_unpaired >= (int) this->thermodynamics.loop_interior.size())
+	if(arg_n_unpaired >= (unsigned int) this->thermodynamics.loop_interior.size())
 	{
 		fprintf(stderr, "GibbsFreeEnergy::get_loop_interior - Out of bound: %i (size = %i)\n", arg_n_unpaired , (int) this->thermodynamics.loop_interior.size());
 		exit(1);
@@ -503,7 +503,7 @@ inline void GibbsFreeEnergy::interpolate_loop_hairpin_C_penalty()
 		
 		for(i = this->thermodynamics.loop_hairpin_C_penalty.size(); i <= n; i++)
 		{
-			this->thermodynamics.loop_hairpin_C_penalty.push_back(this->get_miscloop(MISCLOOP_C_HAIRPIN_INTERCEPT) + (i * this->get_miscloop(MISCLOOP_C_HAIRPIN_SLOPE)));
+			this->thermodynamics.loop_hairpin_C_penalty.push_back(this->get_miscloop(MISCLOOP_C_HAIRPIN_INTERCEPT) + ((float) i * this->get_miscloop(MISCLOOP_C_HAIRPIN_SLOPE)));
 		}
 		
 		if(n >= 4)

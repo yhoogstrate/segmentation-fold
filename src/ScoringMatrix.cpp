@@ -97,7 +97,7 @@ T ScoringMatrix<T>::get(Pair &pair)
 {
 	signed int position = this->get_position(pair);
 	
-	return (position < 0) ? this->initialization_value : this->m[ (size_t) position];
+	return (position < 0) ? this->initialization_value : this->m[(size_t) position];
 }
 
 
@@ -180,14 +180,14 @@ void ScoringMatrix<T>::set(Pair &pair, T arg_value)
 	
 	if(position >= 0)
 	{
-		this->m[ (size_t) position] = arg_value;
+		this->m[(size_t) position] = arg_value;
 	}
 	else
 	{
 		throw std::invalid_argument("ScoringMatrix::set: Out of bound");
 	}
 #else //DEBUG
-	this->m[ (size_t) this->get_position(pair)] = arg_value;
+	this->m[(size_t) this->get_position(pair)] = arg_value;
 #endif //DEBUG
 }
 
