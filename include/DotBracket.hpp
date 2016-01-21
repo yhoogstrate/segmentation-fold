@@ -50,7 +50,7 @@
 class DotBracket
 {
 	private:
-		std::vector <std::pair<unsigned int, unsigned int>> pairings;
+		std::vector <std::pair<signed int, signed int>> pairings;
 		
 	public:
 		DotBracket();

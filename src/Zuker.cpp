@@ -372,7 +372,21 @@ float Zuker::w(Pair &p1)
 					tmp_path_matrix = 0;
 					
 					energy = tmp;
-					tmp_pij = (int) k;///@todo make tmp_pij unsigned by setting BOUND and UNBOUND to MAX_VAL(size_t)-1 and MAX_VAL(size_t)-2
+					if(k == p1.first)
+					{
+						tmp_pij = k+1;
+						tmp_qij = p1.second;
+					}
+					else if (k + 1 == p1.second)
+					{
+						tmp_pij = p1.first;///@todo make tmp_pij unsigned by setting BOUND and UNBOUND to MAX_VAL(size_t)-1 and MAX_VAL(size_t)-2
+						tmp_qij = (int) k;///@todo make tmp_pij unsigned by setting BOUND and UNBOUND to MAX_VAL(size_t)-1 and MAX_VAL(size_t)-2
+					}
+					else
+					{
+						tmp_pij = (int) k;///@todo make tmp_pij unsigned by setting BOUND and UNBOUND to MAX_VAL(size_t)-1 and MAX_VAL(size_t)-2
+						tmp_qij = (int) k;///@todo make tmp_pij unsigned by setting BOUND and UNBOUND to MAX_VAL(size_t)-1 and MAX_VAL(size_t)-2
+					}
 				}
 			}
 			
@@ -387,7 +401,7 @@ float Zuker::w(Pair &p1)
 		// if it is BOUND it is being set by Vij in advance
 		if(tmp_pij != BOUND)
 		{
-			this->tij.set(p1, { false, {tmp_pij, tmp_pij} });
+			this->tij.set(p1, { false, {tmp_pij, tmp_qij} });
 		}
 	}
 	

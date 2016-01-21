@@ -99,10 +99,11 @@ void DotBracket::store(unsigned int arg_i, unsigned int arg_j)
  */
 void DotBracket::format(unsigned int n, std::string &output)
 {
-	unsigned int i;
+	///@todo -> size_t or template
+	signed int i;
 	signed int j;
 	
-	for(i = 0; i < n; i++)
+	for(i = 0; i < (signed int) n; i++)
 	{
 		j = this->find(i);
 		

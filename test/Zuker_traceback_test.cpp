@@ -1190,9 +1190,7 @@ BOOST_AUTO_TEST_CASE(Test_bulge_loop)
 		test_wij(zuker);
 		test_sij(zuker, sequence.size());
 		
-		
 		zuker.traceback();
-		
 		// Obtain and compare results
 		std::string predicted_structure;
 		zuker.dot_bracket.format( (unsigned int) sequence.size() , predicted_structure);///@todo unsigned int -> size_t
