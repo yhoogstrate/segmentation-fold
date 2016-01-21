@@ -343,19 +343,12 @@ BOOST_AUTO_TEST_CASE(Test_Sequence_GGGAAACCC)
 	*/
 	// check total energy
 	BOOST_CHECK_EQUAL(energy , -32.50);
-	
-	/*
-	#if DEBUG
-		zuker._print_loopmatrix(9);
-		zuker._print_pij(9);
-	#endif //DEBUG
-	*/
 }
 
 
 
 /**
- * @brief Tests whether V and W succesfully sum up energy values
+ * @brief Tests sticky ends - has been a problem in certain releases
  *
  * @test Zuker::energy
  * @test Zuker::v
@@ -363,14 +356,64 @@ BOOST_AUTO_TEST_CASE(Test_Sequence_GGGAAACCC)
  *
  * @date 2015-07-13
  */
-BOOST_AUTO_TEST_CASE(Test_vij_wij_01)
+BOOST_AUTO_TEST_CASE(Test_sticky_ends_1)
 {
-	Sequence sequence = Sequence("CGaaaaaCG");
+	Sequence sequence = Sequence("GGGAAACCCA");
 	
-	char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "CGaaaaaCG" , NULL};
+	char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "GGGAAACCCA" , NULL};
 	int argc = sizeof(argv) / sizeof(char *) - 1;
 	
-	unsigned int i = 1;
+	unsigned int i = 2;
+	unsigned int j = 6;
+	
+	// Hairpin positions
+	Nucleotide ph1 = sequence[i];
+	Nucleotide ph2 = sequence[j];
+	
+	Pairing pairing_h = Pairing(ph1, ph2);
+	
+	ReadData thermodynamics = ReadData();
+	thermodynamics.tstackh[pairing_h.type][Nucleotide::A][Nucleotide::A] = -15.0f;
+	thermodynamics.triloop_map.clear();
+	thermodynamics.loop_hairpin[3] = -5.0f;
+	thermodynamics.stack[PairingType::GC][PairingType::GC] = -10.0f;
+	
+	// Run algorithm
+	Settings settings = Settings(argc, argv, sequence);
+	Zuker zuker = Zuker(settings, sequence , thermodynamics);
+	
+	
+	BOOST_CHECK_EQUAL(zuker.energy() , -10.0 - 10.0 - 15.0 - 5.0);
+	zuker.traceback();
+	
+	// Give the hairpin loop a dGe of -100 (setting it explicitly in Vij), and set pij such that the position is considered to be calculated
+	std::string dotbracket_predicted;
+	std::string dotbracket_valid = "(((...))).";
+	
+	zuker.dot_bracket.format(10, dotbracket_predicted);  ///@todo unsigned int -> size_t
+	
+	BOOST_CHECK_MESSAGE(dotbracket_predicted.compare(dotbracket_valid) == 0, "Predicted structure: " << dotbracket_predicted << " is not equal to the expected structure: " << dotbracket_valid);
+}
+
+
+
+/**
+ * @brief Tests sticky ends - has been a problem in certain releases
+ *
+ * @test Zuker::energy
+ * @test Zuker::v
+ * @test Zuker::wij
+ *
+ * @date 2015-07-13
+ */
+BOOST_AUTO_TEST_CASE(Test_sticky_ends_2)
+{
+	Sequence sequence = Sequence("AGGGAAACCC");
+	
+	char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "AGGGAAACCC" , NULL};
+	int argc = sizeof(argv) / sizeof(char *) - 1;
+	
+	unsigned int i = 3;
 	unsigned int j = 7;
 	
 	// Hairpin positions
@@ -380,33 +423,26 @@ BOOST_AUTO_TEST_CASE(Test_vij_wij_01)
 	Pairing pairing_h = Pairing(ph1, ph2);
 	
 	ReadData thermodynamics = ReadData();
-	thermodynamics.tstackh[pairing_h.type][Nucleotide::A][Nucleotide::A] = -2.5;
+	thermodynamics.tstackh[pairing_h.type][Nucleotide::A][Nucleotide::A] = -15.0f;
 	thermodynamics.triloop_map.clear();
-	thermodynamics.loop_hairpin[5] = -2.5;
-	thermodynamics.stack[PairingType::CG][PairingType::GC] = -10.0;
+	thermodynamics.loop_hairpin[3] = -5.0f;
+	thermodynamics.stack[PairingType::GC][PairingType::GC] = -10.0f;
 	
 	// Run algorithm
 	Settings settings = Settings(argc, argv, sequence);
 	Zuker zuker = Zuker(settings, sequence , thermodynamics);
 	
+	
+	BOOST_CHECK_EQUAL(zuker.energy() , -10.0 - 10.0 - 15.0 - 5.0);
+	zuker.traceback();
+	
 	// Give the hairpin loop a dGe of -100 (setting it explicitly in Vij), and set pij such that the position is considered to be calculated
-	Pair p = Pair(i, j);
-	zuker.pij.set(p, BOUND);
-	zuker.vij.set(p, -100.0);
+	std::string dotbracket_predicted;
+	std::string dotbracket_valid = ".(((...)))";
 	
-	zuker.energy();
+	zuker.dot_bracket.format(10, dotbracket_predicted);  ///@todo unsigned int -> size_t
 	
-	// Ensure the total dge is -100 (hairpin) + -10 (for the stack)
-	Pair q = Pair(0, 8);
-	
-	BOOST_CHECK_EQUAL(zuker.vij.get(p), -100.0);
-	BOOST_CHECK_EQUAL(zuker.vij.get(q), -110.0);
-	
-	/*
-	@note not sure if this is due to setting vij or whether this is normal behavior
-	BOOST_CHECK_EQUAL(zuker.wij.get(p), -0.0);
-	*/
-	BOOST_CHECK_EQUAL(zuker.wij.get(q), -110.0);
+	BOOST_CHECK_MESSAGE(dotbracket_predicted.compare(dotbracket_valid) == 0, "Predicted structure: " << dotbracket_predicted << " is not equal to the expected structure: " << dotbracket_valid);
 }
 
 

@@ -57,11 +57,11 @@ signed int DotBracket::find(unsigned int arg_i)
 	
 	for(i = 0; i < this->pairings.size(); i++)
 	{
-		if( (unsigned int) this->pairings[i].first == arg_i)
+		if((unsigned int) this->pairings[i].first == arg_i)
 		{
 			return (signed int) this->pairings[i].second;
 		}
-		else if( (unsigned int)  this->pairings[i].second == arg_i)
+		else if((unsigned int)  this->pairings[i].second == arg_i)
 		{
 			return (signed int) this->pairings[i].first;
 		}

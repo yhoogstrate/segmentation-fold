@@ -137,7 +137,7 @@ if(OPENMP_FOUND)
 endif()
 
 if(DEBUG)
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wconversion")# add and fix: -Wconversion and finally -Werror to make this part of travis
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wconversion -g -ggdb")# add -Werror to test with travis
 else()
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
 endif()

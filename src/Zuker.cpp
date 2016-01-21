@@ -253,7 +253,7 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 		{
 			Pair p3 = Pair(p1.first + 1, ip);
 			Pair p4 = Pair(ip + 1, p1.second - 1);
-			tmp = this->w(p3) + this->w(p4);///@todo from V or W?
+			tmp = this->wij.get(p3) + this->wij.get(p4);///@todo from V or W?
 			
 			if(tmp < energy)
 			{
@@ -292,105 +292,120 @@ float Zuker::w(Pair &p1)
 	float energy;
 	int tmp_pij, tmp_qij;
 	
-	if(this->pij.get(p1) > NOT_YET_CALCULATED)							// Already calculated or fixed by initialization; dynamic programming function
+#if DEBUG
+	if(p1.first >= p1.second)
 	{
-		return this->wij.get(p1);
+		throw std::invalid_argument("Zuker::w(" + std::to_string(p1.first) + ", " + std::to_string(p1.second) + "): out of bound");
+	}
+	if(this->pij.get(p1) > NOT_YET_CALCULATED)			///@todo -create bool function > {pij}.is_calculated()    @todo2 use max unsigned int value  // This point is already calculated; efficiency of dynamic programming
+	{
+		throw std::invalid_argument("Zuker::w(" + std::to_string(p1.first) + ", " + std::to_string(p1.second) + "): redundant calculation, please request values from the ScoringMatrix directly");
+	}
+#endif //DEBUG
+	
+	signed int n = (signed int)(p1.second - p1.first);
+	unsigned int k = 0;///@todo check whether it can be unset
+	float tmp;
+	
+	if(n <= (this->settings.minimal_hairpin_length))
+	{
+		this->vij.set(p1, N_INFINITY);
+		energy = 0.0;
+		
+		tmp_pij = UNBOUND;
+		tmp_qij = UNBOUND;
 	}
 	else
 	{
-		signed int n = (signed int)(p1.second - p1.first);
-		unsigned int k = 0;///@todo check whether it can be unset
-		float tmp;
+		PairingPlus p1p = PairingPlus(this->sequence_begin + p1.first, this->sequence_begin + p1.second);
 		
-		if(n <= (this->settings.minimal_hairpin_length))
+		if(!p1p.is_canonical())
 		{
-			this->vij.set(p1, N_INFINITY);
-			energy = 0.0;
-			
 			tmp_pij = UNBOUND;
 			tmp_qij = UNBOUND;
+			
+			energy = N_INFINITY;
 		}
 		else
 		{
-			PairingPlus p1p = PairingPlus(this->sequence_begin + p1.first, this->sequence_begin + p1.second);
+			tmp_pij = BOUND;
+			tmp_qij = BOUND;
 			
-			if(!p1p.is_canonical())
+			energy = this->v(p1, p1p);
+		}
+		
+		/*
+		following extreme w()-directed bifurcations are possible
+		
+		You want to test for differences of size 0, because you get:
+		
+		CCCAAAGGGA
+		|        |  (iter 1)
+		|       |   (iter 2) and the last one should be skipped
+		
+		Also, you want:
+		CCCAAAGGGA
+		|        |  (iter 1)
+		 |       |  (iter 2) and the last one should be skipped
+		
+		For the top one, k is equal to j-1:  (0,j-1),(j-1+1,j)  = (0,j-1),(j,j)
+		For the bottom one, k is equal to 0: (0,0),(0+1,j)
+		
+		 */
+		for(k = p1.first ; k < p1.second ; k++)				// Find bifurcation in non-paired region
+		{
+			Pair p2 = Pair(p1.first, k);
+			Pair p3 = Pair(k + 1, p1.second);
+			
+			if(k == p1.first)
 			{
-				tmp_pij = UNBOUND;
-				tmp_qij = UNBOUND;
-				
-				energy = N_INFINITY;
+				tmp = this->wij.get(p3);
+			}
+			else if(k + 1 == p1.second)
+			{
+				tmp = this->wij.get(p2);
 			}
 			else
 			{
-				tmp_pij = BOUND;
-				tmp_qij = BOUND;
-				
-				energy = this->v(p1, p1p);
+				tmp = this->wij.get(p2) + this->wij.get(p3);
 			}
 			
-			/*
-			following extreme w()-directed bifurcations are possible
-			
-			You want to test for differences of size 0, because you get:
-			
-			CCCAAAGGGA
-			|        |  (iter 1)
-			|       |   (iter 2) and the last one should be skipped
-			
-			Also, you want:
-			CCCAAAGGGA
-			|        |  (iter 1)
-			 |       |  (iter 2) and the last one should be skipped
-			
-			For the top one, k is equal to j-1:  (0,j-1),(j-1+1,j)  = (0,j-1),(j,j)
-			For the bottom one, k is equal to 0: (0,0),(0+1,j)
-			
-			 */
-			for(k = p1.first ; k < p1.second ; k++)				// Find bifurcation in non-paired region
+			if(tmp < energy)
 			{
-				Pair p2 = Pair(p1.first, k);
-				Pair p3 = Pair(k + 1, p1.second);
+				// Can also be done by checking whether pathmatrix_corrected_from > 0 ? >> and only store those positions in a tree instead of an entire matrix
 				
-				tmp = this->w(p2) + this->w(p3);
-				
-				if(tmp < energy)
+				energy = tmp;
+				///@todo -> move these two if statements out of the loop, and do iteration over p1.first+1 ; k< p1.second - 1 or sth like that
+				if(k == p1.first)
 				{
-					// Can also be done by checking whether pathmatrix_corrected_from > 0 ? >> and only store those positions in a tree instead of an entire matrix
-					
-					energy = tmp;
-					///@todo -> move these two if statements out of the loop, and do iteration over p1.first+1 ; k< p1.second - 1 or sth like that
-					if(k == p1.first)
-					{
-						tmp_pij = k + 1;
-						tmp_qij = p1.second;
-					}
-					else if(k + 1 == p1.second)
-					{
-						tmp_pij = p1.first;///@todo make tmp_pij unsigned by setting BOUND and UNBOUND to MAX_VAL(size_t)-1 and MAX_VAL(size_t)-2
-						tmp_qij = (int) k;///@todo make tmp_pij unsigned by setting BOUND and UNBOUND to MAX_VAL(size_t)-1 and MAX_VAL(size_t)-2
-					}
-					else
-					{
-						tmp_pij = (int) k;///@todo make tmp_pij unsigned by setting BOUND and UNBOUND to MAX_VAL(size_t)-1 and MAX_VAL(size_t)-2
-						tmp_qij = (int) k;///@todo make tmp_pij unsigned by setting BOUND and UNBOUND to MAX_VAL(size_t)-1 and MAX_VAL(size_t)-2
-					}
+					tmp_pij = k + 1;
+					tmp_qij = p1.second;
+				}
+				else if(k + 1 == p1.second)
+				{
+					tmp_pij = p1.first;///@todo make tmp_pij unsigned by setting BOUND and UNBOUND to MAX_VAL(size_t)-1 and MAX_VAL(size_t)-2
+					tmp_qij = (int) k;///@todo make tmp_pij unsigned by setting BOUND and UNBOUND to MAX_VAL(size_t)-1 and MAX_VAL(size_t)-2
+				}
+				else
+				{
+					tmp_pij = (int) k;///@todo make tmp_pij unsigned by setting BOUND and UNBOUND to MAX_VAL(size_t)-1 and MAX_VAL(size_t)-2
+					tmp_qij = (int) k;///@todo make tmp_pij unsigned by setting BOUND and UNBOUND to MAX_VAL(size_t)-1 and MAX_VAL(size_t)-2
 				}
 			}
-			
 		}
 		
-		///@todo get some way to obtain the index just once? -> this could be generalized at the top level as well (add it to the pair for example)
-		this->pij.set(p1, tmp_pij);
-		this->wij.set(p1, energy);
-		
-		
-		// UNBOUND means dead end
-		// if it is BOUND it is being set by Vij in advance
-		if(tmp_pij != BOUND)
-		{
-			this->tij.set(p1, { false, {tmp_pij, tmp_qij} });
-		}
+	}
+	
+	///@todo get some way to obtain the index just once? -> this could be generalized at the top level as well (add it to the pair for example)
+	this->pij.set(p1, tmp_pij);
+	this->wij.set(p1, energy);
+	
+	
+	// UNBOUND means dead end
+	// if it is BOUND it is being set by Vij in advance
+	if(tmp_pij != BOUND)
+	{
+		this->tij.set(p1, { false, {tmp_pij, tmp_qij} });
 	}
 	
 	return energy;
@@ -424,7 +439,7 @@ void Zuker::traceback(void)
 	
 	while(this->traceback_pop(&i, &j))
 	{
-		
+	
 #if DEBUG
 		if(i >= j)
 		{
