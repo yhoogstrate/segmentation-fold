@@ -137,148 +137,142 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 	
 	Pair tmp_loopmatrix_value;
 	
+#if DEBUG
 	if(this->pij.get(p1) > NOT_YET_CALCULATED)			///@todo -create bool function > {pij}.is_calculated()    @todo2 use max unsigned int value  // This point is already calculated; efficiency of dynamic programming
 	{
-		//printf(" BADDDD \n");
-		//exit(1);
-		energy = this->vij.get(p1);
+		throw std::invalid_argument("Zuker::v(" + std::to_string(p1.first) + ", " + std::to_string(p1.second) + "): redundant calculation, please request values from the ScoringMatrix directly");
 	}
-	else
+	
+	if(!p1p.is_canonical() || ((signed int)(p1.second - p1.first)) <= this->settings.minimal_hairpin_length)
 	{
-	
-#if DEBUG
-		if(!p1p.is_canonical() || ((signed int)(p1.second - p1.first)) <= this->settings.minimal_hairpin_length)
-		{
-			throw std::invalid_argument("Zuker::(" + std::to_string(p1.first) + ", " + std::to_string(p1.second) + "): this pair should never be checked within this function because it's energy is infinity by definition");
-		}
+		throw std::invalid_argument("Zuker::v(" + std::to_string(p1.first) + ", " + std::to_string(p1.second) + "): this pair should never be checked within this function because it's energy is infinity by definition");
+	}
 #endif //DEBUG
-		
-		energy = this->get_hairpin_loop_element(p1);					// Hairpin element
-		tmp_loopmatrix_value = {p1.first + 1, p1.second - 1};
-		
-		// SegmentLoop element
-		SubSequence ps1 = this->sequence.ssubseq(p1.first + 1 , p1.second - 1); ///@todo use Pair()
-		tmp_segmentloop = this->thermodynamics.segmentloops.search(ps1);
-		if(tmp_segmentloop != nullptr)
+	
+	energy = this->get_hairpin_loop_element(p1);					// Hairpin element
+	tmp_loopmatrix_value = {p1.first + 1, p1.second - 1};
+	
+	// SegmentLoop element
+	SubSequence ps1 = this->sequence.ssubseq(p1.first + 1 , p1.second - 1); ///@todo use Pair()
+	tmp_segmentloop = this->thermodynamics.segmentloops.search(ps1);
+	if(tmp_segmentloop != nullptr)
+	{
+		tmp_k = tmp_segmentloop->gibbs_free_energy + this->get_stacking_pair_without_surrounding(p1p);
+		if(tmp_k < energy)
 		{
-			tmp_k = tmp_segmentloop->gibbs_free_energy + this->get_stacking_pair_without_surrounding(p1p);
-			if(tmp_k < energy)
-			{
-				energy = tmp_k;
-				tmp_segmenttraceback = &tmp_segmentloop->traceback;
-			}
+			energy = tmp_k;
+			tmp_segmenttraceback = &tmp_segmentloop->traceback;
 		}
-		
-		for(ip = p1.first + 1; ip < p1.second; ip++)
-		{
-			for(jp = p1.second - 1; jp > ip; jp--)
-			{
-				PairingPlus pairing2 = PairingPlus(this->sequence_begin + ip, this->sequence_begin + jp);
-				if(pairing2.type != PairingType::None)				// The following structure elements must be enclosed by pairings on both sides
-				{
-					Pair p2 = Pair(ip, jp);
-					float v_ij_jp = this->vij.get(p2);
-					
-					Region region = Region {p1, p2};
-					
-					if(ip == (p1.first + 1) && jp == (p1.second - 1))// Stacking element
-					{
-						tmp = this->get_stacking_pair_element(p1) + v_ij_jp;
-						if(tmp < energy)
-						{
-							energy = tmp;
-							
-							tmp_loopmatrix_value = {p1.first + 1, p1.second - 1};
-							tmp_segmenttraceback = nullptr;
-						}
-					}
-					else if(ip == (p1.first + 1) || jp == (p1.second - 1))// Bulge-loop element
-					{
-						tmp = this->get_bulge_loop_element(region) + v_ij_jp;
-						
-						if(tmp < energy)
-						{
-							energy = tmp;
-							
-							tmp_loopmatrix_value = {ip, jp};
-							tmp_segmenttraceback = nullptr;
-						}
-					}
-					else											// Interior loop or Segment
-					{
-						tmp = this->get_interior_loop_element(region) + v_ij_jp;
-						
-						if(tmp < energy)
-						{
-							energy = tmp;
-							
-							tmp_loopmatrix_value = {ip, jp};
-							tmp_segmenttraceback = nullptr;
-						}
-						
-						// Find segments:
-						SubSequence pp1 = this->sequence.ssubseq(p1.first + 1, ip - 1);
-						SubSequence pp2 = this->sequence.ssubseq(jp + 1, p1.second - 1);
-						tmp_segment = this->thermodynamics.segments.search(pp1 , pp2);
-						
-						if(tmp_segment != nullptr)
-						{
-							tmp_k = tmp_segment->gibbs_free_energy + this->get_stacking_pair_without_surrounding(p1p) + v_ij_jp;
-							
-							if(tmp_k < energy)
-							{
-								energy = tmp_k;
-								
-								tmp_loopmatrix_value = {ip, jp};
-								tmp_segmenttraceback = &tmp_segment->traceback;
-							}
-						}
-					}
-				}
-			}
-			
-			/*
-			i=0, j=11 < indicated in brackets
-				 |       i' = 5
-			[(...)(...)]
-			
-			  |          i' = 2
-			[()(......)]
-			
-					|    i' = 8
-			[(......)()]
-			
-			-> earlier versions compromised this function
-			   by using it to 'extend' their stack
-			   one bell of the fork was 0 size and the other bell
-			   was the remainder
-			*/
-			if(ip > p1.first + 1 && ip < p1.second - 2)												// Multi-loop element
-			{
-				Pair p3 = Pair(p1.first + 1, ip);
-				Pair p4 = Pair(ip + 1, p1.second - 1);
-				tmp = this->w(p3) + this->w(p4);///@todo from V or W?
-				
-				if(tmp < energy)
-				{
-					energy = tmp;
-					
-					tmp_loopmatrix_value = {ip, ip}; // bifurcation via V - (i,ip),(ip+1,j)
-					tmp_segmenttraceback = nullptr;
-				}
-			}
-		}
-		
-		//this->loopmatrix.set(p1, tmp_loopmatrix_value);
-		this->tij.set(p1, {true, tmp_loopmatrix_value}); //set to True because i,j are paired
-		if(tmp_segmenttraceback != nullptr)
-		{
-			this->sij.set(p1, tmp_segmenttraceback);
-		}
-		
-		this->vij.set(p1, energy);
 	}
 	
+	for(ip = p1.first + 1; ip < p1.second; ip++)
+	{
+		for(jp = p1.second - 1; jp > ip; jp--)
+		{
+			PairingPlus pairing2 = PairingPlus(this->sequence_begin + ip, this->sequence_begin + jp);
+			if(pairing2.type != PairingType::None)				// The following structure elements must be enclosed by pairings on both sides
+			{
+				Pair p2 = Pair(ip, jp);
+				float v_ij_jp = this->vij.get(p2);
+				
+				Region region = Region {p1, p2};
+				
+				if(ip == (p1.first + 1) && jp == (p1.second - 1))// Stacking element
+				{
+					tmp = this->get_stacking_pair_element(p1) + v_ij_jp;
+					if(tmp < energy)
+					{
+						energy = tmp;
+						
+						tmp_loopmatrix_value = {p1.first + 1, p1.second - 1};
+						tmp_segmenttraceback = nullptr;
+					}
+				}
+				else if(ip == (p1.first + 1) || jp == (p1.second - 1))// Bulge-loop element
+				{
+					tmp = this->get_bulge_loop_element(region) + v_ij_jp;
+					
+					if(tmp < energy)
+					{
+						energy = tmp;
+						
+						tmp_loopmatrix_value = {ip, jp};
+						tmp_segmenttraceback = nullptr;
+					}
+				}
+				else											// Interior loop or Segment
+				{
+					tmp = this->get_interior_loop_element(region) + v_ij_jp;
+					
+					if(tmp < energy)
+					{
+						energy = tmp;
+						
+						tmp_loopmatrix_value = {ip, jp};
+						tmp_segmenttraceback = nullptr;
+					}
+					
+					// Find segments:
+					SubSequence pp1 = this->sequence.ssubseq(p1.first + 1, ip - 1);
+					SubSequence pp2 = this->sequence.ssubseq(jp + 1, p1.second - 1);
+					tmp_segment = this->thermodynamics.segments.search(pp1 , pp2);
+					
+					if(tmp_segment != nullptr)
+					{
+						tmp_k = tmp_segment->gibbs_free_energy + this->get_stacking_pair_without_surrounding(p1p) + v_ij_jp;
+						
+						if(tmp_k < energy)
+						{
+							energy = tmp_k;
+							
+							tmp_loopmatrix_value = {ip, jp};
+							tmp_segmenttraceback = &tmp_segment->traceback;
+						}
+					}
+				}
+			}
+		}
+		
+		/*
+		i=0, j=11 < indicated in brackets
+			 |       i' = 5
+		[(...)(...)]
+		
+		  |          i' = 2
+		[()(......)]
+		
+				|    i' = 8
+		[(......)()]
+		
+		-> earlier versions compromised this function
+		   by using it to 'extend' their stack
+		   one bell of the fork was 0 size and the other bell
+		   was the remainder
+		*/
+		if(ip > p1.first + 1 && ip < p1.second - 2)												// Multi-loop element
+		{
+			Pair p3 = Pair(p1.first + 1, ip);
+			Pair p4 = Pair(ip + 1, p1.second - 1);
+			tmp = this->w(p3) + this->w(p4);///@todo from V or W?
+			
+			if(tmp < energy)
+			{
+				energy = tmp;
+				
+				tmp_loopmatrix_value = {ip, ip}; // bifurcation via V - (i,ip),(ip+1,j)
+				tmp_segmenttraceback = nullptr;
+			}
+		}
+	}
+	
+	//this->loopmatrix.set(p1, tmp_loopmatrix_value);
+	this->tij.set(p1, {true, tmp_loopmatrix_value}); //set to True because i,j are paired
+	if(tmp_segmenttraceback != nullptr)
+	{
+		this->sij.set(p1, tmp_segmenttraceback);
+	}
+	
+	this->vij.set(p1, energy);
 	return energy;
 }
 
