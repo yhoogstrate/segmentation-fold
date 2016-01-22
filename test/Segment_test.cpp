@@ -1,7 +1,7 @@
 /**
  * @file test/Segment_test.cpp
  *
- * @date 2015-12-04
+ * @date 2016-01-21
  *
  * @author Youri Hoogstrate
  *
@@ -52,7 +52,7 @@ BOOST_AUTO_TEST_SUITE(Testing)
  *
  * @test
  *
- * @date 2014-03-29
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test1)
 {
@@ -72,12 +72,14 @@ BOOST_AUTO_TEST_CASE(Test1)
 	BOOST_CHECK_EQUAL(segment_name.compare(segment.name),  0);
 }
 
+
+
 /**
  * @brief Tests the Segment->pop() function
  *
  * @test
  *
- * @date 2015-12-04
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test2)
 {
@@ -145,7 +147,7 @@ BOOST_AUTO_TEST_CASE(Test2)
  *
  * @test
  *
- * @date 2015-08-06
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test3)
 {

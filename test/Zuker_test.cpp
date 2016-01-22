@@ -1,7 +1,7 @@
 /**
  * @file test/Zuker_test.cpp
  *
- * @date 2015-12-07
+ * @date 2016-01-22
  *
  * @author Youri Hoogstrate
  *
@@ -68,7 +68,7 @@ BOOST_AUTO_TEST_SUITE(Test_energy_loading) // Test energy loading
  *
  * @test
  *
- * @date 2015-08-06
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test1)
 {
@@ -143,7 +143,7 @@ BOOST_AUTO_TEST_CASE(Test1)
  *
  * @test
  *
- * @date 2015-12-07
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test2_segmentloop)
 {
@@ -265,7 +265,7 @@ BOOST_AUTO_TEST_CASE(Test_W_matrix_01)
  *   .  .  .  .  .  .  .  . -2
  * </PRE>
  *
- * @date 2015-06-22
+ * @date 2016-01-22
  *
  * @todo why do we see 1,1 and 2,2 while the other direction has 3,3?
  * @todo you can alsu use the scoring_matrixs' get_position(i,j) function to only store plain integers for memory efficiency
@@ -298,7 +298,6 @@ BOOST_AUTO_TEST_CASE(Test_Sequence_GGGAAACCC)
 	Zuker zuker = Zuker(settings, sequence , thermodynamics);
 	float energy = zuker.energy();
 	
-	
 	// loopmatrix
 	// Checking these guys:                *
 	//  -   -   -   -   -   -   -   -  1,7
@@ -310,37 +309,27 @@ BOOST_AUTO_TEST_CASE(Test_Sequence_GGGAAACCC)
 	//                          -   -   -
 	//                              -   -
 	//                                  -
-	//Pair pend = Pair(0, 8);
-	///@todo replace with new matrix
-	/*
-	Pair jump_1 = zuker.loopmatrix.get(pend);
-	Pair jump_2 = zuker.loopmatrix.get(jump_1);
-	Pair jump_3 = zuker.loopmatrix.get(jump_2);
-	Pair jump_4 = zuker.loopmatrix.get(jump_3);*/
+	Pair pend = Pair(0, 8);
+	traceback_jump2 jump_1 = zuker.tij.get(pend);
+	traceback_jump2 jump_2 = zuker.tij.get(jump_1.target);
+	traceback_jump2 jump_3 = zuker.tij.get(jump_2.target);
+	traceback_jump2 jump_4 = zuker.tij.get(jump_3.target);
 	
-	/*
-	BOOST_CHECK_EQUAL(jump_1.first == 1 , jump_1.second == 7);
-	BOOST_CHECK_EQUAL(jump_2.first == 2 , jump_2.second == 6);
-	BOOST_CHECK_EQUAL(jump_3.first == 3 , jump_3.second == 5);
-	BOOST_CHECK_EQUAL(jump_4.first == 0 , jump_4.second == 0);
-	*/
-	// Path matrix
-	// Checking these guys:        *
-	//  -2 -2 -2 -2  0  0  0  0 -1
-	//     -2 -2 -2 -2  1  1 -1  7
-	//        -2 -2 -2 -2 -1  6  6
-	//           -2 -2 -2 -2  3  3
-	//              -2 -2 -2 -2  4
-	//                 -2 -2 -2 -2
-	//                    -2 -2 -2
-	//                       -2 -2
-	//                          -2
-	/*
-	BOOST_CHECK_EQUAL(zuker.pij.get(pend) , BOUND);
-	BOOST_CHECK_EQUAL(zuker.pij.get(jump_1) , BOUND);
-	BOOST_CHECK_EQUAL(zuker.pij.get(jump_2) , BOUND);
-	BOOST_CHECK_EQUAL(zuker.pij.get(jump_3) , UNBOUND);
-	*/
+	BOOST_CHECK_EQUAL(jump_1.target.first , 1);
+	BOOST_CHECK_EQUAL(jump_2.target.first , 2);
+	BOOST_CHECK_EQUAL(jump_3.target.first , 3);
+	BOOST_CHECK_EQUAL(jump_4.target.first , UNBOUND);
+	
+	BOOST_CHECK_EQUAL(jump_1.target.second , 7);
+	BOOST_CHECK_EQUAL(jump_2.target.second , 6);
+	BOOST_CHECK_EQUAL(jump_3.target.second , 5);
+	//BOOST_CHECK_EQUAL(jump_4.target.second , 0); << this one is not defined, since the first one says unbound (meaning, no target)
+	
+	BOOST_CHECK_EQUAL(jump_1.store_pair , true);
+	BOOST_CHECK_EQUAL(jump_2.store_pair , true);
+	BOOST_CHECK_EQUAL(jump_3.store_pair , true);
+	BOOST_CHECK_EQUAL(jump_4.store_pair , false);
+	
 	// check total energy
 	BOOST_CHECK_EQUAL(energy , -32.50);
 }
@@ -354,7 +343,7 @@ BOOST_AUTO_TEST_CASE(Test_Sequence_GGGAAACCC)
  * @test Zuker::v
  * @test Zuker::wij
  *
- * @date 2015-07-13
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test_sticky_ends_1)
 {
@@ -489,7 +478,7 @@ BOOST_AUTO_TEST_CASE(Test_sticky_ends_2)
  * ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----   0.0
  * </PRE>
  *
- * @date 2015-07-13
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test_energy_bifuraction)
 {

@@ -1,7 +1,7 @@
 /**
  * @file src/GibbsFreeEnergy.cpp
  *
- * @date 2015-12-07
+ * @date 2016-01-22
  *
  * @author Youri Hoogstrate
  *
@@ -210,7 +210,7 @@ inline float GibbsFreeEnergy::get_tstackh(PairingType &arg_p1, Nucleotide arg_ip
 /**
  * @brief Returns Gibbs free energy for hairpin loops
  *
- * @date 2015-07-10
+ * @date 2016-01-21
  */
 inline float GibbsFreeEnergy::get_loop_hairpin(unsigned int arg_n_unpaired)
 {
@@ -231,7 +231,7 @@ inline float GibbsFreeEnergy::get_loop_hairpin(unsigned int arg_n_unpaired)
 /**
  * @brief Returns Gibbs free energy for bulge loop
  *
- * @date 2015-07-10
+ * @date 2016-01-21
  */
 inline float GibbsFreeEnergy::get_loop_bulge(unsigned int arg_n_unpaired)
 {
@@ -239,7 +239,7 @@ inline float GibbsFreeEnergy::get_loop_bulge(unsigned int arg_n_unpaired)
 	///@todo Throw exception
 	if(arg_n_unpaired >= (unsigned int) this->thermodynamics.loop_bulge.size())
 	{
-		fprintf(stderr, "GibbsFreeEnergy::get_loop_bulge - Out of bound: %i (size = %i)\n", arg_n_unpaired , (int) this->thermodynamics.loop_bulge.size());
+		fprintf(stderr, "GibbsFreeEnergy::get_loop_bulge(): out of bound: %i (size = %i)\n", arg_n_unpaired , (int) this->thermodynamics.loop_bulge.size());
 		exit(1);
 	}
 #endif //DEBUG
@@ -252,7 +252,7 @@ inline float GibbsFreeEnergy::get_loop_bulge(unsigned int arg_n_unpaired)
 /**
  * @brief Returns Gibbs free energy for interior loop
  *
- * @date 2015-07-10
+ * @date 2016-01-21
  */
 inline float GibbsFreeEnergy::get_loop_interior(unsigned int arg_n_unpaired)
 {
@@ -260,7 +260,7 @@ inline float GibbsFreeEnergy::get_loop_interior(unsigned int arg_n_unpaired)
 	///@todo Throw exception
 	if(arg_n_unpaired >= (unsigned int) this->thermodynamics.loop_interior.size())
 	{
-		fprintf(stderr, "GibbsFreeEnergy::get_loop_interior - Out of bound: %i (size = %i)\n", arg_n_unpaired , (int) this->thermodynamics.loop_interior.size());
+		fprintf(stderr, "GibbsFreeEnergy::get_loop_interior(): out of bound: %i (size = %i)\n", arg_n_unpaired , (int) this->thermodynamics.loop_interior.size());
 		exit(1);
 	}
 #endif //DEBUG
@@ -273,7 +273,7 @@ inline float GibbsFreeEnergy::get_loop_interior(unsigned int arg_n_unpaired)
 /**
  * @brief Returns Gibbs free energy for a poly-C loop
  *
- * @date 2015-07-10
+ * @date 2016-01-21
  */
 inline float GibbsFreeEnergy::get_poly_C_loop_penalty(Pair &arg_p, unsigned int n_unpaired)
 {
@@ -374,7 +374,7 @@ inline float GibbsFreeEnergy::get_poppen(unsigned int arg_n_unpaired_in_smallest
 /**
  * @brief Pre-calculates and caches all the loop_hairpin energy values based on the maximal possible length
  *
- * @date 2014-04-04
+ * @date 2016-01-21
  */
 inline void GibbsFreeEnergy::interpolate_loop_hairpin()
 {
@@ -414,7 +414,7 @@ inline void GibbsFreeEnergy::interpolate_loop_hairpin()
  *
  * For the given example: 12-3-4
  *
- * @date 2015-07-10
+ * @date 2016-01-21
  */
 inline void GibbsFreeEnergy::interpolate_loop_bulge()
 {
@@ -453,7 +453,7 @@ inline void GibbsFreeEnergy::interpolate_loop_bulge()
  *
  * sequence length - 4(pairs of loop) - min_hairpin_length
  *
- * @date 2015-04-30
+ * @date 2016-01-21
  */
 inline void GibbsFreeEnergy::interpolate_loop_interior()
 {
@@ -488,7 +488,7 @@ inline void GibbsFreeEnergy::interpolate_loop_interior()
  *
  * @todo optimize possibly overwritten values
  *
- * @date 2015-04-04
+ * @date 2016-01-21
  */
 inline void GibbsFreeEnergy::interpolate_loop_hairpin_C_penalty()
 {
@@ -525,7 +525,7 @@ inline void GibbsFreeEnergy::interpolate_loop_hairpin_C_penalty()
  * 3') [j] [j-1] ...
  * </PRE>
  *
- * @date 2015-02-17
+ * @date 2016-01-21
  *
  * @param arg_pair Pair containing nucleotides i and j indicating their positions in the sequence, where i < j.
  *
@@ -727,8 +727,9 @@ float GibbsFreeEnergy::get_bulge_loop_element(Region &r)
  * @todo Check code for:
  * - loop contains end or beginning of sequence
  * - loop internal loop < min hairpin loop?
+ * - use switches
  *
- * @date 2013-02-17
+ * @date 2016-01-21
  *
  * @param arg_region as region with Nucleotides i (pair1.first), j (pair1.second), i') and j' as positions of the sequence, where i paired to j, i' to j' and where i < i' < j' < j
  *
@@ -947,7 +948,7 @@ float GibbsFreeEnergy::get_AU_penalty(Pairing &arg_pairing)
  *
  * @todo move this to config file
  *
- * @date 2015-02-20
+ * @date 2016-01-21
  *
  * @todo change into stacking penalty or something - penalties are independent from the neighbours?
  * @todo check if this data is not in one of the other stacking files

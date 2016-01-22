@@ -1,7 +1,7 @@
 /**
  * @file test/main_test.cpp
  *
- * @date 2015-01-22
+ * @date 2016-01-22
  *
  * @author Youri Hoogstrate
  *
@@ -67,7 +67,7 @@ BOOST_AUTO_TEST_SUITE(Testing)
  *
  * @test
  *
- * @date 2015-07-23
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test_unfolded)
 {
@@ -95,11 +95,9 @@ BOOST_AUTO_TEST_CASE(Test_unfolded)
 /**
  * @brief tests Hairpin sequence GGGAAACCC to be folded as (((...)))
  *
- * @date 2015-12-01
+ * @date 2016-01-21
  *
  * @test
- *
- * @date 2015-07-23
  */
 BOOST_AUTO_TEST_CASE(Test_hairpin)
 {
@@ -128,7 +126,7 @@ BOOST_AUTO_TEST_CASE(Test_hairpin)
 /**
  * @brief tests Bulge loop prediction
  *
- * @date 2015-12-01
+ * @date 2016-01-21
  *
  * @test
  *
@@ -167,7 +165,7 @@ BOOST_AUTO_TEST_CASE(Test_bulge_loop)
 /**
  * @brief tests Interior loop prediction
  *
- * @date 2015-12-01
+ * @date 2016-01-21
  *
  * @test
  *
@@ -238,7 +236,7 @@ BOOST_AUTO_TEST_CASE(Test_interior_loop)
  * (((((((...)))(((...)))))))
  * </PRE>
  *
- * @date 2015-07-23
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test_bifurcation)
 {
@@ -274,7 +272,7 @@ BOOST_AUTO_TEST_CASE(Test_bifurcation)
  * functional test is executed with a modified version of this file
  * this might result into unneccesairy errors.
  *
- * @date 2015-12-07
+ * @date 2016-01-21
  *
  * @todo BOOST_REQUIRE_EQUAL << md5sum , segment_file
  */
@@ -312,7 +310,7 @@ BOOST_AUTO_TEST_CASE(Test_kturns)
  *
  * @test
  *
- * @date 2015-07-20
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test_kturns_segments_disabled)
 {
@@ -347,7 +345,7 @@ BOOST_AUTO_TEST_CASE(Test_kturns_segments_disabled)
  *
  * @test
  *
- * @date 2015-12-07
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test_segfault_01)
 {
@@ -373,7 +371,6 @@ BOOST_AUTO_TEST_CASE(Test_segfault_01)
 	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
 }
 
-
-///@todo Test function with different minimum hairpin size
+///@todo Test function with different minimum hairpin size -- should fail at the moment, because somewhere in the traceback or so the number 3 is hard coded
 
 BOOST_AUTO_TEST_SUITE_END()

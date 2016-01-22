@@ -164,7 +164,7 @@ void Sequence::push_back(char arg_char)
  * @param arg_start is the (0-based offset) nucleotide in the sequence where the subsequence starts
  * @param arg_stop is the (0-based offset) nucleotide in the sequence where the subsequence ends
  *
- * @date 2014-04-15
+ * @date 2016-01-21
  */
 Sequence Sequence::subseq(size_t arg_start, size_t arg_stop)
 {
@@ -183,7 +183,7 @@ Sequence Sequence::subseq(size_t arg_start, size_t arg_stop)
  * @param arg_start is the (0-based offset) nucleotide in the sequence where the subsequence starts
  * @param arg_stop is the (0-based offset) nucleotide in the sequence where the subsequence ends
  *
- * @date 2015-12-07
+ * @date 2016-01-21
  */
 SubSequence Sequence::ssubseq(size_t arg_start, size_t arg_stop)
 {

@@ -1,7 +1,7 @@
 /**
  * @file src/ReadData.cpp
  *
- * @date 17-apr-2014
+ * @date 2016-01-21
  *
  * @author Youri Hoogstrate
  *
@@ -98,6 +98,8 @@ ReadData::ReadData() :
  * @section DESCRIPTION
  * Structure:
  * p2n(j',i') p2n(j,i) n2n(j'-1) n2n(i'-1) n2n(i'-2)
+ *
+ * @date 2016-01-21
  *
  * @todo Find out if NUCLEOTIDE: 4 is a remaining part of code for DNA folding where 4 ment NUCLEOTIDE T or that it means NUCLEOTIDE_UNKNOWN
  *
@@ -2436,7 +2438,9 @@ void ReadData::loadAsint5()
  *
  * @section DESCRPITION
  * bulge[0], ... ,bulge[29] correspond to bulge loops of size 1,...,30 respectively
- * From 31 and further extrapolation is applied and described in more detail in Zuker::energyBulgeLoop().
+ * From 31 and further extrapolation is applied and described in more detail in Zuker::energyBulgeLoop()
+ *
+ * @date 2016-01-21
  */
 void ReadData::load_loop_bulge()
 {
@@ -2760,7 +2764,7 @@ void ReadData::loadEparam()
  * @section DESCRIPTION
  * The prelog parameter is used for extrapolation of loops of size larger than 30 nucleotides.
  *
- * @date 10-may-2013
+ * @date 2016-01-21
  *
  * @todo Use data files (XML) for storage.
  */
@@ -2796,8 +2800,9 @@ void ReadData::load_miscloop()
 
 
 
-
-
+/**
+ * @date 2016-01-21
+ */
 void ReadData::load_loop_hairpin()
 {
 	this->minimal_hairpin_length = 3;
@@ -2833,12 +2838,15 @@ void ReadData::load_loop_hairpin()
 }
 
 
+/**
+ * @date 2016-01-21
+ **/
 void ReadData::load_loop_interior()
 {
-	this->loop_interior[ 0] = N_INFINITY;///@todo redundant because of initiation of ReadData?
-	this->loop_interior[ 1] = N_INFINITY;///@todo redundant because of initiation of ReadData?
-	this->loop_interior[ 2] = N_INFINITY;///@todo redundant because of initiation of ReadData?
-	this->loop_interior[ 3] = N_INFINITY;///@todo redundant because of initiation of ReadData?
+	this->loop_interior[ 0] = N_INFINITY;///@todo redundant because of initiation of ReadData? if so, do not set
+	this->loop_interior[ 1] = N_INFINITY;///@todo redundant because of initiation of ReadData? if so, do not set
+	this->loop_interior[ 2] = N_INFINITY;///@todo redundant because of initiation of ReadData? if so, do not set
+	this->loop_interior[ 3] = N_INFINITY;///@todo redundant because of initiation of ReadData? if so, do not set
 	
 	this->loop_interior[ 4] = 1.7f;
 	this->loop_interior[ 5] = 1.8f;
@@ -2875,6 +2883,8 @@ void ReadData::load_loop_interior()
  * @brief Load the f(m) array ("see Ninio for details")
  *
  * @attention more details: http://www.bioinfo.rpi.edu/zukerm/rna/energy/efiles-3.0-rna/#MISC
+ *
+ * @date 2016-01-21
  */
 void ReadData::load_poppen()
 {
@@ -2896,7 +2906,7 @@ void ReadData::load_poppen()
  *
  * p2n(i,j) p2n(i',j') n2n(i+1) n2n(j-1)
  *
- * @date 30-dec-2014
+ * @date 2016-01-21
  */
 void ReadData::load_int11()
 {
@@ -3481,6 +3491,8 @@ void ReadData::load_int11()
 
 /**
  * @brief Structure of data should be: int22[pairing(i,j)][pairing(i',j')][i+1][j-1]][i+2]][j-2]];
+ *
+ * @date 2016-01-21
  */
 void ReadData::load_int22()
 {
@@ -12703,7 +12715,9 @@ void ReadData::load_int22()
 }
 
 
-
+/**
+ * @date 2016-01-21
+ */
 void ReadData::load_stack()
 {
 	this->stack[PairingType::UA][PairingType::UA] = -0.90f;
@@ -12745,7 +12759,9 @@ void ReadData::load_stack()
 }
 
 
-///@todo fill entries
+/**
+ * @date 2016-01-21
+ */
 void ReadData::load_tloop()
 {
 	this->tloop_map[Sequence("GGGGAC")] = 3.00f;
@@ -12796,9 +12812,9 @@ void ReadData::load_triloop()
  * @brief Loads tstackh (terminal stack for hairpin)
  *
  * @section DESCRIPTION
-    Access: tstkh[PairingType(i,j)][Nucleotide i + 1][Nucleotide j - 1]
+ *  Access: tstkh[PairingType(i,j)][Nucleotide i + 1][Nucleotide j - 1]
  *
- * @date 2015-06-23
+ * @date 2016-01-21
  */
 void ReadData::load_tstackh()
 {
@@ -12903,6 +12919,8 @@ void ReadData::load_tstackh()
 
 /**
  * @brief Terminal stack interior loop
+ *
+ * @date 2016-01-21
  */
 void ReadData::load_tstacki()
 {

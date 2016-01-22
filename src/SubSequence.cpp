@@ -1,7 +1,7 @@
 /**
  * @file src/SubSequence.cpp
  *
- * @date 2015-05-06
+ * @date 2016-01-21
  *
  * @author Youri Hoogstrate
  *
@@ -38,7 +38,7 @@
 /**
  * @brief Stores positions and sets PairingType
  *
- * @date 2015-05-06
+ * @date 2016-01-21
  */
 SubSequence::SubSequence(Position arg_position1, Position arg_position2):
 	position1(arg_position1),
@@ -80,7 +80,7 @@ void SubSequence::init()
 /**
  * @brief
  *
- * @date 2015-05-06
+ * @date 2016-01-21
  *
  * @todo Decide whether or not to return a Position or a Nucleotide
  */

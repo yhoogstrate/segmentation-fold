@@ -1,7 +1,7 @@
 /**
  * @file include/ReadSegments.hpp
  *
- * @date 2015-12-07
+ * @date 2016-01-22
  *
  * @author Youri Hoogstrate
  *

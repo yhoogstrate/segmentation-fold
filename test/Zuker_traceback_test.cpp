@@ -1,7 +1,7 @@
 /**
  * @file test/Zuker_traceback_test.cpp
  *
- * @date 2015-12-07
+ * @date 2016-01-22
  *
  * @author Youri Hoogstrate
  *
@@ -69,6 +69,11 @@ bool IdenticalFloats(double a, double b)
 	return fabs(a - b) < 0.0001;
 }
 
+
+
+/**
+ * @date 2016-01-22
+ */
 void test_vij(Zuker &zuker)
 {
 	Pair p = Pair();
@@ -606,6 +611,11 @@ void test_vij(Zuker &zuker)
 	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(17,17) = " + std::to_string(e));
 }
 
+
+
+/**
+ * @date 2016-01-22
+ */
 void test_wij(Zuker &zuker)
 {
 	Pair p = Pair();
@@ -1144,6 +1154,8 @@ void test_wij(Zuker &zuker)
 	
 }
 
+
+
 void test_sij(Zuker &zuker, size_t n)
 {
 	Pair p = Pair();
@@ -1158,6 +1170,10 @@ void test_sij(Zuker &zuker, size_t n)
 }
 
 
+
+/**
+ * @date 2016-01-22
+ */
 void test_tij(Zuker &zuker)
 {
 	Pair p = Pair();
@@ -2037,10 +2053,12 @@ void test_tij(Zuker &zuker)
 	//BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
 }
 
+
+
 /**
  * @brief tests Bulge loop prediction
  *
- * @date 2015-12-01
+ * @date 2016-01-22
  *
  * @test
  *
@@ -2121,6 +2139,5 @@ BOOST_AUTO_TEST_CASE(Test_bulge_loop)
 		BOOST_CHECK_MESSAGE(valid_structure, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
 	}
 }
-
 
 BOOST_AUTO_TEST_SUITE_END()

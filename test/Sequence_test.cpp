@@ -1,7 +1,7 @@
 /**
  * @file test/Sequence_test.cpp
  *
- * @date 2015-05-02
+ * @date 2016-01-21
  *
  * @author Youri Hoogstrate
  *
@@ -106,7 +106,7 @@ BOOST_AUTO_TEST_CASE(Test02)
  *
  * @test
  *
- * @date 2014-04-15
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test03)
 {
@@ -143,7 +143,7 @@ BOOST_AUTO_TEST_CASE(Test03)
  *
  * @test
  *
- * @date 2014-04-15
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test04)
 {

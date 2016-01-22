@@ -1,7 +1,7 @@
 /**
  * @file src/SegmentTraceback.cpp
  *
- * @date 2015-08-06
+ * @date 2016-01-22
  *
  * @author Youri Hoogstrate
  *
@@ -111,7 +111,7 @@ size_t SegmentTraceback::size(void)
  *
  * @return Whether the return was VALID - if false is returned, the traceback is being reset to it's origin and will return true again.
  *
- * @date 2015-08-05
+ * @date 2016-01-21
  */
 bool SegmentTraceback::traceback(unsigned int &i, unsigned int &j)
 {

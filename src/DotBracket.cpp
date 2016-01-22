@@ -46,11 +46,11 @@ DotBracket::DotBracket()
  * @param i position i in the RNA sequence
  * @return The position in the sequence pairing with the nucleotide at position i, "UNBOUND" otherwise
  *
- * @date 2013-09-11
+ * @date 2016-01-21
  *
  * @todo Make this a WHILE loop and avoid the early returns
  * @todo get rid of signed here - maybe make an at() function that requires to find something
-*/
+ */
 signed int DotBracket::find(unsigned int arg_i)
 {
 	unsigned int i;
@@ -78,8 +78,8 @@ signed int DotBracket::find(unsigned int arg_i)
  * @param arg_i Nucleotide position in the RNA sequence pairing with (,j)
  * @param arg_j Nucleotide position in the RNA sequence pairing with (i,)
  *
- * @date 2013-09-11
-*/
+ * @date 2016-01-21
+ */
 void DotBracket::store(unsigned int arg_i, unsigned int arg_j)
 {
 	this->pairings.push_back({arg_i, arg_j});

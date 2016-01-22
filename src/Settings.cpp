@@ -1,10 +1,9 @@
 /**
  * @file src/Settings.cpp
  *
- * @date 2015-12-07
+ * @date 2016-01-21
  *
  * @author Youri Hoogstrate
- * @author Lisa Yu
  *
  * @section LICENSE
  * <PRE>
@@ -57,7 +56,7 @@
 /**
  * @brief Construct of the Settings class; default parameters should be initialized in this function.
  *
- * @date 2015-06-22
+ * @date 2016-01-21
  *
  * @param local_argc Local argc (number of commandline parameters) parameter which should be passed through to the global argc
  * @param local_argv Local argv (commandline parameters) parameter which should be passed through to the global argv
@@ -130,7 +129,7 @@ void Settings::print_version(void)
 /**
  * @brief Parses the commandline parameters.
  *
- * @date 2015-12-01
+ * @date 2016-01-21
  */
 void Settings::parse_arguments(void)
 {
@@ -224,7 +223,7 @@ void Settings::parse_arguments(void)
 /**
  * @brief Parses the first FASTA line from a filestream (or stdin)
  *
- * @date 2015-06-22
+ * @date 2016-01-21
  *
  * @param stream A stream for reading, like a file handle or stdin.
  *

@@ -1,7 +1,7 @@
 /**
  * @file test/Settings_test.cpp
  *
- * @date 2015-12-07
+ * @date 2016-01-21
  *
  * @author Youri Hoogstrate
  *
@@ -68,7 +68,7 @@ BOOST_AUTO_TEST_SUITE(Testing)
  *
  * @test
  *
- * @date 2015-06-05
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test1)
 {
@@ -111,7 +111,7 @@ BOOST_AUTO_TEST_CASE(Test1)
  *
  * @test
  *
- * @date 2015-06-22
+ * @date 2016-01-21
  *
  * @todo Implement the possibility to run multiple entries from a FASTA file
  */
@@ -205,12 +205,14 @@ BOOST_AUTO_TEST_CASE(Test3)
 	}
 }
 
+
+
 /**
  * @brief Tests whether the minimal hairpin-size can be set (-h)
  *
  * @test
  *
- * @date 2015-06-05
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test4)
 {
@@ -378,7 +380,7 @@ BOOST_AUTO_TEST_CASE(Test8)
  *
  * @test
  *
- * @date 2015-07-20
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test9)
 {

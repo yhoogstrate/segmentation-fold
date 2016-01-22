@@ -1,7 +1,7 @@
 /**
  * @file test/GibbsFreeEnergy_test.cpp
  *
- * @date 2015-12-07
+ * @date 2016-01-21
  *
  * @author Youri Hoogstrate
  *
@@ -172,7 +172,7 @@ BOOST_AUTO_TEST_CASE(TestHairpinLoop3)
  *
  * @test GibbsFreeEnergy::get_hairpin_loop_element
  *
- * @date 2015-06-23
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(TestHairpinLoop4)
 {
@@ -513,7 +513,7 @@ BOOST_AUTO_TEST_CASE(TestBulgeLoop2)
  *
  * @test GibbsFreeEnergy::get_bulge_loop_element
  *
- * @date 2015-06-23
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(TestBulgeLoop3)
 {
@@ -774,7 +774,7 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop1)
  *
  * @test GibbsFreeEnergy::get_interior_loop_element
  *
- * @date 2015-06-23
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(TestInteriorLoop2)
 {
@@ -1074,7 +1074,7 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop2)
  *
  * @test GibbsFreeEnergy::get_interior_loop_element
  *
- * @date 2015-06-23
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(TestInteriorLoop2_poppen)
 {

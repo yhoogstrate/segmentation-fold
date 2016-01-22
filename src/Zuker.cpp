@@ -1,7 +1,7 @@
 /**
  * @file src/Zuker.cpp
  *
- * @date 2016-01-21
+ * @date 2016-01-22
  *
  * @author Youri Hoogstrate
  *
@@ -56,7 +56,7 @@
 /**
  * @brief Constructs /initializes the Zuker class: include parameters and init an empty dotbracket output.
  *
- * @date 2016-01-21
+ * @date 2016-01-22
  *
  * @todo move this to this->init(); and run this->init(); or rename it to this->reset();
  */
@@ -301,7 +301,6 @@ float Zuker::w(Pair &p1)
 	
 	float energy;
 	signed int tmp_pij, tmp_qij;
-	///@todo - i is guarenteed to be smaller than j, so n can be unsigned!
 	unsigned int n = (p1.second - p1.first);
 	
 	if(n <= this->settings.minimal_hairpin_length)
@@ -333,12 +332,12 @@ float Zuker::w(Pair &p1)
 		||
 		
 		CCC
-		|)   (pre-iter 1)
-		 (|  (pre-iter 2)
+		 (|  (pre-iter 1)
+		|)   (pre-iter 2)
 		
 		CCCAGGA
-		|    )   (pre-iter 1)
-		 (    |  (pre-iter 2)
+		 (    |  (pre-iter 1)
+		|    )   (pre-iter 2)
 		|)(   |  (iter 1; k=+1)
 		| )(  |  (iter 2; k=+2)
 		|  )( |  (iter 3; k=+3)
@@ -350,6 +349,7 @@ float Zuker::w(Pair &p1)
 			Pair p2, p3;
 			float tmp;
 			
+			// pre-iter 1
 			p3 = Pair(p1.first + 1, p1.second);
 			tmp = this->wij.get(p3);
 			if(tmp < energy)
@@ -360,6 +360,7 @@ float Zuker::w(Pair &p1)
 				tmp_qij = p3.second;
 			}
 			
+			// pre-iter 2
 			p2 = Pair(p1.first, p1.second - 1);
 			tmp = this->wij.get(p2);
 			if(tmp < energy)
@@ -369,6 +370,7 @@ float Zuker::w(Pair &p1)
 				tmp_qij = p2.second;
 			}
 			
+			// remaining iterations
 			for(unsigned int k = p1.first + 1; k < p1.second  - 1; k++)
 			{
 				p2 = Pair(p1.first, k);
@@ -406,7 +408,7 @@ float Zuker::w(Pair &p1)
 /**
  * @brief The traceback algorithm, finds the optimal path through the matrices.
  *
- * @date 2015-12-01
+ * @date 2016-01-21
  *
  * @section DESCRIPTION
  * This function finds the path back. It will choose between
@@ -433,7 +435,7 @@ void Zuker::traceback(void)
 #if DEBUG
 		if(i >= j)
 		{
-			throw std::invalid_argument("Traceback encountered an incorrect jump (i:" + std::to_string(i) + " >= j:" + std::to_string(j) + ")");
+			throw std::invalid_argument("Zuker::traceback(): invalid jump (i:" + std::to_string(i) + " >= j:" + std::to_string(j) + ")");
 		}
 #endif //DEBUG
 		
@@ -457,7 +459,7 @@ void Zuker::traceback(void)
 #if DEBUG
 					if(tmp_i >= tmp_j)
 					{
-						throw std::invalid_argument("Traceback with segment introduced incorrect jump (" + std::to_string(tmp_i) + "," + std::to_string(tmp_j) + ")\n");
+						throw std::invalid_argument("Zuker::traceback(): segment/segmentloop introduced invalid jump (" + std::to_string(tmp_i) + "," + std::to_string(tmp_j) + ")\n");
 					}
 #endif //DEBUG
 					this->dot_bracket.store(tmp_i, tmp_j);
@@ -497,7 +499,7 @@ void Zuker::traceback(void)
 /**
  * @brief Pushes (i,j) & matrix-flag onto the stack
  *
- * @date 2012-12-06
+ * @date 2016-01-21
  *
  * @param i Nucleotide position of the sequence, paired to j, where i < j
  * @param j Nucleotide position of the sequence, paired to i, where i < j
@@ -515,7 +517,7 @@ void Zuker::traceback_push(unsigned int i, unsigned int j)
 /**
  * @brief Pops from the stack.
  *
- * @date 2013-10-02
+ * @date 2016-01-21
  *
  * @param i Nucleotide position of the sequence, paired to j, where i < j
  * @param j Nucleotide position of the sequence, paired to i, where i < j
@@ -545,7 +547,7 @@ bool Zuker::traceback_pop(unsigned int *i, unsigned int *j)
 /**
  * @brief Prints the 2D structure as DotBracket (dbn) format
  *
- * @date 2015-07-13
+ * @date 2016-01-21
  *
  * @todo Change this to Zuker::output(), add enum for OutputType::DotBracket / OutputType::ConnectivityTable / OutputType::RNAXml
  */

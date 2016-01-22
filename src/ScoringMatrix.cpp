@@ -1,7 +1,7 @@
 /**
  * @file src/ScoringMatrix.cpp
  *
- * @date 2016-01-20
+ * @date 2016-01-22
  *
  * @author Youri Hoogstrate
  *
@@ -46,7 +46,7 @@
 /**
  * @brief
  *
- * @date 2015-06-26
+ * @date 2016-01-20
  *
  * @todo work with templates;
  * - Float for Energy values (V & W matrix)
@@ -168,7 +168,7 @@ signed int ScoringMatrix<T>::get_position(Pair &p)
 /**
  * @brief Sets a value in the matrix
  *
- * @date 2015-12-09
+ * @date 2016-01-21
  *
  * @todo Check whether diagonals are initiated; it takes unnecessairy computations
  */
@@ -257,10 +257,9 @@ template class ScoringMatrix<float>;
 template class ScoringMatrix<SegmentTraceback *>;
 template class ScoringMatrix<char>;
 template class ScoringMatrix<Pair>;
-
 template class ScoringMatrix<traceback_jump2>;
 
 //template class ScoringMatrix<unsigned int>;
 //template class ScoringMatrix<double>;
 //template class ScoringMatrix<short>;
-//template class ScoringMatrix<bool>; <- this one causes problems! do never use it.
+//template class ScoringMatrix<bool>; <- this one causes problems in paralel mode! do never use it.
