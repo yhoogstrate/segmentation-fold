@@ -1,7 +1,7 @@
 /**
  * @file src/Zuker.cpp
  *
- * @date 2016-01-20
+ * @date 2016-01-21
  *
  * @author Youri Hoogstrate
  *
@@ -56,20 +56,19 @@
 /**
  * @brief Constructs /initializes the Zuker class: include parameters and init an empty dotbracket output.
  *
- * @date 2012-11-05
+ * @date 2016-01-21
  *
  * @todo move this to this->init(); and run this->init(); or rename it to this->reset();
  */
 Zuker::Zuker(Settings &arg_settings, Sequence &arg_sequence, ReadData &arg_thermodynamics) :
 	GibbsFreeEnergy(arg_sequence, arg_thermodynamics),
 	settings(arg_settings),
-	tij(arg_sequence.size(), {false, Pair(UNBOUND, UNBOUND)}),							//@todo use N instead of 0? >> if so, set UNBOUND to N  + 1 or so
 	vij(arg_sequence.size(), N_INFINITY),
 	wij(arg_sequence.size(), 0.0),
-	pij(arg_sequence.size(), UNBOUND),
+	tij(arg_sequence.size(), {false, Pair(UNBOUND, UNBOUND)}),					//@todo use N instead of 0? >> if so, set UNBOUND to N  + 1 or so
 	sij(arg_sequence.size(), nullptr)
 {
-	this->pij.fill(NOT_YET_CALCULATED);
+	this->tij.fill({false,{NOT_YET_CALCULATED,NOT_YET_CALCULATED}});
 	
 	this->sequence_begin = this->sequence.data.begin();
 	this->traceback_stacktop = -1;
@@ -127,7 +126,7 @@ float Zuker::energy(void)
 float Zuker::v(Pair &p1, PairingPlus &p1p)
 {
 #if DEBUG
-	if(this->pij.get(p1) > NOT_YET_CALCULATED)
+	if(this->tij.get(p1).target.first != (unsigned int) NOT_YET_CALCULATED)
 	{
 		throw std::invalid_argument("Zuker::v(" + std::to_string(p1.first) + ", " + std::to_string(p1.second) + "): redundant calculation, please request values from the ScoringMatrix directly");
 	}
@@ -294,7 +293,8 @@ float Zuker::w(Pair &p1)
 	{
 		throw std::invalid_argument("Zuker::w(" + std::to_string(p1.first) + ", " + std::to_string(p1.second) + "): out of bound");
 	}
-	if(this->pij.get(p1) > NOT_YET_CALCULATED)			///@todo -create bool function > {pij}.is_calculated()    @todo2 use max unsigned int value  // This point is already calculated; efficiency of dynamic programming
+	
+	if(this->tij.get(p1).target.first != (unsigned int) NOT_YET_CALCULATED)
 	{
 		throw std::invalid_argument("Zuker::w(" + std::to_string(p1.first) + ", " + std::to_string(p1.second) + "): redundant calculation, please request values from the ScoringMatrix directly");
 	}
@@ -378,26 +378,24 @@ float Zuker::w(Pair &p1)
 				///@todo -> move these two if statements out of the loop, and do iteration over p1.first+1 ; k< p1.second - 1 or sth like that
 				if(k == p1.first)
 				{
-					tmp_pij = k + 1;
-					tmp_qij = p1.second;
+					tmp_pij = (signed int) k + 1;
+					tmp_qij = (signed int) p1.second;
 				}
 				else if(k + 1 == p1.second)
 				{
-					tmp_pij = p1.first;///@todo make tmp_pij unsigned by setting BOUND and UNBOUND to MAX_VAL(size_t)-1 and MAX_VAL(size_t)-2
-					tmp_qij = (int) k;///@todo make tmp_pij unsigned by setting BOUND and UNBOUND to MAX_VAL(size_t)-1 and MAX_VAL(size_t)-2
+					tmp_pij = (signed int) p1.first;///@todo make tmp_pij unsigned by setting BOUND and UNBOUND to MAX_VAL(size_t)-1 and MAX_VAL(size_t)-2
+					tmp_qij = (signed int) k;///@todo make tmp_pij unsigned by setting BOUND and UNBOUND to MAX_VAL(size_t)-1 and MAX_VAL(size_t)-2
 				}
 				else
 				{
-					tmp_pij = (int) k;///@todo make tmp_pij unsigned by setting BOUND and UNBOUND to MAX_VAL(size_t)-1 and MAX_VAL(size_t)-2
-					tmp_qij = (int) k;///@todo make tmp_pij unsigned by setting BOUND and UNBOUND to MAX_VAL(size_t)-1 and MAX_VAL(size_t)-2
+					tmp_pij = (signed int) k;///@todo make tmp_pij unsigned by setting BOUND and UNBOUND to MAX_VAL(size_t)-1 and MAX_VAL(size_t)-2
+					tmp_qij = (signed int) k;///@todo make tmp_pij unsigned by setting BOUND and UNBOUND to MAX_VAL(size_t)-1 and MAX_VAL(size_t)-2
 				}
 			}
 		}
-		
 	}
 	
 	///@todo get some way to obtain the index just once? -> this could be generalized at the top level as well (add it to the pair for example)
-	this->pij.set(p1, tmp_pij);
 	this->wij.set(p1, energy);
 	
 	
@@ -602,52 +600,6 @@ void Zuker::_print_sij(unsigned int matrix_length)
 	}
 	
 	for(i = 0; i  < matrix_length * 4.4; i++)
-	{
-		std::cout << "--";
-	}
-	
-	std::cout << "\n\n";
-}
-#endif // DEBUG
-
-
-
-#if DEBUG
-void Zuker::_print_pij(unsigned int matrix_length)
-{
-	unsigned int i, j;
-	signed int p;
-	
-	for(i = 0; i < matrix_length; i++)
-	{
-		for(j = 0; j < matrix_length; j++)
-		{
-			Pair pair = Pair(i, j);
-			
-			if(i > j)
-			{
-				std::cout << " ---";
-			}
-			else
-			{
-				p = this->pij.get(pair);
-				
-				std::cout << " ";
-				if(p >= 0)
-				{
-					std::cout << " ";
-				}
-				if(p > -10 && p < 10)
-				{
-					std::cout << " ";
-				}
-				std::cout << p;
-			}
-		}
-		std::cout << "\n";
-	}
-	
-	for(i = 0; i  < matrix_length * 2; i++)
 	{
 		std::cout << "--";
 	}

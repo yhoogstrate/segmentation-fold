@@ -1,7 +1,7 @@
 /**
  * @file src/DotBracket.cpp
  *
- * @date 2016-01-20
+ * @date 2016-01-21
  *
  * @author Youri Hoogstrate
  *
@@ -92,7 +92,7 @@ void DotBracket::store(unsigned int arg_i, unsigned int arg_j)
  *
  * @param rnaSequenceLength The length of the sequence of which the 2D strucutre is calculated
  *
- * @date 2016-01-20
+ * @date 2016-01-21
  *
  * @todo Make it work with streams, so that output can be put in a file.
  * @todo Make the variables private const static class variables
@@ -105,7 +105,7 @@ void DotBracket::format(unsigned int n, std::string &output)
 	
 	for(i = 0; i < (signed int) n; i++)
 	{
-		j = this->find(i);
+		j = this->find( (unsigned int) i);
 		
 		if(j == UNBOUND)
 		{

@@ -1,7 +1,7 @@
 /**
  * @file include/Zuker.hpp
  *
- * @date 2015-07-13
+ * @date 2016-01-21
  *
  * @author Youri Hoogstrate
  *
@@ -63,7 +63,7 @@ struct traceback_jump
  * model with Segments/K-turns functionality for RNA secondary structure
  * prediction.
  *
- * @date 2015-12-01
+ * @date 2016-01-21
  */
 class Zuker: public GibbsFreeEnergy
 {
@@ -97,19 +97,17 @@ class Zuker: public GibbsFreeEnergy
 		// Output functions
 		void print_2D_structure(void);
 		
-		ScoringMatrix<traceback_jump2> tij;// Traceback matrix, merges pij and qij and loopmatrix and pathmatrix_corrected_from
-		
+		// Energy matrices
 		ScoringMatrix<float> vij;
 		ScoringMatrix<float> wij;
 		
 		// Traceback matrices
-		ScoringMatrix<int> pij;// Pathmatrix
+		ScoringMatrix<traceback_jump2> tij;// Traceback matrix, merges pij and qij and loopmatrix and pathmatrix_corrected_from
 		ScoringMatrix<SegmentTraceback *> sij;
 		
 #if DEBUG
 		// Functions only useful for plotting and debugging
 		void _print_sij(unsigned int matrix_length);
-		void _print_pij(unsigned int matrix_length);
 		void _print_vij(unsigned int matrix_length);
 		void _print_wij(unsigned int matrix_length);
 #endif //DEBUG
