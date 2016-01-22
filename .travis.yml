@@ -24,7 +24,8 @@ addons:
     - clang
 
 script:
-  - ctest -V -T memcheck
+  - ctest
+  - ctest -T memcheck
   - if make tidy | grep "Formatted " ; then exit 2; else echo "No changes found by astyle" ; make tidy; fi;
 
 notifications:

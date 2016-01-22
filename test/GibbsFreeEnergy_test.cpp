@@ -1,7 +1,7 @@
 /**
  * @file test/GibbsFreeEnergy_test.cpp
  *
- * @date 2015-12-07
+ * @date 2016-01-21
  *
  * @author Youri Hoogstrate
  *
@@ -172,7 +172,7 @@ BOOST_AUTO_TEST_CASE(TestHairpinLoop3)
  *
  * @test GibbsFreeEnergy::get_hairpin_loop_element
  *
- * @date 2015-06-23
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(TestHairpinLoop4)
 {
@@ -194,7 +194,7 @@ BOOST_AUTO_TEST_CASE(TestHairpinLoop4)
 	
 	GibbsFreeEnergy gfe = GibbsFreeEnergy(rna, thermodynamics);
 	
-	float interpolated_hairpin_loop = thermodynamics.loop_hairpin[30] + (thermodynamics.miscloop[MISCLOOP_PRELOG] * log((float) 31 / 30));
+	float interpolated_hairpin_loop = thermodynamics.loop_hairpin[30] + (thermodynamics.miscloop[MISCLOOP_PRELOG] * (float) log((float) 31 / 30));
 	BOOST_CHECK_EQUAL(gfe.get_hairpin_loop_element(p) , interpolated_hairpin_loop);
 }
 
@@ -205,7 +205,7 @@ BOOST_AUTO_TEST_CASE(TestHairpinLoop4)
  *
  * @test
  *
- * @date 2015-07-10
+ * @date 2016-01-20
  */
 BOOST_AUTO_TEST_CASE(TestHairpinLoop5)
 {
@@ -231,11 +231,9 @@ BOOST_AUTO_TEST_CASE(TestHairpinLoop5)
 	Nucleotide n_i = rna_1[i];
 	Nucleotide n_j1 = rna_1[j_1];
 	Nucleotide n_j2 = rna_2[j_2];
-	Nucleotide n_j3 = rna_3[j_3];
 	
 	Pairing pairing1 = Pairing(n_i, n_j1);
 	Pairing pairing2 = Pairing(n_i, n_j2);
-	Pairing pairing3 = Pairing(n_i, n_j3);
 	
 	thermodynamics.tstackh[pairing1.type][rna_1[i + 1]][rna_1[j_1 - 1]] = 0.0;
 	thermodynamics.tstackh[pairing2.type][rna_2[i + 1]][rna_2[j_2 - 1]] = 0.0;
@@ -515,7 +513,7 @@ BOOST_AUTO_TEST_CASE(TestBulgeLoop2)
  *
  * @test GibbsFreeEnergy::get_bulge_loop_element
  *
- * @date 2015-06-23
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(TestBulgeLoop3)
 {
@@ -556,7 +554,7 @@ BOOST_AUTO_TEST_CASE(TestBulgeLoop3)
 	// Compare energy
 	GibbsFreeEnergy gfe = GibbsFreeEnergy(rna, thermodynamics);			// interpolation of bulge loop params should take place here.
 	
-	float intrapolated_energy = thermodynamics.loop_bulge[30] + (thermodynamics.miscloop[MISCLOOP_PRELOG] * log((float) 32 / 30));
+	float intrapolated_energy = thermodynamics.loop_bulge[30] + (thermodynamics.miscloop[MISCLOOP_PRELOG] * (float) log((float) 32 / 30));
 	
 	BOOST_CHECK_EQUAL(gfe.get_bulge_loop_element(r) ,
 					  energy_loop_hairpin + energy_hairpin_stack + energy_hairpin_triloop_CaaaG +
@@ -776,7 +774,7 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop1)
  *
  * @test GibbsFreeEnergy::get_interior_loop_element
  *
- * @date 2015-06-23
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(TestInteriorLoop2)
 {
@@ -859,7 +857,7 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop2)
 	// Check
 	float energy_34 = gfe_34.get_interior_loop_element(r);
 	float intrapolated_energy = thermodynamics.loop_interior[30] +
-								(thermodynamics.miscloop[MISCLOOP_PRELOG] * log((float)(n_unpaired_r1 + n_unpaired_r2) / 30));
+								(thermodynamics.miscloop[MISCLOOP_PRELOG] * (float) log((float)(n_unpaired_r1 + n_unpaired_r2) / 30));
 								
 	BOOST_CHECK_EQUAL(energy_34 ,
 					  energy_loop_hairpin + energy_hairpin_stack + energy_hairpin_triloop_GaaaC +
@@ -933,7 +931,7 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop2)
 	// Check
 	float energy_35 = gfe_35.get_interior_loop_element(r2);
 	intrapolated_energy = thermodynamics.loop_interior[30] +
-						  (thermodynamics.miscloop[MISCLOOP_PRELOG] * log((float)(n_unpaired_r1 + n_unpaired_r2) / 30));
+						  (thermodynamics.miscloop[MISCLOOP_PRELOG] * (float) log((float)(n_unpaired_r1 + n_unpaired_r2) / 30));
 						  
 	BOOST_CHECK_EQUAL(energy_35 ,
 					  energy_loop_hairpin + energy_hairpin_stack + energy_hairpin_triloop_GaaaC +
@@ -1008,7 +1006,7 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop2)
 	// Check
 	float energy_36 = gfe_36.get_interior_loop_element(r3);
 	intrapolated_energy = thermodynamics.loop_interior[30] +
-						  (thermodynamics.miscloop[MISCLOOP_PRELOG] * log((float)(n_unpaired_r1 + n_unpaired_r2) / 30));
+						  (thermodynamics.miscloop[MISCLOOP_PRELOG] * (float) log((float)(n_unpaired_r1 + n_unpaired_r2) / 30));
 						  
 	BOOST_CHECK_EQUAL(energy_36 ,
 					  energy_loop_hairpin + energy_hairpin_stack + energy_hairpin_triloop_GaaaC +
@@ -1076,7 +1074,7 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop2)
  *
  * @test GibbsFreeEnergy::get_interior_loop_element
  *
- * @date 2015-06-23
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(TestInteriorLoop2_poppen)
 {
@@ -1156,15 +1154,15 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop2_poppen)
 	// Set penalties: interior loop penalties
 	thermodynamics.tstki[PairingType::GC][Nucleotide::A][Nucleotide::A] = energy_interior_GC_A_A;
 	thermodynamics.miscloop[MISCLOOP_ASYMETRIC_INTENRAL_LOOP] = asymetric_loopsize_correction;
-	thermodynamics.poppen_p[1] = 0.1;
-	thermodynamics.poppen_p[2] = 0.2;
-	thermodynamics.poppen_p[3] = 0.3;
+	thermodynamics.poppen_p[1] = 0.1f;
+	thermodynamics.poppen_p[2] = 0.2f;
+	thermodynamics.poppen_p[3] = 0.3f;
 	thermodynamics.poppen_p[4] = asymetric_loopsize_poppen_4;
 	
 	// Check
 	float energy_32 = gfe_32.get_interior_loop_element(r);
 	float intrapolated_energy = thermodynamics.loop_interior[30] +
-								(thermodynamics.miscloop[MISCLOOP_PRELOG] * log((float)(n_unpaired_r1 + n_unpaired_r2) / 30));
+								(thermodynamics.miscloop[MISCLOOP_PRELOG] * (float) log((float)(n_unpaired_r1 + n_unpaired_r2) / 30));
 								
 	BOOST_CHECK_EQUAL(energy_32 ,
 					  energy_loop_hairpin + energy_hairpin_stack + energy_hairpin_triloop_GaaaC +
@@ -1235,15 +1233,15 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop2_poppen)
 	// Set penalties: interior loop penalties
 	thermodynamics.tstki[PairingType::GC][Nucleotide::A][Nucleotide::A] = energy_interior_GC_A_A;
 	thermodynamics.miscloop[MISCLOOP_ASYMETRIC_INTENRAL_LOOP] = asymetric_loopsize_correction;
-	thermodynamics.poppen_p[1] = 0.1;
-	thermodynamics.poppen_p[2] = 0.2;
-	thermodynamics.poppen_p[3] = 0.3;
+	thermodynamics.poppen_p[1] = 0.1f;
+	thermodynamics.poppen_p[2] = 0.2f;
+	thermodynamics.poppen_p[3] = 0.3f;
 	thermodynamics.poppen_p[4] = asymetric_loopsize_poppen_4;
 	
 	// Check
 	float energy_33 = gfe_33.get_interior_loop_element(r2);
 	intrapolated_energy = thermodynamics.loop_interior[30] +
-						  (thermodynamics.miscloop[MISCLOOP_PRELOG] * log((float)(n_unpaired_r1 + n_unpaired_r2) / 30));
+						  (thermodynamics.miscloop[MISCLOOP_PRELOG] * (float) log((float)(n_unpaired_r1 + n_unpaired_r2) / 30));
 						  
 	BOOST_CHECK_EQUAL(energy_33 ,
 					  energy_loop_hairpin + energy_hairpin_stack + energy_hairpin_triloop_GaaaC +
@@ -1313,15 +1311,15 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop2_poppen)
 	// Set penalties: interior loop penalties
 	thermodynamics.tstki[PairingType::GC][Nucleotide::A][Nucleotide::A] = energy_interior_GC_A_A;
 	thermodynamics.miscloop[MISCLOOP_ASYMETRIC_INTENRAL_LOOP] = asymetric_loopsize_correction;
-	thermodynamics.poppen_p[1] = 0.1;
-	thermodynamics.poppen_p[2] = 0.2;
-	thermodynamics.poppen_p[3] = 0.3;
+	thermodynamics.poppen_p[1] = 0.1f;
+	thermodynamics.poppen_p[2] = 0.2f;
+	thermodynamics.poppen_p[3] = 0.3f;
 	thermodynamics.poppen_p[4] = asymetric_loopsize_poppen_4;
 	
 	// Check
 	float energy_34 = gfe_34.get_interior_loop_element(r3);
 	intrapolated_energy = thermodynamics.loop_interior[30] +
-						  (thermodynamics.miscloop[MISCLOOP_PRELOG] * log((float)(n_unpaired_r1 + n_unpaired_r2) / 30));
+						  (thermodynamics.miscloop[MISCLOOP_PRELOG] * (float) log((float)(n_unpaired_r1 + n_unpaired_r2) / 30));
 						  
 	BOOST_CHECK_EQUAL(energy_34 ,
 					  energy_loop_hairpin + energy_hairpin_stack + energy_hairpin_triloop_GaaaC +
@@ -1393,15 +1391,15 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop2_poppen)
 	// Set penalties: interior loop penalties
 	thermodynamics.tstki[PairingType::GC][Nucleotide::A][Nucleotide::A] = energy_interior_GC_A_A;
 	thermodynamics.miscloop[MISCLOOP_ASYMETRIC_INTENRAL_LOOP] = asymetric_loopsize_correction;
-	thermodynamics.poppen_p[1] = 0.1;
-	thermodynamics.poppen_p[2] = 0.2;
-	thermodynamics.poppen_p[3] = 0.3;
+	thermodynamics.poppen_p[1] = 0.1f;
+	thermodynamics.poppen_p[2] = 0.2f;
+	thermodynamics.poppen_p[3] = 0.3f;
 	thermodynamics.poppen_p[4] = asymetric_loopsize_poppen_4;
 	
 	// Check
 	float energy_35 = gfe_35.get_interior_loop_element(r4);
 	intrapolated_energy = thermodynamics.loop_interior[30] +
-						  (thermodynamics.miscloop[MISCLOOP_PRELOG] * log((float)(n_unpaired_r1 + n_unpaired_r2) / 30));
+						  (thermodynamics.miscloop[MISCLOOP_PRELOG] * (float) log((float)(n_unpaired_r1 + n_unpaired_r2) / 30));
 						  
 	BOOST_CHECK_EQUAL(energy_35 ,
 					  energy_loop_hairpin + energy_hairpin_stack + energy_hairpin_triloop_GaaaC +

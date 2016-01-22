@@ -1,7 +1,7 @@
 /**
  * @file src/ReadSegments.cpp
  *
- * @date 2015-12-07
+ * @date 2016-01-21
  *
  * @author Youri Hoogstrate
  *
@@ -289,7 +289,7 @@ void ReadSegments::parse_examples(ptree &xml_examples)
 /**
  * @brief Parses a single segment (correct bonds) based on the XML data
  *
- * @date 2015-08-06
+ * @date 2016-01-21
  */
 Segment *ReadSegments::parse_segment(std::string arg_name, std::string arg_sequence_5p, std::string arg_bonds, std::string arg_sequence_3p, std::string arg_energy)
 {
@@ -306,7 +306,7 @@ Segment *ReadSegments::parse_segment(std::string arg_name, std::string arg_seque
 	Sequence sequence_5p = Sequence(abs_sequence_5p);
 	Sequence sequence_3p = Sequence(abs_sequence_3p);
 	
-	float energy = std::atof(arg_energy.c_str());
+	float energy = std::stof(arg_energy);
 	
 	int i = 1;
 	int j = 1;
@@ -343,7 +343,7 @@ Segment *ReadSegments::parse_segment(std::string arg_name, std::string arg_seque
 /**
  * @brief Parses a single segmentloop based on the XML data
  *
- * @date 2015-12-07
+ * @date 2016-01-21
  */
 SegmentLoop *ReadSegments::parse_segmentloop(std::string arg_name, std::string arg_sequence, std::string arg_dot_bracket, std::string arg_energy)
 {
@@ -353,7 +353,7 @@ SegmentLoop *ReadSegments::parse_segmentloop(std::string arg_name, std::string a
 	abs_sequence.erase(std::remove(abs_sequence.begin(), abs_sequence.end(), ' '), abs_sequence.end());
 	Sequence sequence = Sequence(abs_sequence);
 	
-	float energy = std::atof(arg_energy.c_str());
+	float energy = std::stof(arg_energy);
 	
 	SegmentLoop *m = new SegmentLoop(arg_name, sequence, bonds, energy);
 	this->segmentloop_list.push_back(m);
@@ -366,7 +366,7 @@ SegmentLoop *ReadSegments::parse_segmentloop(std::string arg_name, std::string a
 /**
  * @brief converts "((.((..))).)" into (1,1),(1,2),(2,1),(1,1)
  *
- * @date 2015-12-07
+ * @date 2016-01-21
  *
  * @todo fix for:  ((( ))) ((( )))
  */
@@ -377,20 +377,20 @@ std::vector<Pair> ReadSegments::dotbracket_to_bonds(std::string &arg_dot_bracket
 	signed int i = 0;
 	signed int previous_i = -1;
 	
-	signed int j = arg_dot_bracket.size() - 1 ;
-	signed int previous_j = arg_dot_bracket.size() ;
+	signed int j = (signed int) arg_dot_bracket.size() - 1 ;
+	signed int previous_j = (signed int) arg_dot_bracket.size() ;
 	
 	while(i < j)
 	{
-		if(arg_dot_bracket[i] != '(' && arg_dot_bracket[j] == ')')
+		if(arg_dot_bracket[(size_t) i] != '(' && arg_dot_bracket[(size_t) j] == ')')
 		{
 			// .)
 			// i++
 			
 			i++;
-		
+			
 		}
-		else if(arg_dot_bracket[i] == '(' && arg_dot_bracket[j] != ')')
+		else if(arg_dot_bracket[(size_t) i] == '(' && arg_dot_bracket[(size_t) j] != ')')
 		{
 			// (.
 			// j--
@@ -403,7 +403,7 @@ std::vector<Pair> ReadSegments::dotbracket_to_bonds(std::string &arg_dot_bracket
 			// i++
 			// j--
 			
-			if(arg_dot_bracket[i] == '(' && arg_dot_bracket[j] == ')')
+			if(arg_dot_bracket[(size_t) i] == '(' && arg_dot_bracket[(size_t) j] == ')')
 			{
 				bonds.push_back(Pair { i - previous_i, previous_j - j});
 			}

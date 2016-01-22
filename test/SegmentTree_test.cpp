@@ -1,7 +1,7 @@
 /**
  * @file test/SegmentTree_test.cpp
  *
- * @date 2015-05-02
+ * @date 2016-01-21
  *
  * @author Youri Hoogstrate
  *
@@ -56,7 +56,7 @@ BOOST_AUTO_TEST_SUITE(Testing)
  *
  * @test
  *
- * @date 2015-05-01
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test1)
 {
@@ -76,7 +76,7 @@ BOOST_AUTO_TEST_CASE(Test1)
 	std::vector <Pair> bonds = {{Pair({2, 2}), Pair({4, 1}), Pair({5, 0})}};
 	Sequence sequence_3p = Sequence("GUA");// rotation must be in the correct (5' -> 3') direction
 	
-	float energy = -1.234;
+	float energy = -1.234f;
 	
 	Segment segment = Segment(segment_name, sequence_5p, bonds, sequence_3p, energy);
 	
@@ -162,7 +162,7 @@ BOOST_AUTO_TEST_CASE(Test2)
  *
  * @test
  *
- * @date 2015-05-01
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test3)
 {
@@ -172,7 +172,7 @@ BOOST_AUTO_TEST_CASE(Test3)
 	Sequence           segment_01_seq5p = Sequence("ACUUG");
 	std::vector <Pair> segment_01_bonds = {{ Pair({0, 2}), Pair({2, 1}), Pair({4, 0})}};
 	Sequence           segment_01_seq3p = Sequence("GUA");
-	float              segment_01_nrg   = -1.234;
+	float              segment_01_nrg   = -1.234f;
 	Segment            segment_01       = Segment(segment_01_name, segment_01_seq5p, segment_01_bonds, segment_01_seq3p, segment_01_nrg);
 	
 	SegmentTree segment_tree = SegmentTree();
@@ -218,7 +218,7 @@ BOOST_AUTO_TEST_CASE(Test3)
  *
  * @test
  *
- * @date 2015-05-01
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test4)
 {
@@ -228,14 +228,14 @@ BOOST_AUTO_TEST_CASE(Test4)
 	Sequence           segment_01_seq5p = Sequence("ACUUG");
 	std::vector <Pair> segment_01_bonds = {{Pair({0, 2}), Pair({2, 1}), Pair({4, 0})}};
 	Sequence           segment_01_seq3p = Sequence("AUG");
-	float              segment_01_nrg   = -1.234;
+	float              segment_01_nrg   = -1.234f;
 	Segment            segment_01       = Segment(segment_01_name, segment_01_seq5p, segment_01_bonds, segment_01_seq3p, segment_01_nrg);
 	
 	std::string        segment_02_name  = "Segment 2";
 	Sequence           segment_02_seq5p = Sequence("ACUUG");
 	std::vector <Pair> segment_02_bonds = {{Pair({0, 2}), Pair({2, 1}), Pair({4, 0})}};
 	Sequence           segment_02_seq3p = Sequence("AUC");
-	float              segment_02_nrg   = -1.234;
+	float              segment_02_nrg   = -1.234f;
 	Segment            segment_02       = Segment(segment_02_name, segment_02_seq5p, segment_02_bonds, segment_02_seq3p, segment_02_nrg);
 	
 	SegmentTree segment_tree = SegmentTree();

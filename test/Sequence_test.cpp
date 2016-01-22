@@ -1,7 +1,7 @@
 /**
  * @file test/Sequence_test.cpp
  *
- * @date 2015-05-02
+ * @date 2016-01-21
  *
  * @author Youri Hoogstrate
  *
@@ -106,14 +106,14 @@ BOOST_AUTO_TEST_CASE(Test02)
  *
  * @test
  *
- * @date 2014-04-15
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test03)
 {
 	Sequence sequence;
-	unsigned char c;
+	signed char c;
 	
-	for(c = 0; c < 255; c++)
+	for(c = -128; c < 127; c++)
 	{
 		sequence = Sequence();
 		
@@ -143,15 +143,15 @@ BOOST_AUTO_TEST_CASE(Test03)
  *
  * @test
  *
- * @date 2014-04-15
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test04)
 {
 	Sequence sequence;
 	std::string sequence_str;
-	unsigned char c;
+	signed char c;
 	
-	for(c = 0; c < 255; c++)
+	for(c = -128; c < 127; c++)
 	{
 		sequence_str = "ActuG";
 		sequence_str += c;

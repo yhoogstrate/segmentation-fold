@@ -1,7 +1,7 @@
 /**
  * @file include/ReadSegments.hpp
  *
- * @date 2015-12-07
+ * @date 2016-01-22
  *
  * @author Youri Hoogstrate
  *
@@ -60,8 +60,8 @@ struct rna_example
  */
 class ReadSegments
 {
-	friend class Test_ReadSegments;
-	
+		friend class Test_ReadSegments;
+		
 	private:
 		std::string &filename;
 		

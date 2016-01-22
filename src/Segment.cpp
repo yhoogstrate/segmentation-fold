@@ -76,8 +76,8 @@ Segment::Segment(std::string arg_name, Sequence arg_sequence_5p, std::vector <Pa
 	name(arg_name),
 	sequence_5p(arg_sequence_5p),
 	sequence_3p(arg_sequence_3p),
-	traceback(arg_bonds),
-	gibbs_free_energy(arg_gibbs_free_energy)
+	gibbs_free_energy(arg_gibbs_free_energy),
+	traceback(arg_bonds)
 {
 }
 

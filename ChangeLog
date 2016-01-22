@@ -1,3 +1,16 @@
+2016-01-22  Youri Hoogstrate
+	* v1.3.0
+	  - Traceback algorithm rewritten (sparser, faster)
+	    * Removal of 4 other matrices
+	    * Setting values in the Traceback matrix also required changes to V() and W()
+	  - Solved issue in w()
+	  - Improved recusion of V() and W()
+	  - Solved all -Wconversion and other warnings/errors which are now strictly checked in DEBUG mode and by travis
+	  - Replaced min()-macro for std::min()
+	  - Replaced std::atof(str.c_str()) for std::stof()
+	  - Moved certain checks that should never happen to DEBUG mode only to make RELEASE faster
+	  - Reading from file streams will terminate if an error occurs
+
 2016-01-20  Youri Hoogstrate
 	* v1.2.1
 	  - Pairing object: reduced memory footprint and small speed improvement

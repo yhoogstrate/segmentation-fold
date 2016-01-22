@@ -1,7 +1,7 @@
 /**
  * @file test/Zuker_test.cpp
  *
- * @date 2015-12-07
+ * @date 2016-01-22
  *
  * @author Youri Hoogstrate
  *
@@ -68,7 +68,7 @@ BOOST_AUTO_TEST_SUITE(Test_energy_loading) // Test energy loading
  *
  * @test
  *
- * @date 2015-08-06
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test1)
 {
@@ -113,7 +113,7 @@ BOOST_AUTO_TEST_CASE(Test1)
 	
 	// Init & run algorithm
 	char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "guUGUGAUgaaacUGAac" , NULL};
-	int argc = sizeof(argv) / sizeof(char *) - 1;
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 	Settings settings = Settings(argc, argv, sequence);
 	Zuker zuker = Zuker(settings, sequence , thermodynamics);
 	
@@ -131,7 +131,7 @@ BOOST_AUTO_TEST_CASE(Test1)
 	std::string dotbracket_predicted;
 	std::string dotbracket_valid = "((...((((...))))))";
 	
-	zuker.dot_bracket.format(n, dotbracket_predicted);
+	zuker.dot_bracket.format((unsigned int) n, dotbracket_predicted); ///@todo unsigned int -> size_t
 	
 	BOOST_REQUIRE_EQUAL(dotbracket_predicted.compare(dotbracket_valid) , 0);
 }
@@ -143,7 +143,7 @@ BOOST_AUTO_TEST_CASE(Test1)
  *
  * @test
  *
- * @date 2015-12-07
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test2_segmentloop)
 {
@@ -160,15 +160,6 @@ BOOST_AUTO_TEST_CASE(Test2_segmentloop)
 	SegmentLoop        segmentloop_01          = SegmentLoop(segmentloop_01_name, segmentloop_01_sequence , segmentloop_01_bonds, segmentloop_01_nrg);
 	
 	
-	// subsequence
-	unsigned int i = 1;
-	unsigned int j = 5;
-	
-	Nucleotide n1 = rna_1[i];
-	Nucleotide n2 = rna_1[j];
-	
-	Pairing pairing = Pairing(n1, n2);
-	
 	
 	// settings
 	Sequence sequence = Sequence();
@@ -180,7 +171,7 @@ BOOST_AUTO_TEST_CASE(Test2_segmentloop)
 	
 	// Init & run algorithm
 	char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "cAAuAAg" , NULL};
-	int argc = sizeof(argv) / sizeof(char *) - 1;
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 	Settings settings = Settings(argc, argv, sequence);
 	Zuker zuker = Zuker(settings, sequence , thermodynamics);
 	
@@ -191,7 +182,7 @@ BOOST_AUTO_TEST_CASE(Test2_segmentloop)
 	std::string dotbracket_predicted;
 	std::string dotbracket_valid = "(((.)))";
 	
-	zuker.dot_bracket.format(n, dotbracket_predicted);
+	zuker.dot_bracket.format((unsigned int) n, dotbracket_predicted); ///@todo unsigned int -> size_t
 	
 	BOOST_REQUIRE_EQUAL(dotbracket_predicted.compare(dotbracket_valid) , 0);
 }
@@ -217,7 +208,7 @@ BOOST_AUTO_TEST_CASE(Test_W_matrix_01)
 	
 	// init
 	char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "aaa" , NULL};
-	int argc = sizeof(argv) / sizeof(char *) - 1;
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 	
 	Settings settings = Settings(argc, argv, sequence);
 	
@@ -274,7 +265,7 @@ BOOST_AUTO_TEST_CASE(Test_W_matrix_01)
  *   .  .  .  .  .  .  .  . -2
  * </PRE>
  *
- * @date 2015-06-22
+ * @date 2016-01-22
  *
  * @todo why do we see 1,1 and 2,2 while the other direction has 3,3?
  * @todo you can alsu use the scoring_matrixs' get_position(i,j) function to only store plain integers for memory efficiency
@@ -284,7 +275,7 @@ BOOST_AUTO_TEST_CASE(Test_Sequence_GGGAAACCC)
 	Sequence sequence = Sequence("GGGaaaCCC");
 	
 	char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "GGGaaaCCC" , NULL};
-	int argc = sizeof(argv) / sizeof(char *) - 1;
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 	
 	unsigned int i = 2;
 	unsigned int j = 6;
@@ -319,47 +310,84 @@ BOOST_AUTO_TEST_CASE(Test_Sequence_GGGAAACCC)
 	//                              -   -
 	//                                  -
 	Pair pend = Pair(0, 8);
-	Pair jump_1 = zuker.loopmatrix.get(pend);
-	Pair jump_2 = zuker.loopmatrix.get(jump_1);
-	Pair jump_3 = zuker.loopmatrix.get(jump_2);
-	Pair jump_4 = zuker.loopmatrix.get(jump_3);
+	traceback_jump2 jump_1 = zuker.tij.get(pend);
+	traceback_jump2 jump_2 = zuker.tij.get(jump_1.target);
+	traceback_jump2 jump_3 = zuker.tij.get(jump_2.target);
+	traceback_jump2 jump_4 = zuker.tij.get(jump_3.target);
 	
-	BOOST_CHECK_EQUAL(jump_1.first == 1 , jump_1.second == 7);
-	BOOST_CHECK_EQUAL(jump_2.first == 2 , jump_2.second == 6);
-	BOOST_CHECK_EQUAL(jump_3.first == 3 , jump_3.second == 5);
-	BOOST_CHECK_EQUAL(jump_4.first == 0 , jump_4.second == 0);
+	BOOST_CHECK_EQUAL(jump_1.target.first , 1);
+	BOOST_CHECK_EQUAL(jump_2.target.first , 2);
+	BOOST_CHECK_EQUAL(jump_3.target.first , 3);
+	BOOST_CHECK_EQUAL(jump_4.target.first , UNBOUND);
 	
-	// Path matrix
-	// Checking these guys:        *
-	//  -2 -2 -2 -2  0  0  0  0 -1
-	//     -2 -2 -2 -2  1  1 -1  7
-	//        -2 -2 -2 -2 -1  6  6
-	//           -2 -2 -2 -2  3  3
-	//              -2 -2 -2 -2  4
-	//                 -2 -2 -2 -2
-	//                    -2 -2 -2
-	//                       -2 -2
-	//                          -2
-	BOOST_CHECK_EQUAL(zuker.pij.get(pend) , BOUND);
-	BOOST_CHECK_EQUAL(zuker.pij.get(jump_1) , BOUND);
-	BOOST_CHECK_EQUAL(zuker.pij.get(jump_2) , BOUND);
-	BOOST_CHECK_EQUAL(zuker.pij.get(jump_3) , UNBOUND);
+	BOOST_CHECK_EQUAL(jump_1.target.second , 7);
+	BOOST_CHECK_EQUAL(jump_2.target.second , 6);
+	BOOST_CHECK_EQUAL(jump_3.target.second , 5);
+	//BOOST_CHECK_EQUAL(jump_4.target.second , 0); << this one is not defined, since the first one says unbound (meaning, no target)
+	
+	BOOST_CHECK_EQUAL(jump_1.store_pair , true);
+	BOOST_CHECK_EQUAL(jump_2.store_pair , true);
+	BOOST_CHECK_EQUAL(jump_3.store_pair , true);
+	BOOST_CHECK_EQUAL(jump_4.store_pair , false);
 	
 	// check total energy
 	BOOST_CHECK_EQUAL(energy , -32.50);
-	
-	/*
-	#if DEBUG
-		zuker._print_loopmatrix(9);
-		zuker._print_pij(9);
-	#endif //DEBUG
-	*/
 }
 
 
 
 /**
- * @brief Tests whether V and W succesfully sum up energy values
+ * @brief Tests sticky ends - has been a problem in certain releases
+ *
+ * @test Zuker::energy
+ * @test Zuker::v
+ * @test Zuker::wij
+ *
+ * @date 2016-01-21
+ */
+BOOST_AUTO_TEST_CASE(Test_sticky_ends_1)
+{
+	Sequence sequence = Sequence("GGGAAACCCA");
+	
+	char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "GGGAAACCCA" , NULL};
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	
+	unsigned int i = 2;
+	unsigned int j = 6;
+	
+	// Hairpin positions
+	Nucleotide ph1 = sequence[i];
+	Nucleotide ph2 = sequence[j];
+	
+	Pairing pairing_h = Pairing(ph1, ph2);
+	
+	ReadData thermodynamics = ReadData();
+	thermodynamics.tstackh[pairing_h.type][Nucleotide::A][Nucleotide::A] = -15.0f;
+	thermodynamics.triloop_map.clear();
+	thermodynamics.loop_hairpin[3] = -5.0f;
+	thermodynamics.stack[PairingType::GC][PairingType::GC] = -10.0f;
+	
+	// Run algorithm
+	Settings settings = Settings(argc, argv, sequence);
+	Zuker zuker = Zuker(settings, sequence , thermodynamics);
+	
+	
+	BOOST_CHECK_EQUAL(zuker.energy() , -10.0 - 10.0 - 15.0 - 5.0);
+	zuker.traceback();
+	
+	// Give the hairpin loop a dGe of -100 (setting it explicitly in Vij), and set pij such that the position is considered to be calculated
+	std::string dotbracket_predicted;
+	std::string dotbracket_valid = "(((...))).";
+	
+	zuker.dot_bracket.format(10, dotbracket_predicted);  ///@todo unsigned int -> size_t
+	
+	BOOST_CHECK_MESSAGE(dotbracket_predicted.compare(dotbracket_valid) == 0, "Predicted structure: " << dotbracket_predicted << " is not equal to the expected structure: " << dotbracket_valid);
+}
+
+
+
+/**
+ * @brief Tests sticky ends - has been a problem in certain releases
  *
  * @test Zuker::energy
  * @test Zuker::v
@@ -367,69 +395,43 @@ BOOST_AUTO_TEST_CASE(Test_Sequence_GGGAAACCC)
  *
  * @date 2015-07-13
  */
-BOOST_AUTO_TEST_CASE(Test_vij_wij_01)
+BOOST_AUTO_TEST_CASE(Test_sticky_ends_2)
 {
-	Sequence sequence = Sequence("CGaaaaaCG");
+	Sequence sequence = Sequence("AGGGAAACCC");
 	
-	char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "CGaaaaaCG" , NULL};
-	int argc = sizeof(argv) / sizeof(char *) - 1;
+	char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "AGGGAAACCC" , NULL};
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 	
-	unsigned int i = 1;
+	unsigned int i = 3;
 	unsigned int j = 7;
 	
 	// Hairpin positions
 	Nucleotide ph1 = sequence[i];
 	Nucleotide ph2 = sequence[j];
 	
-	// Stack positions
-	Nucleotide ps1 = sequence[i - 1];
-	Nucleotide ps2 = sequence[j + 1];
-	
 	Pairing pairing_h = Pairing(ph1, ph2);
-	Pairing pairing_s = Pairing(ps1, ps2);
 	
 	ReadData thermodynamics = ReadData();
-	thermodynamics.tstackh[pairing_h.type][Nucleotide::A][Nucleotide::A] = -2.5;
+	thermodynamics.tstackh[pairing_h.type][Nucleotide::A][Nucleotide::A] = -15.0f;
 	thermodynamics.triloop_map.clear();
-	thermodynamics.loop_hairpin[5] = -2.5;
-	thermodynamics.stack[PairingType::CG][PairingType::GC] = -10.0;
+	thermodynamics.loop_hairpin[3] = -5.0f;
+	thermodynamics.stack[PairingType::GC][PairingType::GC] = -10.0f;
 	
 	// Run algorithm
 	Settings settings = Settings(argc, argv, sequence);
 	Zuker zuker = Zuker(settings, sequence , thermodynamics);
 	
+	
+	BOOST_CHECK_EQUAL(zuker.energy() , -10.0 - 10.0 - 15.0 - 5.0);
+	zuker.traceback();
+	
 	// Give the hairpin loop a dGe of -100 (setting it explicitly in Vij), and set pij such that the position is considered to be calculated
-	Pair p = Pair(i, j);
-	zuker.pij.set(p, BOUND);
-	zuker.vij.set(p, -100.0);
+	std::string dotbracket_predicted;
+	std::string dotbracket_valid = ".(((...)))";
 	
-	/*
-	#if DEBUG
-		zuker._print_vij(9);
-		zuker._print_wij(9);
-	#endif //DEBUG
-	*/
+	zuker.dot_bracket.format(10, dotbracket_predicted);  ///@todo unsigned int -> size_t
 	
-	float energy = zuker.energy();
-	
-	/*
-	#if DEBUG
-		zuker._print_vij(9);
-		zuker._print_wij(9);
-	#endif //DEBUG
-	*/
-	
-	// Ensure the total dge is -100 (hairpin) + -10 (for the stack)
-	Pair q = Pair(0, 8);
-	
-	BOOST_CHECK_EQUAL(zuker.vij.get(p), -100.0);
-	BOOST_CHECK_EQUAL(zuker.vij.get(q), -110.0);
-	
-	/*
-	@note not sure if this is due to setting vij or whether this is normal behavior
-	BOOST_CHECK_EQUAL(zuker.wij.get(p), -0.0);
-	*/
-	BOOST_CHECK_EQUAL(zuker.wij.get(q), -110.0);
+	BOOST_CHECK_MESSAGE(dotbracket_predicted.compare(dotbracket_valid) == 0, "Predicted structure: " << dotbracket_predicted << " is not equal to the expected structure: " << dotbracket_valid);
 }
 
 
@@ -476,7 +478,7 @@ BOOST_AUTO_TEST_CASE(Test_vij_wij_01)
  * ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----   0.0
  * </PRE>
  *
- * @date 2015-07-13
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test_energy_bifuraction)
 {
@@ -484,7 +486,7 @@ BOOST_AUTO_TEST_CASE(Test_energy_bifuraction)
 	
 	// init
 	char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "GGaaaCCCCaaaGG" , NULL};
-	int argc = sizeof(argv) / sizeof(char *) - 1;
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 	
 	ReadData thermodynamics = ReadData();
 	

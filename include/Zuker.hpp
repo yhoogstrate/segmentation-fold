@@ -1,10 +1,9 @@
 /**
  * @file include/Zuker.hpp
  *
- * @date 2015-07-13
+ * @date 2016-01-21
  *
  * @author Youri Hoogstrate
- * @author Lisa Yu
  *
  * @section LICENSE
  * <PRE>
@@ -46,12 +45,12 @@
  */
 struct traceback_jump
 {
-	int i;
-	int j;
-	bool jump_to_v_path;
+	unsigned int i;
+	unsigned int j;
 };
 
 
+#include "ZukerTraceback.hpp"
 #include "GibbsFreeEnergy.hpp"
 
 
@@ -64,7 +63,7 @@ struct traceback_jump
  * model with Segments/K-turns functionality for RNA secondary structure
  * prediction.
  *
- * @date 2015-12-01
+ * @date 2016-01-21
  */
 class Zuker: public GibbsFreeEnergy
 {
@@ -90,33 +89,25 @@ class Zuker: public GibbsFreeEnergy
 		float v(Pair &p1, PairingPlus &p1p);
 		float w(Pair &p1);
 		
-		inline float energy_bifurcation(Region &region);
-		
 		// Trace-back related:
 		void traceback(void);
-		void traceback_push(int i, int j, bool pick_from_v_path);
-		bool traceback_pop(int *i, int *j, bool *pick_from_v_path);
+		void traceback_push(unsigned int i, unsigned int j);
+		bool traceback_pop(unsigned int *i, unsigned int *j);
 		
 		// Output functions
 		void print_2D_structure(void);
 		
-		ScoringMatrix<int> pij;// Pathmatrix
-		ScoringMatrix<int> qij;// Pathmatrix <if from bifurcation>
-		
+		// Energy matrices
 		ScoringMatrix<float> vij;
 		ScoringMatrix<float> wij;
 		
-		ScoringMatrix<char> pathmatrix_corrected_from;					//@todo benchmark performance of std::vector<std::vector<bool>> pathmatrix_corrected_from; or make argument between fast and sparse
-		ScoringMatrix<Pair> loopmatrix;									//@todo benchmark performance of std::vector<std::vector<bool>> pathmatrix_corrected_from; or make argument between fast and sparse
-		
+		// Traceback matrices
+		ScoringMatrix<traceback_jump2> tij;// Traceback matrix, merges pij and qij and loopmatrix and pathmatrix_corrected_from
 		ScoringMatrix<SegmentTraceback *> sij;
 		
 #if DEBUG
 		// Functions only useful for plotting and debugging
-		void _print_pathmatrix_corrected_from(unsigned int matrix_length);
-		void _print_loopmatrix(unsigned int matrix_length);
-		void _print_nij(unsigned int matrix_length);
-		void _print_pij(unsigned int matrix_length);
+		void _print_sij(unsigned int matrix_length);
 		void _print_vij(unsigned int matrix_length);
 		void _print_wij(unsigned int matrix_length);
 #endif //DEBUG

@@ -1,6 +1,6 @@
 # @file CMakeLists.txt
 #
-# @date 2015-12-07
+# @date 2016-01-20
 #
 # @author Youri Hoogstrate
 #
@@ -35,7 +35,7 @@ cmake_minimum_required(VERSION 2.8)
 
 project(segmentation-fold)
 
-set(PROJECT_VERSION "1.2.1")
+set(PROJECT_VERSION "1.3.0")
 set(PACKAGE_URL "https://github.com/yhoogstrate/segmentation-fold")
 set(PACKAGE_BUGREPORT "${PACKAGE_URL}/issues")
 
@@ -136,6 +136,12 @@ if(OPENMP_FOUND)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
 endif()
 
+if(DEBUG)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wconversion -g -ggdb -Werror")# -Werror makes compilation crash when warnings are given (also part of Travis)
+else()
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
+endif()
+
 add_executable(segmentation-fold
 					src/main.cpp
 					src/DotBracket.cpp
@@ -145,7 +151,6 @@ add_executable(segmentation-fold
 					src/GibbsFreeEnergy.cpp
 					src/Zuker.cpp
 					src/Utils/file_exists.cpp
-					src/Utils/min.cpp
 					src/Pairing.cpp
 					src/PairingPlus.cpp
 					src/SubSequence.cpp

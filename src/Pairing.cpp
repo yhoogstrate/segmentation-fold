@@ -51,47 +51,55 @@ void Pairing::init(Nucleotide arg_n1, Nucleotide arg_n2)
 				case Nucleotide::U:
 					this->type = PairingType::AU;
 					return void();
-				break;
+					break;
+				default:														// Makes the compiler happy..
+					break;
 			}
-		break;
-		
+			break;
+			
 		case Nucleotide::C:
 			switch(arg_n2)
 			{
 				case Nucleotide::G:
 					this->type = PairingType::CG;
 					return void();
-				break;
+					break;
+				default:														// Makes the compiler happy..
+					break;
 			}
-		break;
-		
+			break;
+			
 		case Nucleotide::G:
 			switch(arg_n2)
 			{
 				case Nucleotide::U:
 					this->type = PairingType::GU;
 					return void();
-				break;
+					break;
 				case Nucleotide::C:
 					this->type = PairingType::GC;
 					return void();
-				break;
+					break;
+				default:														// Makes the compiler happy..
+					break;
 			}
-		break;
-		
+			break;
+			
 		case Nucleotide::U:
 			switch(arg_n2)
 			{
 				case Nucleotide::A:
 					this->type = PairingType::UA;
 					return void();
-				break;
+					break;
 				case Nucleotide::G:
 					this->type = PairingType::UG;
 					return void();
-				break;
+				default:														// Makes the compiler happy..
+					break;
+					break;
 			}
-		break;
+			break;
 	}
 	
 	this->type = PairingType::None;

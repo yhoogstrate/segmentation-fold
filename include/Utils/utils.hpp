@@ -1,7 +1,7 @@
 /**
  * @file include/Utils/utils.hpp
  * 
- * @date 2015-05-02
+ * @date 2016-01-21
  * 
  * @author Youri Hoogstrate
  * @section LICENSE
@@ -35,7 +35,6 @@
 
 
 bool file_exists(const char *filename);
-int min(int x, int y);
 
 
 #endif	// UTILS_HPP

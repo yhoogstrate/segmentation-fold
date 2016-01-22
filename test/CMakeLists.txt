@@ -1,6 +1,6 @@
 # @file test/CMakeLists.txt
 #
-# @date 2015-12-07
+# @date 2016-01-21
 #
 # @author Youri Hoogstrate
 #
@@ -60,10 +60,10 @@ add_executable(segmentlooptree_test    SegmentLoopTree_test.cpp ../src/SegmentTr
 add_executable(readsegments_test       ReadSegments_test.cpp ../src/ReadSegments.cpp ../src/SegmentTree.cpp ../src/SegmentLoopTree.cpp ../src/SegmentTreeElement.cpp ../src/SegmentTraceback.cpp ../src/Segment.cpp ../src/SegmentLoop.cpp ../src/Sequence.cpp ../src/PairingPlus.cpp ../src/SubSequence.cpp)
 add_executable(settings_test           Settings_test.cpp ../src/Settings.cpp ../src/Utils/file_exists.cpp ../src/SegmentTree.cpp ../src/SegmentTreeElement.cpp ../src/SegmentTraceback.cpp ../src/Segment.cpp ../src/Sequence.cpp ../src/SubSequence.cpp)
 add_executable(scoringmatrix_test      ScoringMatrix_test.cpp ../src/ScoringMatrix.cpp)
-add_executable(gibbsfreeenergy_test    GibbsFreeEnergy_test.cpp ../src/GibbsFreeEnergy.cpp ../src/ReadData.cpp ../src/SegmentTree.cpp ../src/SegmentLoopTree.cpp ../src/SegmentTreeElement.cpp ../src/SegmentTraceback.cpp ../src/Segment.cpp ../src/SegmentLoop.cpp ../src/Sequence.cpp ../src/Pairing.cpp ../src/PairingPlus.cpp ../src/SubSequence.cpp ../src/Utils/min.cpp )
-add_executable(zuker_test              Zuker_test.cpp ../src/Zuker.cpp ../src/GibbsFreeEnergy.cpp ../src/ReadData.cpp ../src/ReadSegments.cpp ../src/SegmentTree.cpp ../src/SegmentLoopTree.cpp ../src/SegmentTreeElement.cpp ../src/SegmentTraceback.cpp ../src/Segment.cpp ../src/SegmentLoop.cpp ../src/Sequence.cpp ../src/Pairing.cpp ../src/PairingPlus.cpp ../src/SubSequence.cpp ../src/Utils/min.cpp ../src/Settings.cpp ../src/Utils/file_exists.cpp ../src/ScoringMatrix.cpp ../src/DotBracket.cpp)
-add_executable(zuker_traceback_test    Zuker_traceback_test.cpp ../src/Zuker.cpp ../src/GibbsFreeEnergy.cpp ../src/ReadData.cpp ../src/ReadSegments.cpp ../src/SegmentTree.cpp ../src/SegmentLoopTree.cpp ../src/SegmentTreeElement.cpp ../src/SegmentTraceback.cpp ../src/Segment.cpp ../src/SegmentLoop.cpp  ../src/Sequence.cpp ../src/Pairing.cpp ../src/PairingPlus.cpp ../src/SubSequence.cpp ../src/Utils/min.cpp ../src/Settings.cpp ../src/Utils/file_exists.cpp ../src/ScoringMatrix.cpp ../src/DotBracket.cpp)
-add_executable(main_test               main_test.cpp ../src/Zuker.cpp ../src/GibbsFreeEnergy.cpp ../src/ReadData.cpp ../src/ReadSegments.cpp ../src/SegmentTree.cpp ../src/SegmentLoopTree.cpp ../src/SegmentTreeElement.cpp ../src/SegmentTraceback.cpp ../src/Segment.cpp ../src/SegmentLoop.cpp ../src/Sequence.cpp ../src/Pairing.cpp ../src/PairingPlus.cpp ../src/SubSequence.cpp ../src/Utils/min.cpp ../src/Settings.cpp ../src/Utils/file_exists.cpp ../src/ScoringMatrix.cpp ../src/DotBracket.cpp)
+add_executable(gibbsfreeenergy_test    GibbsFreeEnergy_test.cpp ../src/GibbsFreeEnergy.cpp ../src/ReadData.cpp ../src/SegmentTree.cpp ../src/SegmentLoopTree.cpp ../src/SegmentTreeElement.cpp ../src/SegmentTraceback.cpp ../src/Segment.cpp ../src/SegmentLoop.cpp ../src/Sequence.cpp ../src/Pairing.cpp ../src/PairingPlus.cpp ../src/SubSequence.cpp )
+add_executable(zuker_test              Zuker_test.cpp ../src/Zuker.cpp ../src/GibbsFreeEnergy.cpp ../src/ReadData.cpp ../src/ReadSegments.cpp ../src/SegmentTree.cpp ../src/SegmentLoopTree.cpp ../src/SegmentTreeElement.cpp ../src/SegmentTraceback.cpp ../src/Segment.cpp ../src/SegmentLoop.cpp ../src/Sequence.cpp ../src/Pairing.cpp ../src/PairingPlus.cpp ../src/SubSequence.cpp ../src/Settings.cpp ../src/Utils/file_exists.cpp ../src/ScoringMatrix.cpp ../src/DotBracket.cpp)
+add_executable(zuker_traceback_test    Zuker_traceback_test.cpp ../src/Zuker.cpp ../src/GibbsFreeEnergy.cpp ../src/ReadData.cpp ../src/ReadSegments.cpp ../src/SegmentTree.cpp ../src/SegmentLoopTree.cpp ../src/SegmentTreeElement.cpp ../src/SegmentTraceback.cpp ../src/Segment.cpp ../src/SegmentLoop.cpp  ../src/Sequence.cpp ../src/Pairing.cpp ../src/PairingPlus.cpp ../src/SubSequence.cpp ../src/Settings.cpp ../src/Utils/file_exists.cpp ../src/ScoringMatrix.cpp ../src/DotBracket.cpp)
+add_executable(main_test               main_test.cpp ../src/Zuker.cpp ../src/GibbsFreeEnergy.cpp ../src/ReadData.cpp ../src/ReadSegments.cpp ../src/SegmentTree.cpp ../src/SegmentLoopTree.cpp ../src/SegmentTreeElement.cpp ../src/SegmentTraceback.cpp ../src/Segment.cpp ../src/SegmentLoop.cpp ../src/Sequence.cpp ../src/Pairing.cpp ../src/PairingPlus.cpp ../src/SubSequence.cpp ../src/Settings.cpp ../src/Utils/file_exists.cpp ../src/ScoringMatrix.cpp ../src/DotBracket.cpp)
 
 
 set_target_properties(direction_test

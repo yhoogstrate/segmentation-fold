@@ -1,7 +1,7 @@
 /**
  * @file test/SegmentTraceback_test.cpp
  *
- * @date 2015-08-06
+ * @date 2016-01-21
  *
  * @author Youri Hoogstrate
  *
@@ -50,7 +50,7 @@ BOOST_AUTO_TEST_SUITE(Testing)
  *
  * @test Tests Segment::size() and whether it doesn't get affected by popping
  *
- * @date 2015-08-06
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test_1)
 {
@@ -60,8 +60,8 @@ BOOST_AUTO_TEST_CASE(Test_1)
 	
 	BOOST_CHECK_EQUAL(segmenttraceback.size() , 3);
 	
-	signed int i = 0;
-	signed int j = 20;
+	unsigned int i = 0;
+	unsigned int j = 20;
 	
 	while(segmenttraceback.traceback(i, j))
 	{
@@ -78,7 +78,7 @@ BOOST_AUTO_TEST_CASE(Test_1)
  *
  * @test Segment::size()
  *
- * @date 2015-08-06
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test_2)
 {
@@ -88,8 +88,8 @@ BOOST_AUTO_TEST_CASE(Test_2)
 	
 	BOOST_CHECK_EQUAL(segmenttraceback.size() , 0);
 	
-	signed int i;
-	signed int j;
+	unsigned int i = 0;
+	unsigned int j = 0;
 	
 	while(segmenttraceback.traceback(i, j))
 	{
@@ -106,7 +106,7 @@ BOOST_AUTO_TEST_CASE(Test_2)
  *
  * @test Segment::size()
  *
- * @date 2015-08-06
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test_3)
 {
@@ -116,8 +116,8 @@ BOOST_AUTO_TEST_CASE(Test_3)
 	
 	BOOST_CHECK_EQUAL(segmenttraceback.size() , 9);
 	
-	signed int i;
-	signed int j;
+	unsigned int i = 0;
+	unsigned int j = 8;
 	
 	while(segmenttraceback.traceback(i, j))
 	{
@@ -132,7 +132,7 @@ BOOST_AUTO_TEST_CASE(Test_3)
 /**
  * @brief Tests the Segment::pop() function
  *
- * @date 2015-08-06
+ * @date 2016-01-21
  *
  * @test Segment::traceback()
  *
@@ -154,8 +154,8 @@ BOOST_AUTO_TEST_CASE(Test_4)
 	// [1,1] , [2,3] -> differentiate -> [1,1] -> [1,2]
 	std::vector <Pair> bonds = {{Pair({1, 1}), Pair({1, 2}) }};
 	
-	signed int i = 12;
-	signed int j = 27;
+	unsigned int i = 12;
+	unsigned int j = 27;
 	
 	SegmentTraceback segmenttraceback = SegmentTraceback(bonds);
 	

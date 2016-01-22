@@ -1,7 +1,7 @@
 /**
  * @file include/SegmentTraceback.hpp
  *
- * @date 2015-12-11
+ * @date 2016-01-22
  *
  * @author Youri Hoogstrate
  *
@@ -49,9 +49,9 @@
  * 5') UGUGAU    3-2                 -1,-1
  *        |||    4-1                 -2,-2
  * 3')    AGU    5-0                 -3,-3
-
+ *
  * ---- new style, relative to [i,j] ----
-  * Alignment:    Bonds from i j*:    Traceback from i,j:
+ * Alignment:    Bonds from i j*:    Traceback from i,j:
  * 5') UGUGAU    3-8                 (i+)4,(j-)1
  *        |||    4-7                 (i+)5,(j-)2
  * 3')    AGU    5-6                 (i+)6,(j-)3
@@ -62,31 +62,31 @@
  * 5') ............(i)...(i')..
  *       |||  |||   | ::   |   .
  * 3') ............(j)...(j')..
-
+ *
  * tb:  --------->  [i,j], [i+1, j-1], [i+2, j-2] -----> [i', j']...
  *
-
-
+ *
+ *
  * Double check the following:
-
+ *
  *     Alignment:       Bonds from i,j:    Traceback from i,j:
  * 5') (i) UGUGAUA      3,11               4,(-)3
  *            ::: A     4,10               5,(-)2
  * 3') (j)    AGUA      5,9                6,(-)1
-
+ *
  * 5') ............(i)...
  *       |||  |||   | :: .
  * 3') ............(j)...
-
- * tb:  --------->  [i,j], [i+1, j-1], [i+2, j-2]
-
  *
- * @date 2015-12-11
+ * tb:  --------->  [i,j], [i+1, j-1], [i+2, j-2]
+ *
+ *
+ * @date 2016-01-21
  */
 class SegmentTraceback
 {
-	friend class Test_SegmentTraceback;
-	
+		friend class Test_SegmentTraceback;
+		
 	private:
 		std::vector<Pair>::iterator it;
 		std::vector<Pair> bonds;
@@ -94,7 +94,7 @@ class SegmentTraceback
 	public:
 		SegmentTraceback(std::vector<Pair> arg_bonds);
 		
-		bool traceback(signed int &i, signed int &j);
+		bool traceback(unsigned int &i, unsigned int &j);
 		void reset(void);
 		
 		size_t size(void);

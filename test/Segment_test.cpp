@@ -1,7 +1,7 @@
 /**
  * @file test/Segment_test.cpp
  *
- * @date 2015-12-04
+ * @date 2016-01-21
  *
  * @author Youri Hoogstrate
  *
@@ -52,7 +52,7 @@ BOOST_AUTO_TEST_SUITE(Testing)
  *
  * @test
  *
- * @date 2014-03-29
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test1)
 {
@@ -62,7 +62,7 @@ BOOST_AUTO_TEST_CASE(Test1)
 	std::vector <Pair> bonds = {{Pair({0, 2}), Pair({2, 1}), Pair({4, 0})}};///@todo incorrect bonds
 	Sequence sequence_3p = Sequence("AUG");
 	
-	float energy = -1.234;
+	float energy = -1.234f;
 	
 	Segment segment = Segment(segment_name, sequence_5p, bonds, sequence_3p, energy);
 	
@@ -72,12 +72,14 @@ BOOST_AUTO_TEST_CASE(Test1)
 	BOOST_CHECK_EQUAL(segment_name.compare(segment.name),  0);
 }
 
+
+
 /**
  * @brief Tests the Segment->pop() function
  *
  * @test
  *
- * @date 2015-12-04
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test2)
 {
@@ -96,10 +98,10 @@ BOOST_AUTO_TEST_CASE(Test2)
 	std::vector <Pair> bonds = {{Pair({4, 1}), Pair({1, 1}), Pair({1, 1})}};
 	Sequence     sequence_3p = Sequence("UGA");
 	
-	float energy = -1.234;
+	float energy = -1.234f;
 	
-	signed int i = 0;
-	signed int j = 1000;
+	unsigned int i = 0;
+	unsigned int j = 1000;
 	
 	Segment segment = Segment(segment_name, sequence_5p, bonds, sequence_3p, energy);
 	
@@ -145,7 +147,7 @@ BOOST_AUTO_TEST_CASE(Test2)
  *
  * @test
  *
- * @date 2015-08-06
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test3)
 {
@@ -162,10 +164,10 @@ BOOST_AUTO_TEST_CASE(Test3)
 	std::vector <Pair> bonds = {{Pair({3, 1}), Pair({2, 1}), Pair({1, 1})}};
 	Sequence sequence_3p = Sequence("AAA");
 	
-	float energy = -1.234;
+	float energy = -1.234f;
 	
-	int i = 0;
-	int j = 1000;
+	unsigned int i = 0;
+	unsigned int j = 1000;
 	
 	Segment segment = Segment(segment_name, sequence_5p, bonds, sequence_3p, energy);
 	

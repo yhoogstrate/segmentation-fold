@@ -1,7 +1,7 @@
 /**
  * @file test/main_test.cpp
  *
- * @date 2015-12-07
+ * @date 2016-01-22
  *
  * @author Youri Hoogstrate
  *
@@ -67,7 +67,7 @@ BOOST_AUTO_TEST_SUITE(Testing)
  *
  * @test
  *
- * @date 2015-07-23
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test_unfolded)
 {
@@ -85,7 +85,7 @@ BOOST_AUTO_TEST_CASE(Test_unfolded)
 	
 	// Obtain and compare results
 	std::string predicted_structure;
-	zuker.dot_bracket.format(sequence.size() , predicted_structure);
+	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure); ///@todo make it size_t
 	
 	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
 }
@@ -95,11 +95,9 @@ BOOST_AUTO_TEST_CASE(Test_unfolded)
 /**
  * @brief tests Hairpin sequence GGGAAACCC to be folded as (((...)))
  *
- * @date 2015-12-01
+ * @date 2016-01-21
  *
  * @test
- *
- * @date 2015-07-23
  */
 BOOST_AUTO_TEST_CASE(Test_hairpin)
 {
@@ -118,7 +116,7 @@ BOOST_AUTO_TEST_CASE(Test_hairpin)
 	
 	// Obtain and compare results
 	std::string predicted_structure;
-	zuker.dot_bracket.format(sequence.size() , predicted_structure);
+	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure); ///@todo make it size_t
 	
 	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
 }
@@ -128,7 +126,7 @@ BOOST_AUTO_TEST_CASE(Test_hairpin)
 /**
  * @brief tests Bulge loop prediction
  *
- * @date 2015-12-01
+ * @date 2016-01-21
  *
  * @test
  *
@@ -159,7 +157,7 @@ BOOST_AUTO_TEST_CASE(Test_bulge_loop)
 	
 	// Obtain and compare results
 	std::string predicted_structure;
-	zuker.dot_bracket.format(sequence.size() , predicted_structure);
+	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure); ///@size_t
 	
 	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
 }
@@ -167,7 +165,7 @@ BOOST_AUTO_TEST_CASE(Test_bulge_loop)
 /**
  * @brief tests Interior loop prediction
  *
- * @date 2015-12-01
+ * @date 2016-01-21
  *
  * @test
  *
@@ -204,7 +202,7 @@ BOOST_AUTO_TEST_CASE(Test_interior_loop)
 	
 	// Obtain and compare results
 	std::string predicted_structure;
-	zuker.dot_bracket.format(sequence.size() , predicted_structure);
+	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure); ///@todo unsinged int -> size_t
 	
 	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
 }
@@ -238,7 +236,7 @@ BOOST_AUTO_TEST_CASE(Test_interior_loop)
  * (((((((...)))(((...)))))))
  * </PRE>
  *
- * @date 2015-07-23
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test_bifurcation)
 {
@@ -257,7 +255,7 @@ BOOST_AUTO_TEST_CASE(Test_bifurcation)
 	
 	// Obtain and compare results
 	std::string predicted_structure;
-	zuker.dot_bracket.format(sequence.size() , predicted_structure);
+	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure); ///@todo unsigned int -> size_t
 	
 	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
 }
@@ -274,7 +272,7 @@ BOOST_AUTO_TEST_CASE(Test_bifurcation)
  * functional test is executed with a modified version of this file
  * this might result into unneccesairy errors.
  *
- * @date 2015-12-07
+ * @date 2016-01-21
  *
  * @todo BOOST_REQUIRE_EQUAL << md5sum , segment_file
  */
@@ -298,7 +296,7 @@ BOOST_AUTO_TEST_CASE(Test_kturns)
 		zuker.traceback();
 		
 		std::string predicted_structure = "";
-		zuker.dot_bracket.format((*example).sequence.size() , predicted_structure);
+		zuker.dot_bracket.format((unsigned int)(*example).sequence.size() , predicted_structure);  ///@todo unsigned int -> size_t
 		
 		BOOST_REQUIRE_EQUAL((*example).dot_bracket_pattern.size() , predicted_structure.size());
 		BOOST_CHECK_MESSAGE(db.match((*example).dot_bracket_pattern, predicted_structure), "Predicted structure of '" << (*example).title << "' doesn't match it's true structure:\n\t[" << predicted_structure << "] (predicted structure)\n\t[" << (*example).dot_bracket_pattern << "] (pattern of true structure)\n");
@@ -312,7 +310,7 @@ BOOST_AUTO_TEST_CASE(Test_kturns)
  *
  * @test
  *
- * @date 2015-07-20
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test_kturns_segments_disabled)
 {
@@ -322,9 +320,6 @@ BOOST_AUTO_TEST_CASE(Test_kturns_segments_disabled)
 	
 	ReadData thermodynamics = ReadData();
 	std::vector<rna_example> rna_examples;
-	
-	//Keep segments empty. This is what disabling should do.
-	//ReadSegments r = ReadSegments(settings.segment_filename, thermodynamics.segments, rna_examples);
 	
 	DotBracket db = DotBracket();
 	
@@ -336,7 +331,7 @@ BOOST_AUTO_TEST_CASE(Test_kturns_segments_disabled)
 		zuker.traceback();
 		
 		std::string predicted_structure = "";
-		zuker.dot_bracket.format((*example).sequence.size() , predicted_structure);
+		zuker.dot_bracket.format((unsigned int)(*example).sequence.size() , predicted_structure);  ///@todo unsigned int -> size_t
 		
 		BOOST_REQUIRE_EQUAL((*example).dot_bracket_pattern.size() , predicted_structure.size());
 		BOOST_CHECK_MESSAGE(db.match((*example).dot_bracket_pattern, predicted_structure) == false, "Predicted structure of '" << (*example).title << "' did match its true structure while it shouldn't:\n\t[" << predicted_structure << "] (predicted structure)\n\t[" << (*example).dot_bracket_pattern << "] (pattern of true structure)\n");
@@ -350,7 +345,7 @@ BOOST_AUTO_TEST_CASE(Test_kturns_segments_disabled)
  *
  * @test
  *
- * @date 2015-12-07
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test_segfault_01)
 {
@@ -371,12 +366,11 @@ BOOST_AUTO_TEST_CASE(Test_segfault_01)
 	
 	// Obtain and compare results
 	std::string predicted_structure;
-	zuker.dot_bracket.format(sequence.size() , predicted_structure);
+	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure); ///@todo unsigned int -> size_t
 	
 	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
 }
 
-
-///@todo Test function with different minimum hairpin size
+///@todo Test function with different minimum hairpin size -- should fail at the moment, because somewhere in the traceback or so the number 3 is hard coded
 
 BOOST_AUTO_TEST_SUITE_END()

@@ -1,16 +1,16 @@
 /**
- * @file src/Utils/min.cpp
+ * @file include/ZukerTraceback.hpp
  *
- * @date 2015-05-02
+ * @date 2016-01-20
  *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
+ * <PRE>
  * segmentation-fold can predict RNA 2D structures including K-turns.
  * Copyright (C) 2012-2015 Youri Hoogstrate
  *
- * This file is part of segmentation-fold and originally taken from
- * yh-kt-fold.
+ * This file is part of segmentation-fold.
  *
  * segmentation-fold is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,44 +24,27 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * </PRE>
  */
 
 
 
-#include "Utils/utils.hpp"
+#ifndef ZUKERTRACEBACK_HPP
+#define	ZUKERTRACEBACK_HPP
 
 
+#include "main.hpp"
+#include "Pair.hpp"
 
-/**
- * @brief Finds the minimal value between x and y
- *
- * @date 2012-11-05
- *
- * @param x any integer
- * @param y any integer
- * @return the minimum of both the values x and y
- *
- * @todo Use macro or inline instead?
- */
-int min(int x, int y)
+
+///@date 2016-01-20
+struct traceback_jump2
 {
-	return (x < y ? x : y);
-}
+	bool store_pair;// is True, position (i,j) have to be stored as pair: i:'(', j:')'
+	
+	// target.first == target.second implies bifurcation between (i, target.first) & (target.first + 1, j)
+	// target.first < 0, end of line; stop traceback -> preferably if target.first > n (sequence size)
+	Pair target;
+};
 
-
-
-/**
- * @brief Finds the minimal value between x and y
- *
- * @date 2014-12-30
- *
- * @param x any integer
- * @param y any integer
- * @return the minimum of both the values x and y
- *
- * @todo Use macro or inline instead?
- *//*
-float min(float x, float y)
-{
-	return (x < y ? x : y);
-}*/
+#endif	// ZUKERTRACEBACK_HPP

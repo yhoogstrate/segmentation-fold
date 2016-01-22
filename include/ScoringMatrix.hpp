@@ -1,7 +1,7 @@
 /**
  * @file include/ScoringMatrix.hpp
  *
- * @date 2015-04-22
+ * @date 2016-01-22
  *
  * @author Youri Hoogstrate
  * @section LICENSE
@@ -38,7 +38,8 @@
 /**
  * @brief A (memory efficient) lower triangle of an n*n scoring matrix plus an additional vertical.
  *
- * @date 25-jul-2013
+ * @date 2016-01-22
+ *
  * @section DESCRIPTION
  * For a matrix of n*n, all values (x,x) for 0 < x < n are initialized with a: 0
  * Similarly, all values (x,x-1) for 1 < x < n are initialized with a: 0
@@ -70,7 +71,7 @@ class ScoringMatrix
 		std::vector<T> m;
 		
 	public:
-		ScoringMatrix(unsigned int arg_length, T arg_initialization_value);///@todo use size_t instead of unsigned int?
+		ScoringMatrix(size_t arg_length, T arg_initialization_value);///@todo use size_t instead of unsigned int?
 		
 		signed int get_position(Pair &p);
 		

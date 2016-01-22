@@ -1,7 +1,7 @@
 /**
  * @file src/DotBracket.cpp
  *
- * @date 2015-05-02
+ * @date 2016-01-21
  *
  * @author Youri Hoogstrate
  *
@@ -46,23 +46,24 @@ DotBracket::DotBracket()
  * @param i position i in the RNA sequence
  * @return The position in the sequence pairing with the nucleotide at position i, "UNBOUND" otherwise
  *
- * @date 2013-09-11
+ * @date 2016-01-21
  *
  * @todo Make this a WHILE loop and avoid the early returns
-*/
-int DotBracket::find(size_t arg_i)
+ * @todo get rid of signed here - maybe make an at() function that requires to find something
+ */
+signed int DotBracket::find(unsigned int arg_i)
 {
 	unsigned int i;
 	
 	for(i = 0; i < this->pairings.size(); i++)
 	{
-		if(this->pairings[i].first == arg_i)
+		if((unsigned int) this->pairings[i].first == arg_i)
 		{
-			return this->pairings[i].second;
+			return (signed int) this->pairings[i].second;
 		}
-		else if(this->pairings[i].second == arg_i)
+		else if((unsigned int)  this->pairings[i].second == arg_i)
 		{
-			return this->pairings[i].first;
+			return (signed int) this->pairings[i].first;
 		}
 	}
 	
@@ -77,9 +78,9 @@ int DotBracket::find(size_t arg_i)
  * @param arg_i Nucleotide position in the RNA sequence pairing with (,j)
  * @param arg_j Nucleotide position in the RNA sequence pairing with (i,)
  *
- * @date 2013-09-11
-*/
-void DotBracket::store(int arg_i, int arg_j)
+ * @date 2016-01-21
+ */
+void DotBracket::store(unsigned int arg_i, unsigned int arg_j)
 {
 	this->pairings.push_back({arg_i, arg_j});
 }
@@ -91,18 +92,20 @@ void DotBracket::store(int arg_i, int arg_j)
  *
  * @param rnaSequenceLength The length of the sequence of which the 2D strucutre is calculated
  *
- * @date 2015-04-16
+ * @date 2016-01-21
  *
  * @todo Make it work with streams, so that output can be put in a file.
  * @todo Make the variables private const static class variables
  */
 void DotBracket::format(unsigned int n, std::string &output)
 {
-	unsigned int i, j;
+	///@todo -> size_t or template
+	signed int i;
+	signed int j;
 	
-	for(i = 0; i < n; i++)
+	for(i = 0; i < (signed int) n; i++)
 	{
-		j = this->find(i);
+		j = this->find((unsigned int) i);
 		
 		if(j == UNBOUND)
 		{

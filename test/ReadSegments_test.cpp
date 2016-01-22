@@ -1,7 +1,7 @@
 /**
  * @file test/ReadSegments_test.cpp
  *
- * @date 2015-12-07
+ * @date 2016-01-21
  *
  * @author Youri Hoogstrate
  *
@@ -104,7 +104,7 @@ BOOST_AUTO_TEST_CASE(Test1)
  *
  * @test
  *
- * @date 2015-12-11
+ * @date 2016-01-20
  */
 BOOST_AUTO_TEST_CASE(Test2)
 {
@@ -164,11 +164,10 @@ BOOST_AUTO_TEST_CASE(Test2)
 	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[2].second , 1);
 	
 	
-	signed int i = 10;
-	signed int j = 1000;
-	signed int pi = i;
-	signed int pj = j;
-	bool s;
+	unsigned int i = 10;
+	unsigned int j = 1000;
+	unsigned int pi = i;
+	unsigned int pj = j;
 	
 	for(unsigned int k = 0; k < 12; k++)								// Check tracing back bonds:
 	{
@@ -783,7 +782,7 @@ BOOST_AUTO_TEST_CASE(Test_E1)
  *
  * @test
  *
- * @date 2015-12-07
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test6)
 {
@@ -831,10 +830,10 @@ BOOST_AUTO_TEST_CASE(Test6)
 	
 	BOOST_CHECK(segment != nullptr);
 	
-	int i = 0;
-	int j = 1000;
-	int pi = i;
-	int pj = j;
+	unsigned int i = 0;
+	unsigned int j = 1000;
+	unsigned int pi = i;
+	unsigned int pj = j;
 	
 	unsigned int k;
 	for(k = 0; k < 5; k++)

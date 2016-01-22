@@ -1,10 +1,9 @@
 /**
  * @file include/Settings.hpp
  *
- * @date 2014-07-20
+ * @date 2016-01-22
  *
  * @author Youri Hoogstrate
- * @author Lisa Yu
  *
  * @section LICENSE
  * <PRE>
@@ -43,7 +42,7 @@
  * @section DESCRIPTION
  * Handling the arguments, settings and input.
  *
- * @date 2015-07-20
+ * @date 2016-01-21
  */
 class Settings
 {
@@ -67,7 +66,7 @@ class Settings
 		Settings(int arg_argc, char **arg_argv, Sequence &arg_sequence);
 		
 		unsigned int num_threads;
-		int minimal_hairpin_length;///@todo unsigned?
+		unsigned int minimal_hairpin_length;
 		bool segment_prediction_functionality;
 		std::string segment_filename;
 		

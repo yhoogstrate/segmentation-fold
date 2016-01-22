@@ -1,10 +1,9 @@
 /**
  * @file include/DotBracket.hpp
  *
- * @date 2015-12-09
+ * @date 2016-01-20
  *
  * @author Youri Hoogstrate
- * @author Lisa Yu
  *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
@@ -45,18 +44,18 @@
  * Specification of the file format:
  * <a href="https://wiki.galaxyproject.org/Learn/Datatypes#Dbn">https://wiki.galaxyproject.org/Learn/Datatypes#Dbn</a>
  *
- * @date 2015-04-20
+ * @date 2016-01-20
  */
 class DotBracket
 {
 	private:
-		std::vector <std::pair<int, int>> pairings;
+		std::vector <std::pair<signed int, signed int>> pairings;
 		
 	public:
 		DotBracket();
 		
-		void store(int arg_i, int arg_j);
-		int  find(size_t arg_i);
+		void store(unsigned int arg_i, unsigned int arg_j);
+		int  find(unsigned int arg_i);
 		void format(unsigned int n, std::string &output);
 		
 		bool match(std::string &dot_bracket_pattern, std::string &dot_bracket_subject);

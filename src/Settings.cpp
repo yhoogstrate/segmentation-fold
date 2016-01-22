@@ -1,10 +1,9 @@
 /**
  * @file src/Settings.cpp
  *
- * @date 2015-12-07
+ * @date 2016-01-21
  *
  * @author Youri Hoogstrate
- * @author Lisa Yu
  *
  * @section LICENSE
  * <PRE>
@@ -57,16 +56,16 @@
 /**
  * @brief Construct of the Settings class; default parameters should be initialized in this function.
  *
- * @date 2015-06-22
+ * @date 2016-01-21
  *
  * @param local_argc Local argc (number of commandline parameters) parameter which should be passed through to the global argc
  * @param local_argv Local argv (commandline parameters) parameter which should be passed through to the global argv
  * @param arg_sequence An empty Sequence object that will be set by this class
  */
 Settings::Settings(int arg_argc, char **arg_argv, Sequence &arg_sequence) :
-	obj_sequence(arg_sequence),
 	argc(arg_argc),
-	argv(arg_argv)
+	argv(arg_argv),
+	obj_sequence(arg_sequence)
 {
 	this->minimal_hairpin_length = 3;
 	this->segment_prediction_functionality = true;
@@ -130,7 +129,7 @@ void Settings::print_version(void)
 /**
  * @brief Parses the commandline parameters.
  *
- * @date 2015-12-01
+ * @date 2016-01-21
  */
 void Settings::parse_arguments(void)
 {
@@ -139,7 +138,7 @@ void Settings::parse_arguments(void)
 	optind = 1;
 	
 	bool proceed = true;
-	char c;
+	int c;
 	size_t i;
 	
 	if(this->argc > 1 && strcmp(this->argv[1], "--version") == 0)
@@ -224,7 +223,7 @@ void Settings::parse_arguments(void)
 /**
  * @brief Parses the first FASTA line from a filestream (or stdin)
  *
- * @date 2015-06-22
+ * @date 2016-01-21
  *
  * @param stream A stream for reading, like a file handle or stdin.
  *
@@ -232,9 +231,9 @@ void Settings::parse_arguments(void)
  */
 void Settings::parse_sequence_from_stream(FILE *stream)
 {
-	char buffer;
+	int buffer;
 	
-	while(((buffer = fgetc(stream)) != EOF))// and (obj_sequence.size() < MAXLEN - 2))
+	while(((buffer = fgetc(stream)) != EOF))
 	{
 		if(buffer == '>')												// comment line for FASTA format start with '>'
 		{
@@ -256,7 +255,7 @@ void Settings::parse_sequence_from_stream(FILE *stream)
 			if(buffer == 'A' || buffer == 'U' || buffer == 'T' || buffer == 'C' || buffer == 'G' ||
 					buffer == 'a' || buffer == 'u' || buffer == 't' || buffer == 'c' || buffer == 'g')
 			{
-				this->obj_sequence.push_back(buffer);
+				this->obj_sequence.push_back((char) buffer);
 			}
 		}
 	}

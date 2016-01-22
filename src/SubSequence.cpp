@@ -1,7 +1,7 @@
 /**
  * @file src/SubSequence.cpp
  *
- * @date 2015-05-06
+ * @date 2016-01-21
  *
  * @author Youri Hoogstrate
  *
@@ -38,12 +38,12 @@
 /**
  * @brief Stores positions and sets PairingType
  *
- * @date 2015-05-06
+ * @date 2016-01-21
  */
 SubSequence::SubSequence(Position arg_position1, Position arg_position2):
 	position1(arg_position1),
 	position2(arg_position2),
-	size(arg_position2 - arg_position1  + 1)
+	size((size_t)(arg_position2 - arg_position1  + 1))
 {
 	this->init();
 }
@@ -80,7 +80,7 @@ void SubSequence::init()
 /**
  * @brief
  *
- * @date 2015-05-06
+ * @date 2016-01-21
  *
  * @todo Decide whether or not to return a Position or a Nucleotide
  */
@@ -92,7 +92,7 @@ Nucleotide SubSequence::operator[](size_t arg_position)
 		throw std::invalid_argument("SubSequence::operator[]: Out of bound SubSequence");
 	}
 #endif //DEBUG
-	return *(this->position1 + arg_position);
+	return *(this->position1 + (long) arg_position);
 }
 
 

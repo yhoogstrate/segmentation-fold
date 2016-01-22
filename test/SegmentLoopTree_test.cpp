@@ -1,7 +1,7 @@
 /**
  * @file test/SegmentTree_test.cpp
  *
- * @date 2015-12-07
+ * @date 2016-01-21
  *
  * @author Youri Hoogstrate
  *
@@ -57,12 +57,12 @@ BOOST_AUTO_TEST_SUITE(Testing)
  *
  * @test
  *
- * @date 2015-12-06
+ * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test1)
 {
 	std::string segmentloop_name = "Arteficial SegmentLoop construct";
-	float energy = -1.234;
+	float energy = -1.234f;
 	
 	Sequence sequence     = Sequence("ACUUGaGUA");
 	std::vector <Pair> bonds = {{Pair({1, 1}), Pair({2, 1}), Pair({2, 1})}};
