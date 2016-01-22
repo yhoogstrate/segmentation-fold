@@ -2071,7 +2071,7 @@ void test_tij(Zuker &zuker)
  */
 BOOST_AUTO_TEST_CASE(Test_bulge_loop)
 {
-	for(unsigned char i = 0 ; i < 100; i++)
+	for(unsigned char i = 0 ; i < 10; i++)
 	{
 		// Initialize variables
 		Sequence sequence = Sequence("GGGAAAGGGAAACCCCCC");
