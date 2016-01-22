@@ -356,8 +356,8 @@ float Zuker::w(Pair &p1)
 			{
 				energy = tmp;
 				
-				tmp_pij = p3.first;
-				tmp_qij = p3.second;
+				tmp_pij = (signed int) p3.first;
+				tmp_qij = (signed int) p3.second;
 			}
 			
 			// pre-iter 2
@@ -366,8 +366,8 @@ float Zuker::w(Pair &p1)
 			if(tmp < energy)
 			{
 				energy = tmp;
-				tmp_pij = p2.first;
-				tmp_qij = p2.second;
+				tmp_pij = (signed int) p2.first;
+				tmp_qij = (signed int) p2.second;
 			}
 			
 			// remaining iterations
