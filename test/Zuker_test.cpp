@@ -113,7 +113,7 @@ BOOST_AUTO_TEST_CASE(Test1)
 	
 	// Init & run algorithm
 	char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "guUGUGAUgaaacUGAac" , NULL};
-	int argc = sizeof(argv) / sizeof(char *) - 1;
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 	Settings settings = Settings(argc, argv, sequence);
 	Zuker zuker = Zuker(settings, sequence , thermodynamics);
 	
@@ -171,7 +171,7 @@ BOOST_AUTO_TEST_CASE(Test2_segmentloop)
 	
 	// Init & run algorithm
 	char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "cAAuAAg" , NULL};
-	int argc = sizeof(argv) / sizeof(char *) - 1;
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 	Settings settings = Settings(argc, argv, sequence);
 	Zuker zuker = Zuker(settings, sequence , thermodynamics);
 	
@@ -208,7 +208,7 @@ BOOST_AUTO_TEST_CASE(Test_W_matrix_01)
 	
 	// init
 	char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "aaa" , NULL};
-	int argc = sizeof(argv) / sizeof(char *) - 1;
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 	
 	Settings settings = Settings(argc, argv, sequence);
 	
@@ -275,7 +275,7 @@ BOOST_AUTO_TEST_CASE(Test_Sequence_GGGAAACCC)
 	Sequence sequence = Sequence("GGGaaaCCC");
 	
 	char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "GGGaaaCCC" , NULL};
-	int argc = sizeof(argv) / sizeof(char *) - 1;
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 	
 	unsigned int i = 2;
 	unsigned int j = 6;
@@ -350,7 +350,7 @@ BOOST_AUTO_TEST_CASE(Test_sticky_ends_1)
 	Sequence sequence = Sequence("GGGAAACCCA");
 	
 	char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "GGGAAACCCA" , NULL};
-	int argc = sizeof(argv) / sizeof(char *) - 1;
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 	
 	unsigned int i = 2;
 	unsigned int j = 6;
@@ -400,7 +400,7 @@ BOOST_AUTO_TEST_CASE(Test_sticky_ends_2)
 	Sequence sequence = Sequence("AGGGAAACCC");
 	
 	char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "AGGGAAACCC" , NULL};
-	int argc = sizeof(argv) / sizeof(char *) - 1;
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 	
 	unsigned int i = 3;
 	unsigned int j = 7;
@@ -486,7 +486,7 @@ BOOST_AUTO_TEST_CASE(Test_energy_bifuraction)
 	
 	// init
 	char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "GGaaaCCCCaaaGG" , NULL};
-	int argc = sizeof(argv) / sizeof(char *) - 1;
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 	
 	ReadData thermodynamics = ReadData();
 	
