@@ -4,14 +4,13 @@
 
 @author Youri Hoogstrate
 
-@date 2015-12-07
+@date 2016-01-22
 
 @section LICENSE
 segmentation-fold can predict RNA 2D structures including K-turns.
 Copyright (C) 2012-2015 Youri Hoogstrate
 
-This file is part of segmentation-fold and originally taken from
-"share/motifs.txt" in yh-kt-fold.
+This file is part of segmentation-fold.
 
 segmentation-fold is free software: you can redistribute it and/or
 modify it under the terms of the GNU General Public License as published
@@ -1263,7 +1262,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 					<associated_segments>
 						<link>Kt-U4b.hsa</link>
 					</associated_segments>
-					<dot_bracket type="full"   >(((((.(((...(((((....)))))))))))))</dot_bracket>
+					<dot_bracket type="full"   >((((?.(((...(((((....))))))))?))))</dot_bracket>
 				</structure>
 				
 				<structure>
