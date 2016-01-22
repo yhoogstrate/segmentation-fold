@@ -73,7 +73,7 @@ BOOST_AUTO_TEST_SUITE(Testing)
 BOOST_AUTO_TEST_CASE(Test1)
 {
 	char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "ACTGactgACUGacug", nullptr};
-	int argc = sizeof(argv) / sizeof(char *) - 1;
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 	
 	Sequence sequence;
 	
@@ -126,7 +126,7 @@ BOOST_AUTO_TEST_CASE(Test2)
 	
 	
 	char *argv[] = { (char *) PACKAGE_NAME, (char *) "-f", (char *) filename.c_str(), nullptr};
-	int argc = sizeof(argv) / sizeof(char *) - 1;
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 	
 	Sequence sequence;
 	
