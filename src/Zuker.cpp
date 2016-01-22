@@ -68,7 +68,7 @@ Zuker::Zuker(Settings &arg_settings, Sequence &arg_sequence, ReadData &arg_therm
 	tij(arg_sequence.size(), {false, Pair(UNBOUND, UNBOUND)}),					//@todo use N instead of 0? >> if so, set UNBOUND to N  + 1 or so
 	sij(arg_sequence.size(), nullptr)
 {
-	this->tij.fill({false,{NOT_YET_CALCULATED,NOT_YET_CALCULATED}});
+	this->tij.fill({false, {NOT_YET_CALCULATED, NOT_YET_CALCULATED}});
 	
 	this->sequence_begin = this->sequence.data.begin();
 	this->traceback_stacktop = -1;
@@ -131,7 +131,7 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 		throw std::invalid_argument("Zuker::v(" + std::to_string(p1.first) + ", " + std::to_string(p1.second) + "): redundant calculation, please request values from the ScoringMatrix directly");
 	}
 	
-	if(!p1p.is_canonical() || ((signed int)(p1.second - p1.first)) <= this->settings.minimal_hairpin_length)
+	if(!p1p.is_canonical() || (p1.second - p1.first) <= this->settings.minimal_hairpin_length)
 	{
 		throw std::invalid_argument("Zuker::v(" + std::to_string(p1.first) + ", " + std::to_string(p1.second) + "): this pair should never be checked within this function because it's energy is infinity by definition");
 	}
@@ -264,7 +264,6 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 		}
 	}
 	
-	//this->loopmatrix.set(p1, tmp_loopmatrix_value);
 	this->tij.set(p1, {true, tmp_loopmatrix_value}); //set to True because i,j are paired
 	if(tmp_segmenttraceback != nullptr)
 	{
@@ -301,19 +300,16 @@ float Zuker::w(Pair &p1)
 #endif //DEBUG
 	
 	float energy;
-	int tmp_pij, tmp_qij;
+	signed int tmp_pij, tmp_qij;
+	///@todo - i is guarenteed to be smaller than j, so n can be unsigned!
+	unsigned int n = (p1.second - p1.first);
 	
-	signed int n = (signed int)(p1.second - p1.first);
-	unsigned int k = 0;///@todo check whether it can be unset
-	float tmp;
-	
-	if(n <= (this->settings.minimal_hairpin_length))
+	if(n <= this->settings.minimal_hairpin_length)
 	{
 		this->vij.set(p1, N_INFINITY);
-		energy = 0.0;
 		
-		tmp_pij = UNBOUND;///@todo use a bool to remember whether it is bound (saves 1 var each time)
-		tmp_qij = UNBOUND;///@deprecated this one
+		energy = 0.0;
+		tmp_pij = UNBOUND;
 	}
 	else
 	{
@@ -322,72 +318,68 @@ float Zuker::w(Pair &p1)
 		if(!p1p.is_canonical())
 		{
 			tmp_pij = UNBOUND;
-			tmp_qij = UNBOUND;
-			
 			energy = N_INFINITY;
 		}
 		else
 		{
 			tmp_pij = BOUND;
-			tmp_qij = BOUND;
-			
 			energy = this->v(p1, p1p);
 		}
 		
 		/*
-		following extreme w()-directed bifurcations are possible
+		The following bifurcations have to be tested:
 		
-		You want to test for differences of size 0, because you get:
+		CC (n = 1) -> none
+		||
 		
-		CCCAAAGGGA
-		|        |  (iter 1)
-		|       |   (iter 2) and the last one should be skipped
+		CCC
+		|)   (pre-iter 1)
+		 (|  (pre-iter 2)
 		
-		Also, you want:
-		CCCAAAGGGA
-		|        |  (iter 1)
-		 |       |  (iter 2) and the last one should be skipped
+		CCCAGGA
+		|    )   (pre-iter 1)
+		 (    |  (pre-iter 2)
+		|)(   |  (iter 1; k=+1)
+		| )(  |  (iter 2; k=+2)
+		|  )( |  (iter 3; k=+3)
+		|   )(|  (iter 4; k=+4)
+		*/
 		
-		For the top one, k is equal to j-1:  (0,j-1),(j-1+1,j)  = (0,j-1),(j,j)
-		For the bottom one, k is equal to 0: (0,0),(0+1,j)
-		
-		 */
-		for(k = p1.first ; k < p1.second ; k++)				// Find bifurcation in non-paired region
+		if(n >= 2)
 		{
-			Pair p2 = Pair(p1.first, k);
-			Pair p3 = Pair(k + 1, p1.second);
+			Pair p2, p3;
+			float tmp;
 			
-			if(k == p1.first)
-			{
-				tmp = this->wij.get(p3);
-			}
-			else if(k + 1 == p1.second)
-			{
-				tmp = this->wij.get(p2);
-			}
-			else
-			{
-				tmp = this->wij.get(p2) + this->wij.get(p3);
-			}
-			
+			p3 = Pair(p1.first + 1, p1.second);
+			tmp = this->wij.get(p3);
 			if(tmp < energy)
 			{
-				// Can also be done by checking whether pathmatrix_corrected_from > 0 ? >> and only store those positions in a tree instead of an entire matrix
-				
 				energy = tmp;
-				///@todo -> move these two if statements out of the loop, and do iteration over p1.first+1 ; k< p1.second - 1 or sth like that
-				if(k == p1.first)
+				
+				tmp_pij = p3.first;
+				tmp_qij = p3.second;
+			}
+			
+			p2 = Pair(p1.first, p1.second - 1);
+			tmp = this->wij.get(p2);
+			if(tmp < energy)
+			{
+				energy = tmp;
+				tmp_pij = p2.first;
+				tmp_qij = p2.second;
+			}
+			
+			for(unsigned int k = p1.first + 1; k < p1.second  - 1; k++)
+			{
+				p2 = Pair(p1.first, k);
+				p3 = Pair(k + 1, p1.second);
+				
+				tmp = this->wij.get(p2) + this->wij.get(p3);
+				
+				if(tmp < energy)
 				{
-					tmp_pij = (signed int) k + 1;
-					tmp_qij = (signed int) p1.second;
-				}
-				else if(k + 1 == p1.second)
-				{
-					tmp_pij = (signed int) p1.first;///@todo make tmp_pij unsigned by setting BOUND and UNBOUND to MAX_VAL(size_t)-1 and MAX_VAL(size_t)-2
-					tmp_qij = (signed int) k;///@todo make tmp_pij unsigned by setting BOUND and UNBOUND to MAX_VAL(size_t)-1 and MAX_VAL(size_t)-2
-				}
-				else
-				{
+					// Can also be done by checking whether pathmatrix_corrected_from > 0 ? >> and only store those positions in a tree instead of an entire matrix
+					energy = tmp;
 					tmp_pij = (signed int) k;///@todo make tmp_pij unsigned by setting BOUND and UNBOUND to MAX_VAL(size_t)-1 and MAX_VAL(size_t)-2
 					tmp_qij = (signed int) k;///@todo make tmp_pij unsigned by setting BOUND and UNBOUND to MAX_VAL(size_t)-1 and MAX_VAL(size_t)-2
 				}

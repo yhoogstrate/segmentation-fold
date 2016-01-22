@@ -67,7 +67,7 @@ class Settings
 		Settings(int arg_argc, char **arg_argv, Sequence &arg_sequence);
 		
 		unsigned int num_threads;
-		int minimal_hairpin_length;///@todo unsigned?
+		unsigned int minimal_hairpin_length;
 		bool segment_prediction_functionality;
 		std::string segment_filename;
 		

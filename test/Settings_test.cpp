@@ -229,7 +229,7 @@ BOOST_AUTO_TEST_CASE(Test4)
 	
 	
 	// Check argumented values
-	for(signed int i = 0; i < 100; i ++)
+	for(unsigned int i = 0; i < 100; i ++)
 	{
 		is = std::to_string(i);
 		char *ics = (char *) is.c_str();
@@ -239,7 +239,7 @@ BOOST_AUTO_TEST_CASE(Test4)
 		
 		Settings settings = Settings(argc, argv, sequence);
 		
-		BOOST_CHECK_MESSAGE(settings.minimal_hairpin_length  == i, "Failed to obtain min_hairpin_size of " << i);
+		BOOST_CHECK_MESSAGE(settings.minimal_hairpin_length == i, "Failed to obtain min_hairpin_size of " << i);
 	}
 }
 

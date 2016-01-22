@@ -105,7 +105,7 @@ void DotBracket::format(unsigned int n, std::string &output)
 	
 	for(i = 0; i < (signed int) n; i++)
 	{
-		j = this->find( (unsigned int) i);
+		j = this->find((unsigned int) i);
 		
 		if(j == UNBOUND)
 		{
