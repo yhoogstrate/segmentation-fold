@@ -171,13 +171,13 @@ BOOST_AUTO_TEST_CASE(Test2)
 BOOST_AUTO_TEST_CASE(Test3)
 {
 	Sequence sequence;
-	int argc;
+	signed int argc;
 	std::string is;
 	
 	{
 		// Check default value
 		char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", nullptr};
-		argc = sizeof(argv) / sizeof(char *) - 1;
+		argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 		
 		Settings settings = Settings(argc, argv, sequence);
 		
@@ -187,7 +187,7 @@ BOOST_AUTO_TEST_CASE(Test3)
 	{
 		// Check enabling
 		char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", (char *) "-p", (char *) "1", nullptr};
-		argc = sizeof(argv) / sizeof(char *) - 1;
+		argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 		
 		Settings settings = Settings(argc, argv, sequence);
 		
@@ -197,7 +197,7 @@ BOOST_AUTO_TEST_CASE(Test3)
 	{
 		// Check disabling
 		char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", (char *) "-p", (char *) "0", nullptr};
-		argc = sizeof(argv) / sizeof(char *) - 1;
+		argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 		
 		Settings settings = Settings(argc, argv, sequence);
 		
@@ -223,7 +223,7 @@ BOOST_AUTO_TEST_CASE(Test4)
 	
 	// Check default value
 	char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", nullptr};
-	argc = sizeof(argv) / sizeof(char *) - 1;
+	argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 	
 	Settings settings = Settings(argc, argv, sequence);
 	
@@ -237,7 +237,7 @@ BOOST_AUTO_TEST_CASE(Test4)
 		char *ics = (char *) is.c_str();
 		
 		char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", (char *) "-h", (char *) ics, nullptr};
-		argc = sizeof(argv) / sizeof(char *) - 1;
+		argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 		
 		Settings settings = Settings(argc, argv, sequence);
 		
@@ -260,7 +260,7 @@ BOOST_AUTO_TEST_CASE(Test5)
 	{
 		// Check example file
 		char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", (char *) "-x", (char *) "share/segmentation-fold/" SEGMENTS_FILE, nullptr};
-		argc = sizeof(argv) / sizeof(char *) - 1;
+		argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 		
 		Settings settings = Settings(argc, argv, sequence);
 		
@@ -270,7 +270,7 @@ BOOST_AUTO_TEST_CASE(Test5)
 	{
 		// Check non existing file
 		char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", (char *) "-x", (char *) "/dev/null/neverexist", nullptr};
-		argc = sizeof(argv) / sizeof(char *) - 1;
+		argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 		
 		BOOST_CHECK_THROW(Settings settings = Settings(argc, argv, sequence), std::invalid_argument);
 	}
@@ -291,7 +291,7 @@ BOOST_AUTO_TEST_CASE(Test6)
 	{
 		// Check example file
 		char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", nullptr};
-		argc = sizeof(argv) / sizeof(char *) - 1;
+		argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 		
 		Settings settings = Settings(argc, argv, sequence);
 		
@@ -301,7 +301,7 @@ BOOST_AUTO_TEST_CASE(Test6)
 	{
 		// Check non existing file
 		char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", (char *) "-V", nullptr};
-		argc = sizeof(argv) / sizeof(char *) - 1;
+		argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 		
 		Settings settings = Settings(argc, argv, sequence);
 		
@@ -324,7 +324,7 @@ BOOST_AUTO_TEST_CASE(Test7)
 	{
 		// Check example file
 		char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", nullptr};
-		argc = sizeof(argv) / sizeof(char *) - 1;
+		argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 		
 		Settings settings = Settings(argc, argv, sequence);
 		
@@ -334,7 +334,7 @@ BOOST_AUTO_TEST_CASE(Test7)
 	{
 		// Check non existing file
 		char *argv[] = { (char *) PACKAGE_NAME, (char *) "--version", nullptr};
-		argc = sizeof(argv) / sizeof(char *) - 1;
+		argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 		
 		Settings settings = Settings(argc, argv, sequence);
 		
@@ -357,7 +357,7 @@ BOOST_AUTO_TEST_CASE(Test8)
 	{
 		// Check example file
 		char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", nullptr};
-		argc = sizeof(argv) / sizeof(char *) - 1;
+		argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 		
 		Settings settings = Settings(argc, argv, sequence);
 		
@@ -367,7 +367,7 @@ BOOST_AUTO_TEST_CASE(Test8)
 	{
 		// Check non existing file
 		char *argv[] = { (char *) PACKAGE_NAME, (char *) "--help", nullptr};
-		argc = sizeof(argv) / sizeof(char *) - 1;
+		argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 		
 		Settings settings = Settings(argc, argv, sequence);
 		
@@ -391,7 +391,7 @@ BOOST_AUTO_TEST_CASE(Test9)
 	
 	// Check default value
 	char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", nullptr};
-	argc = sizeof(argv) / sizeof(char *) - 1;
+	argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 	
 	Settings settings = Settings(argc, argv, sequence);
 	
@@ -405,7 +405,7 @@ BOOST_AUTO_TEST_CASE(Test9)
 		char *ics = (char *) is.c_str();
 		
 		char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", (char *) "-t", (char *) ics, nullptr};
-		argc = sizeof(argv) / sizeof(char *) - 1;
+		argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 		
 		Settings settings = Settings(argc, argv, sequence);
 		
