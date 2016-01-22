@@ -118,7 +118,7 @@ float Zuker::energy(void)
 /**
  * @brief Vij Function - energy if (i,j) pair, otherwise return infinity
  *
- * @date 2015-12-09
+ * @date 2016-01-22
  *
  * @param p1 A pair of positions refering to Nucleotide positions in the sequence, where pi.first < p1.second
  *
@@ -126,6 +126,18 @@ float Zuker::energy(void)
  */
 float Zuker::v(Pair &p1, PairingPlus &p1p)
 {
+#if DEBUG
+	if(this->pij.get(p1) > NOT_YET_CALCULATED)
+	{
+		throw std::invalid_argument("Zuker::v(" + std::to_string(p1.first) + ", " + std::to_string(p1.second) + "): redundant calculation, please request values from the ScoringMatrix directly");
+	}
+	
+	if(!p1p.is_canonical() || ((signed int)(p1.second - p1.first)) <= this->settings.minimal_hairpin_length)
+	{
+		throw std::invalid_argument("Zuker::v(" + std::to_string(p1.first) + ", " + std::to_string(p1.second) + "): this pair should never be checked within this function because it's energy is infinity by definition");
+	}
+#endif //DEBUG
+	
 	unsigned int ip;
 	unsigned int jp;
 	
@@ -136,18 +148,6 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 	SegmentTraceback  *tmp_segmenttraceback = nullptr;
 	
 	Pair tmp_loopmatrix_value;
-	
-#if DEBUG
-	if(this->pij.get(p1) > NOT_YET_CALCULATED)			///@todo -create bool function > {pij}.is_calculated()    @todo2 use max unsigned int value  // This point is already calculated; efficiency of dynamic programming
-	{
-		throw std::invalid_argument("Zuker::v(" + std::to_string(p1.first) + ", " + std::to_string(p1.second) + "): redundant calculation, please request values from the ScoringMatrix directly");
-	}
-	
-	if(!p1p.is_canonical() || ((signed int)(p1.second - p1.first)) <= this->settings.minimal_hairpin_length)
-	{
-		throw std::invalid_argument("Zuker::v(" + std::to_string(p1.first) + ", " + std::to_string(p1.second) + "): this pair should never be checked within this function because it's energy is infinity by definition");
-	}
-#endif //DEBUG
 	
 	energy = this->get_hairpin_loop_element(p1);					// Hairpin element
 	tmp_loopmatrix_value = {p1.first + 1, p1.second - 1};
@@ -281,7 +281,7 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 /**
  * @brief Wij Function - provided Gibbs free energy for sequence i...j
  *
- * @date 2015-12-01
+ * @date 2016-01-22
  *
  * @param p1 A pair of positions refering to Nucleotide positions in the sequence, where pi.first < p1.second
  *
@@ -289,9 +289,6 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
  */
 float Zuker::w(Pair &p1)
 {
-	float energy;
-	int tmp_pij, tmp_qij;
-	
 #if DEBUG
 	if(p1.first >= p1.second)
 	{
@@ -303,6 +300,9 @@ float Zuker::w(Pair &p1)
 	}
 #endif //DEBUG
 	
+	float energy;
+	int tmp_pij, tmp_qij;
+	
 	signed int n = (signed int)(p1.second - p1.first);
 	unsigned int k = 0;///@todo check whether it can be unset
 	float tmp;
@@ -312,8 +312,8 @@ float Zuker::w(Pair &p1)
 		this->vij.set(p1, N_INFINITY);
 		energy = 0.0;
 		
-		tmp_pij = UNBOUND;
-		tmp_qij = UNBOUND;
+		tmp_pij = UNBOUND;///@todo use a bool to remember whether it is bound (saves 1 var each time)
+		tmp_qij = UNBOUND;///@deprecated this one
 	}
 	else
 	{

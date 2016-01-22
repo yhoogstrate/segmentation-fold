@@ -1,7 +1,7 @@
 /**
  * @file test/main_test.cpp
  *
- * @date 2015-12-07
+ * @date 2015-01-22
  *
  * @author Youri Hoogstrate
  *
@@ -322,9 +322,6 @@ BOOST_AUTO_TEST_CASE(Test_kturns_segments_disabled)
 	
 	ReadData thermodynamics = ReadData();
 	std::vector<rna_example> rna_examples;
-	
-	//Keep segments empty. This is what disabling should do.
-	//ReadSegments r = ReadSegments(settings.segment_filename, thermodynamics.segments, rna_examples);
 	
 	DotBracket db = DotBracket();
 	
