@@ -32,7 +32,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
 
-import shlex,subprocess,re,warnings
+import shlex,subprocess,re,warnings,os
 
 
 
@@ -79,16 +79,24 @@ class FoldController:
     def fold(self):
         self.write_segments()
         
-        return self.run_folding()
+        f = self.run_folding()
+        os.remove(self.xml_file)
+        
+        return f
     
     def run_folding(self):
-        argv = [self.binary,'-s',self.sequence,'-x',self.xml_file,'-t','1']
+        argv = [self.binary,'-s',self.sequence,'-x',self.xml_file,'-t','2']
         output,error = subprocess.Popen(argv,stdout = subprocess.PIPE, stderr= subprocess.PIPE).communicate()
+        
+        error = error.strip()
+        if len(error) > 0:
+            print "Error: "+error
+            exit(1)
         
         output = output.split("\n")
         de = self.findDE(output[0])
         
-        return {'free_energy':de,'dot_bracket':output[2]}
+        return {'free_energy':de,'dot_bracket':output[2].strip()}
     
     def findDE(self,string):
         e = string.split('dE:',1)[1].lstrip().split(' ',1)[0].strip()
@@ -106,7 +114,7 @@ class FoldController:
         if version_match:
             version = version_match.group(1)
             suffix = version_match.group(2)
-            if version[0:4] != "1.2.":
+            if version[0:4] != "1.3.":
                 raise EnvironmentError('Installed version of segmentation-fold ('+str(version)+') is out of date.')
             
             if suffix.find("(debug)") != -1:

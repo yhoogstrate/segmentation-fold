@@ -49,7 +49,7 @@ class FastaFile:
                         sequence['sequence'] += line_s.upper()
         
         if(sequence):
-            yield sequence
+            yield sequence.replace("\n","").strip()
     
     def __iter__(self):
         for sequence in self.parse():
