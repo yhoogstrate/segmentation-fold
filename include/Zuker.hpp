@@ -74,6 +74,7 @@ class Zuker: public GibbsFreeEnergy
 		
 		std::vector<traceback_jump> traceback_stack;
 		int traceback_stacktop;
+		unsigned int folded_segments;
 		
 		Position sequence_begin;
 		

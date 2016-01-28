@@ -12,8 +12,7 @@
 segmentation-fold can predict RNA 2D structures including K-turns.
 Copyright (C) 2012-2015 Youri Hoogstrate
 
-This file is part of segmentation-fold and originally taken from
-yh-kt-fold.
+This file is part of segmentation-fold
 
 segmentation-fold is free software: you can redistribute it and/or
 modify it under the terms of the GNU General Public License as published
@@ -53,11 +52,11 @@ if __name__ == "__main__":
             if(args.precision == 'quick'):
                 precision = 3.5 * (1.0 + len(sequence['sequence']))
             else:
-                precision = 0.005
+                precision = 0.0025
             
             print(">" + sequence['name'].split(" ")[0] + " x "+segment_name)
             print(sequence['sequence'])
             
-            b = BinarySplit(args.segmentation_fold,args.temp_dir+"/segments_"+sequence_safe_name+"_"+segment_safe_name+"_",sequence['sequence'], segment, precision) 
+            b = BinarySplit(args.segmentation_fold,args.temp_dir+"/segments_"+sequence_safe_name+"_"+segment_safe_name+"_",sequence['sequence'], segment, precision, (3.5/2), args.threads) 
             for transition in b.find_transitions():
                 print(transition['structure_max']+"\t"+transition['structure_min']+"\t"+str(transition['energy']))

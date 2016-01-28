@@ -39,12 +39,14 @@ import shlex,subprocess,re,warnings,os
 class FoldController:
     version_re = re.compile("\[Version\][\n ]+segmentation-fold[ \t]+([^\-\n]+)([^\n]*)")
     
-    def __init__(self,binary,xml_file,sequence,associated_segments):
+    def __init__(self,binary,xml_file,sequence,associated_segments,threads=1):
         self.binary = binary
         self.xml_file = xml_file
         
         self.set_sequence(sequence)
         self.associated_segments = associated_segments
+        
+        self.threads_per_instance = threads
     
     def set_sequence(self,sequence):
         self.sequence = sequence.upper().replace(" ","").replace("'","").replace("T","U").replace("\"","")
@@ -85,7 +87,7 @@ class FoldController:
         return f
     
     def run_folding(self):
-        argv = [self.binary,'-s',self.sequence,'-x',self.xml_file,'-t','2']
+        argv = [self.binary,'-s',self.sequence,'-x',self.xml_file,'-t',str(self.threads_per_instance)]
         output,error = subprocess.Popen(argv,stdout = subprocess.PIPE, stderr= subprocess.PIPE).communicate()
         
         error = error.strip()

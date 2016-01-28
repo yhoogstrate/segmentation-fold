@@ -427,6 +427,7 @@ void Zuker::traceback(void)
 	traceback_jump2 action;
 	Pair pair1;
 	
+	this->folded_segments = 0;
 	this->traceback_push(0, (unsigned int) this->sequence.size() - 1);///@todo use size_t
 	
 	while(this->traceback_pop(&i, &j))
@@ -447,6 +448,7 @@ void Zuker::traceback(void)
 		if(action.store_pair)										// Store current pair (i,j)
 		{
 			this->dot_bracket.store(i, j);
+			this->folded_segments++;
 			
 			independent_segment_traceback = this->sij.get(pair1);	///@todo implement it as independent_segment_traceback = this->nij.search(p); or sth like that
 			if(independent_segment_traceback != nullptr)// If a Segment's traceback is found, trace its internal structure back
@@ -559,7 +561,7 @@ void Zuker::print_2D_structure(void)
 	std::string dotbracket = "";
 	this->dot_bracket.format((unsigned int) n, dotbracket); ///@todo use size_t
 	
-	printf(">Sequence length: %zubp, dE: %g kcal/mole\n", n, this->wij.get(pair));
+	printf(">Sequence length: %zubp, dE: %g kcal/mole, segments: %i\n", n, this->wij.get(pair),this->folded_segments++);
 	printf("%s\n", this->sequence.str().c_str());
 	std::cout << dotbracket << "\n";
 }
