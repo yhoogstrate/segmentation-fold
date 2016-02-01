@@ -1,3 +1,9 @@
+2016-02-01  Youri Hoogstrate
+	* v1.3.1
+	  - Added a variable to the output indicating the number of used Segment(Loop)s in the structure
+	  - Set infinity to the maximum size of a float
+	  - Changes to the energy / parameters estimation utilities
+
 2016-01-22  Youri Hoogstrate
 	* v1.3.0
 	  - Traceback algorithm rewritten (sparser, faster)
