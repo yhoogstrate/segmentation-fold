@@ -448,11 +448,12 @@ void Zuker::traceback(void)
 		if(action.store_pair)										// Store current pair (i,j)
 		{
 			this->dot_bracket.store(i, j);
-			this->folded_segments++;
 			
 			independent_segment_traceback = this->sij.get(pair1);	///@todo implement it as independent_segment_traceback = this->nij.search(p); or sth like that
 			if(independent_segment_traceback != nullptr)// If a Segment's traceback is found, trace its internal structure back
 			{
+				this->folded_segments++;
+				
 				tmp_i = i;
 				tmp_j = j;
 				
