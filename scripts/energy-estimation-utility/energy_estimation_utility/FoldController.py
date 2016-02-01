@@ -97,12 +97,17 @@ class FoldController:
         
         output = output.split("\n")
         de = self.findDE(output[0])
+        sm = self.findSegments(output[0])
         
-        return {'free_energy':de,'dot_bracket':output[2].strip()}
+        return {'free_energy':de,'dot_bracket':output[2].strip(),'number_segments':sm}
     
     def findDE(self,string):
         e = string.split('dE:',1)[1].lstrip().split(' ',1)[0].strip()
         return round(float(e),4)
+    
+    def findSegments(self,string):
+        s = string.split('segments:',1)[1].lstrip().split(' ',1)[0].strip()
+        return int(s)
     
     def get_version(self):
         argv = [self.binary,'--version']

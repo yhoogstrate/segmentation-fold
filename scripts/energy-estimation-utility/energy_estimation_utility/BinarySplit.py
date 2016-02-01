@@ -76,7 +76,8 @@ class BinarySplit:
         fc_max = FoldController(self.binary,xml_file,self.sequence,max_associated_segments,self.threads_per_instance)
         max_energy['results'] = fc_max.fold()
     
-        if min_energy['results']['dot_bracket'] != max_energy['results']['dot_bracket']:
+        #if min_energy['results']['dot_bracket'] != max_energy['results']['dot_bracket']:
+        if min_energy['results']['number_segments'] != max_energy['results']['number_segments']:
             splitpoint = (max_energy['energy'] + min_energy['energy']) / 2
             
             if(precision >= self.precision):
