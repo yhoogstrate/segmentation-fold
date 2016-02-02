@@ -60,7 +60,7 @@
 #define MIN_OF(type) \
     (((type)(1LLU<<((sizeof(type)<<3)-1)) < (type)1) ? (long long int)((~0LLU)-((1LLU<<((sizeof(type)<<3)-1))-1LLU)) : 0LL)
 
-#define N_INFINITY  MAX_OF(float)
+#define N_INFINITY         (float) MAX_OF(float)
 
 #define BOUND              -1
 #define UNBOUND            -2
