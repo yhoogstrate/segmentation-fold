@@ -37,7 +37,7 @@ from energy_estimation_utility.FoldController import *
 
 
 class BinarySplit:
-    def __init__(self,binary,xml_file_prefix,sequence,arg_associated_segments,precision=0.005,max_per_base=(3.5/2)):
+    def __init__(self,binary,xml_file_prefix,sequence,arg_associated_segments,precision=0.005,max_per_base=(3.5/2),threads=1):
         self.binary = binary
         self.xml_file_prefix = xml_file_prefix
         
@@ -48,6 +48,8 @@ class BinarySplit:
         self.max_per_base = max_per_base
         
         self.min_energy = - abs(max_per_base) * len(sequence)
+        
+        self.threads_per_instance = threads
     
     def update_energy_in_segments(self,energy):
         segments = {}
@@ -66,15 +68,16 @@ class BinarySplit:
         
         xml_file = self.xml_file_prefix + str(stats['recursion_depth']) + "_" + (stats['state'] if stats['state'] != None else "min")+".xml"
         min_associated_segments = self.update_energy_in_segments(min_energy['energy'])
-        fc_min = FoldController(self.binary,xml_file,self.sequence,min_associated_segments)
+        fc_min = FoldController(self.binary,xml_file,self.sequence,min_associated_segments,self.threads_per_instance)
         min_energy['results'] = fc_min.fold()
     
         xml_file = self.xml_file_prefix + str(stats['recursion_depth']) + "_" + (stats['state'] if stats['state'] != None else "max")+".xml"
         max_associated_segments = self.update_energy_in_segments(max_energy['energy'])
-        fc_max = FoldController(self.binary,xml_file,self.sequence,max_associated_segments)
+        fc_max = FoldController(self.binary,xml_file,self.sequence,max_associated_segments,self.threads_per_instance)
         max_energy['results'] = fc_max.fold()
     
-        if min_energy['results']['dot_bracket'] != max_energy['results']['dot_bracket']:
+        #if min_energy['results']['dot_bracket'] != max_energy['results']['dot_bracket']:
+        if min_energy['results']['number_segments'] != max_energy['results']['number_segments']:
             splitpoint = (max_energy['energy'] + min_energy['energy']) / 2
             
             if(precision >= self.precision):

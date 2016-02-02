@@ -52,7 +52,7 @@ if __name__ == "__main__":
                 print ">"+segment.name
                 print segment.sequence
                 
-                safe_name = segment.name.replace(" ","").replace("'","").replace('"','').replace('/','').replace('(','').replace(')','')
+                safe_name = segment.name.replace(" ","").replace("'","").replace('"','').replace('/','').replace('(','').replace(')','').replace(';','')
                 b = BinarySplit(args.segmentation_fold,args.temp_dir+"/segments_"+safe_name+"_",segment.sequence, associated_segments)
                 for transition in b.find_transitions():
                     print transition['structure_max']+"\t"+transition['structure_min']+"\t"+str(transition['energy'])

@@ -81,16 +81,16 @@ void test_vij(Zuker &zuker)
 	
 	p = {0, 0};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(0,0) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(0,0) = " + std::to_string(e));
 	p = {0, 1};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(0,1) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(0,1) = " + std::to_string(e));
 	p = {0, 2};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(0,2) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(0,2) = " + std::to_string(e));
 	p = {0, 3};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(0,3) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(0,3) = " + std::to_string(e));
 	p = {0, 4};
 	e = zuker.vij.get(p);
 	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 0.00f), "V(0,4) = " + std::to_string(e));
@@ -136,16 +136,16 @@ void test_vij(Zuker &zuker)
 	
 	p = {1, 1};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(1,1) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(1,1) = " + std::to_string(e));
 	p = {1, 2};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(1,2) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(1,2) = " + std::to_string(e));
 	p = {1, 3};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(1,3) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(1,3) = " + std::to_string(e));
 	p = {1, 4};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(1,4) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(1,4) = " + std::to_string(e));
 	p = {1, 5};
 	e = zuker.vij.get(p);
 	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 0.00f), "V(1,5) = " + std::to_string(e));
@@ -188,16 +188,16 @@ void test_vij(Zuker &zuker)
 	
 	p = {2, 2};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(2,2) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(2,2) = " + std::to_string(e));
 	p = {2, 3};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(2,3) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(2,3) = " + std::to_string(e));
 	p = {2, 4};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(2,4) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(2,4) = " + std::to_string(e));
 	p = {2, 5};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(2,5) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(2,5) = " + std::to_string(e));
 	p = {2, 6};
 	e = zuker.vij.get(p);
 	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 0.00f), "V(2,6) = " + std::to_string(e));
@@ -237,16 +237,16 @@ void test_vij(Zuker &zuker)
 	
 	p = {3, 3};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(3,3) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(3,3) = " + std::to_string(e));
 	p = {3, 4};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(3,4) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(3,4) = " + std::to_string(e));
 	p = {3, 5};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(3,5) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(3,5) = " + std::to_string(e));
 	p = {3, 6};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(3,6) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(3,6) = " + std::to_string(e));
 	p = {3, 7};
 	e = zuker.vij.get(p);
 	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 0.00f), "V(3,7) = " + std::to_string(e));
@@ -283,16 +283,16 @@ void test_vij(Zuker &zuker)
 	
 	p = {4, 4};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(4,4) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(4,4) = " + std::to_string(e));
 	p = {4, 5};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(4,5) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(4,5) = " + std::to_string(e));
 	p = {4, 6};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(4,6) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(4,6) = " + std::to_string(e));
 	p = {4, 7};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(4,7) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(4,7) = " + std::to_string(e));
 	p = {4, 8};
 	e = zuker.vij.get(p);
 	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 0.00f), "V(4,8) = " + std::to_string(e));
@@ -326,16 +326,16 @@ void test_vij(Zuker &zuker)
 	
 	p = {5, 5};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(5,5) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(5,5) = " + std::to_string(e));
 	p = {5, 6};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(5,6) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(5,6) = " + std::to_string(e));
 	p = {5, 7};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(5,7) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(5,7) = " + std::to_string(e));
 	p = {5, 8};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(5,8) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(5,8) = " + std::to_string(e));
 	p = {5, 9};
 	e = zuker.vij.get(p);
 	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 0.00f), "V(5,9) = " + std::to_string(e));
@@ -366,16 +366,16 @@ void test_vij(Zuker &zuker)
 	
 	p = {6, 6};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(6,6) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(6,6) = " + std::to_string(e));
 	p = {6, 7};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(6,7) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(6,7) = " + std::to_string(e));
 	p = {6, 8};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(6,8) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(6,8) = " + std::to_string(e));
 	p = {6, 9};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(6,9) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(6,9) = " + std::to_string(e));
 	p = {6, 10};
 	e = zuker.vij.get(p);
 	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 0.00f), "V(6,10) = " + std::to_string(e));
@@ -403,16 +403,16 @@ void test_vij(Zuker &zuker)
 	
 	p = {7, 7};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(7,7) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(7,7) = " + std::to_string(e));
 	p = {7, 8};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(7,8) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(7,8) = " + std::to_string(e));
 	p = {7, 9};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(7,9) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(7,9) = " + std::to_string(e));
 	p = {7, 10};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(7,10) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(7,10) = " + std::to_string(e));
 	p = {7, 11};
 	e = zuker.vij.get(p);
 	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 0.00f), "V(7,11) = " + std::to_string(e));
@@ -437,16 +437,16 @@ void test_vij(Zuker &zuker)
 	
 	p = {8, 8};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(8,8) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(8,8) = " + std::to_string(e));
 	p = {8, 9};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(8,9) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(8,9) = " + std::to_string(e));
 	p = {8, 10};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(8,10) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(8,10) = " + std::to_string(e));
 	p = {8, 11};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(8,11) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(8,11) = " + std::to_string(e));
 	p = {8, 12};
 	e = zuker.vij.get(p);
 	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 4.60f), "V(8,12) = " + std::to_string(e));
@@ -468,16 +468,16 @@ void test_vij(Zuker &zuker)
 	
 	p = {9, 9};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(9,9) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(9,9) = " + std::to_string(e));
 	p = {9, 10};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(9,10) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(9,10) = " + std::to_string(e));
 	p = {9, 11};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(9,11) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(9,11) = " + std::to_string(e));
 	p = {9, 12};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(9,12) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(9,12) = " + std::to_string(e));
 	p = {9, 13};
 	e = zuker.vij.get(p);
 	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 0.00f), "V(9,13) = " + std::to_string(e));
@@ -496,16 +496,16 @@ void test_vij(Zuker &zuker)
 	
 	p = {10, 10};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(10,10) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(10,10) = " + std::to_string(e));
 	p = {10, 11};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(10,11) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(10,11) = " + std::to_string(e));
 	p = {10, 12};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(10,12) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(10,12) = " + std::to_string(e));
 	p = {10, 13};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(10,13) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(10,13) = " + std::to_string(e));
 	p = {10, 14};
 	e = zuker.vij.get(p);
 	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 0.00f), "V(10,14) = " + std::to_string(e));
@@ -521,16 +521,16 @@ void test_vij(Zuker &zuker)
 	
 	p = {11, 11};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(11,11) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(11,11) = " + std::to_string(e));
 	p = {11, 12};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(11,12) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(11,12) = " + std::to_string(e));
 	p = {11, 13};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(11,13) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(11,13) = " + std::to_string(e));
 	p = {11, 14};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(11,14) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(11,14) = " + std::to_string(e));
 	p = {11, 15};
 	e = zuker.vij.get(p);
 	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 0.00f), "V(11,15) = " + std::to_string(e));
@@ -543,16 +543,16 @@ void test_vij(Zuker &zuker)
 	
 	p = {12, 12};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(12,12) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(12,12) = " + std::to_string(e));
 	p = {12, 13};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(12,13) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(12,13) = " + std::to_string(e));
 	p = {12, 14};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(12,14) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(12,14) = " + std::to_string(e));
 	p = {12, 15};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(12,15) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(12,15) = " + std::to_string(e));
 	p = {12, 16};
 	e = zuker.vij.get(p);
 	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 0.00f), "V(12,16) = " + std::to_string(e));
@@ -562,53 +562,53 @@ void test_vij(Zuker &zuker)
 	
 	p = {13, 13};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(13,13) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(13,13) = " + std::to_string(e));
 	p = {13, 14};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(13,14) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(13,14) = " + std::to_string(e));
 	p = {13, 15};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(13,15) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(13,15) = " + std::to_string(e));
 	p = {13, 16};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(13,16) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(13,16) = " + std::to_string(e));
 	p = {13, 17};
 	e = zuker.vij.get(p);
 	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 0.00f), "V(13,17) = " + std::to_string(e));
 	
 	p = {14, 14};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(14,14) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(14,14) = " + std::to_string(e));
 	p = {14, 15};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(14,15) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(14,15) = " + std::to_string(e));
 	p = {14, 16};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(14,16) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(14,16) = " + std::to_string(e));
 	p = {14, 17};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(14,17) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(14,17) = " + std::to_string(e));
 	
 	p = {15, 15};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(15,15) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(15,15) = " + std::to_string(e));
 	p = {15, 16};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(15,16) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(15,16) = " + std::to_string(e));
 	p = {15, 17};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(15,17) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(15,17) = " + std::to_string(e));
 	
 	p = {16, 16};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(16,16) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(16,16) = " + std::to_string(e));
 	p = {16, 17};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(16,17) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(16,17) = " + std::to_string(e));
 	
 	p = {17, 17};
 	e = zuker.vij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 999999.00f), "V(17,17) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY), "V(17,17) = " + std::to_string(e));
 }
 
 
