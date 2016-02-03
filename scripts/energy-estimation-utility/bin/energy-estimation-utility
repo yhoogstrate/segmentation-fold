@@ -54,11 +54,11 @@ if __name__ == "__main__":
                     for i in range(1,args.randomize+1):
                         print ">"+segment.name+" (shuffle iteration "+str(i)+")"
                         
-                        segment.sequence = data.shuffle_sequence(segment.sequence, associated_segments)
-                        print segment.sequence
+                        sequence = data.shuffle_sequence(segment.sequence, associated_segments)
+                        print sequence
                         
                         safe_name = segment.name.replace(" ","").replace("'","").replace('"','').replace('/','').replace('(','').replace(')','').replace(';','')
-                        b = BinarySplit(args.segmentation_fold,args.temp_dir+"/segments_"+safe_name+"_",segment.sequence, associated_segments)
+                        b = BinarySplit(args.segmentation_fold,args.temp_dir+"/segments_"+safe_name+"_",sequence, associated_segments)
                         for transition in b.find_transitions():
                             print transition['structure_max']+"\t"+transition['structure_min']+"\t"+str(transition['energy'])
                         print
