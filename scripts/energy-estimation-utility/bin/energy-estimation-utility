@@ -64,8 +64,6 @@ if __name__ == "__main__":
                         print
                 else:
                     print ">"+segment.name
-                    
-                    sequence = data.shuffle_sequence(segment.sequence, associated_segments)
                     print segment.sequence
                     
                     safe_name = segment.name.replace(" ","").replace("'","").replace('"','').replace('/','').replace('(','').replace(')','').replace(';','')
