@@ -3,8 +3,6 @@
 """
 @file scripts/energy-estimation-utility/energy_estimation_utility/CLI.py
 
-@date 2016-01-26
-
 @author Youri Hoogstrate
 
 @section LICENSE
@@ -37,6 +35,8 @@ def CLI():
 	parser.add_argument("-t","--temp-dir",default="/tmp",help="Directory in which the temporary files will be created")
 	parser.add_argument("-s","--segmentation-fold",default="segmentation-fold",help="Path of the binary")
 	parser.add_argument("-x","--xml-file",default="/usr/local/share/segmentation-fold/segments.xml",help="Location of segments.xml")
+	
+	parser.add_argument("-r","--randomize",default=0,type=int,help="Randomize or shuffle the sequence -r times; default 0 means this function is disabled")
 	
 	return parser.parse_args()
 

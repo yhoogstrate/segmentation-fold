@@ -1,3 +1,6 @@
+2016-02-03  Youri Hoogstrate
+	 - Added --randomize function to energy estimation utility
+
 2016-02-01  Youri Hoogstrate
 	* v1.3.1
 	  - Added a variable to the output indicating the number of used Segment(Loop)s in the structure
