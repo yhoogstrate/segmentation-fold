@@ -3,8 +3,6 @@
 """
 @file scripts/energy-estimation-utility/energy_estimation_utility/DataController.py
 
-@date 2015-07-20
-
 @author Youri Hoogstrate
 
 @section LICENSE
@@ -31,6 +29,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 
+
+import random
 
 from xml.dom.minidom import parseString
 from energy_estimation_utility.RNA import *
@@ -101,3 +101,49 @@ class DataController:
     def __iter__(self):
         for i in range(len(self.tests)):
             yield self.tests[i]
+    
+    def sanitize_sequence(self,seq,rev=False):
+        seq = seq.strip().upper()
+        seq = seq.replace("T","U")
+        seq = seq.replace(" ","")
+        if rev:
+            seq = seq[::-1]
+        
+        return seq
+        
+    
+    def shuffle_sequence(self,sequence,segments):
+        """Should preserve all subsequences of the motif
+        """
+        # Find all subsequences that are part of a segment
+        subsequences = []
+        for segment in segments.values():
+            subsequences.append(self.sanitize_sequence(segment['5']))
+            subsequences.append(self.sanitize_sequence(segment['3'],True))
+        
+        # Order those subsequence on size, so that searching will first find the largest subsequence in the sequence
+        subsequences.sort(key=len,reverse=True)
+        
+        # For every position in the sequence, check whether this equals one of the subsequences ordered on size
+        slices = []
+        i = 0
+        while i < len(sequence):
+            add = True
+            j = 0
+            while(add and j < len(subsequences)):
+                subsequence = subsequences[j]
+                if sequence[i:i+len(subsequence)] == subsequence:
+                    add = False
+                
+                j += 1
+            
+            # If it not found, add the base
+            if add:
+                slices.append(sequence[i].lower())
+                i += 1
+            else:# Otherwise, add the subsequence as block
+                slices.append(subsequence)
+                i += len(subsequence)
+        
+        random.shuffle(slices)
+        return "".join(slices)
