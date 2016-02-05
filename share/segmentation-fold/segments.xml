@@ -4,12 +4,11 @@
 
 @author Youri Hoogstrate
 
-@date 2016-01-22
+@date 2016-02-05
 
 @section LICENSE
 segmentation-fold can predict RNA 2D structures including K-turns.
-Copyright (C) 2012-2015 Youri Hoogstrate
-
+Copyright (C) 2012-2016 Youri Hoogstrate
 This file is part of segmentation-fold.
 
 segmentation-fold is free software: you can redistribute it and/or
@@ -283,7 +282,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		<!-- The following segments are abstractions of:
 		<segment>
 			<id>Kt-CD-box</id>
-			<sequence_5prime>NNRGAU</sequence_5prime>
+			<sequence_5prime>NRUGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
 			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
@@ -292,11 +291,15 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<three_prime>true</three_prime>
 			</directions>
 		</segment>
+		
+		Here R is a purine (A or G), as described in:
+		http://dx.doi.org/10.1016/j.sbi.2004.05.006
+		http://dx.doi.org/10.1073/pnas.0905128106
 		-->
 		
 		<segment>
-			<id>Kt-CD-box.AAG</id>
-			<sequence_5prime>AAGGAU</sequence_5prime>
+			<id>Kt-CD-box.AAU</id>
+			<sequence_5prime>AAUGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
 			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
@@ -307,8 +310,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		</segment>
 		
 		<segment>
-			<id>Kt-CD-box.ACA</id>
-			<sequence_5prime>ACAGAU</sequence_5prime>
+			<id>Kt-CD-box.UAU</id>
+			<sequence_5prime>UAUGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
 			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
@@ -319,8 +322,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		</segment>
 		
 		<segment>
-			<id>Kt-CD-box.ACG</id>
-			<sequence_5prime>ACGGAU</sequence_5prime>
+			<id>Kt-CD-box.CAU</id>
+			<sequence_5prime>CAUGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
 			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
@@ -331,8 +334,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		</segment>
 		
 		<segment>
-			<id>Kt-CD-box.AUA</id>
-			<sequence_5prime>AUAGAU</sequence_5prime>
+			<id>Kt-CD-box.GAU</id><!-- In SNORD116 and SNORD115 -->
+			<sequence_5prime>GAUGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
 			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
@@ -343,116 +346,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		</segment>
 		
 		<segment>
-			<id>Kt-CD-box.AUG</id>
-			<sequence_5prime>AUGGAU</sequence_5prime>
-			<bonds          >   :::</bonds>
-			<sequence_3prime>   AGU</sequence_3prime>
-			<energy>-11.1072</energy>
-			<directions>
-				<five_prime>true</five_prime>
-				<three_prime>true</three_prime>
-			</directions>
-		</segment>
-		
-		<segment>
-			<id>Kt-CD-box.AGA</id>
-			<sequence_5prime>AGAGAU</sequence_5prime>
-			<bonds          >   :::</bonds>
-			<sequence_3prime>   AGU</sequence_3prime>
-			<energy>-11.1072</energy>
-			<directions>
-				<five_prime>true</five_prime>
-				<three_prime>true</three_prime>
-			</directions>
-		</segment>
-		
-		<segment>
-			<id>Kt-CD-box.AGG</id>
-			<sequence_5prime>AGGGAU</sequence_5prime>
-			<bonds          >   :::</bonds>
-			<sequence_3prime>   AGU</sequence_3prime>
-			<energy>-11.1072</energy>
-			<directions>
-				<five_prime>true</five_prime>
-				<three_prime>true</three_prime>
-			</directions>
-		</segment>
-		
-		<segment>
-			<id>Kt-CD-box.CAA</id>
-			<sequence_5prime>CAAGAU</sequence_5prime>
-			<bonds          >   :::</bonds>
-			<sequence_3prime>   AGU</sequence_3prime>
-			<energy>-11.1072</energy>
-			<directions>
-				<five_prime>true</five_prime>
-				<three_prime>true</three_prime>
-			</directions>
-		</segment>
-		
-		<segment>
-			<id>Kt-CD-box.CAG</id>
-			<sequence_5prime>CAGGAU</sequence_5prime>
-			<bonds          >   :::</bonds>
-			<sequence_3prime>   AGU</sequence_3prime>
-			<energy>-11.1072</energy>
-			<directions>
-				<five_prime>true</five_prime>
-				<three_prime>true</three_prime>
-			</directions>
-		</segment>
-		
-		<segment>
-			<id>Kt-CD-box.CCA</id>
-			<sequence_5prime>CCAGAU</sequence_5prime>
-			<bonds          >   :::</bonds>
-			<sequence_3prime>   AGU</sequence_3prime>
-			<energy>-11.1072</energy>
-			<directions>
-				<five_prime>true</five_prime>
-				<three_prime>true</three_prime>
-			</directions>
-		</segment>
-		
-		<segment>
-			<id>Kt-CD-box.CCG</id>
-			<sequence_5prime>CCGGAU</sequence_5prime>
-			<bonds          >   :::</bonds>
-			<sequence_3prime>   AGU</sequence_3prime>
-			<energy>-11.1072</energy>
-			<directions>
-				<five_prime>true</five_prime>
-				<three_prime>true</three_prime>
-			</directions>
-		</segment>
-		
-		<segment>
-			<id>Kt-CD-box.CUA</id>
-			<sequence_5prime>CUAGAU</sequence_5prime>
-			<bonds          >   :::</bonds>
-			<sequence_3prime>   AGU</sequence_3prime>
-			<energy>-11.1072</energy>
-			<directions>
-				<five_prime>true</five_prime>
-				<three_prime>true</three_prime>
-			</directions>
-		</segment>
-		
-		<segment>
-			<id>Kt-CD-box.CUG</id>
-			<sequence_5prime>CUGGAU</sequence_5prime>
-			<bonds          >   :::</bonds>
-			<sequence_3prime>   AGU</sequence_3prime>
-			<energy>-11.1072</energy>
-			<directions>
-				<five_prime>true</five_prime>
-				<three_prime>true</three_prime>
-			</directions>
-		</segment>
-		
-		<segment>
-			<id>Kt-CD-box.CGU</id><!-- Common -->
-			<sequence_5prime>CGUGAU</sequence_5prime>
+			<id>Kt-CD-box.AGU</id>
+			<sequence_5prime>AGUGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
 			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
@@ -475,8 +370,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		</segment>
 		
 		<segment>
-			<id>Kt-CD-box.CGA</id>
-			<sequence_5prime>CGAGAU</sequence_5prime>
+			<id>Kt-CD-box.CGU</id><!-- Common -->
+			<sequence_5prime>CGUGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
 			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
@@ -487,200 +382,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 		</segment>
 		
 		<segment>
-			<id>Kt-CD-box.CGG</id>
-			<sequence_5prime>CGGGAU</sequence_5prime>
-			<bonds          >   :::</bonds>
-			<sequence_3prime>   AGU</sequence_3prime>
-			<energy>-11.1072</energy>
-			<directions>
-				<five_prime>true</five_prime>
-				<three_prime>true</three_prime>
-			</directions>
-		</segment>
-		
-		<segment>
-			<id>Kt-CD-box.UAA</id>
-			<sequence_5prime>UAAGAU</sequence_5prime>
-			<bonds          >   :::</bonds>
-			<sequence_3prime>   AGU</sequence_3prime>
-			<energy>-11.1072</energy>
-			<directions>
-				<five_prime>true</five_prime>
-				<three_prime>true</three_prime>
-			</directions>
-		</segment>
-		
-		<segment>
-			<id>Kt-CD-box.UAG</id>
-			<sequence_5prime>UAGGAU</sequence_5prime>
-			<bonds          >   :::</bonds>
-			<sequence_3prime>   AGU</sequence_3prime>
-			<energy>-11.1072</energy>
-			<directions>
-				<five_prime>true</five_prime>
-				<three_prime>true</three_prime>
-			</directions>
-		</segment>
-		
-		<segment>
-			<id>Kt-CD-box.UCA</id>
-			<sequence_5prime>UCAGAU</sequence_5prime>
-			<bonds          >   :::</bonds>
-			<sequence_3prime>   AGU</sequence_3prime>
-			<energy>-11.1072</energy>
-			<directions>
-				<five_prime>true</five_prime>
-				<three_prime>true</three_prime>
-			</directions>
-		</segment>
-		
-		<segment>
-			<id>Kt-CD-box.UCG</id>
-			<sequence_5prime>UCGGAU</sequence_5prime>
-			<bonds          >   :::</bonds>
-			<sequence_3prime>   AGU</sequence_3prime>
-			<energy>-11.1072</energy>
-			<directions>
-				<five_prime>true</five_prime>
-				<three_prime>true</three_prime>
-			</directions>
-		</segment>
-		
-		<segment>
-			<id>Kt-CD-box.UUA</id>
-			<sequence_5prime>UUAGAU</sequence_5prime>
-			<bonds          >   :::</bonds>
-			<sequence_3prime>   AGU</sequence_3prime>
-			<energy>-11.1072</energy>
-			<directions>
-				<five_prime>true</five_prime>
-				<three_prime>true</three_prime>
-			</directions>
-		</segment>
-		
-		<segment>
-			<id>Kt-CD-box.UUG</id>
-			<sequence_5prime>UUGGAU</sequence_5prime>
-			<bonds          >   :::</bonds>
-			<sequence_3prime>   AGU</sequence_3prime>
-			<energy>-11.1072</energy>
-			<directions>
-				<five_prime>true</five_prime>
-				<three_prime>true</three_prime>
-			</directions>
-		</segment>
-		
-		<segment>
-			<id>Kt-CD-box.UGA</id>
-			<sequence_5prime>UGAGAU</sequence_5prime>
-			<bonds          >   :::</bonds>
-			<sequence_3prime>   AGU</sequence_3prime>
-			<energy>-11.1072</energy>
-			<directions>
-				<five_prime>true</five_prime>
-				<three_prime>true</three_prime>
-			</directions>
-		</segment>
-		
-		<segment>
-			<id>Kt-CD-box.UGG</id>
-			<sequence_5prime>UGGGAU</sequence_5prime>
-			<bonds          >   :::</bonds>
-			<sequence_3prime>   AGU</sequence_3prime>
-			<energy>-11.1072</energy>
-			<directions>
-				<five_prime>true</five_prime>
-				<three_prime>true</three_prime>
-			</directions>
-		</segment>
-		
-		<segment>
-			<id>Kt-CD-box.GAA</id>
-			<sequence_5prime>GAAGAU</sequence_5prime>
-			<bonds          >   :::</bonds>
-			<sequence_3prime>   AGU</sequence_3prime>
-			<energy>-11.1072</energy>
-			<directions>
-				<five_prime>true</five_prime>
-				<three_prime>true</three_prime>
-			</directions>
-		</segment>
-		
-		<segment>
-			<id>Kt-CD-box.GAG</id>
-			<sequence_5prime>GAGGAU</sequence_5prime>
-			<bonds          >   :::</bonds>
-			<sequence_3prime>   AGU</sequence_3prime>
-			<energy>-11.1072</energy>
-			<directions>
-				<five_prime>true</five_prime>
-				<three_prime>true</three_prime>
-			</directions>
-		</segment>
-		
-		<segment>
-			<id>Kt-CD-box.GCA</id>
-			<sequence_5prime>GCAGAU</sequence_5prime>
-			<bonds          >   :::</bonds>
-			<sequence_3prime>   AGU</sequence_3prime>
-			<energy>-11.1072</energy>
-			<directions>
-				<five_prime>true</five_prime>
-				<three_prime>true</three_prime>
-			</directions>
-		</segment>
-		
-		<segment>
-			<id>Kt-CD-box.GCG</id>
-			<sequence_5prime>GCGGAU</sequence_5prime>
-			<bonds          >   :::</bonds>
-			<sequence_3prime>   AGU</sequence_3prime>
-			<energy>-11.1072</energy>
-			<directions>
-				<five_prime>true</five_prime>
-				<three_prime>true</three_prime>
-			</directions>
-		</segment>
-		
-		<segment>
-			<id>Kt-CD-box.GUA</id>
-			<sequence_5prime>GUAGAU</sequence_5prime>
-			<bonds          >   :::</bonds>
-			<sequence_3prime>   AGU</sequence_3prime>
-			<energy>-11.1072</energy>
-			<directions>
-				<five_prime>true</five_prime>
-				<three_prime>true</three_prime>
-			</directions>
-		</segment>
-		
-		<segment>
-			<id>Kt-CD-box.GUG</id>
-			<sequence_5prime>GUGGAU</sequence_5prime>
-			<bonds          >   :::</bonds>
-			<sequence_3prime>   AGU</sequence_3prime>
-			<energy>-11.1072</energy>
-			<directions>
-				<five_prime>true</five_prime>
-				<three_prime>true</three_prime>
-			</directions>
-		</segment>
-		
-		<segment>
-			<id>Kt-CD-box.GGA</id>
-			<sequence_5prime>GGAGAU</sequence_5prime>
-			<bonds          >   :::</bonds>
-			<sequence_3prime>   AGU</sequence_3prime>
-			<energy>-11.1072</energy>
-			<directions>
-				<five_prime>true</five_prime>
-				<three_prime>true</three_prime>
-			</directions>
-		</segment>
-		
-		<segment>
-			<id>Kt-CD-box.GGG</id>
-			<sequence_5prime>GGGGAU</sequence_5prime>
+			<id>Kt-CD-box.GGU</id>
+			<sequence_5prime>GGUGAU</sequence_5prime>
 			<bonds          >   :::</bonds>
 			<sequence_3prime>   AGU</sequence_3prime>
 			<energy>-11.1072</energy>
