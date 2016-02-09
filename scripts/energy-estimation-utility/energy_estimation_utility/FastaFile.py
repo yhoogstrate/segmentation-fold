@@ -46,10 +46,10 @@ class FastaFile:
                             yield sequence
                         sequence = {'name':line_s[1:],'sequence':''}
                     else:
-                        sequence['sequence'] += line_s.upper()
+                        sequence['sequence'] += line_s.upper().replace("\n","").strip()
         
         if(sequence):
-            yield sequence.replace("\n","").strip()
+            yield sequence
     
     def __iter__(self):
         for sequence in self.parse():

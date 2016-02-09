@@ -1,7 +1,5 @@
 # @file CMakeLists.txt
 #
-# @date 2016-02-05
-#
 # @author Youri Hoogstrate
 #
 # @section DESCRIPTION
@@ -35,7 +33,7 @@ cmake_minimum_required(VERSION 2.8)
 
 project(segmentation-fold)
 
-set(PROJECT_VERSION "1.4.0")
+set(PROJECT_VERSION "1.5.0")
 set(PACKAGE_URL "https://github.com/yhoogstrate/segmentation-fold")
 set(PACKAGE_BUGREPORT "${PACKAGE_URL}/issues")
 

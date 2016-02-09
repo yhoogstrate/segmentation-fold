@@ -6,8 +6,6 @@
  * The program implements the Zuker's minimum free energy model with
  * Segment/K-turn functionality for RNA secondary structure prediction.
  *
- * @date 2015-12-07
- *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
