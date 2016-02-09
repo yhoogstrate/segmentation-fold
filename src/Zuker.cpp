@@ -1,8 +1,6 @@
 /**
  * @file src/Zuker.cpp
  *
- * @date 2016-01-22
- *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
@@ -56,8 +54,6 @@
 /**
  * @brief Constructs /initializes the Zuker class: include parameters and init an empty dotbracket output.
  *
- * @date 2016-01-22
- *
  * @todo move this to this->init(); and run this->init(); or rename it to this->reset();
  */
 Zuker::Zuker(Settings &arg_settings, Sequence &arg_sequence, ReadData &arg_thermodynamics) :
@@ -84,8 +80,6 @@ Zuker::Zuker(Settings &arg_settings, Sequence &arg_sequence, ReadData &arg_therm
  * by walking over the diagonals of the matrix to avoid a recursive
  * explosion. Each position in a diagnoal can be calculated independently
  * from each other.
- *
- * @date 2013-09-20
  *
  * @todo Return: energy at i,j
  */
@@ -116,8 +110,6 @@ float Zuker::energy(void)
 
 /**
  * @brief Vij Function - energy if (i,j) pair, otherwise return infinity
- *
- * @date 2016-01-22
  *
  * @param p1 A pair of positions refering to Nucleotide positions in the sequence, where pi.first < p1.second
  *
@@ -279,8 +271,6 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 /**
  * @brief Wij Function - provided Gibbs free energy for sequence i...j
  *
- * @date 2016-01-22
- *
  * @param p1 A pair of positions refering to Nucleotide positions in the sequence, where pi.first < p1.second
  *
  * @return amount of Gibbs free energy provided for folding nucleotide i with j
@@ -344,7 +334,7 @@ float Zuker::w(Pair &p1)
 		|   )(|  (iter 4; k=+4)
 		*/
 		
-		if(n >= 2)
+		if(n >= 2 and tmp_pij != BOUND)// if it is bound, use Vij
 		{
 			Pair p2, p3;
 			float tmp;
@@ -408,8 +398,6 @@ float Zuker::w(Pair &p1)
 /**
  * @brief The traceback algorithm, finds the optimal path through the matrices.
  *
- * @date 2016-01-21
- *
  * @section DESCRIPTION
  * This function finds the path back. It will choose between
  * the route provided by V or W scoring.
@@ -432,7 +420,6 @@ void Zuker::traceback(void)
 	
 	while(this->traceback_pop(&i, &j))
 	{
-	
 #if DEBUG
 		if(i >= j)
 		{
@@ -502,8 +489,6 @@ void Zuker::traceback(void)
 /**
  * @brief Pushes (i,j) & matrix-flag onto the stack
  *
- * @date 2016-01-21
- *
  * @param i Nucleotide position of the sequence, paired to j, where i < j
  * @param j Nucleotide position of the sequence, paired to i, where i < j
  * @param pick_from_v_path
@@ -562,7 +547,7 @@ void Zuker::print_2D_structure(void)
 	std::string dotbracket = "";
 	this->dot_bracket.format((unsigned int) n, dotbracket); ///@todo use size_t
 	
-	printf(">Sequence length: %zubp, dE: %g kcal/mole, segments: %i\n", n, this->wij.get(pair),this->folded_segments++);
+	printf(">Sequence length: %zubp, dE: %g kcal/mole, segments: %i\n", n, this->wij.get(pair), this->folded_segments++);
 	printf("%s\n", this->sequence.str().c_str());
 	std::cout << dotbracket << "\n";
 }

@@ -3,8 +3,6 @@
 """
 @file scripts/energy-estimation-utility/energy_estimation_utility/FoldController.py
 
-@date 2015-07-20
-
 @author Youri Hoogstrate
 
 @section LICENSE
@@ -121,7 +119,7 @@ class FoldController:
         if version_match:
             version = version_match.group(1)
             suffix = version_match.group(2)
-            if version[0:4] != "1.3.":
+            if version[0:4] != "1.5.":
                 raise EnvironmentError('Installed version of segmentation-fold ('+str(version)+') is out of date.')
             
             if suffix.find("(debug)") != -1:

@@ -1,14 +1,12 @@
 /**
  * @file test/Zuker_traceback_test.cpp
  *
- * @date 2016-01-22
- *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
  * <PRE>
  * segmentation-fold can predict RNA 2D structures including K-turns.
- * Copyright (C) 2012-2015 Youri Hoogstrate
+ * Copyright (C) 2012-2016 Youri Hoogstrate
  *
  * This file is part of segmentation-fold.
  *
@@ -72,7 +70,6 @@ bool IdenticalFloats(double a, double b)
 
 
 /**
- * @date 2016-01-22
  */
 void test_vij(Zuker &zuker)
 {
@@ -614,7 +611,6 @@ void test_vij(Zuker &zuker)
 
 
 /**
- * @date 2016-01-22
  */
 void test_wij(Zuker &zuker)
 {
@@ -763,13 +759,13 @@ void test_wij(Zuker &zuker)
 	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 0.00f), "W(2,12) = " + std::to_string(e));
 	p = {2, 13};
 	e = zuker.wij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, -3.30f), "W(2,13) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 0.00f), "W(2,13) = " + std::to_string(e));
 	p = {2, 14};
 	e = zuker.wij.get(p);
 	BOOST_CHECK_MESSAGE(IdenticalFloats(e, -3.30f), "W(2,14) = " + std::to_string(e));
 	p = {2, 15};
 	e = zuker.wij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, -6.60f), "W(2,15) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, -3.30f), "W(2,15) = " + std::to_string(e));
 	p = {2, 16};
 	e = zuker.wij.get(p);
 	BOOST_CHECK_MESSAGE(IdenticalFloats(e, -6.60f), "W(2,16) = " + std::to_string(e));
@@ -991,7 +987,7 @@ void test_wij(Zuker &zuker)
 	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 0.00f), "W(8,11) = " + std::to_string(e));
 	p = {8, 12};
 	e = zuker.wij.get(p);
-	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 0.00f), "W(8,12) = " + std::to_string(e));
+	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 4.60f), "W(8,12) = " + std::to_string(e));
 	p = {8, 13};
 	e = zuker.wij.get(p);
 	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 0.00f), "W(8,13) = " + std::to_string(e));
@@ -1152,6 +1148,7 @@ void test_wij(Zuker &zuker)
 	e = zuker.wij.get(p);
 	BOOST_CHECK_MESSAGE(IdenticalFloats(e, 0.00f), "W(17,17) = " + std::to_string(e));
 	
+	
 }
 
 
@@ -1172,7 +1169,6 @@ void test_sij(Zuker &zuker, size_t n)
 
 
 /**
- * @date 2016-01-22
  */
 void test_tij(Zuker &zuker)
 {
@@ -1188,17 +1184,17 @@ void test_tij(Zuker &zuker)
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
 	BOOST_CHECK_EQUAL(t.target.first, UNBOUND);
-	//BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
+	//BOOST_CHECK_EQUAL(t.target.second, 0);
 	p = {0, 2};
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
 	BOOST_CHECK_EQUAL(t.target.first, UNBOUND);
-	//BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
+	//BOOST_CHECK_EQUAL(t.target.second, 0);
 	p = {0, 3};
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
 	BOOST_CHECK_EQUAL(t.target.first, UNBOUND);
-	//BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
+	//BOOST_CHECK_EQUAL(t.target.second, 0);
 	p = {0, 4};
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
@@ -1279,17 +1275,17 @@ void test_tij(Zuker &zuker)
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
 	BOOST_CHECK_EQUAL(t.target.first, UNBOUND);
-	//BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
+	//BOOST_CHECK_EQUAL(t.target.second, 0);
 	p = {1, 3};
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
 	BOOST_CHECK_EQUAL(t.target.first, UNBOUND);
-	//BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
+	////BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
 	p = {1, 4};
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
 	BOOST_CHECK_EQUAL(t.target.first, UNBOUND);
-	//BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
+	////BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
 	p = {1, 5};
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
@@ -1365,17 +1361,17 @@ void test_tij(Zuker &zuker)
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
 	BOOST_CHECK_EQUAL(t.target.first, UNBOUND);
-	//BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
+	////BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
 	p = {2, 4};
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
 	BOOST_CHECK_EQUAL(t.target.first, UNBOUND);
-	//BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
+	////BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
 	p = {2, 5};
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
 	BOOST_CHECK_EQUAL(t.target.first, UNBOUND);
-	//BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
+	////BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
 	p = {2, 6};
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
@@ -1413,9 +1409,9 @@ void test_tij(Zuker &zuker)
 	BOOST_CHECK_EQUAL(t.target.second, 4);
 	p = {2, 13};
 	t = zuker.tij.get(p);
-	BOOST_CHECK_EQUAL(t.store_pair, false);
-	BOOST_CHECK_EQUAL(t.target.first, 3);
-	BOOST_CHECK_EQUAL(t.target.second, 13);
+	BOOST_CHECK_EQUAL(t.store_pair, true);
+	BOOST_CHECK_EQUAL(t.target.first, 4);
+	BOOST_CHECK_EQUAL(t.target.second, 4);
 	p = {2, 14};
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, true);
@@ -1423,9 +1419,9 @@ void test_tij(Zuker &zuker)
 	BOOST_CHECK_EQUAL(t.target.second, 4);
 	p = {2, 15};
 	t = zuker.tij.get(p);
-	BOOST_CHECK_EQUAL(t.store_pair, false);
-	BOOST_CHECK_EQUAL(t.target.first, 3);
-	BOOST_CHECK_EQUAL(t.target.second, 15);
+	BOOST_CHECK_EQUAL(t.store_pair, true);
+	BOOST_CHECK_EQUAL(t.target.first, 4);
+	BOOST_CHECK_EQUAL(t.target.second, 4);
 	p = {2, 16};
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, true);
@@ -1446,17 +1442,17 @@ void test_tij(Zuker &zuker)
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
 	BOOST_CHECK_EQUAL(t.target.first, UNBOUND);
-	//BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
+	////BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
 	p = {3, 5};
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
 	BOOST_CHECK_EQUAL(t.target.first, UNBOUND);
-	//BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
+	////BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
 	p = {3, 6};
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
 	BOOST_CHECK_EQUAL(t.target.first, UNBOUND);
-	//BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
+	////BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
 	p = {3, 7};
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
@@ -1522,17 +1518,17 @@ void test_tij(Zuker &zuker)
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
 	BOOST_CHECK_EQUAL(t.target.first, UNBOUND);
-	//BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
+	////BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
 	p = {4, 6};
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
 	BOOST_CHECK_EQUAL(t.target.first, UNBOUND);
-	//BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
+	////BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
 	p = {4, 7};
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
 	BOOST_CHECK_EQUAL(t.target.first, UNBOUND);
-	//BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
+	////BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
 	p = {4, 8};
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
@@ -1593,17 +1589,17 @@ void test_tij(Zuker &zuker)
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
 	BOOST_CHECK_EQUAL(t.target.first, UNBOUND);
-	//BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
+	////BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
 	p = {5, 7};
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
 	BOOST_CHECK_EQUAL(t.target.first, UNBOUND);
-	//BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
+	////BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
 	p = {5, 8};
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
 	BOOST_CHECK_EQUAL(t.target.first, UNBOUND);
-	//BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
+	////BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
 	p = {5, 9};
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
@@ -1659,17 +1655,17 @@ void test_tij(Zuker &zuker)
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
 	BOOST_CHECK_EQUAL(t.target.first, UNBOUND);
-	//BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
+	////BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
 	p = {6, 8};
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
 	BOOST_CHECK_EQUAL(t.target.first, UNBOUND);
-	//BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
+	////BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
 	p = {6, 9};
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
 	BOOST_CHECK_EQUAL(t.target.first, UNBOUND);
-	//BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
+	////BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
 	p = {6, 10};
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
@@ -1720,17 +1716,17 @@ void test_tij(Zuker &zuker)
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
 	BOOST_CHECK_EQUAL(t.target.first, UNBOUND);
-	//BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
+	////BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
 	p = {7, 9};
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
 	BOOST_CHECK_EQUAL(t.target.first, UNBOUND);
-	//BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
+	////BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
 	p = {7, 10};
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
 	BOOST_CHECK_EQUAL(t.target.first, UNBOUND);
-	//BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
+	////BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
 	p = {7, 11};
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
@@ -1776,22 +1772,22 @@ void test_tij(Zuker &zuker)
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
 	BOOST_CHECK_EQUAL(t.target.first, UNBOUND);
-	//BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
+	////BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
 	p = {8, 10};
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
 	BOOST_CHECK_EQUAL(t.target.first, UNBOUND);
-	//BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
+	////BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
 	p = {8, 11};
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
 	BOOST_CHECK_EQUAL(t.target.first, UNBOUND);
-	//BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
+	////BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
 	p = {8, 12};
 	t = zuker.tij.get(p);
-	BOOST_CHECK_EQUAL(t.store_pair, false);
+	BOOST_CHECK_EQUAL(t.store_pair, true);
 	BOOST_CHECK_EQUAL(t.target.first, 9);
-	BOOST_CHECK_EQUAL(t.target.second, 12);
+	BOOST_CHECK_EQUAL(t.target.second, 11);
 	p = {8, 13};
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, true);
@@ -1827,17 +1823,17 @@ void test_tij(Zuker &zuker)
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
 	BOOST_CHECK_EQUAL(t.target.first, UNBOUND);
-	//BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
+	////BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
 	p = {9, 11};
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
 	BOOST_CHECK_EQUAL(t.target.first, UNBOUND);
-	//BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
+	////BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
 	p = {9, 12};
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
 	BOOST_CHECK_EQUAL(t.target.first, UNBOUND);
-	//BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
+	////BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
 	p = {9, 13};
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
@@ -1873,17 +1869,17 @@ void test_tij(Zuker &zuker)
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
 	BOOST_CHECK_EQUAL(t.target.first, UNBOUND);
-	//BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
+	////BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
 	p = {10, 12};
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
 	BOOST_CHECK_EQUAL(t.target.first, UNBOUND);
-	//BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
+	////BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
 	p = {10, 13};
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
 	BOOST_CHECK_EQUAL(t.target.first, UNBOUND);
-	//BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
+	////BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
 	p = {10, 14};
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
@@ -1914,17 +1910,17 @@ void test_tij(Zuker &zuker)
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
 	BOOST_CHECK_EQUAL(t.target.first, UNBOUND);
-	//BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
+	////BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
 	p = {11, 13};
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
 	BOOST_CHECK_EQUAL(t.target.first, UNBOUND);
-	//BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
+	////BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
 	p = {11, 14};
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
 	BOOST_CHECK_EQUAL(t.target.first, UNBOUND);
-	//BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
+	////BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
 	p = {11, 15};
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
@@ -2002,7 +1998,7 @@ void test_tij(Zuker &zuker)
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
 	BOOST_CHECK_EQUAL(t.target.first, UNBOUND);
-	//BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
+	BOOST_CHECK_EQUAL(t.target.second, UNBOUND);
 	p = {14, 15};
 	t = zuker.tij.get(p);
 	BOOST_CHECK_EQUAL(t.store_pair, false);
@@ -2058,8 +2054,6 @@ void test_tij(Zuker &zuker)
 /**
  * @brief tests Bulge loop prediction
  *
- * @date 2016-01-22
- *
  * @test
  *
  * @section DESCRIPTION
@@ -2075,7 +2069,7 @@ BOOST_AUTO_TEST_CASE(Test_bulge_loop)
 	{
 		// Initialize variables
 		Sequence sequence = Sequence("GGGAAAGGGAAACCCCCC");
-		std::string true_structure = "((....(((....)))))";
+		std::string true_structure = "(((...((.....)))))";
 		
 		Settings settings = Settings(0, nullptr, sequence);
 		ReadData thermodynamics = ReadData();
