@@ -7,7 +7,7 @@
  *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
- * Copyright (C) 2012-2015 Youri Hoogstrate
+ * Copyright (C) 2012-2016 Youri Hoogstrate
  *
  * This file is part of segmentation-fold.
  *
@@ -37,97 +37,27 @@
 
 /**
  * @brief Stores positions and sets PairingType
- *
- * @date 2016-01-21
  */
 PairingPlus::PairingPlus(Position arg_position1, Position arg_position2):
-	position1(arg_position1),
-	position2(arg_position2),
-	size((size_t)(arg_position2 - arg_position1 - 1))
+	PairingPlus(arg_position1, arg_position2, (size_t)(arg_position2 - arg_position1 - 1))
 {
-	this->init();
 }
 
 
 
 /**
  * @brief Stores positions and sets PairingType - If size is known apriori, it is useless to re-calculate it and thus save it immediately
- *
- * @date 2015-05-06
  */
 PairingPlus::PairingPlus(Position arg_position1, Position arg_position2, size_t arg_size):
+	Pairing(*arg_position1 , *arg_position2),
 	position1(arg_position1),
 	position2(arg_position2),
 	size(arg_size)
 {
-	this->init();
-}
-
-
-/**
- * @brief Sets the PairingType
- *
- * @date 2015-05-06
- */
-void PairingPlus::init()
-{
 #if DEBUG
-	this->_check_order();
-#endif //DEBUG
-	
-	if(*this->position1 == Nucleotide::A && *this->position2 == Nucleotide::U)
-	{
-		this->type = PairingType::AU;
-	}
-	else if(*this->position1 == Nucleotide::C && *this->position2 == Nucleotide::G)
-	{
-		this->type = PairingType::CG;
-	}
-	else if(*this->position1 == Nucleotide::G && *this->position2 == Nucleotide::C)
-	{
-		this->type = PairingType::GC;
-	}
-	else if(*this->position1 == Nucleotide::U && *this->position2 == Nucleotide::A)
-	{
-		this->type = PairingType::UA;
-	}
-	else if(*this->position1 == Nucleotide::G && *this->position2 == Nucleotide::U)
-	{
-		this->type = PairingType::GU;
-	}
-	else if(*this->position1 == Nucleotide::U && *this->position2 == Nucleotide::G)
-	{
-		this->type = PairingType::UG;
-	}
-	else
-	{
-		this->type = PairingType::None;
-	}
-}
-
-/**
- * @brief Returns whether the pairing is a canonical RNA pairing.
- *
- * @date 2015-04-29
- */
-bool PairingPlus::is_canonical(void)
-{
-	return (this->type != PairingType::None);
-}
-
-
-
-#if DEBUG
-/**
- * @brief Tests whether position 2 is indeed further in the sequence than position 1
- *
- * @date 2015-05-06
- */
-void PairingPlus::_check_order(void)
-{
 	if(this->position2 <= this->position1)
 	{
 		throw std::invalid_argument("Position 2 of Pairing is smaller than Position 1");
 	}
-}
 #endif //DEBUG
+}

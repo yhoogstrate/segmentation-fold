@@ -1,13 +1,11 @@
 /**
  * @file src/Pairing.cpp
  *
- * @date 2016-01-20
- *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
- * Copyright (C) 2012-2015 Youri Hoogstrate
+ * Copyright (C) 2012-2016 Youri Hoogstrate
  *
  * This file is part of segmentation-fold.
  *
@@ -29,7 +27,6 @@
 #include "Pairing.hpp"
 
 /**
- * @date 2014-03-10
  */
 Pairing::Pairing(Nucleotide arg_n1, Nucleotide arg_n2)
 {
@@ -39,7 +36,6 @@ Pairing::Pairing(Nucleotide arg_n1, Nucleotide arg_n2)
 
 
 /**
- * @date 2016-01-20
  */
 void Pairing::init(Nucleotide arg_n1, Nucleotide arg_n2)
 {
@@ -51,7 +47,6 @@ void Pairing::init(Nucleotide arg_n1, Nucleotide arg_n2)
 				case Nucleotide::U:
 					this->type = PairingType::AU;
 					return void();
-					break;
 				default:														// Makes the compiler happy..
 					break;
 			}
@@ -63,7 +58,6 @@ void Pairing::init(Nucleotide arg_n1, Nucleotide arg_n2)
 				case Nucleotide::G:
 					this->type = PairingType::CG;
 					return void();
-					break;
 				default:														// Makes the compiler happy..
 					break;
 			}
@@ -75,11 +69,9 @@ void Pairing::init(Nucleotide arg_n1, Nucleotide arg_n2)
 				case Nucleotide::U:
 					this->type = PairingType::GU;
 					return void();
-					break;
 				case Nucleotide::C:
 					this->type = PairingType::GC;
 					return void();
-					break;
 				default:														// Makes the compiler happy..
 					break;
 			}
@@ -91,12 +83,10 @@ void Pairing::init(Nucleotide arg_n1, Nucleotide arg_n2)
 				case Nucleotide::A:
 					this->type = PairingType::UA;
 					return void();
-					break;
 				case Nucleotide::G:
 					this->type = PairingType::UG;
 					return void();
 				default:														// Makes the compiler happy..
-					break;
 					break;
 			}
 			break;
@@ -109,8 +99,6 @@ void Pairing::init(Nucleotide arg_n1, Nucleotide arg_n2)
 
 /**
  * @brief Return whether the pairing is a canonical RNA pairing.
- *
- * @date 2014-03-10
  */
 bool Pairing::is_canonical(void)
 {

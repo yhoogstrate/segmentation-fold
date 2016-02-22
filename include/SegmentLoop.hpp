@@ -1,13 +1,11 @@
 /**
  * @file include/SegmentLoop.hpp
  *
- * @date 2015-12-03
- *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
- * Copyright (C) 2012-2015 Youri Hoogstrate
+ * Copyright (C) 2012-2016 Youri Hoogstrate
  *
  * This file is part of segmentation-fold.
  *
@@ -36,8 +34,6 @@
 
 /**
  * @brief Loop element that allows traceback of non-canonical pairs
- *
- * @date 2015-12-03
  *
  * @section DESCRIPTION
  * Classical loops like triloops or tetraloops don't support the
