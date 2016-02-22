@@ -1,7 +1,5 @@
 # @file test/CMakeLists.txt
 #
-# @date 2016-01-21
-#
 # @author Youri Hoogstrate
 #
 # @section DESCRIPTION
@@ -12,7 +10,7 @@
 #
 # @section LICENSE
 # segmentation-fold can predict RNA 2D structures including K-turns.
-# Copyright (C) 2012-2015 Youri Hoogstrate
+# Copyright (C) 2012-2016 Youri Hoogstrate
 #
 # This file is part of segmentation-fold.
 #
@@ -49,7 +47,7 @@ add_executable(dotbracket_test         DotBracket_test.cpp ../src/DotBracket.cpp
 add_executable(nucleotide_test         Nucleotide_test.cpp)
 add_executable(position_test           Position_test.cpp ../src/Sequence.cpp ../src/SubSequence.cpp)
 add_executable(sequence_test           Sequence_test.cpp ../src/Sequence.cpp ../src/SubSequence.cpp)
-add_executable(pairingplus_test        PairingPlus_test.cpp ../src/Sequence.cpp ../src/PairingPlus.cpp ../src/SubSequence.cpp)
+add_executable(pairingplus_test        PairingPlus_test.cpp ../src/Sequence.cpp ../src/PairingPlus.cpp ../src/Pairing.cpp ../src/SubSequence.cpp)
 add_executable(pairing_test            Pairing_test.cpp ../src/Pairing.cpp)
 add_executable(segmenttraceback_test   SegmentTraceback_test.cpp ../src/SegmentTraceback.cpp)
 add_executable(segment_test            Segment_test.cpp ../src/SegmentTraceback.cpp ../src/Segment.cpp ../src/Sequence.cpp ../src/SubSequence.cpp)
@@ -57,7 +55,7 @@ add_executable(segmentloop_test        SegmentLoop_test.cpp ../src/SegmentTraceb
 add_executable(segmenttreeelement_test SegmentTreeElement_test.cpp ../src/SegmentTreeElement.cpp ../src/SegmentTraceback.cpp ../src/Segment.cpp ../src/Sequence.cpp  ../src/SubSequence.cpp)
 add_executable(segmenttree_test        SegmentTree_test.cpp ../src/SegmentTree.cpp ../src/SegmentTreeElement.cpp ../src/SegmentTraceback.cpp ../src/Segment.cpp ../src/Sequence.cpp ../src/SubSequence.cpp)
 add_executable(segmentlooptree_test    SegmentLoopTree_test.cpp ../src/SegmentTraceback.cpp ../src/SegmentLoop.cpp ../src/SegmentLoopTree.cpp ../src/Sequence.cpp ../src/SubSequence.cpp)
-add_executable(readsegments_test       ReadSegments_test.cpp ../src/ReadSegments.cpp ../src/SegmentTree.cpp ../src/SegmentLoopTree.cpp ../src/SegmentTreeElement.cpp ../src/SegmentTraceback.cpp ../src/Segment.cpp ../src/SegmentLoop.cpp ../src/Sequence.cpp ../src/PairingPlus.cpp ../src/SubSequence.cpp)
+add_executable(readsegments_test       ReadSegments_test.cpp ../src/ReadSegments.cpp ../src/SegmentTree.cpp ../src/SegmentLoopTree.cpp ../src/SegmentTreeElement.cpp ../src/SegmentTraceback.cpp ../src/Segment.cpp ../src/SegmentLoop.cpp ../src/Sequence.cpp ../src/PairingPlus.cpp ../src/Pairing.cpp ../src/SubSequence.cpp)
 add_executable(settings_test           Settings_test.cpp ../src/Settings.cpp ../src/Utils/file_exists.cpp ../src/SegmentTree.cpp ../src/SegmentTreeElement.cpp ../src/SegmentTraceback.cpp ../src/Segment.cpp ../src/Sequence.cpp ../src/SubSequence.cpp)
 add_executable(scoringmatrix_test      ScoringMatrix_test.cpp ../src/ScoringMatrix.cpp)
 add_executable(gibbsfreeenergy_test    GibbsFreeEnergy_test.cpp ../src/GibbsFreeEnergy.cpp ../src/ReadData.cpp ../src/SegmentTree.cpp ../src/SegmentLoopTree.cpp ../src/SegmentTreeElement.cpp ../src/SegmentTraceback.cpp ../src/Segment.cpp ../src/SegmentLoop.cpp ../src/Sequence.cpp ../src/Pairing.cpp ../src/PairingPlus.cpp ../src/SubSequence.cpp )

@@ -1,13 +1,11 @@
 /**
  * @file include/PairingPlus.hpp
  *
- * @date 2015-05-02
- *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
- * Copyright (C) 2012-2015 Youri Hoogstrate
+ * Copyright (C) 2012-2016 Youri Hoogstrate
  *
  * This file is part of segmentation-fold.
  *
@@ -34,14 +32,13 @@
 
 #include "PairingType.hpp"
 #include "Position.hpp"
+#include "Pairing.hpp"
 
 
 /**
- * @brief Merge Pair and Pairing into one object that has functionality of both by storing the two positions as iterators
- *
- * @date 2015-04-22
+ * @todo Merge Pair and Pairing into one object that has functionality of both by storing the two positions as iterators
  */
-class PairingPlus
+class PairingPlus: public Pairing
 {
 #if DEBUG
 	private:
@@ -53,13 +50,9 @@ class PairingPlus
 		Position position2;
 		
 		size_t size;/// The number of nucleotides in-between the pairing! [19,20] << has a size of 0
-		PairingType type;
 		
 		PairingPlus(Position arg_position1, Position arg_position2);
 		PairingPlus(Position arg_position1, Position arg_position2, size_t arg_nucleotides_inbetween);
-		
-		void init(void);
-		bool is_canonical(void);
 		
 		Nucleotide operator[](size_t);
 };
