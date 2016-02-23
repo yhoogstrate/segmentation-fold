@@ -161,7 +161,7 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 		for(jp = p1.second - 1; jp > ip; jp--)
 		{
 			PairingPlus pairing2 = PairingPlus(this->sequence_begin + ip, this->sequence_begin + jp);
-			if(pairing2.type != PairingType::None)				// The following structure elements must be enclosed by pairings on both sides
+			if(pairing2.is_canonical())									// The following structure elements must be enclosed by pairings on both sides
 			{
 				Pair p2 = Pair(ip, jp);
 				float v_ij_jp = this->vij.get(p2);
@@ -222,41 +222,34 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 					}
 				}
 			}
-		}
-		
-		/*
-		i=0, j=11 < indicated in brackets
-			 |       i' = 5
-		[(...)(...)]
-		
-		  |          i' = 2
-		[()(......)]
-		
-				|    i' = 8
-		[(......)()]
-		
-		-> earlier versions compromised this function
-		   by using it to 'extend' their stack
-		   one bell of the fork was 0 size and the other bell
-		   was the remainder
-		*/
-		if(ip > p1.first + 1 && ip < p1.second - 2)												// Multi-loop element
-		{
-			Pair p3 = Pair(p1.first + 1, ip);
-			Pair p4 = Pair(ip + 1, p1.second - 1);
-			tmp = this->wij.get(p3) + this->wij.get(p4);///@todo from V or W?
 			
-			if(tmp < energy)
+			
+			/*
+			GGGGAAAACCCCGGCGAAAACGCC
+			(          )(          )
+			
+			GGGGAAAACCCCAGGCGAAAACGCC
+			(          ) (          )
+			*/
+			///@todo s/3/min hairpin size/ or min hairpin size +1
+			if(ip >= p1.first + 3 && ip <= p1.second - 3)				// Multi-loop element
 			{
-				energy = tmp;
+				Pair p3 = Pair(p1.first , ip);
+				Pair p4 = Pair(jp , p1.second);
+				tmp = this->vij.get(p3) + this->vij.get(p4);///@todo from V or W?
 				
-				tmp_loopmatrix_value = {ip, ip}; // bifurcation via V - (i,ip),(ip+1,j)
-				tmp_segmenttraceback = nullptr;
+				if(tmp < energy)
+				{
+					energy = tmp;
+					
+					tmp_loopmatrix_value = {ip, ip}; // bifurcation via V - (i,ip),(jp,j)
+					tmp_segmenttraceback = nullptr;
+				}
 			}
 		}
 	}
 	
-	this->tij.set(p1, {true, tmp_loopmatrix_value}); //set to True because i,j are paired
+	this->tij.set(p1, {tmp_loopmatrix_value.first != tmp_loopmatrix_value.second, tmp_loopmatrix_value});
 	if(tmp_segmenttraceback != nullptr)
 	{
 		this->sij.set(p1, tmp_segmenttraceback);
@@ -293,26 +286,35 @@ float Zuker::w(Pair &p1)
 	signed int tmp_pij, tmp_qij;
 	unsigned int n = (p1.second - p1.first);
 	
+	
+	
+	energy = 0.0;
+	tmp_pij = UNBOUND;
+	
 	if(n <= this->settings.minimal_hairpin_length)
 	{
 		this->vij.set(p1, N_INFINITY);
-		
-		energy = 0.0;
-		tmp_pij = UNBOUND;
 	}
 	else
 	{
+		float tmp;
 		PairingPlus p1p = PairingPlus(this->sequence_begin + p1.first, this->sequence_begin + p1.second);
 		
 		if(!p1p.is_canonical())
 		{
-			tmp_pij = UNBOUND;
-			energy = N_INFINITY;
+			//tmp_pij = UNBOUND;
+			//energy = N_INFINITY;
+			this->vij.set(p1, N_INFINITY);
 		}
 		else
 		{
 			tmp_pij = BOUND;
-			energy = this->v(p1, p1p);
+			
+			tmp = this->v(p1, p1p);
+			if(tmp < energy)
+			{
+				energy = tmp;
+			}
 		}
 		
 		/*
@@ -334,10 +336,9 @@ float Zuker::w(Pair &p1)
 		|   )(|  (iter 4; k=+4)
 		*/
 		
-		if(n >= 2 and tmp_pij != BOUND)// if it is bound, use Vij
+		if(n >= 2 && tmp_pij != BOUND)// if it is bound, use Vij
 		{
 			Pair p2, p3;
-			float tmp;
 			
 			// pre-iter 1
 			p3 = Pair(p1.first + 1, p1.second);
@@ -361,7 +362,7 @@ float Zuker::w(Pair &p1)
 			}
 			
 			// remaining iterations
-			for(unsigned int k = p1.first + 1; k < p1.second  - 1; k++)
+			for(unsigned int k = p1.first + 1; k < p1.second - 1; k++)
 			{
 				p2 = Pair(p1.first, k);
 				p3 = Pair(k + 1, p1.second);
@@ -416,7 +417,13 @@ void Zuker::traceback(void)
 	Pair pair1;
 	
 	this->folded_segments = 0;
-	this->traceback_push(0, (unsigned int) this->sequence.size() - 1);///@todo use size_t
+	
+	// only initize traceback if it provides free energy
+	pair1 = Pair(0, this->sequence.size() - 1);
+	if(this->wij.get(pair1) < 0)
+	{
+		this->traceback_push(0, (unsigned int) this->sequence.size() - 1);///@todo use size_t
+	}
 	
 	while(this->traceback_pop(&i, &j))
 	{
@@ -463,16 +470,8 @@ void Zuker::traceback(void)
 		{
 			if(action.target.first == action.target.second)
 			{
-				if(action.store_pair)
-				{
-					this->traceback_push(pair1.first + 1 , action.target.first);
-					this->traceback_push(action.target.first + 1, pair1.second - 1);
-				}
-				else
-				{
-					this->traceback_push(pair1.first , action.target.first);
-					this->traceback_push(action.target.first + 1, pair1.second);
-				}
+				this->traceback_push(pair1.first , action.target.first);
+				this->traceback_push(action.target.first + 1, pair1.second);
 			}
 			else
 			{
@@ -504,8 +503,6 @@ void Zuker::traceback_push(unsigned int i, unsigned int j)
 
 /**
  * @brief Pops from the stack.
- *
- * @date 2016-01-21
  *
  * @param i Nucleotide position of the sequence, paired to j, where i < j
  * @param j Nucleotide position of the sequence, paired to i, where i < j

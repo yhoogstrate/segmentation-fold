@@ -1,14 +1,12 @@
 /**
  * @file test/Zuker_test.cpp
  *
- * @date 2016-01-22
- *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
  * <PRE>
  * segmentation-fold can predict RNA 2D structures including K-turns.
- * Copyright (C) 2012-2015 Youri Hoogstrate
+ * Copyright (C) 2012-2016 Youri Hoogstrate
  *
  * This file is part of segmentation-fold.
  *
@@ -67,8 +65,6 @@ BOOST_AUTO_TEST_SUITE(Test_energy_loading) // Test energy loading
  * @brief Tests predication of the canonical K-Turn (forward direction)
  *
  * @test
- *
- * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test1)
 {
@@ -77,7 +73,7 @@ BOOST_AUTO_TEST_CASE(Test1)
 	
 	std::string        segment_01_name  = "C/D-box K-turn";
 	Sequence           segment_01_seq5p = Sequence("UGUGAU");
-	std::vector <Pair> segment_01_bonds = { Pair({4, 1}), Pair({1, 1}), Pair({1, 1}) };
+	std::vector <Pair> segment_01_bonds = {Pair({4, 1}), Pair({1, 1}), Pair({1, 1}) };
 	Sequence           segment_01_seq3p = Sequence("UGA");// dbl check for reverse
 	float              segment_01_nrg   = -100.0;
 	Segment            segment_01       = Segment(segment_01_name, segment_01_seq5p, segment_01_bonds, segment_01_seq3p, segment_01_nrg);
@@ -112,12 +108,12 @@ BOOST_AUTO_TEST_CASE(Test1)
 	
 	
 	// Init & run algorithm
-	char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "guUGUGAUgaaacUGAac" , NULL};
+	char *argv[] = {(char *) PACKAGE_NAME, (char *) "-s", (char *) "guUGUGAUgaaacUGAac", NULL};
 	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 	Settings settings = Settings(argc, argv, sequence);
-	Zuker zuker = Zuker(settings, sequence , thermodynamics);
+	Zuker zuker = Zuker(settings, sequence, thermodynamics);
 	
-	BOOST_REQUIRE_EQUAL(zuker.energy() ,
+	BOOST_REQUIRE_EQUAL(zuker.energy(),
 						(float)
 						- 100.0 +
 						-21.0 +
@@ -133,7 +129,7 @@ BOOST_AUTO_TEST_CASE(Test1)
 	
 	zuker.dot_bracket.format((unsigned int) n, dotbracket_predicted); ///@todo unsigned int -> size_t
 	
-	BOOST_REQUIRE_EQUAL(dotbracket_predicted.compare(dotbracket_valid) , 0);
+	BOOST_REQUIRE_EQUAL(dotbracket_predicted.compare(dotbracket_valid), 0);
 }
 
 
@@ -142,8 +138,6 @@ BOOST_AUTO_TEST_CASE(Test1)
  * @brief Tests prediction of the segmentloop
  *
  * @test
- *
- * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test2_segmentloop)
 {
@@ -155,9 +149,9 @@ BOOST_AUTO_TEST_CASE(Test2_segmentloop)
 	
 	std::string        segmentloop_01_name     = "k-loop test";
 	Sequence           segmentloop_01_sequence = Sequence("AAuAA");
-	std::vector <Pair> segmentloop_01_bonds    = { Pair({1, 1}), Pair({1, 1}) };
+	std::vector <Pair> segmentloop_01_bonds    = {Pair({1, 1}), Pair({1, 1}) };
 	float              segmentloop_01_nrg      = -100.0;
-	SegmentLoop        segmentloop_01          = SegmentLoop(segmentloop_01_name, segmentloop_01_sequence , segmentloop_01_bonds, segmentloop_01_nrg);
+	SegmentLoop        segmentloop_01          = SegmentLoop(segmentloop_01_name, segmentloop_01_sequence, segmentloop_01_bonds, segmentloop_01_nrg);
 	
 	
 	
@@ -170,12 +164,12 @@ BOOST_AUTO_TEST_CASE(Test2_segmentloop)
 	thermodynamics.segmentloops.insert(segmentloop_01);
 	
 	// Init & run algorithm
-	char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "cAAuAAg" , NULL};
+	char *argv[] = {(char *) PACKAGE_NAME, (char *) "-s", (char *) "cAAuAAg", NULL};
 	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 	Settings settings = Settings(argc, argv, sequence);
-	Zuker zuker = Zuker(settings, sequence , thermodynamics);
+	Zuker zuker = Zuker(settings, sequence, thermodynamics);
 	
-	BOOST_CHECK_CLOSE_FRACTION(zuker.energy() , -100.0 + -2.10, 0.0001);
+	BOOST_CHECK_CLOSE_FRACTION(zuker.energy(), -100.0 + -2.10, 0.0001);
 	
 	zuker.traceback();
 	
@@ -184,7 +178,7 @@ BOOST_AUTO_TEST_CASE(Test2_segmentloop)
 	
 	zuker.dot_bracket.format((unsigned int) n, dotbracket_predicted); ///@todo unsigned int -> size_t
 	
-	BOOST_REQUIRE_EQUAL(dotbracket_predicted.compare(dotbracket_valid) , 0);
+	BOOST_REQUIRE_EQUAL(dotbracket_predicted.compare(dotbracket_valid), 0);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
@@ -207,13 +201,13 @@ BOOST_AUTO_TEST_CASE(Test_W_matrix_01)
 	ReadData thermodynamics = ReadData();
 	
 	// init
-	char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "aaa" , NULL};
+	char *argv[] = {(char *) PACKAGE_NAME, (char *) "-s", (char *) "aaa", NULL};
 	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 	
 	Settings settings = Settings(argc, argv, sequence);
 	
 	// Run algorithm
-	Zuker zuker = Zuker(settings, sequence , thermodynamics);
+	Zuker zuker = Zuker(settings, sequence, thermodynamics);
 	
 	unsigned int strlen = 3;
 	unsigned int i, j;
@@ -274,7 +268,7 @@ BOOST_AUTO_TEST_CASE(Test_Sequence_GGGAAACCC)
 {
 	Sequence sequence = Sequence("GGGaaaCCC");
 	
-	char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "GGGaaaCCC" , NULL};
+	char *argv[] = {(char *) PACKAGE_NAME, (char *) "-s", (char *) "GGGaaaCCC", NULL};
 	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 	
 	unsigned int i = 2;
@@ -295,7 +289,7 @@ BOOST_AUTO_TEST_CASE(Test_Sequence_GGGAAACCC)
 	Settings settings = Settings(argc, argv, sequence);
 	
 	// Run algorithm
-	Zuker zuker = Zuker(settings, sequence , thermodynamics);
+	Zuker zuker = Zuker(settings, sequence, thermodynamics);
 	float energy = zuker.energy();
 	
 	// loopmatrix
@@ -315,23 +309,23 @@ BOOST_AUTO_TEST_CASE(Test_Sequence_GGGAAACCC)
 	traceback_jump2 jump_3 = zuker.tij.get(jump_2.target);
 	traceback_jump2 jump_4 = zuker.tij.get(jump_3.target);
 	
-	BOOST_CHECK_EQUAL(jump_1.target.first , 1);
-	BOOST_CHECK_EQUAL(jump_2.target.first , 2);
-	BOOST_CHECK_EQUAL(jump_3.target.first , 3);
-	BOOST_CHECK_EQUAL(jump_4.target.first , UNBOUND);
+	BOOST_CHECK_EQUAL(jump_1.target.first, 1);
+	BOOST_CHECK_EQUAL(jump_2.target.first, 2);
+	BOOST_CHECK_EQUAL(jump_3.target.first, 3);
+	BOOST_CHECK_EQUAL(jump_4.target.first, UNBOUND);
 	
-	BOOST_CHECK_EQUAL(jump_1.target.second , 7);
-	BOOST_CHECK_EQUAL(jump_2.target.second , 6);
-	BOOST_CHECK_EQUAL(jump_3.target.second , 5);
-	//BOOST_CHECK_EQUAL(jump_4.target.second , 0); << this one is not defined, since the first one says unbound (meaning, no target)
+	BOOST_CHECK_EQUAL(jump_1.target.second, 7);
+	BOOST_CHECK_EQUAL(jump_2.target.second, 6);
+	BOOST_CHECK_EQUAL(jump_3.target.second, 5);
+	//BOOST_CHECK_EQUAL(jump_4.target.second, 0); << this one is not defined, since the first one says unbound (meaning, no target)
 	
-	BOOST_CHECK_EQUAL(jump_1.store_pair , true);
-	BOOST_CHECK_EQUAL(jump_2.store_pair , true);
-	BOOST_CHECK_EQUAL(jump_3.store_pair , true);
-	BOOST_CHECK_EQUAL(jump_4.store_pair , false);
+	BOOST_CHECK_EQUAL(jump_1.store_pair, true);
+	BOOST_CHECK_EQUAL(jump_2.store_pair, true);
+	BOOST_CHECK_EQUAL(jump_3.store_pair, true);
+	BOOST_CHECK_EQUAL(jump_4.store_pair, false);
 	
 	// check total energy
-	BOOST_CHECK_EQUAL(energy , -32.50);
+	BOOST_CHECK_EQUAL(energy, -32.50);
 }
 
 
@@ -349,7 +343,7 @@ BOOST_AUTO_TEST_CASE(Test_sticky_ends_1)
 {
 	Sequence sequence = Sequence("GGGAAACCCA");
 	
-	char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "GGGAAACCCA" , NULL};
+	char *argv[] = {(char *) PACKAGE_NAME, (char *) "-s", (char *) "GGGAAACCCA", NULL};
 	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 	
 	unsigned int i = 2;
@@ -369,10 +363,10 @@ BOOST_AUTO_TEST_CASE(Test_sticky_ends_1)
 	
 	// Run algorithm
 	Settings settings = Settings(argc, argv, sequence);
-	Zuker zuker = Zuker(settings, sequence , thermodynamics);
+	Zuker zuker = Zuker(settings, sequence, thermodynamics);
 	
 	
-	BOOST_CHECK_EQUAL(zuker.energy() , -10.0 - 10.0 - 15.0 - 5.0);
+	BOOST_CHECK_EQUAL(zuker.energy(), -10.0 - 10.0 - 15.0 - 5.0);
 	zuker.traceback();
 	
 	// Give the hairpin loop a dGe of -100 (setting it explicitly in Vij), and set pij such that the position is considered to be calculated
@@ -392,15 +386,13 @@ BOOST_AUTO_TEST_CASE(Test_sticky_ends_1)
  * @test Zuker::energy
  * @test Zuker::v
  * @test Zuker::wij
- *
- * @date 2015-07-13
  */
 BOOST_AUTO_TEST_CASE(Test_sticky_ends_2)
 {
 	Sequence sequence = Sequence("AGGGAAACCC");
 	
-	char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "AGGGAAACCC" , NULL};
-	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	char *argv[] = {(char *) PACKAGE_NAME, (char *) "-s", (char *) "AGGGAAACCC", NULL};
+	signed int argc = (signed int) sizeof(argv) / (signed int)sizeof(char *) - 1;
 	
 	unsigned int i = 3;
 	unsigned int j = 7;
@@ -419,10 +411,10 @@ BOOST_AUTO_TEST_CASE(Test_sticky_ends_2)
 	
 	// Run algorithm
 	Settings settings = Settings(argc, argv, sequence);
-	Zuker zuker = Zuker(settings, sequence , thermodynamics);
+	Zuker zuker = Zuker(settings, sequence, thermodynamics);
 	
 	
-	BOOST_CHECK_EQUAL(zuker.energy() , -10.0 - 10.0 - 15.0 - 5.0);
+	BOOST_CHECK_EQUAL(zuker.energy(), -10.0 - 10.0 - 15.0 - 5.0);
 	zuker.traceback();
 	
 	// Give the hairpin loop a dGe of -100 (setting it explicitly in Vij), and set pij such that the position is considered to be calculated
@@ -444,16 +436,16 @@ BOOST_AUTO_TEST_CASE(Test_sticky_ends_2)
  * @section DESCRIPTION
  * vij:
  * <PRE>
- *   inf   inf   inf   inf   0.0   0.0 -22.5 -12.5 -12.5   0.0   0.0   0.0   0.0   0.0
- * -----   inf   inf   inf   inf -12.5   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0
- * ----- -----   inf   inf   inf   inf   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0
- * ----- ----- -----   inf   inf   inf   inf   0.0   0.0   0.0   0.0   0.0   0.0   0.0
- * ----- ----- ----- -----   inf   inf   inf   inf   0.0   0.0   0.0   0.0   0.0   0.0
- * ----- ----- ----- ----- -----   inf   inf   inf   inf   0.0   0.0   0.0   0.0 -12.5
- * ----- ----- ----- ----- ----- -----   inf   inf   inf   inf   0.0   0.0   0.0 -12.5
- * ----- ----- ----- ----- ----- ----- -----   inf   inf   inf   inf   0.0   0.0 -22.5
- * ----- ----- ----- ----- ----- ----- ----- -----   inf   inf   inf   inf -12.5   0.0
- * ----- ----- ----- ----- ----- ----- ----- ----- -----   inf   inf   inf   inf   0.0
+ *   inf   inf   inf   inf   inf   inf -22.5 -12.5 -12.5   inf   inf   inf   inf   inf
+ * -----   inf   inf   inf   inf -12.5   inf   inf   inf   inf   inf   inf   inf   inf
+ * ----- -----   inf   inf   inf   inf   inf   inf   inf   inf   inf   inf   inf   inf
+ * ----- ----- -----   inf   inf   inf   inf   inf   inf   inf   inf   inf   inf   inf
+ * ----- ----- ----- -----   inf   inf   inf   inf   inf   inf   inf   inf   inf   inf
+ * ----- ----- ----- ----- -----   inf   inf   inf   inf   inf   inf   inf   inf -12.5
+ * ----- ----- ----- ----- ----- -----   inf   inf   inf   inf   inf   inf   inf -12.5
+ * ----- ----- ----- ----- ----- ----- -----   inf   inf   inf   inf   inf   inf -22.5
+ * ----- ----- ----- ----- ----- ----- ----- -----   inf   inf   inf   inf -12.5   inf
+ * ----- ----- ----- ----- ----- ----- ----- ----- -----   inf   inf   inf   inf   inf
  * ----- ----- ----- ----- ----- ----- ----- ----- ----- -----   inf   inf   inf   inf
  * ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----   inf   inf   inf
  * ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----   inf   inf
@@ -477,16 +469,14 @@ BOOST_AUTO_TEST_CASE(Test_sticky_ends_2)
  * ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----   0.0   0.0
  * ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----   0.0
  * </PRE>
- *
- * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test_energy_bifuraction)
 {
 	Sequence sequence = Sequence("GGaaaCCCCaaaGG");
 	
-	// init
-	char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "GGaaaCCCCaaaGG" , NULL};
-	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	//init
+	char *argv[] = {(char *)PACKAGE_NAME, (char *)"-s", (char *)"GGaaaCCCCaaaGG", NULL};
+	signed int argc = (signed int)sizeof(argv) / (signed int)sizeof(char *) - 1;
 	
 	ReadData thermodynamics = ReadData();
 	
@@ -499,35 +489,35 @@ BOOST_AUTO_TEST_CASE(Test_energy_bifuraction)
 	thermodynamics.triloop_map.clear();
 	thermodynamics.loop_hairpin[3] = -2.5;
 	
-	// Run algorithm
+	//Runalgorithm
 	Settings settings = Settings(argc, argv, sequence);
-	Zuker zuker = Zuker(settings, sequence , thermodynamics);
+	Zuker zuker = Zuker(settings, sequence, thermodynamics);
 	float energy = zuker.energy();
 	
 	
 	Pair pair01 = Pair(1, 5);
 	Pair pair02 = Pair(8, 12);
 	
-	BOOST_CHECK_EQUAL(zuker.vij.get(pair01) , -12.5);
-	BOOST_CHECK_EQUAL(zuker.wij.get(pair01) , -12.5);
+	BOOST_CHECK_EQUAL(zuker.vij.get(pair01), -12.5f);
+	BOOST_CHECK_EQUAL(zuker.wij.get(pair01), -12.5f);
 	
-	BOOST_CHECK_EQUAL(zuker.vij.get(pair02) , -12.5);
-	BOOST_CHECK_EQUAL(zuker.wij.get(pair02) , -12.5);
+	BOOST_CHECK_EQUAL(zuker.vij.get(pair02), -12.5f);
+	BOOST_CHECK_EQUAL(zuker.wij.get(pair02), -12.5f);
 	
 	Pair pair03 = Pair(0, 6);
 	Pair pair04 = Pair(7, 13);
 	
-	BOOST_CHECK_EQUAL(zuker.vij.get(pair03) , -22.5);
-	BOOST_CHECK_EQUAL(zuker.wij.get(pair03) , -22.5);
+	BOOST_CHECK_EQUAL(zuker.vij.get(pair03), -22.5f);
+	BOOST_CHECK_EQUAL(zuker.wij.get(pair03), -22.5f);
 	
-	BOOST_CHECK_EQUAL(zuker.vij.get(pair04) , -22.5);
-	BOOST_CHECK_EQUAL(zuker.wij.get(pair04) , -22.5);
+	BOOST_CHECK_EQUAL(zuker.vij.get(pair04), -22.5f);
+	BOOST_CHECK_EQUAL(zuker.wij.get(pair04), -22.5f);
 	
 	Pair pair05 = Pair(0, 13);
 	
-	BOOST_CHECK_EQUAL(zuker.vij.get(pair05) , -0.0);// not paired itself, but a bifurcation
-	BOOST_CHECK_EQUAL(zuker.wij.get(pair05) , -45.0);// sum of branches (-22.5 * 2)
-	BOOST_CHECK_EQUAL(energy , -45.0);
+	BOOST_CHECK_EQUAL(zuker.vij.get(pair05), N_INFINITY); //not paired itself, but a bifurcation
+	BOOST_CHECK_EQUAL(zuker.wij.get(pair05), -45.0f); //sum of branches (-22.5 * 2)
+	BOOST_CHECK_EQUAL(energy, -45.0f);
 }
 
 ///@todo test function for Zuker::traceback, Zuker::traceback_pop and Zuker::traceback_push

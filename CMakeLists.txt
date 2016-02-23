@@ -10,7 +10,7 @@
 #
 # @section LICENSE
 # segmentation-fold can predict RNA 2D structures including K-turns.
-# Copyright (C) 2012-2015 Youri Hoogstrate
+# Copyright (C) 2012-2016 Youri Hoogstrate
 #
 # This file is part of segmentation-fold.
 #
@@ -33,7 +33,7 @@ cmake_minimum_required(VERSION 2.8)
 
 project(segmentation-fold)
 
-set(PROJECT_VERSION "1.5.0")
+set(PROJECT_VERSION "1.6.0")
 set(PACKAGE_URL "https://github.com/yhoogstrate/segmentation-fold")
 set(PACKAGE_BUGREPORT "${PACKAGE_URL}/issues")
 

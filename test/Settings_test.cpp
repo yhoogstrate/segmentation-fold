@@ -1,14 +1,12 @@
 /**
  * @file test/Settings_test.cpp
  *
- * @date 2016-01-21
- *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
  * <PRE>
  * segmentation-fold can predict RNA 2D structures including K-turns.
- * Copyright (C) 2012-2015 Youri Hoogstrate
+ * Copyright (C) 2012-2016 Youri Hoogstrate
  *
  * This file is part of segmentation-fold.
  *
@@ -72,14 +70,14 @@ BOOST_AUTO_TEST_SUITE(Testing)
  */
 BOOST_AUTO_TEST_CASE(Test1)
 {
-	char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "ACTGactgACUGacug", nullptr};
+	char *argv[] = {(char *) PACKAGE_NAME, (char *) "-s", (char *) "ACTGactgACUGacug", nullptr};
 	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 	
 	Sequence sequence;
 	
 	Settings settings = Settings(argc, argv, sequence);
 	
-	BOOST_REQUIRE_EQUAL(sequence.size() , 16);
+	BOOST_REQUIRE_EQUAL(sequence.size(), 16);
 	
 	size_t i = 0;
 	
@@ -125,14 +123,14 @@ BOOST_AUTO_TEST_CASE(Test2)
 	myfile.close();
 	
 	
-	char *argv[] = { (char *) PACKAGE_NAME, (char *) "-f", (char *) filename.c_str(), nullptr};
+	char *argv[] = {(char *) PACKAGE_NAME, (char *) "-f", (char *) filename.c_str(), nullptr};
 	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 	
 	Sequence sequence;
 	
 	Settings settings = Settings(argc, argv, sequence);
 	
-	BOOST_REQUIRE_EQUAL(sequence.size() , 16);
+	BOOST_REQUIRE_EQUAL(sequence.size(), 16);
 	
 	size_t i = 0;
 	
@@ -176,32 +174,32 @@ BOOST_AUTO_TEST_CASE(Test3)
 	
 	{
 		// Check default value
-		char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", nullptr};
+		char *argv[] = {(char *) PACKAGE_NAME, (char *) "-s", (char *) "a", nullptr};
 		argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 		
 		Settings settings = Settings(argc, argv, sequence);
 		
-		BOOST_CHECK_EQUAL(settings.segment_prediction_functionality , true);
+		BOOST_CHECK_EQUAL(settings.segment_prediction_functionality, true);
 	}
 	
 	{
 		// Check enabling
-		char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", (char *) "-p", (char *) "1", nullptr};
+		char *argv[] = {(char *) PACKAGE_NAME, (char *) "-s", (char *) "a", (char *) "-p", (char *) "1", nullptr};
 		argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 		
 		Settings settings = Settings(argc, argv, sequence);
 		
-		BOOST_CHECK_EQUAL(settings.segment_prediction_functionality , true);
+		BOOST_CHECK_EQUAL(settings.segment_prediction_functionality, true);
 	}
 	
 	{
 		// Check disabling
-		char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", (char *) "-p", (char *) "0", nullptr};
+		char *argv[] = {(char *) PACKAGE_NAME, (char *) "-s", (char *) "a", (char *) "-p", (char *) "0", nullptr};
 		argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 		
 		Settings settings = Settings(argc, argv, sequence);
 		
-		BOOST_CHECK_EQUAL(settings.segment_prediction_functionality , false);
+		BOOST_CHECK_EQUAL(settings.segment_prediction_functionality, false);
 	}
 }
 
@@ -222,12 +220,12 @@ BOOST_AUTO_TEST_CASE(Test4)
 	
 	
 	// Check default value
-	char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", nullptr};
+	char *argv[] = {(char *) PACKAGE_NAME, (char *) "-s", (char *) "a", nullptr};
 	argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 	
 	Settings settings = Settings(argc, argv, sequence);
 	
-	BOOST_CHECK_EQUAL(settings.minimal_hairpin_length  , 3);
+	BOOST_CHECK_EQUAL(settings.minimal_hairpin_length , 3);
 	
 	
 	// Check argumented values
@@ -236,7 +234,7 @@ BOOST_AUTO_TEST_CASE(Test4)
 		is = std::to_string(i);
 		char *ics = (char *) is.c_str();
 		
-		char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", (char *) "-h", (char *) ics, nullptr};
+		char *argv[] = {(char *) PACKAGE_NAME, (char *) "-s", (char *) "a", (char *) "-h", (char *) ics, nullptr};
 		argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 		
 		Settings settings = Settings(argc, argv, sequence);
@@ -259,17 +257,17 @@ BOOST_AUTO_TEST_CASE(Test5)
 	
 	{
 		// Check example file
-		char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", (char *) "-x", (char *) "share/segmentation-fold/" SEGMENTS_FILE, nullptr};
+		char *argv[] = {(char *) PACKAGE_NAME, (char *) "-s", (char *) "a", (char *) "-x", (char *) "share/segmentation-fold/" SEGMENTS_FILE, nullptr};
 		argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 		
 		Settings settings = Settings(argc, argv, sequence);
 		
-		BOOST_CHECK_EQUAL(settings.segment_filename , "share/segmentation-fold/" SEGMENTS_FILE);
+		BOOST_CHECK_EQUAL(settings.segment_filename, "share/segmentation-fold/" SEGMENTS_FILE);
 	}
 	
 	{
 		// Check non existing file
-		char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", (char *) "-x", (char *) "/dev/null/neverexist", nullptr};
+		char *argv[] = {(char *) PACKAGE_NAME, (char *) "-s", (char *) "a", (char *) "-x", (char *) "/dev/null/neverexist", nullptr};
 		argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 		
 		BOOST_CHECK_THROW(Settings settings = Settings(argc, argv, sequence), std::invalid_argument);
@@ -290,22 +288,22 @@ BOOST_AUTO_TEST_CASE(Test6)
 	
 	{
 		// Check example file
-		char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", nullptr};
+		char *argv[] = {(char *) PACKAGE_NAME, (char *) "-s", (char *) "a", nullptr};
 		argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 		
 		Settings settings = Settings(argc, argv, sequence);
 		
-		BOOST_CHECK_EQUAL(settings.run_print_version , false);
+		BOOST_CHECK_EQUAL(settings.run_print_version, false);
 	}
 	
 	{
 		// Check non existing file
-		char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", (char *) "-V", nullptr};
+		char *argv[] = {(char *) PACKAGE_NAME, (char *) "-s", (char *) "a", (char *) "-V", nullptr};
 		argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 		
 		Settings settings = Settings(argc, argv, sequence);
 		
-		BOOST_CHECK_EQUAL(settings.run_print_version , true);
+		BOOST_CHECK_EQUAL(settings.run_print_version, true);
 	}
 }
 
@@ -323,22 +321,22 @@ BOOST_AUTO_TEST_CASE(Test7)
 	
 	{
 		// Check example file
-		char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", nullptr};
+		char *argv[] = {(char *) PACKAGE_NAME, (char *) "-s", (char *) "a", nullptr};
 		argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 		
 		Settings settings = Settings(argc, argv, sequence);
 		
-		BOOST_CHECK_EQUAL(settings.run_print_version , false);
+		BOOST_CHECK_EQUAL(settings.run_print_version, false);
 	}
 	
 	{
 		// Check non existing file
-		char *argv[] = { (char *) PACKAGE_NAME, (char *) "--version", nullptr};
+		char *argv[] = {(char *) PACKAGE_NAME, (char *) "--version", nullptr};
 		argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 		
 		Settings settings = Settings(argc, argv, sequence);
 		
-		BOOST_CHECK_EQUAL(settings.run_print_version , true);
+		BOOST_CHECK_EQUAL(settings.run_print_version, true);
 	}
 }
 
@@ -356,22 +354,22 @@ BOOST_AUTO_TEST_CASE(Test8)
 	
 	{
 		// Check example file
-		char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", nullptr};
+		char *argv[] = {(char *) PACKAGE_NAME, (char *) "-s", (char *) "a", nullptr};
 		argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 		
 		Settings settings = Settings(argc, argv, sequence);
 		
-		BOOST_CHECK_EQUAL(settings.run_print_usage , false);
+		BOOST_CHECK_EQUAL(settings.run_print_usage, false);
 	}
 	
 	{
 		// Check non existing file
-		char *argv[] = { (char *) PACKAGE_NAME, (char *) "--help", nullptr};
+		char *argv[] = {(char *) PACKAGE_NAME, (char *) "--help", nullptr};
 		argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 		
 		Settings settings = Settings(argc, argv, sequence);
 		
-		BOOST_CHECK_EQUAL(settings.run_print_usage , true);
+		BOOST_CHECK_EQUAL(settings.run_print_usage, true);
 	}
 }
 
@@ -390,12 +388,12 @@ BOOST_AUTO_TEST_CASE(Test9)
 	
 	
 	// Check default value
-	char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", nullptr};
+	char *argv[] = {(char *) PACKAGE_NAME, (char *) "-s", (char *) "a", nullptr};
 	argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 	
 	Settings settings = Settings(argc, argv, sequence);
 	
-	BOOST_CHECK_EQUAL(settings.num_threads , 0);
+	BOOST_CHECK_EQUAL(settings.num_threads, 0);
 	
 	
 	// Check argumented values
@@ -404,7 +402,7 @@ BOOST_AUTO_TEST_CASE(Test9)
 		is = std::to_string(i);
 		char *ics = (char *) is.c_str();
 		
-		char *argv[] = { (char *) PACKAGE_NAME, (char *) "-s", (char *) "a", (char *) "-t", (char *) ics, nullptr};
+		char *argv[] = {(char *) PACKAGE_NAME, (char *) "-s", (char *) "a", (char *) "-t", (char *) ics, nullptr};
 		argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 		
 		Settings settings = Settings(argc, argv, sequence);

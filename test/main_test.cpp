@@ -1,14 +1,12 @@
 /**
  * @file test/main_test.cpp
  *
- * @date 2016-01-22
- *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
  * <PRE>
  * segmentation-fold can predict RNA 2D structures including K-turns.
- * Copyright (C) 2012-2015 Youri Hoogstrate
+ * Copyright (C) 2012-2016 Youri Hoogstrate
  *
  * This file is part of segmentation-fold.
  *
@@ -370,6 +368,252 @@ BOOST_AUTO_TEST_CASE(Test_segfault_01)
 	
 	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
 }
+
+
+
+/**
+ * @brief Tests prediction of certain structure tested with mfold/vienna
+ *
+ * @test
+ */
+BOOST_AUTO_TEST_CASE(Test_zuker_01a)
+{
+	Sequence sequence = Sequence("GGGAAAACCC");
+	std::string true_structure = "(((....)))";
+	
+	// Load variables etc.
+	Settings settings = Settings(0, nullptr, sequence);
+	ReadData thermodynamics = ReadData();
+	
+	// Predict structure
+	Zuker zuker = Zuker(settings, sequence, thermodynamics);
+	float energy = zuker.energy();
+	zuker.traceback();
+	std::string predicted_structure;
+	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure);///@todo unsigned int -> size_t
+	
+	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
+	BOOST_CHECK_EQUAL(energy , -2.0999999f);
+}
+
+
+
+/**
+ * @brief Tests prediction of certain structure tested with mfold/vienna
+ *
+ * @test
+ */
+BOOST_AUTO_TEST_CASE(Test_zuker_01b)
+{
+	Sequence sequence = Sequence("GGGAAAAACCC");
+	std::string true_structure = "(((.....)))";
+	
+	// Load variables etc.
+	Settings settings = Settings(0, nullptr, sequence);
+	ReadData thermodynamics = ReadData();
+	
+	// Predict structure
+	Zuker zuker = Zuker(settings, sequence, thermodynamics);
+	float energy = zuker.energy();
+	zuker.traceback();
+	std::string predicted_structure;
+	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure);///@todo unsigned int -> size_t
+	
+	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
+	BOOST_CHECK_EQUAL(energy , -2.0999999f);
+}
+
+
+
+/**
+ * @brief Tests prediction of certain structure tested with mfold/vienna
+ *
+ * @test
+ */
+BOOST_AUTO_TEST_CASE(Test_zuker_01c)
+{
+	Sequence sequence = Sequence("GGGAAAAAACCC");
+	std::string true_structure = "(((......)))";
+	
+	// Load variables etc.
+	Settings settings = Settings(0, nullptr, sequence);
+	ReadData thermodynamics = ReadData();
+	
+	// Predict structure
+	Zuker zuker = Zuker(settings, sequence, thermodynamics);
+	float energy = zuker.energy();
+	zuker.traceback();
+	std::string predicted_structure;
+	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure);///@todo unsigned int -> size_t
+	
+	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
+	BOOST_CHECK_EQUAL(energy , -2.29999971f);//@mfold says -2.3
+}
+
+
+
+/**
+ * @brief Tests prediction of certain structure tested with mfold/vienna
+ *
+ * @test
+ */
+BOOST_AUTO_TEST_CASE(Test_zuker_02)
+{
+	Sequence sequence = Sequence("GAAAAAAAAAAAAAAAAAAAAAAU");
+	std::string true_structure = "........................";
+	
+	// Load variables etc.
+	Settings settings = Settings(0, nullptr, sequence);
+	ReadData thermodynamics = ReadData();
+	
+	// Predict structure
+	Zuker zuker = Zuker(settings, sequence, thermodynamics);
+	float energy = zuker.energy();
+	zuker.traceback();
+	std::string predicted_structure;
+	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure);///@todo unsigned int -> size_t
+	
+	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
+	BOOST_CHECK_EQUAL(energy , 0.0f);//@mfold says 0.0
+}
+
+
+
+/**
+ * @brief Tests prediction of certain structure tested with mfold/vienna
+ *
+ * @test
+ */
+BOOST_AUTO_TEST_CASE(Test_zuker_03)
+{
+	Sequence sequence = Sequence("AGAAAAAAAAAAAAAAAAAAAAAAUA");
+	std::string true_structure = "..........................";
+	
+	// Load variables etc.
+	Settings settings = Settings(0, nullptr, sequence);
+	ReadData thermodynamics = ReadData();
+	
+	// Predict structure
+	Zuker zuker = Zuker(settings, sequence, thermodynamics);
+	float energy = zuker.energy();
+	zuker.traceback();
+	std::string predicted_structure;
+	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure);///@todo unsigned int -> size_t
+	
+	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
+	BOOST_CHECK_EQUAL(energy , 0.0f);//@mfold says 0.0
+}
+
+
+
+/**
+ * @brief Tests prediction of certain structure tested with mfold/vienna
+ *
+ * @test
+ */
+BOOST_AUTO_TEST_CASE(Test_zuker_04)
+{
+	Sequence sequence = Sequence("GGGGAAACCCCGGCGAAAAACGCC");// doesn't work while aGGGGAAACCCCAAAGGCGAAAAACGCCa does
+	std::string true_structure = "((((...))))((((.....))))";
+	
+	// Load variables etc.
+	Settings settings = Settings(0, nullptr, sequence);
+	ReadData thermodynamics = ReadData();
+	
+	// Predict structure
+	Zuker zuker = Zuker(settings, sequence, thermodynamics);
+	float energy = zuker.energy();
+	zuker.traceback();
+	std::string predicted_structure;
+	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure);///@todo unsigned int -> size_t
+	
+	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
+	BOOST_CHECK_EQUAL(energy , -9.90000057f);
+}
+
+
+
+
+/**
+ * @brief Tests prediction of certain structure tested with mfold/vienna
+ *
+ * @test
+ */
+BOOST_AUTO_TEST_CASE(Test_zuker_05)
+{
+	Sequence sequence = Sequence("GGGGAAACCCCAGGCGAAAAACGCC");// doesn't work while aGGGGAAACCCCAAAGGCGAAAAACGCCa does
+	std::string true_structure = "((((...)))).((((.....))))";
+	
+	// Load variables etc.
+	Settings settings = Settings(0, nullptr, sequence);
+	ReadData thermodynamics = ReadData();
+	
+	// Predict structure
+	Zuker zuker = Zuker(settings, sequence, thermodynamics);
+	float energy = zuker.energy();
+	zuker.traceback();
+	std::string predicted_structure;
+	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure);///@todo unsigned int -> size_t
+	
+	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
+	BOOST_CHECK_EQUAL(energy , -9.90000057f);
+}
+
+
+
+
+/**
+ * @brief Tests prediction of certain structure tested with mfold/vienna
+ *
+ * @test
+ */
+BOOST_AUTO_TEST_CASE(Test_zuker_06)
+{
+	Sequence sequence = Sequence("GGGGAAACCCCAAGGCGAAAAACGCC");// doesn't work while aGGGGAAACCCCAAAGGCGAAAAACGCCa does
+	std::string true_structure = "((((...))))..((((.....))))";
+	
+	// Load variables etc.
+	Settings settings = Settings(0, nullptr, sequence);
+	ReadData thermodynamics = ReadData();
+	
+	// Predict structure
+	Zuker zuker = Zuker(settings, sequence, thermodynamics);
+	float energy = zuker.energy();
+	zuker.traceback();
+	std::string predicted_structure;
+	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure);///@todo unsigned int -> size_t
+	
+	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
+	BOOST_CHECK_EQUAL(energy , -9.90000057f);
+}
+
+
+/**
+ * @brief Tests prediction of certain structure tested with mfold/vienna
+ *
+ * @test
+ */
+BOOST_AUTO_TEST_CASE(Test_zuker_07)
+{
+	Sequence sequence = Sequence("GGGGAAACCCCAAAGGCGAAAAACGCC");// doesn't work while aGGGGAAACCCCAAAGGCGAAAAACGCCa does
+	std::string true_structure = "((((...))))...((((.....))))";
+	
+	// Load variables etc.
+	Settings settings = Settings(0, nullptr, sequence);
+	ReadData thermodynamics = ReadData();
+	
+	// Predict structure
+	Zuker zuker = Zuker(settings, sequence, thermodynamics);
+	float energy = zuker.energy();
+	zuker.traceback();
+	std::string predicted_structure;
+	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure);///@todo unsigned int -> size_t
+	
+	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
+	BOOST_CHECK_EQUAL(energy , -9.90000057f);
+}
+
+
 
 ///@todo Test function with different minimum hairpin size -- should fail at the moment, because somewhere in the traceback or so the number 3 is hard coded
 
