@@ -630,6 +630,33 @@ BOOST_AUTO_TEST_CASE(Test_zuker_08)
 
 
 
+/**
+ * @brief Tests prediction of certain structure tested with mfold/vienna
+ *
+ * @test
+ */
+BOOST_AUTO_TEST_CASE(Test_zuker_09)
+{
+	Sequence sequence = Sequence("CCCCaaaGGGGGAAACCCCCGGGG");
+	std::string true_structure = "((((...(((((...)))))))))";
+	
+	// Load variables etc.
+	Settings settings = Settings(0, nullptr, sequence);
+	ReadData thermodynamics = ReadData();
+	
+	// Predict structure
+	Zuker zuker = Zuker(settings, sequence, thermodynamics);
+	float energy = zuker.energy();
+	zuker.traceback();
+	std::string predicted_structure;
+	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure);///@todo unsigned int -> size_t
+	
+	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
+	BOOST_CHECK_EQUAL(energy , -21.30f);
+}
+
+
+
 ///@todo Test function with different minimum hairpin size -- should fail at the moment, because somewhere in the traceback or so the number 3 is hard coded
 
 BOOST_AUTO_TEST_SUITE_END()

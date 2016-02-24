@@ -1,7 +1,6 @@
 /**
  * @file src/DotBracket.cpp
  *
- *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
@@ -116,6 +115,34 @@ void DotBracket::format(unsigned int n, std::string &output)
 			output.push_back(DOTBRACKET__PAIRING_RIGHT);				// ')'
 		}
 	}
+	
+	
+	// Check if the number of ( and ) chars is identical
+	#if DEBUG
+	unsigned int left = 0;
+	unsigned int right = 0;
+	
+	for(i = 0; i < (signed int) n; i++)
+	{
+		switch(output[i])
+		{
+			case DOTBRACKET__PAIRING_LEFT:
+				left++;
+			break;
+			case DOTBRACKET__PAIRING_RIGHT:
+				right++;
+			break;
+			default:
+			break;
+		}
+	}
+	
+	if(left != right)
+	{
+		throw std::out_of_range("DotBracket::format(): produced invalid 2D-structure '" + output + "', probably because of unexpected internal bug elsewhere in the code.");
+	}
+	
+	#endif // DEBUG
 }
 
 
