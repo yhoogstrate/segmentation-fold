@@ -1,7 +1,6 @@
 /**
  * @file test/SegmentLoop_test.cpp
  *
- * @date 2016-01-22
  *
  * @author Youri Hoogstrate
  *
@@ -60,7 +59,6 @@ BOOST_AUTO_TEST_SUITE(Testing)
  * j) A U G/      +2,-1                             +5,-3
  * </PRE>
  *
- * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test1)
 {

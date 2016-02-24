@@ -1,7 +1,6 @@
 /**
  * @file test/Position_test.cpp
  *
- * @date 2015-05-02
  *
  * @author Youri Hoogstrate
  *
@@ -45,7 +44,6 @@ BOOST_AUTO_TEST_SUITE(Testing)
 /**
  * @brief Tests whether Nucleotides correctly separate
  * @test
- * @date 2014-04-15
  */
 BOOST_AUTO_TEST_CASE(Test1)
 {
@@ -71,7 +69,6 @@ BOOST_AUTO_TEST_CASE(Test1)
  *
  * @test
  *
- * @date 2014-04-15
  *
  * @section DESCRIPTION
  * The following sequence "ACUG" will produce the following vector:
@@ -96,7 +93,6 @@ BOOST_AUTO_TEST_CASE(Test2)
  *
  * @test
  *
- * @date 2015-04-22
  *
  * @section DESCRIPTION
  * The following sequence "ACUG" will be the following vector:
@@ -173,7 +169,6 @@ BOOST_AUTO_TEST_CASE(Test3)
  *
  * @test
  *
- * @date 2015-04-22
  */
 BOOST_AUTO_TEST_CASE(Test4)
 {

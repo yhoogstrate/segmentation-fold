@@ -1,14 +1,13 @@
 /**
  * @file src/ScoringMatrix.cpp
  *
- * @date 2016-01-22
  *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
  * <PRE>
  * segmentation-fold can predict RNA 2D structures including K-turns.
- * Copyright (C) 2012-2015 Youri Hoogstrate
+ * Copyright (C) 2012-2016 Youri Hoogstrate
  *
  * This file is part of segmentation-fold and originally taken from
  * yh-kt-fold.
@@ -46,7 +45,6 @@
 /**
  * @brief
  *
- * @date 2016-01-20
  *
  * @todo work with templates;
  * - Float for Energy values (V & W matrix)
@@ -90,7 +88,6 @@ ScoringMatrix<T>::ScoringMatrix(size_t arg_length, T arg_initialization_value):
 /**
  * @brief Gets the value at matrix point [x,y]
  *
- * @date 2016-01-20
  */
 template <class T>
 T ScoringMatrix<T>::get(Pair &pair)
@@ -105,7 +102,6 @@ T ScoringMatrix<T>::get(Pair &pair)
 /**
  * @brief Calculates the position (x,y) in the matrix corresponds to the position in the vector
  *
- * @date 2016-01-20
  *
  * @todo MAKE CONSTANT OF -2
  * @todo MAKE CONSTANT OF -1
@@ -168,7 +164,6 @@ signed int ScoringMatrix<T>::get_position(Pair &p)
 /**
  * @brief Sets a value in the matrix
  *
- * @date 2016-01-21
  *
  * @todo Check whether diagonals are initiated; it takes unnecessairy computations
  */
@@ -196,7 +191,6 @@ void ScoringMatrix<T>::set(Pair &pair, T arg_value)
 /**
  * @brief Returns the number of reserved elements in the vector
  *
- * @date 2015-06-24
  */
 template <class T>
 size_t ScoringMatrix<T>::size(void)
@@ -222,7 +216,6 @@ size_t ScoringMatrix<T>::size(void)
  * Using the formula:
  * \f$s = \frac{n-1}{2} \times n\f$
  *
- * @date 2013-09-19
  *
  * @note "((n - 1) * n) / 2" works, while "((n - 1) / 2) * n" does not because of floating point divisions
  */

@@ -1,7 +1,6 @@
 /**
  * @file test/Sequence_test.cpp
  *
- * @date 2016-01-21
  *
  * @author Youri Hoogstrate
  *
@@ -45,7 +44,6 @@ BOOST_AUTO_TEST_SUITE(Testing)
  *
  * @test
  *
- * @date 2014-03-11
  */
 BOOST_AUTO_TEST_CASE(Test01)
 {
@@ -81,7 +79,6 @@ BOOST_AUTO_TEST_CASE(Test01)
  *
  * @test
  *
- * @date 2014-03-12
  */
 BOOST_AUTO_TEST_CASE(Test02)
 {
@@ -106,7 +103,6 @@ BOOST_AUTO_TEST_CASE(Test02)
  *
  * @test
  *
- * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test03)
 {
@@ -143,7 +139,6 @@ BOOST_AUTO_TEST_CASE(Test03)
  *
  * @test
  *
- * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test04)
 {
@@ -178,7 +173,6 @@ BOOST_AUTO_TEST_CASE(Test04)
 }
 
 /**
- * @date 2014-05-19
  *
  * @test
  *
@@ -243,7 +237,6 @@ BOOST_AUTO_TEST_CASE(Test05)
  *
  * @test
  *
- * @date 2014-05-19
  */
 BOOST_AUTO_TEST_CASE(Test06)
 {
@@ -279,7 +272,6 @@ BOOST_AUTO_TEST_CASE(Test06)
 /**
  * @brief Tests the subseq function
  *
- * @date 2015-02-19
  */
 BOOST_AUTO_TEST_CASE(Test07)
 {
@@ -325,7 +317,6 @@ BOOST_AUTO_TEST_CASE(Test07)
 /**
  * @brief Valgrind check
  *
- * @date 2015-07-23
  */
 BOOST_AUTO_TEST_CASE(Test08)
 {
@@ -341,7 +332,6 @@ BOOST_AUTO_TEST_CASE(Test08)
  *
  * @test
  *
- * @date 2015-12-07
  */
 BOOST_AUTO_TEST_CASE(Test09)
 {
@@ -386,7 +376,6 @@ BOOST_AUTO_TEST_CASE(Test09)
  *
  * @test
  *
- * @date 2015-12-07
  */
 BOOST_AUTO_TEST_CASE(Test10)
 {

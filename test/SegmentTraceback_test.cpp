@@ -1,7 +1,6 @@
 /**
  * @file test/SegmentTraceback_test.cpp
  *
- * @date 2016-01-21
  *
  * @author Youri Hoogstrate
  *
@@ -50,7 +49,6 @@ BOOST_AUTO_TEST_SUITE(Testing)
  *
  * @test Tests Segment::size() and whether it doesn't get affected by popping
  *
- * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test_1)
 {
@@ -78,7 +76,6 @@ BOOST_AUTO_TEST_CASE(Test_1)
  *
  * @test Segment::size()
  *
- * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test_2)
 {
@@ -106,7 +103,6 @@ BOOST_AUTO_TEST_CASE(Test_2)
  *
  * @test Segment::size()
  *
- * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test_3)
 {
@@ -132,7 +128,6 @@ BOOST_AUTO_TEST_CASE(Test_3)
 /**
  * @brief Tests the Segment::pop() function
  *
- * @date 2016-01-21
  *
  * @test Segment::traceback()
  *

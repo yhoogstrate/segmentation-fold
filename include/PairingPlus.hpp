@@ -30,9 +30,12 @@
 
 #include "main.hpp"
 
+#include "Pair.hpp"
 #include "PairingType.hpp"
 #include "Position.hpp"
 #include "Pairing.hpp"
+#include "Sequence.hpp"
+
 
 
 /**
@@ -53,6 +56,7 @@ class PairingPlus: public Pairing
 		
 		PairingPlus(Position arg_position1, Position arg_position2);
 		PairingPlus(Position arg_position1, Position arg_position2, size_t arg_nucleotides_inbetween);
+		PairingPlus(Sequence &arg_sequence, Pair arg_pair);
 		
 		Nucleotide operator[](size_t);
 };

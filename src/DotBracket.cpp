@@ -1,13 +1,12 @@
 /**
  * @file src/DotBracket.cpp
  *
- * @date 2016-01-21
  *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
- * Copyright (C) 2012-2015 Youri Hoogstrate
+ * Copyright (C) 2012-2016 Youri Hoogstrate
  *
  * This file is part of segmentation-fold and originally taken from
  * yh-kt-fold.
@@ -46,7 +45,6 @@ DotBracket::DotBracket()
  * @param i position i in the RNA sequence
  * @return The position in the sequence pairing with the nucleotide at position i, "UNBOUND" otherwise
  *
- * @date 2016-01-21
  *
  * @todo Make this a WHILE loop and avoid the early returns
  * @todo get rid of signed here - maybe make an at() function that requires to find something
@@ -78,7 +76,6 @@ signed int DotBracket::find(unsigned int arg_i)
  * @param arg_i Nucleotide position in the RNA sequence pairing with (,j)
  * @param arg_j Nucleotide position in the RNA sequence pairing with (i,)
  *
- * @date 2016-01-21
  */
 void DotBracket::store(unsigned int arg_i, unsigned int arg_j)
 {
@@ -92,7 +89,6 @@ void DotBracket::store(unsigned int arg_i, unsigned int arg_j)
  *
  * @param rnaSequenceLength The length of the sequence of which the 2D strucutre is calculated
  *
- * @date 2016-01-21
  *
  * @todo Make it work with streams, so that output can be put in a file.
  * @todo Make the variables private const static class variables
@@ -127,7 +123,6 @@ void DotBracket::format(unsigned int n, std::string &output)
 /**
  * @brief Matches a dotbracked string with a pattern in which unknown chars are encoded with a '?'
  *
- * @date 2015-04-20
  *
  * @param dot_bracket_pattern A dotbracket string like "((..))((()))" which allows question tags for unknown structures: "(((???)))"
  */

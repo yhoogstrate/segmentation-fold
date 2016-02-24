@@ -1,14 +1,13 @@
 /**
  * @file src/ReadSegments.cpp
  *
- * @date 2016-01-21
  *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
  * <PRE>
  * segmentation-fold can predict RNA 2D structures including K-turns.
- * Copyright (C) 2012-2015 Youri Hoogstrate
+ * Copyright (C) 2012-2016 Youri Hoogstrate
  *
  * This file is part of segmentation-fold.
  *
@@ -67,7 +66,6 @@ using namespace boost::property_tree;
 /**
  * @brief Initializes the ReadSegments class
  *
- * @date 2015-07-23
  */
 ReadSegments::ReadSegments(std::string &arg_filename):
 	filename(arg_filename)
@@ -81,7 +79,6 @@ ReadSegments::ReadSegments(std::string &arg_filename):
 /**
  * @brief Starts parsing of the <segments> section of the xml file
  *
- * @date 2015-07-23
  */
 void ReadSegments::parse(SegmentTree &arg_segments, SegmentLoopTree &arg_segmentloops)
 {
@@ -96,7 +93,6 @@ void ReadSegments::parse(SegmentTree &arg_segments, SegmentLoopTree &arg_segment
 /**
  * @brief Starts parsing of the <segments> and <rnas> sections of the xml file
  *
- * @date 2015-07-23
  */
 void ReadSegments::parse(SegmentTree &arg_segments, SegmentLoopTree &arg_segmentloops, std::vector<rna_example> &arg_examples)
 {
@@ -111,7 +107,6 @@ void ReadSegments::parse(SegmentTree &arg_segments, SegmentLoopTree &arg_segment
 /**
  * @brief Parses an XML file using boost xml library
  *
- * @date 2015-12-07
  */
 void ReadSegments::parse(bool arg_parse_examples)
 {
@@ -146,7 +141,6 @@ void ReadSegments::parse(bool arg_parse_examples)
 /**
  * @brief Parses the <segments> section of the XML file
  *
- * @date 2015-07-23
  *
  * @section DESCRIPTION
  * <PRE>
@@ -227,7 +221,6 @@ void ReadSegments::parse_segments(ptree &xml_segments)
 /**
  * @brief Parses the <segmentloops> section of the XML file
  *
- * @date 2015-12-07
  */
 void ReadSegments::parse_segmentloops(ptree &xml_segments)
 {
@@ -251,7 +244,6 @@ void ReadSegments::parse_segmentloops(ptree &xml_segments)
 /**
  * @brief Parses the <rna> section of the XML file
  *
- * @date 2015-07-15
  */
 void ReadSegments::parse_examples(ptree &xml_examples)
 {
@@ -289,7 +281,6 @@ void ReadSegments::parse_examples(ptree &xml_examples)
 /**
  * @brief Parses a single segment (correct bonds) based on the XML data
  *
- * @date 2016-01-21
  */
 Segment *ReadSegments::parse_segment(std::string arg_name, std::string arg_sequence_5p, std::string arg_bonds, std::string arg_sequence_3p, std::string arg_energy)
 {
@@ -343,7 +334,6 @@ Segment *ReadSegments::parse_segment(std::string arg_name, std::string arg_seque
 /**
  * @brief Parses a single segmentloop based on the XML data
  *
- * @date 2016-01-21
  */
 SegmentLoop *ReadSegments::parse_segmentloop(std::string arg_name, std::string arg_sequence, std::string arg_dot_bracket, std::string arg_energy)
 {
@@ -366,7 +356,6 @@ SegmentLoop *ReadSegments::parse_segmentloop(std::string arg_name, std::string a
 /**
  * @brief converts "((.((..))).)" into (1,1),(1,2),(2,1),(1,1)
  *
- * @date 2016-01-21
  *
  * @todo fix for:  ((( ))) ((( )))
  */
@@ -420,7 +409,6 @@ std::vector<Pair> ReadSegments::dotbracket_to_bonds(std::string &arg_dot_bracket
 /**
  * @brief Removes all segments (memory safe)
  *
- * @date 2015-07-23
  */
 void ReadSegments::clear(void)
 {
@@ -437,7 +425,6 @@ void ReadSegments::clear(void)
 /**
  * @brief Destructor
  *
- * @date 2015-07-23
  */
 ReadSegments::~ReadSegments()
 {

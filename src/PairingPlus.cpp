@@ -1,7 +1,6 @@
 /**
  * @file src/PairingPlus.cpp
  *
- * @date 2016-01-21
  *
  * @author Youri Hoogstrate
  *
@@ -30,13 +29,23 @@
 #include "main.hpp"
 
 #include "Nucleotide.hpp"
+#include "Pair.hpp"
 #include "Position.hpp"
 #include "PairingPlus.hpp"
 
 
 
+
+PairingPlus::PairingPlus(Sequence &arg_sequence, Pair arg_pair):
+	PairingPlus(
+		arg_sequence.data.begin() + arg_pair.first,
+		arg_sequence.data.begin() + arg_pair.second)
+{
+}
+
+
+
 /**
- * @brief Stores positions and sets PairingType
  */
 PairingPlus::PairingPlus(Position arg_position1, Position arg_position2):
 	PairingPlus(arg_position1, arg_position2, (size_t)(arg_position2 - arg_position1 - 1))

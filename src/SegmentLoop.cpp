@@ -1,14 +1,13 @@
 /**
  * @file src/SegmentLoop.cpp
  *
- * @date 2015-12-03
  *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
  * <PRE>
  * segmentation-fold can predict RNA 2D structures including K-turns.
- * Copyright (C) 2012-2015 Youri Hoogstrate
+ * Copyright (C) 2012-2016 Youri Hoogstrate
  *
  * This file is part of segmentation-fold and originally taken from
  * yh-kt-fold.
@@ -45,7 +44,6 @@
 /**
  * @brief Constructor of SegmentLoop class.
  *
- * @date 2015-12-03
  */
 SegmentLoop::SegmentLoop(std::string arg_name, Sequence arg_sequence, std::vector<Pair> arg_bonds, float arg_gibbs_free_energy):
 	name(arg_name),
@@ -60,7 +58,6 @@ SegmentLoop::SegmentLoop(std::string arg_name, Sequence arg_sequence, std::vecto
 /**
  * @brief Return the size of the segmentloops internal sequence
  *
- * @date 2015-12-03
  * */
 size_t SegmentLoop::size(void)
 {
@@ -74,7 +71,6 @@ size_t SegmentLoop::size(void)
  *
  * @param i Location (starting from 0, ending at n-1) in the sequence of interest
  *
- * @date 2015-12-03
  */
 Nucleotide SegmentLoop::get_nucleotide(unsigned int &i)
 {
@@ -86,7 +82,6 @@ Nucleotide SegmentLoop::get_nucleotide(unsigned int &i)
 /**
  * @brief Returns sequences of the segmentloop
  *
- * @date 2015-12-03
  */
 Sequence *SegmentLoop::get_sequence(void)
 {

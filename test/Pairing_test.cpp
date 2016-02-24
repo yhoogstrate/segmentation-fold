@@ -1,7 +1,6 @@
 /**
  * @file test/Pairing_test.cpp
  *
- * @date 2014-04-20
  *
  * @author Youri Hoogstrate
  *
@@ -43,7 +42,6 @@ BOOST_AUTO_TEST_SUITE(Testing)
 /**
  * @brief Tests whether the is_canonical() function works
  *
- * @date 2014-03-11
  *
  * @test
  */

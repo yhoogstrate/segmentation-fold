@@ -1,13 +1,12 @@
 /**
  * @file src/SubSequence.cpp
  *
- * @date 2016-01-21
  *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
- * Copyright (C) 2012-2015 Youri Hoogstrate
+ * Copyright (C) 2012-2016 Youri Hoogstrate
  *
  * This file is part of segmentation-fold.
  *
@@ -38,7 +37,6 @@
 /**
  * @brief Stores positions and sets PairingType
  *
- * @date 2016-01-21
  */
 SubSequence::SubSequence(Position arg_position1, Position arg_position2):
 	position1(arg_position1),
@@ -53,7 +51,6 @@ SubSequence::SubSequence(Position arg_position1, Position arg_position2):
 /**
  * @brief Stores positions and sets PairingType - If size is known apriori, it is useless to re-calculate it and thus save it immediately
  *
- * @date 2015-05-06
  */
 SubSequence::SubSequence(Position arg_position1, Position arg_position2, size_t arg_size):
 	position1(arg_position1),
@@ -67,7 +64,6 @@ SubSequence::SubSequence(Position arg_position1, Position arg_position2, size_t 
 /**
  * @brief Sets the PairingType
  *
- * @date 2015-05-06
  */
 void SubSequence::init()
 {
@@ -80,7 +76,6 @@ void SubSequence::init()
 /**
  * @brief
  *
- * @date 2016-01-21
  *
  * @todo Decide whether or not to return a Position or a Nucleotide
  */
@@ -101,7 +96,6 @@ Nucleotide SubSequence::operator[](size_t arg_position)
 /**
  * @brief
  *
- * @date 2015-05-06
  */
 void SubSequence::_check_order(void)
 {

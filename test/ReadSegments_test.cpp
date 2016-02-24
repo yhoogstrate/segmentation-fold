@@ -1,7 +1,6 @@
 /**
  * @file test/ReadSegments_test.cpp
  *
- * @date 2016-01-21
  *
  * @author Youri Hoogstrate
  *
@@ -70,7 +69,6 @@ BOOST_AUTO_TEST_SUITE(Testing_Segments)
  *
  * @test
  *
- * @date 2015-12-07
  */
 BOOST_AUTO_TEST_CASE(Test1)
 {
@@ -104,7 +102,6 @@ BOOST_AUTO_TEST_CASE(Test1)
  *
  * @test
  *
- * @date 2016-01-20
  */
 BOOST_AUTO_TEST_CASE(Test2)
 {
@@ -222,7 +219,6 @@ BOOST_AUTO_TEST_CASE(Test2)
  * 3') AAGAAG (5'
  * </PRE>
  *
- * @date 2015-12-11
  *
  * @todo also check segments pop() function
  */
@@ -297,7 +293,6 @@ BOOST_AUTO_TEST_CASE(Test3)
  *
  * @test
  *
- * @date 2015-12-07
  */
 BOOST_AUTO_TEST_CASE(Test4)
 {
@@ -338,7 +333,6 @@ BOOST_AUTO_TEST_CASE(Test4)
  *
  * @test
  *
- * @date 2015-12-07
  */
 BOOST_AUTO_TEST_CASE(Test5)
 {
@@ -759,7 +753,6 @@ BOOST_AUTO_TEST_CASE(Test5)
  *
  * @test
  *
- * @date 2015-12-07
  */
 BOOST_AUTO_TEST_CASE(Test_E1)
 {
@@ -782,7 +775,6 @@ BOOST_AUTO_TEST_CASE(Test_E1)
  *
  * @test
  *
- * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test6)
 {
@@ -890,7 +882,6 @@ BOOST_AUTO_TEST_CASE(Test6)
  *
  * @test
  *
- * @date 2015-12-11
  */
 BOOST_AUTO_TEST_CASE(Test7)
 {
@@ -947,7 +938,6 @@ BOOST_AUTO_TEST_CASE(Test7)
  *
  * @test
  *
- * @date 2015-12-11
  */
 BOOST_AUTO_TEST_CASE(Test8)
 {

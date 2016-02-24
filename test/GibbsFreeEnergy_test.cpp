@@ -1,7 +1,6 @@
 /**
  * @file test/GibbsFreeEnergy_test.cpp
  *
- * @date 2016-01-21
  *
  * @author Youri Hoogstrate
  *
@@ -70,7 +69,6 @@ BOOST_AUTO_TEST_SUITE(Testing_hairpin_loop_element)
  * @test GibbsFreeEnergy::get_loop_hairpin
  * @test GibbsFreeEnergy::get_tloop
  *
- * @date 2015-06-23
  */
 BOOST_AUTO_TEST_CASE(TestHairpinLoop1)
 {
@@ -104,7 +102,6 @@ BOOST_AUTO_TEST_CASE(TestHairpinLoop1)
  *
  * @test GibbsFreeEnergy::get_hairpin_loop_element
  *
- * @date 2015-06-23
  */
 BOOST_AUTO_TEST_CASE(TestHairpinLoop2)
 {
@@ -139,7 +136,6 @@ BOOST_AUTO_TEST_CASE(TestHairpinLoop2)
  * @test GibbsFreeEnergy::get_hairpin_loop_element
  * @test GibbsFreeEnergy::get_tstackh
  *
- * @date 2015-06-23
  */
 BOOST_AUTO_TEST_CASE(TestHairpinLoop3)
 {
@@ -172,7 +168,6 @@ BOOST_AUTO_TEST_CASE(TestHairpinLoop3)
  *
  * @test GibbsFreeEnergy::get_hairpin_loop_element
  *
- * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(TestHairpinLoop4)
 {
@@ -205,7 +200,6 @@ BOOST_AUTO_TEST_CASE(TestHairpinLoop4)
  *
  * @test
  *
- * @date 2016-01-20
  */
 BOOST_AUTO_TEST_CASE(TestHairpinLoop5)
 {
@@ -258,7 +252,6 @@ BOOST_AUTO_TEST_CASE(TestHairpinLoop5)
  *
  * @test GibbsFreeEnergy::get_hairpin_loop_element
  *
- * @date 2015-06-23
  */
 BOOST_AUTO_TEST_CASE(TestHairpinLoop6)
 {
@@ -359,7 +352,6 @@ BOOST_AUTO_TEST_SUITE(TestingBulgeloop)
  *
  * @test GibbsFreeEnergy::get_bulge_loop_element
  *
- * @date 2015-06-23
  */
 BOOST_AUTO_TEST_CASE(TestBulgeLoop1)
 {
@@ -442,7 +434,6 @@ BOOST_AUTO_TEST_CASE(TestBulgeLoop1)
  *
  * @test GibbsFreeEnergy::get_bulge_loop_element
  *
- * @date 2015-06-22
  */
 BOOST_AUTO_TEST_CASE(TestBulgeLoop2)
 {
@@ -513,7 +504,6 @@ BOOST_AUTO_TEST_CASE(TestBulgeLoop2)
  *
  * @test GibbsFreeEnergy::get_bulge_loop_element
  *
- * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(TestBulgeLoop3)
 {
@@ -577,7 +567,6 @@ BOOST_AUTO_TEST_CASE(TestBulgeLoop3)
  *
  * @test GibbsFreeEnergy::get_bulge_loop_element
  *
- * @date 2015-06-23
  */
 BOOST_AUTO_TEST_CASE(TestBulgeLoop4)
 {
@@ -656,7 +645,6 @@ BOOST_AUTO_TEST_SUITE(TestingInteriorloop)
  *
  * @test GibbsFreeEnergy::get_interior_loop_element
  *
- * @date 2015-06-23
  */
 BOOST_AUTO_TEST_CASE(TestInteriorLoop1)
 {
@@ -774,7 +762,6 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop1)
  *
  * @test GibbsFreeEnergy::get_interior_loop_element
  *
- * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(TestInteriorLoop2)
 {
@@ -1074,7 +1061,6 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop2)
  *
  * @test GibbsFreeEnergy::get_interior_loop_element
  *
- * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(TestInteriorLoop2_poppen)
 {
@@ -1425,7 +1411,6 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop2_poppen)
  *
  * @test get_int11 & get_interior_loop_element
  *
- * @date 2015-06-23
  */
 BOOST_AUTO_TEST_CASE(TestInteriorLoop3)
 {
@@ -1520,7 +1505,6 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop3)
  *
  * @test GibbsFreeEnergy::get_interior_loop_element
  *
- * @date 2015-06-23
  */
 BOOST_AUTO_TEST_CASE(TestInteriorLoop4)
 {
@@ -1624,7 +1608,6 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop4)
  * @test GibbsFreeEnergy::get_interior_loop_element
  * @test GibbsFreeEnergy::get_int21 (using reverse sequence)
  *
- * @date 2015-06-23
  */
 BOOST_AUTO_TEST_CASE(TestInteriorLoop5)
 {
@@ -1737,7 +1720,6 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop5)
  *
  * @test
  *
- * @date 2015-06-23
  */
 BOOST_AUTO_TEST_CASE(TestInteriorLoop6)
 {

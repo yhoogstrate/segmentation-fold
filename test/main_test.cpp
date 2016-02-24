@@ -65,7 +65,6 @@ BOOST_AUTO_TEST_SUITE(Testing)
  *
  * @test
  *
- * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test_unfolded)
 {
@@ -93,7 +92,6 @@ BOOST_AUTO_TEST_CASE(Test_unfolded)
 /**
  * @brief tests Hairpin sequence GGGAAACCC to be folded as (((...)))
  *
- * @date 2016-01-21
  *
  * @test
  */
@@ -124,7 +122,6 @@ BOOST_AUTO_TEST_CASE(Test_hairpin)
 /**
  * @brief tests Bulge loop prediction
  *
- * @date 2016-01-21
  *
  * @test
  *
@@ -136,7 +133,6 @@ BOOST_AUTO_TEST_CASE(Test_hairpin)
  * 3') CCC CCC A
  * </PRE>
  *
- * @date 2015-07-23
  */
 BOOST_AUTO_TEST_CASE(Test_bulge_loop)
 {
@@ -163,7 +159,6 @@ BOOST_AUTO_TEST_CASE(Test_bulge_loop)
 /**
  * @brief tests Interior loop prediction
  *
- * @date 2016-01-21
  *
  * @test
  *
@@ -181,7 +176,6 @@ BOOST_AUTO_TEST_CASE(Test_bulge_loop)
  * ((((...((((...))))...))))
  * </PRE>
  *
- * @date 2015-07-23
  */
 BOOST_AUTO_TEST_CASE(Test_interior_loop)
 {
@@ -232,7 +226,6 @@ BOOST_AUTO_TEST_CASE(Test_interior_loop)
  * (((((((...)))(((...)))))))
  * </PRE>
  *
- * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test_bifurcation)
 {
@@ -293,7 +286,7 @@ BOOST_AUTO_TEST_CASE(Test_kturns)
 		zuker.dot_bracket.format((unsigned int)(*example).sequence.size() , predicted_structure);  ///@todo unsigned int -> size_t
 		
 		BOOST_REQUIRE_EQUAL((*example).dot_bracket_pattern.size() , predicted_structure.size());
-		BOOST_CHECK_MESSAGE(db.match((*example).dot_bracket_pattern, predicted_structure), "Predicted structure of '" << (*example).title << "' doesn't match it's true structure:\n\t[" << predicted_structure << "] (predicted structure)\n\t[" << (*example).dot_bracket_pattern << "] (pattern of true structure)\n");
+		BOOST_CHECK_MESSAGE(db.match((*example).dot_bracket_pattern, predicted_structure), "Predicted structure of '" << (*example).title << "' doesn't match it's true structure:\n\t" << predicted_structure << " (predicted structure)\n\t" << (*example).dot_bracket_pattern << " (pattern of true structure)\n");
 	}
 }
 
@@ -303,8 +296,6 @@ BOOST_AUTO_TEST_CASE(Test_kturns)
  * @brief Runs the function al tests of all the segments in the test-file with segmentation-funcitonality disabled.
  *
  * @test
- *
- * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test_kturns_segments_disabled)
 {
@@ -325,10 +316,10 @@ BOOST_AUTO_TEST_CASE(Test_kturns_segments_disabled)
 		zuker.traceback();
 		
 		std::string predicted_structure = "";
-		zuker.dot_bracket.format((unsigned int)(*example).sequence.size() , predicted_structure);  ///@todo unsigned int -> size_t
+		zuker.dot_bracket.format((unsigned int)(*example).sequence.size() , predicted_structure);///@todo unsigned int -> size_t
 		
 		BOOST_REQUIRE_EQUAL((*example).dot_bracket_pattern.size() , predicted_structure.size());
-		BOOST_CHECK_MESSAGE(db.match((*example).dot_bracket_pattern, predicted_structure) == false, "Predicted structure of '" << (*example).title << "' did match its true structure while it shouldn't:\n\t[" << predicted_structure << "] (predicted structure)\n\t[" << (*example).dot_bracket_pattern << "] (pattern of true structure)\n");
+		BOOST_CHECK_MESSAGE(db.match((*example).dot_bracket_pattern, predicted_structure) == false, "Predicted structure of '" << (*example).title << "' did match its true structure while it shouldn't:\n\t" << predicted_structure << " (predicted structure)\n\t" << (*example).dot_bracket_pattern << " (pattern of true structure)\n");
 	}
 }
 

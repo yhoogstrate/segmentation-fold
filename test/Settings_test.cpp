@@ -66,7 +66,6 @@ BOOST_AUTO_TEST_SUITE(Testing)
  *
  * @test
  *
- * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test1)
 {
@@ -109,7 +108,6 @@ BOOST_AUTO_TEST_CASE(Test1)
  *
  * @test
  *
- * @date 2016-01-21
  *
  * @todo Implement the possibility to run multiple entries from a FASTA file
  */
@@ -164,7 +162,6 @@ BOOST_AUTO_TEST_CASE(Test2)
  *
  * @test
  *
- * @date 2015-06-05
  */
 BOOST_AUTO_TEST_CASE(Test3)
 {
@@ -210,7 +207,6 @@ BOOST_AUTO_TEST_CASE(Test3)
  *
  * @test
  *
- * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test4)
 {
@@ -248,7 +244,6 @@ BOOST_AUTO_TEST_CASE(Test4)
  *
  * @test
  *
- * @date 2015-07-15
  */
 BOOST_AUTO_TEST_CASE(Test5)
 {
@@ -279,7 +274,6 @@ BOOST_AUTO_TEST_CASE(Test5)
  *
  * @test
  *
- * @date 2015-06-22
  */
 BOOST_AUTO_TEST_CASE(Test6)
 {
@@ -312,7 +306,6 @@ BOOST_AUTO_TEST_CASE(Test6)
  *
  * @test
  *
- * @date 2015-12-01
  */
 BOOST_AUTO_TEST_CASE(Test7)
 {
@@ -345,7 +338,6 @@ BOOST_AUTO_TEST_CASE(Test7)
  *
  * @test
  *
- * @date 2015-06-22
  */
 BOOST_AUTO_TEST_CASE(Test8)
 {
@@ -378,7 +370,6 @@ BOOST_AUTO_TEST_CASE(Test8)
  *
  * @test
  *
- * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test9)
 {

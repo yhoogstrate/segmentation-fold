@@ -181,8 +181,90 @@ BOOST_AUTO_TEST_CASE(Test2_segmentloop)
 	BOOST_REQUIRE_EQUAL(dotbracket_predicted.compare(dotbracket_valid), 0);
 }
 
-BOOST_AUTO_TEST_SUITE_END()
 
+
+/**
+ * @brief Tests prediction of the segmentloop
+ *
+ * @test
+ */
+BOOST_AUTO_TEST_CASE(Test3_multiloop_decomp_tRNA)
+{
+	Sequence sequence = Sequence();
+	ReadData thermodynamics = ReadData();
+	
+	// Init & run algorithm                                        sequence is hypothetical tRNA structure
+	char *argv[] = {(char *) PACKAGE_NAME, (char *) "-s", (char *) "GCCGGCaaaGGCCGGaaaCCGGCCaaGCGCaaaaGCGCaaCCCGGGaaaCCCGGGaaaGCCGGC", NULL};
+	//                                std::string true_structure = "((((((...((((((...))))))..((((....))))..((((((...))))))...))))))";
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	Settings settings = Settings(argc, argv, sequence);
+	Zuker zuker = Zuker(settings, sequence, thermodynamics);
+	zuker.energy();
+	
+	//  ((((((...((((((...))))))..((((....))))..((((((...))))))...))))))
+	//           :             :  :          :  :             :
+	//           9             23 26         37 40            54
+	
+	
+	// pairs itself
+	Pair p1 = Pair(9, 23);
+	Pair p2 = Pair(26, 37);
+	Pair p3 = Pair(40, 54);
+	
+	BOOST_CHECK_EQUAL(zuker.wmij.get(p1) , zuker.vij.get(p1));
+	BOOST_CHECK_EQUAL(zuker.wmij.get(p2) , zuker.vij.get(p2));
+	BOOST_CHECK_EQUAL(zuker.wmij.get(p3) , zuker.vij.get(p3));
+	
+	
+	// pairs' left extension  .(((...)))
+	Pair p1l = Pair(p1.first - 1, p1.second);
+	Pair p2l = Pair(p2.first - 1, p2.second);
+	Pair p3l = Pair(p3.first - 1, p3.second);
+	
+	BOOST_CHECK_EQUAL(zuker.wmij.get(p1l), zuker.vij.get(p1));
+	BOOST_CHECK_EQUAL(zuker.wmij.get(p2l), zuker.vij.get(p2));
+	BOOST_CHECK_EQUAL(zuker.wmij.get(p3l), zuker.vij.get(p3));
+	
+	
+	// pairs' right extension  (((...))).
+	///@todo some day the loop sizes will be penalized as well
+	Pair p1r = Pair(p1.first, p1.second + 1);
+	Pair p2r = Pair(p2.first, p2.second + 1);
+	Pair p3r = Pair(p3.first, p3.second + 1);
+	
+	BOOST_CHECK(zuker.wmij.get(p1r) >= zuker.vij.get(p1));
+	BOOST_CHECK(zuker.wmij.get(p1r) < 0 && zuker.wmij.get(p1r) != N_INFINITY);
+	
+	BOOST_CHECK(zuker.wmij.get(p2r) >= zuker.vij.get(p2));
+	BOOST_CHECK(zuker.wmij.get(p2r) < 0 && zuker.wmij.get(p2r) != N_INFINITY);
+	
+	BOOST_CHECK(zuker.wmij.get(p3r) >= zuker.vij.get(p3));
+	BOOST_CHECK(zuker.wmij.get(p3r) < 0 && zuker.wmij.get(p3r) != N_INFINITY);
+	
+	
+	// pairs symetrical extension  .(((...))).
+	///@todo some day the loop sizes will be penalized as well
+	Pair p1b = Pair(p1.first - 1, p1.second + 1);
+	Pair p2b = Pair(p2.first - 1, p2.second + 1);
+	Pair p3b = Pair(p3.first - 1, p3.second + 1);
+	
+	BOOST_CHECK_EQUAL(zuker.wmij.get(p1b), zuker.vij.get(p1));
+	BOOST_CHECK_EQUAL(zuker.wmij.get(p2b), zuker.vij.get(p2));
+	BOOST_CHECK_EQUAL(zuker.wmij.get(p3b), zuker.vij.get(p3));
+	
+	
+	// Compositions of multiple loops
+	Pair p1_2 = Pair(9, 37);
+	Pair p2_3 = Pair(26, 54);
+	BOOST_CHECK_EQUAL(zuker.wmij.get(p1) + zuker.wmij.get(p2), zuker.wmij.get(p1_2));
+	BOOST_CHECK_EQUAL(zuker.wmij.get(p2) + zuker.wmij.get(p3), zuker.wmij.get(p2_3));
+	
+	Pair p1_2_3 = Pair(9, 54);
+	BOOST_CHECK_EQUAL(zuker.wmij.get(p1) + zuker.wmij.get(p2) + zuker.wmij.get(p3), zuker.wmij.get(p1_2_3));
+}
+
+
+BOOST_AUTO_TEST_SUITE_END()
 
 BOOST_AUTO_TEST_SUITE(Test_matrices)
 
@@ -191,8 +273,6 @@ BOOST_AUTO_TEST_SUITE(Test_matrices)
  * @brief Check whether W contains the correct content for a not folding sequence
  *
  * @test Zuker::energy()
- *
- * @date 2015-07-15
  */
 BOOST_AUTO_TEST_CASE(Test_W_matrix_01)
 {
@@ -259,7 +339,6 @@ BOOST_AUTO_TEST_CASE(Test_W_matrix_01)
  *   .  .  .  .  .  .  .  . -2
  * </PRE>
  *
- * @date 2016-01-22
  *
  * @todo why do we see 1,1 and 2,2 while the other direction has 3,3?
  * @todo you can alsu use the scoring_matrixs' get_position(i,j) function to only store plain integers for memory efficiency
@@ -336,8 +415,6 @@ BOOST_AUTO_TEST_CASE(Test_Sequence_GGGAAACCC)
  * @test Zuker::energy
  * @test Zuker::v
  * @test Zuker::wij
- *
- * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test_sticky_ends_1)
 {

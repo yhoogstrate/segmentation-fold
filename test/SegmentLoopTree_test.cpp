@@ -1,7 +1,6 @@
 /**
  * @file test/SegmentTree_test.cpp
  *
- * @date 2016-01-21
  *
  * @author Youri Hoogstrate
  *
@@ -57,7 +56,6 @@ BOOST_AUTO_TEST_SUITE(Testing)
  *
  * @test
  *
- * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test1)
 {
@@ -93,7 +91,6 @@ BOOST_AUTO_TEST_CASE(Test1)
  *
  * @test
  *
- * @date 2015-12-07
  */
 BOOST_AUTO_TEST_CASE(Test2)
 {
@@ -138,7 +135,6 @@ BOOST_AUTO_TEST_CASE(Test2)
  *
  * @test
  *
- * @date 2015-12-07
  */
 BOOST_AUTO_TEST_CASE(Test3)
 {

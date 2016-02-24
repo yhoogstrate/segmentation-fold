@@ -1,7 +1,6 @@
 /**
  * @file test/Nucleotide_test.cpp
  *
- * @date 2015-05-02
  *
  * @author Youri Hoogstrate
  *
@@ -44,7 +43,6 @@ BOOST_AUTO_TEST_SUITE(Testing)
  *
  * @test
  *
- * @date 2014-04-15
  */
 BOOST_AUTO_TEST_CASE(Test_equality)
 {
@@ -87,7 +85,6 @@ BOOST_AUTO_TEST_CASE(Test_equality)
  *
  * @test
  *
- * @date 2014-04-15
  */
 BOOST_AUTO_TEST_CASE(Test_size)
 {

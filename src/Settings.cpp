@@ -1,14 +1,13 @@
 /**
  * @file src/Settings.cpp
  *
- * @date 2016-01-21
  *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
  * <PRE>
  * segmentation-fold can predict RNA 2D structures including K-turns.
- * Copyright (C) 2012-2015 Youri Hoogstrate
+ * Copyright (C) 2012-2016 Youri Hoogstrate
  *
  * This file is part of segmentation-fold and originally taken from
  * yh-kt-fold.
@@ -56,7 +55,6 @@
 /**
  * @brief Construct of the Settings class; default parameters should be initialized in this function.
  *
- * @date 2016-01-21
  *
  * @param local_argc Local argc (number of commandline parameters) parameter which should be passed through to the global argc
  * @param local_argv Local argv (commandline parameters) parameter which should be passed through to the global argv
@@ -82,7 +80,6 @@ Settings::Settings(int arg_argc, char **arg_argv, Sequence &arg_sequence) :
 /**
  * @brief Prints usage
  *
- * @date 2015-07-23
  */
 void Settings::print_usage(void)
 {
@@ -108,7 +105,6 @@ void Settings::print_usage(void)
 /**
  * @brief Prints the package version, git commit sha1, build-type and license
  *
- * @date 2015-04-23
  */
 void Settings::print_version(void)
 {
@@ -129,7 +125,6 @@ void Settings::print_version(void)
 /**
  * @brief Parses the commandline parameters.
  *
- * @date 2016-01-21
  */
 void Settings::parse_arguments(void)
 {
@@ -223,7 +218,6 @@ void Settings::parse_arguments(void)
 /**
  * @brief Parses the first FASTA line from a filestream (or stdin)
  *
- * @date 2016-01-21
  *
  * @param stream A stream for reading, like a file handle or stdin.
  *
@@ -266,7 +260,6 @@ void Settings::parse_sequence_from_stream(FILE *stream)
 /**
  * @brief Finds directories that should contain the segmentation-fold share data.
  *
- * @date 2015-06-23
  *
  * @return The directories found in environment variable $XDG_DATA_DIRS.
  */
@@ -317,7 +310,6 @@ std::vector<std::string> Settings::get_share_directories(void)
  * @section DESCRIPTION
  * The file is usually found in "/usr/local/share/[package_name]
  *
- * @date 2013-07-28
  */
 void Settings::get_segments_file(void)
 {

@@ -1,14 +1,13 @@
 /**
  * @file src/Segment.cpp
  *
- * @date 2015-08-06
  *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
  * <PRE>
  * segmentation-fold can predict RNA 2D structures including K-turns.
- * Copyright (C) 2012-2015 Youri Hoogstrate
+ * Copyright (C) 2012-2016 Youri Hoogstrate
  *
  * This file is part of segmentation-fold and originally taken from
  * yh-kt-fold.
@@ -70,7 +69,6 @@
  * @param arg_sequence_3p The segments sequence located closer to the 3' end of the RNA
  * @param arg_bonds A description of the bonds between the the two sequences, as integers starting from 0
  *
- * @date 2015-08-06
  */
 Segment::Segment(std::string arg_name, Sequence arg_sequence_5p, std::vector <Pair> arg_bonds, Sequence arg_sequence_3p, float arg_gibbs_free_energy):
 	name(arg_name),
@@ -96,7 +94,6 @@ Segment::Segment(std::string arg_name, Sequence arg_sequence_5p, std::vector <Pa
  * Direction::FirePrime will return 5 (CCCCC = 5 nucleotides)
  * Direction::TreePrime will return 4 (AAAA = 4 nucleotides)
  *
- * @date 2015-05-02
  * */
 size_t Segment::size(Direction direction)
 {
@@ -115,7 +112,6 @@ size_t Segment::size(Direction &direction)
  * @param direction Direction::FivePrime is used if the sequence is located closest to the 5' end of the RNA sequence; Direction::ThreePrime otherwise
  * @param i Location (starting from 0, ending at n-1) in the sequence of interest
  *
- * @date 2015-04-23
  */
 Nucleotide Segment::get_nucleotide(Direction direction, unsigned int &i)
 {
@@ -129,7 +125,6 @@ Nucleotide Segment::get_nucleotide(Direction direction, unsigned int &i)
  *
  * @param direction Direction::FivePrime is used if the sequence is located closest to the 5' end of the RNA sequence; Direction::ThreePrime otherwise
  *
- * @date 2015-04-16
  */
 Sequence *Segment::get_sequence(Direction direction)
 {

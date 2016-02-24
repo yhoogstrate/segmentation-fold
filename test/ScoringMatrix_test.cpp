@@ -1,7 +1,6 @@
 /**
  * @file test/ScoringMatrix_test.cpp
  *
- * @date 2015-12-09
  *
  * @author Youri Hoogstrate
  *
@@ -51,7 +50,6 @@ BOOST_AUTO_TEST_SUITE(Testing)
  *
  * @test
  *
- * @date 2015-06-24
  */
 BOOST_AUTO_TEST_CASE(Test1)
 {
@@ -117,7 +115,6 @@ BOOST_AUTO_TEST_CASE(Test1)
  *
  * @test
  *
- * @date 2015-12-09
  *
  * @note This test is testing a function that originally was planned to be private. Hopefully one day we succeed in testing a private function: http://boost.2283326.n4.nabble.com/Testing-private-methods-in-Boost-td2599819.html
  *
@@ -231,7 +228,6 @@ BOOST_AUTO_TEST_CASE(Test2)
  *
  * @test
  *
- * @date 2015-12-09
  */
 BOOST_AUTO_TEST_CASE(Test3)
 {
