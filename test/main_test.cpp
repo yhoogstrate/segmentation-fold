@@ -208,8 +208,6 @@ BOOST_AUTO_TEST_CASE(Test_interior_loop)
 /**
  * @brief tests Bifurcation prediction
  *
- * @date 2015-12-01
- *
  * @test
  *
  * @section DESCRIPTION
@@ -269,8 +267,6 @@ BOOST_AUTO_TEST_CASE(Test_bifurcation)
  * Uses the same segment_file as it would use normally. In case this
  * functional test is executed with a modified version of this file
  * this might result into unneccesairy errors.
- *
- * @date 2016-01-21
  *
  * @todo BOOST_REQUIRE_EQUAL << md5sum , segment_file
  */
@@ -342,8 +338,6 @@ BOOST_AUTO_TEST_CASE(Test_kturns_segments_disabled)
  * @brief Tests whether a specific sequence caused a critial error (seg-fault)
  *
  * @test
- *
- * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test_segfault_01)
 {
@@ -611,6 +605,36 @@ BOOST_AUTO_TEST_CASE(Test_zuker_07)
 	
 	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
 	BOOST_CHECK_EQUAL(energy , -9.90000057f);
+}
+
+
+
+/**
+ * @brief Tests prediction of certain structure tested with mfold/vienna
+ *
+ * @test
+ */
+BOOST_AUTO_TEST_CASE(Test_zuker_08)
+{
+	// Theoretically tRNA's can't be folded:
+	// GGCCGGAAACCGGCCGCGCAAAAGCGCCCCGGGAAACCCGGG
+	// But in practice it doesn't happen:
+	Sequence sequence = Sequence("GCCGGCAAAGGCCGGAAACCGGCCAAGCGCAAAAGCGCAACCCGGGAAACCCGGGAAAGCCGGC");
+	std::string true_structure = "((((((...((((((...))))))..((((....))))..((((((...))))))...))))))";
+	
+	// Load variables etc.
+	Settings settings = Settings(0, nullptr, sequence);
+	ReadData thermodynamics = ReadData();
+	
+	// Predict structure
+	Zuker zuker = Zuker(settings, sequence, thermodynamics);
+	float energy = zuker.energy();
+	zuker.traceback();
+	std::string predicted_structure;
+	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure);///@todo unsigned int -> size_t
+	
+	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
+	BOOST_CHECK_EQUAL(energy , -41.30f);//-41.30 according to vienna
 }
 
 

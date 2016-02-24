@@ -177,6 +177,7 @@ available at:
 
 All people that have contributed to the development of segmentation-fold are:
 
+* Youri Hoogstrate
 
 # CONTRIBUTING #
 
@@ -215,7 +216,7 @@ To run the test on (your copy of the) code before doing a pull request, run:
 	make clean
 	make readme
 	make
-	make check
+	make test
 	ctest -V -T memcheck
 
 This will re-build the readme, re-compile the code, and does testing with and
