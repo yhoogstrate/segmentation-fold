@@ -44,7 +44,6 @@ DotBracket::DotBracket()
  * @param i position i in the RNA sequence
  * @return The position in the sequence pairing with the nucleotide at position i, "UNBOUND" otherwise
  *
- *
  * @todo Make this a WHILE loop and avoid the early returns
  * @todo get rid of signed here - maybe make an at() function that requires to find something
  */
@@ -74,7 +73,6 @@ signed int DotBracket::find(unsigned int arg_i)
  *
  * @param arg_i Nucleotide position in the RNA sequence pairing with (,j)
  * @param arg_j Nucleotide position in the RNA sequence pairing with (i,)
- *
  */
 void DotBracket::store(unsigned int arg_i, unsigned int arg_j)
 {
@@ -87,7 +85,6 @@ void DotBracket::store(unsigned int arg_i, unsigned int arg_j)
  * @brief Formats and prints the 2D structure in DotBracket format
  *
  * @param rnaSequenceLength The length of the sequence of which the 2D strucutre is calculated
- *
  *
  * @todo Make it work with streams, so that output can be put in a file.
  * @todo Make the variables private const static class variables

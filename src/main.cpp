@@ -63,7 +63,6 @@
  * @param argc Number of commandline arguments.
  * @param argv Array of strings with the actual commandline arguments.
  *
- *
  * @return 0 For success; 1 for abnormal termination
  */
 int main(int argc, char *argv[])

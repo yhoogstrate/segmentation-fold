@@ -42,6 +42,8 @@ struct traceback_jump2
 	// target.first == target.second implies bifurcation between (i, target.first) & (target.first + 1, j)
 	// target.first < 0, end of line; stop traceback -> preferably if target.first > n (sequence size)
 	Pair target;
+	
+	char target_matrix;
 };
 
 #endif	// ZUKERTRACEBACK_HPP

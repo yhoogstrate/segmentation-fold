@@ -383,10 +383,10 @@ BOOST_AUTO_TEST_CASE(Test_Sequence_GGGAAACCC)
 	//                              -   -
 	//                                  -
 	Pair pend = Pair(0, 8);
-	traceback_jump2 jump_1 = zuker.tij.get(pend);
-	traceback_jump2 jump_2 = zuker.tij.get(jump_1.target);
-	traceback_jump2 jump_3 = zuker.tij.get(jump_2.target);
-	traceback_jump2 jump_4 = zuker.tij.get(jump_3.target);
+	traceback_jump2 jump_1 = zuker.tij_v.get(pend);
+	traceback_jump2 jump_2 = zuker.tij_v.get(jump_1.target);
+	traceback_jump2 jump_3 = zuker.tij_v.get(jump_2.target);
+	traceback_jump2 jump_4 = zuker.tij_v.get(jump_3.target);
 	
 	BOOST_CHECK_EQUAL(jump_1.target.first, 1);
 	BOOST_CHECK_EQUAL(jump_2.target.first, 2);
