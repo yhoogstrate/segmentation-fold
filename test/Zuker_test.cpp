@@ -108,7 +108,7 @@ BOOST_AUTO_TEST_CASE(Test1)
 	
 	
 	// Init & run algorithm
-	char *argv[] = {(char *) PACKAGE_NAME, (char *) "-s", (char *) "guUGUGAUgaaacUGAac", NULL};
+	char *argv[] = {(char *) PACKAGE_NAME, (char *) "-s", (char *) "guUGUGAUgaaacUGAac", nullptr};
 	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 	Settings settings = Settings(argc, argv, sequence);
 	Zuker zuker = Zuker(settings, sequence, thermodynamics);
@@ -164,7 +164,7 @@ BOOST_AUTO_TEST_CASE(Test2_segmentloop)
 	thermodynamics.segmentloops.insert(segmentloop_01);
 	
 	// Init & run algorithm
-	char *argv[] = {(char *) PACKAGE_NAME, (char *) "-s", (char *) "cAAuAAg", NULL};
+	char *argv[] = {(char *) PACKAGE_NAME, (char *) "-s", (char *) "cAAuAAg", nullptr};
 	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 	Settings settings = Settings(argc, argv, sequence);
 	Zuker zuker = Zuker(settings, sequence, thermodynamics);
@@ -194,7 +194,7 @@ BOOST_AUTO_TEST_CASE(Test3_multiloop_decomp_tRNA)
 	ReadData thermodynamics = ReadData();
 	
 	// Init & run algorithm                                        sequence is hypothetical tRNA structure
-	char *argv[] = {(char *) PACKAGE_NAME, (char *) "-s", (char *) "GCCGGCaaaGGCCGGaaaCCGGCCaaGCGCaaaaGCGCaaCCCGGGaaaCCCGGGaaaGCCGGC", NULL};
+	char *argv[] = {(char *) PACKAGE_NAME, (char *) "-s", (char *) "GCCGGCaaaGGCCGGaaaCCGGCCaaGCGCaaaaGCGCaaCCCGGGaaaCCCGGGaaaGCCGGC", nullptr};
 	//                                std::string true_structure = "((((((...((((((...))))))..((((....))))..((((((...))))))...))))))";
 	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 	Settings settings = Settings(argc, argv, sequence);
@@ -281,7 +281,7 @@ BOOST_AUTO_TEST_CASE(Test_W_matrix_01)
 	ReadData thermodynamics = ReadData();
 	
 	// init
-	char *argv[] = {(char *) PACKAGE_NAME, (char *) "-s", (char *) "aaa", NULL};
+	char *argv[] = {(char *) PACKAGE_NAME, (char *) "-s", (char *) "aaa", nullptr};
 	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 	
 	Settings settings = Settings(argc, argv, sequence);
@@ -347,7 +347,7 @@ BOOST_AUTO_TEST_CASE(Test_Sequence_GGGAAACCC)
 {
 	Sequence sequence = Sequence("GGGaaaCCC");
 	
-	char *argv[] = {(char *) PACKAGE_NAME, (char *) "-s", (char *) "GGGaaaCCC", NULL};
+	char *argv[] = {(char *) PACKAGE_NAME, (char *) "-s", (char *) "GGGaaaCCC", nullptr};
 	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 	
 	unsigned int i = 2;
@@ -420,7 +420,7 @@ BOOST_AUTO_TEST_CASE(Test_sticky_ends_1)
 {
 	Sequence sequence = Sequence("GGGAAACCCA");
 	
-	char *argv[] = {(char *) PACKAGE_NAME, (char *) "-s", (char *) "GGGAAACCCA", NULL};
+	char *argv[] = {(char *) PACKAGE_NAME, (char *) "-s", (char *) "GGGAAACCCA", nullptr};
 	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 	
 	unsigned int i = 2;
@@ -468,7 +468,7 @@ BOOST_AUTO_TEST_CASE(Test_sticky_ends_2)
 {
 	Sequence sequence = Sequence("AGGGAAACCC");
 	
-	char *argv[] = {(char *) PACKAGE_NAME, (char *) "-s", (char *) "AGGGAAACCC", NULL};
+	char *argv[] = {(char *) PACKAGE_NAME, (char *) "-s", (char *) "AGGGAAACCC", nullptr};
 	signed int argc = (signed int) sizeof(argv) / (signed int)sizeof(char *) - 1;
 	
 	unsigned int i = 3;
@@ -552,7 +552,7 @@ BOOST_AUTO_TEST_CASE(Test_energy_bifuraction)
 	Sequence sequence = Sequence("GGaaaCCCCaaaGG");
 	
 	//init
-	char *argv[] = {(char *)PACKAGE_NAME, (char *)"-s", (char *)"GGaaaCCCCaaaGG", NULL};
+	char *argv[] = {(char *)PACKAGE_NAME, (char *)"-s", (char *)"GGaaaCCCCaaaGG", nullptr};
 	signed int argc = (signed int)sizeof(argv) / (signed int)sizeof(char *) - 1;
 	
 	ReadData thermodynamics = ReadData();

@@ -1,7 +1,6 @@
 /**
  * @file src/Settings.cpp
  *
- *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
@@ -79,23 +78,25 @@ Settings::Settings(int arg_argc, char **arg_argv, Sequence &arg_sequence) :
 
 /**
  * @brief Prints usage
- *
  */
 void Settings::print_usage(void)
 {
-	fprintf(stderr, "Usage: " PACKAGE_NAME " -s [SEQUENCE]\n");
-	fprintf(stderr, "Usage: " PACKAGE_NAME " -f [FASTA_FILE]\n");
-	fprintf(stderr, "   * Note: If FASTA_FILE and SEQUENCE are not provided,\n           the program will read from STDIN.\n\n\n");
-	fprintf(stderr, "The following parameters can be used:\n");
-	fprintf(stderr, "  -s SEQUENCE                Specific RNA SEQUENCE (overrules -f)\n");
-	fprintf(stderr, "  -f FASTA_FILE              Location to FASTA_FILE that contains the sequence\n\n");
-	fprintf(stderr, "  -p                  [1/0]  Enable/disable segment prediction functionality\n\n");
-	fprintf(stderr, "  -h HAIRPINSIZE      [1,N}  Minimum hairpin size, default: 3\n");
-	fprintf(stderr, "  -x SEGMENTS_XML_FILE       Use custom  \"segments.xml\"-syntaxed file\n\n");
-	fprintf(stderr, "  -t NUM_THREADS      [0,N}  Number of threads; 0 = maximum available, default: 3.\n\n");
-	fprintf(stderr, "  -V                         Shows the version and license\n");
-	fprintf(stderr, "\n\n");
-	fprintf(stderr, "If you encounter problems with this software, please send bug-reports to:\n   <" PACKAGE_BUGREPORT ">\n\n");
+	std::cerr << "Usage: " PACKAGE_NAME " -s [SEQUENCE]\n";
+	std::cerr << "Usage: " PACKAGE_NAME " -f [FASTA_FILE]\n";
+	std::cerr << "   * Note: If FASTA_FILE and SEQUENCE are not provided,\n";
+	std::cerr << "           the program will read from STDIN.\n";
+	std::cerr << "\n\n";
+	std::cerr << "The following parameters can be used:\n";
+	std::cerr << "  -s SEQUENCE                Specific RNA SEQUENCE (overrules -f)\n";
+	std::cerr << "  -f FASTA_FILE              Location to FASTA_FILE that contains the sequence\n\n";
+	std::cerr << "  -p                  [1/0]  Enable/disable segment prediction functionality\n\n";
+	std::cerr << "  -h HAIRPINSIZE      [1,N}  Minimum hairpin size, default: 3\n";
+	std::cerr << "  -x SEGMENTS_XML_FILE       Use custom  \"segments.xml\"-syntaxed file\n\n";
+	std::cerr << "  -t NUM_THREADS      [0,N}  Number of threads; 0 = maximum available, default: 3\n\n";
+	std::cerr << "  -V                         Shows the version and license\n";
+	std::cerr << "\n\n";
+	std::cerr << "If you encounter problems with this software, please send bug-reports to:\n";
+	std::cerr << "   <" PACKAGE_BUGREPORT ">\n\n";
 	
 	this->run_print_usage = true;
 }
@@ -104,7 +105,6 @@ void Settings::print_usage(void)
 
 /**
  * @brief Prints the package version, git commit sha1, build-type and license
- *
  */
 void Settings::print_version(void)
 {
@@ -113,9 +113,12 @@ void Settings::print_version(void)
 #else
 #define BUILD_TYPE_STRING " (release)"
 #endif
-
-	printf("[Version]\n  " PACKAGE_STRING GIT_SHA1_STRING BUILD_TYPE_STRING "\n\n");
-	printf("[License]\n  GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>.\n\n  This is free software: you are free to change and redistribute it.\n  There is NO WARRANTY, to the extent permitted by law.\n\n  Written by Youri Hoogstrate.\n");
+	
+	std::cout << "[Version]\n  " PACKAGE_STRING GIT_SHA1_STRING BUILD_TYPE_STRING "\n\n";
+	std::cout << "[License]\n  GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>.\n\n";
+	std::cout << "  This is free software: you are free to change and redistribute it.\n";
+	std::cout << "  There is NO WARRANTY, to the extent permitted by law.\n\n";
+	std::cout << "  Written by Youri Hoogstrate.\n";
 	
 	this->run_print_version = true;
 }
@@ -124,12 +127,11 @@ void Settings::print_version(void)
 
 /**
  * @brief Parses the commandline parameters.
- *
  */
 void Settings::parse_arguments(void)
 {
 	// Ensure argument parsing always starts from the 1st element
-	// This allows parsing arguments multiple timesin one program
+	// This allows parsing arguments multiple times during one program (e.g. functional testing)
 	optind = 1;
 	
 	bool proceed = true;
@@ -218,7 +220,6 @@ void Settings::parse_arguments(void)
 /**
  * @brief Parses the first FASTA line from a filestream (or stdin)
  *
- *
  * @param stream A stream for reading, like a file handle or stdin.
  *
  * @todo find a MAXLEN - probably related to max size of int
@@ -260,7 +261,6 @@ void Settings::parse_sequence_from_stream(FILE *stream)
 /**
  * @brief Finds directories that should contain the segmentation-fold share data.
  *
- *
  * @return The directories found in environment variable $XDG_DATA_DIRS.
  */
 std::vector<std::string> Settings::get_share_directories(void)
@@ -276,7 +276,7 @@ std::vector<std::string> Settings::get_share_directories(void)
 	char *env_datadirs_buf;
 	if(env_datadirs != nullptr)
 	{
-		env_datadirs_buf = NULL;
+		env_datadirs_buf = nullptr;
 		
 		for(i = 0; i < strlen(env_datadirs); i++)
 		{

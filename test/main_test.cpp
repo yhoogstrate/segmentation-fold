@@ -638,7 +638,7 @@ BOOST_AUTO_TEST_CASE(Test_zuker_09)
 {
 	Sequence sequence = Sequence("CCCaaaGGGGGAAACCCCCGGG");
 	std::string true_structure = "(((...(((((...))))))))";
-	//                        ->  .((...(((((...))))).))    << should be optimal - should be picked up as wij bifurcation because it is unpaired!
+	//                        ->  .((...(((((...))))).))    << seems to be optimal - should be picked up as wij bifurcation because it is unpaired!
 	
 	// Load variables etc.
 	Settings settings = Settings(0, nullptr, sequence);
@@ -648,7 +648,10 @@ BOOST_AUTO_TEST_CASE(Test_zuker_09)
 	Zuker zuker = Zuker(settings, sequence, thermodynamics);
 	float energy = zuker.energy();
 	
-	
+	// i = 2
+	// i' = 6
+	// j' = 18
+	// j = 20
 	
 	zuker.traceback();
 	std::string predicted_structure;

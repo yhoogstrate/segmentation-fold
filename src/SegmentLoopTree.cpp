@@ -174,7 +174,7 @@ void SegmentLoopTree::insert(SegmentLoop &arg_segmentloop, SegmentLoopTreeElemen
  */
 bool SegmentLoopTree::empty(void)
 {
-	return (this->root == NULL);
+	return (this->root == nullptr);
 }
 
 
