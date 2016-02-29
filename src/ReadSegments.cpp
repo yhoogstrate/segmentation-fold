@@ -1,7 +1,6 @@
 /**
  * @file src/ReadSegments.cpp
  *
- *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
@@ -413,6 +412,10 @@ std::vector<Pair> ReadSegments::dotbracket_to_bonds(std::string &arg_dot_bracket
 void ReadSegments::clear(void)
 {
 	for(std::vector<Segment *>::iterator it = this->segment_list.begin(); it != this->segment_list.end(); ++it)
+	{
+		delete *it;///@note According to a valgrind test, brackets are not neccesairy
+	}
+	for(std::vector<SegmentLoop *>::iterator it = this->segmentloop_list.begin(); it != this->segmentloop_list.end(); ++it)
 	{
 		delete *it;///@note According to a valgrind test, brackets are not neccesairy
 	}
