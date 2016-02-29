@@ -37,8 +37,6 @@
 
 struct traceback_jump2
 {
-	bool store_pair;// is True, position (i,j) have to be stored as pair: i:'(', j:')'
-	
 	// target.first == target.second implies bifurcation between (i, target.first) & (target.first + 1, j)
 	// target.first < 0, end of line; stop traceback -> preferably if target.first > n (sequence size)
 	Pair target;

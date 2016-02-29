@@ -64,16 +64,16 @@ Zuker::Zuker(Settings &arg_settings, Sequence &arg_sequence, ReadData &arg_therm
 	wij(arg_sequence.size(), 0.0),
 	wmij(arg_sequence.size(), N_INFINITY),
 
-	tij_v(arg_sequence.size(), {false, Pair(UNBOUND, UNBOUND), V_MATRIX}),					//@todo use N instead of 0? >> if so, set UNBOUND to N  + 1 or so
-	  tij_w(arg_sequence.size(), {false, Pair(UNBOUND, UNBOUND), W_MATRIX}),					//@todo use N instead of 0? >> if so, set UNBOUND to N  + 1 or so
-	  tij_wm(arg_sequence.size(), {false, Pair(UNBOUND, UNBOUND), WM_MATRIX}),				//@todo use N instead of 0? >> if so, set UNBOUND to N  + 1 or so
+	tij_v(arg_sequence.size(), {Pair(UNBOUND, UNBOUND), V_MATRIX}),					//@todo use N instead of 0? >> if so, set UNBOUND to N  + 1 or so
+	  tij_w(arg_sequence.size(), {Pair(UNBOUND, UNBOUND), W_MATRIX}),					//@todo use N instead of 0? >> if so, set UNBOUND to N  + 1 or so
+	  tij_wm(arg_sequence.size(), {Pair(UNBOUND, UNBOUND), WM_MATRIX}),				//@todo use N instead of 0? >> if so, set UNBOUND to N  + 1 or so
 
 	  sij(arg_sequence.size(), nullptr)
 {
 	//@todo see which ones can drop
-	this->tij_v.fill({false, {NOT_YET_CALCULATED, NOT_YET_CALCULATED}});
-	this->tij_w.fill({false, {NOT_YET_CALCULATED, NOT_YET_CALCULATED}});
-	this->tij_wm.fill({false, {NOT_YET_CALCULATED, NOT_YET_CALCULATED}});
+	this->tij_v.fill({{NOT_YET_CALCULATED, NOT_YET_CALCULATED}, V_MATRIX});
+	this->tij_w.fill({{NOT_YET_CALCULATED, NOT_YET_CALCULATED}, W_MATRIX});
+	this->tij_wm.fill({{NOT_YET_CALCULATED, NOT_YET_CALCULATED}, WM_MATRIX});
 	
 	this->sequence_begin = this->sequence.data.begin();
 	this->traceback_stacktop = -1;
@@ -148,7 +148,7 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 	SegmentTraceback  *tmp_segmenttraceback = nullptr;
 	
 	energy = this->get_hairpin_loop_element(p1);						// Hairpin element
-	traceback_jump2 tmp_tij = traceback_jump2 {true, {UNBOUND, p1.second - 1}, V_MATRIX};
+	traceback_jump2 tmp_tij = traceback_jump2 {{UNBOUND, p1.second - 1}, V_MATRIX};
 	
 	
 	// SegmentLoop element
@@ -394,11 +394,11 @@ float Zuker::w(Pair &p1)
 	
 	if(tmp_pij == BOUND)
 	{
-		this->tij_w.set(p1, {false, p1, V_MATRIX});
+		this->tij_w.set(p1, {p1, V_MATRIX});
 	}
 	else
 	{
-		this->tij_w.set(p1, {false, {tmp_pij, tmp_qij}, W_MATRIX});
+		this->tij_w.set(p1, {{tmp_pij, tmp_qij}, W_MATRIX});
 	}
 	
 	return energy;
@@ -423,7 +423,7 @@ float Zuker::wm(Pair &p1, PairingPlus &p1p)
 	float energy;
 	energy = this->vij.get(p1);
 	
-	traceback_jump2 tmp_tij = {false , p1 , V_MATRIX};
+	traceback_jump2 tmp_tij = {p1, V_MATRIX};
 	Pair p2, p3;
 	
 	for(k = p1.first + 1; k < p1.second; k++)
@@ -526,7 +526,8 @@ void Zuker::traceback(void)
 		
 		
 		// Check whether the action for the current position is to STORE
-		if(action.store_pair)										// Store current pair (i,j)
+		//if(action.store_pair)										// Store current pair (i,j)
+		if(matrix == V_MATRIX)
 		{
 			this->dot_bracket.store(i, j);
 			

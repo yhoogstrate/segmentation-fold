@@ -1,4 +1,8 @@
-2016-02-23  Youri Hoogstrate
+2016-02-29  Youri Hoogstrate
+	* v1.6.1
+	  - Lower memory footprint for traceback matrices
+
+2016-02-29  Youri Hoogstrate
 	* v1.6.0
 	  - Many changes in the way of dealing with multiloops, rewritten traceback
 	    * This implementation allows traceback from any start point
