@@ -1,7 +1,6 @@
 /**
  * @file src/SegmentLoopTree.cpp
  *
- *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
@@ -55,18 +54,16 @@ SegmentLoopTree::SegmentLoopTree()
 
 /**
  * @brief Destructs the tree recursively
- *
  */
 SegmentLoopTree::~SegmentLoopTree()
 {
-	delete this->root;
+	this->clear();
 }
 
 
 
 /**
  * @brief
- *
  */
 SegmentLoop *SegmentLoopTree::search(SubSequence &arg_subsequence)
 {
@@ -77,7 +74,6 @@ SegmentLoop *SegmentLoopTree::search(SubSequence &arg_subsequence)
 
 /**
  * @brief
- *
  */
 SegmentLoop *SegmentLoopTree::search(SubSequence &arg_subsequence, SegmentLoopTreeElement *arg_element)
 {
@@ -109,7 +105,6 @@ SegmentLoop *SegmentLoopTree::search(SubSequence &arg_subsequence, SegmentLoopTr
 
 /**
  * @brief Adds a Segment (as member of a SegmentLoopTreeElement) to the tree.
- *
  */
 void SegmentLoopTree::insert(SegmentLoop &arg_segmentloop)
 {
@@ -181,7 +176,6 @@ bool SegmentLoopTree::empty(void)
 
 /**
  * @brief Counts the elements in the subtree recursively
- *
  */
 size_t SegmentLoopTree::size(SegmentLoopTreeElement *arg_element)
 {
@@ -197,4 +191,31 @@ size_t SegmentLoopTree::size(SegmentLoopTreeElement *arg_element)
 size_t SegmentLoopTree::size(void)
 {
 	return this->empty() ? 0 : this->size(this->root);
+}
+
+
+
+
+/**
+ * @brief Destructs the tree element recursively
+ */
+void SegmentLoopTree::clear(SegmentLoopTreeElement *arg_element)
+{
+	if(arg_element!=nullptr)
+	{
+		this->clear(arg_element->left);
+		this->clear(arg_element->right);
+		
+		delete arg_element;
+	}
+}
+
+
+
+/**
+ * @brief Destructs entire tree recursively
+ */
+void SegmentLoopTree::clear(void)
+{
+	this->clear(this->root);
 }
