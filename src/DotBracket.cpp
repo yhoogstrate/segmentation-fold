@@ -114,14 +114,15 @@ void DotBracket::format(unsigned int n, std::string &output)
 	}
 	
 	
-	// Check if the number of ( and ) chars is identical
+	// Check if the number of parenthesis; '(' and ')' chars, is identical
 #if DEBUG
 	unsigned int left = 0;
 	unsigned int right = 0;
+	size_t k;
 	
-	for(i = 0; i < (signed int) n; i++)
+	for(k = 0; k < (size_t) n; k++)
 	{
-		switch(output[i])
+		switch(output[k])
 		{
 			case DOTBRACKET__PAIRING_LEFT:
 				left++;

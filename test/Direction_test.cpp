@@ -1,12 +1,11 @@
 /**
  * @file test/Direction_test.cpp
  *
- *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
- * Copyright (C) 2012-2015 Youri Hoogstrate
+ * Copyright (C) 2012-2016 Youri Hoogstrate
  *
  * This file is part of segmentation-fold.
  *
@@ -41,7 +40,6 @@ BOOST_AUTO_TEST_SUITE(Testing)
  * @brief Tests whether 5' and 3' are not identical
  *
  * @test
- *
  */
 BOOST_AUTO_TEST_CASE(Test1)
 {
@@ -72,7 +70,6 @@ BOOST_AUTO_TEST_CASE(Test1)
  * @brief Tests whether the size of a direction is 1 byte
  *
  * @test
- *
  */
 BOOST_AUTO_TEST_CASE(Test2)
 {

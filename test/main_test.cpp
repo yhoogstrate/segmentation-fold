@@ -259,29 +259,6 @@ BOOST_AUTO_TEST_CASE(Test_bifurcation)
  * this might result into unneccesairy errors.
  *
  * @todo BOOST_REQUIRE_EQUAL << md5sum , segment_file
- *
- * @bug
-
-
-GUAGUCGUGAGGUAGAGCGACCGAUUAGACAAACUUACAGACGC
-((.((((((((((......)))(.((....)))))))).)))))
-
-
-GUAGUCGUGAGGUAGAGCGACCGAUUAGACAAACUUAC
-((((((((........))))).((..((.....)))))
-
-
-GUAGUCGUGAGUAGAGCGACCGAUUAGACAAACUUAC
-((((((((.......))))).((..((.....)))))
-
-
-
-GUAGUCGUGAGUAGAGCGACGAUUAGACAAACUUAC
-((((((((.......)))))((..((.....)))))
-
-
-
-
  */
 BOOST_AUTO_TEST_CASE(Test_kturns)
 {

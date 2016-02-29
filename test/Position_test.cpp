@@ -1,12 +1,11 @@
 /**
  * @file test/Position_test.cpp
  *
- *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
- * Copyright (C) 2012-2015 Youri Hoogstrate
+ * Copyright (C) 2012-2016 Youri Hoogstrate
  *
  * This file is part of segmentation-fold.
  *
@@ -43,6 +42,7 @@ BOOST_AUTO_TEST_SUITE(Testing)
 
 /**
  * @brief Tests whether Nucleotides correctly separate
+ *
  * @test
  */
 BOOST_AUTO_TEST_CASE(Test1)
@@ -64,11 +64,12 @@ BOOST_AUTO_TEST_CASE(Test1)
 	BOOST_CHECK_EQUAL((*position_G), Nucleotide::G);
 }
 
+
+
 /**
  * @brief Checks whether begin() last() and substractions with positions work
  *
  * @test
- *
  *
  * @section DESCRIPTION
  * The following sequence "ACUG" will produce the following vector:
@@ -88,11 +89,12 @@ BOOST_AUTO_TEST_CASE(Test2)
 	BOOST_CHECK_EQUAL(position_last - position_begin, 3);				// if normal integers would have been used, 3 - 0 = 3
 }
 
+
+
 /**
  * @brief check whether begin() last() and substractions with positions work and whether everything is fine after a sequence push_back
  *
  * @test
- *
  *
  * @section DESCRIPTION
  * The following sequence "ACUG" will be the following vector:
@@ -164,11 +166,12 @@ BOOST_AUTO_TEST_CASE(Test3)
 	}
 }
 
+
+
 /**
  * @brief Checks whether end() and push_back() are in sync
  *
  * @test
- *
  */
 BOOST_AUTO_TEST_CASE(Test4)
 {

@@ -1,12 +1,11 @@
 /**
  * @file test/ScoringMatrix_test.cpp
  *
- *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
- * Copyright (C) 2012-2015 Youri Hoogstrate
+ * Copyright (C) 2012-2016 Youri Hoogstrate
  *
  * This file is part of segmentation-fold.
  *
@@ -49,7 +48,6 @@ BOOST_AUTO_TEST_SUITE(Testing)
  * @brief Tests whether the size of the matrix scales correctly up with the size of a Sequence
  *
  * @test
- *
  */
 BOOST_AUTO_TEST_CASE(Test1)
 {
@@ -115,7 +113,6 @@ BOOST_AUTO_TEST_CASE(Test1)
  *
  * @test
  *
- *
  * @note This test is testing a function that originally was planned to be private. Hopefully one day we succeed in testing a private function: http://boost.2283326.n4.nabble.com/Testing-private-methods-in-Boost-td2599819.html
  *
  * Positions:
@@ -127,7 +124,6 @@ BOOST_AUTO_TEST_CASE(Test1)
 	[ 2 ][ 5 ][ 7 ][-1 ][-1 ]
 	[ 3 ][ 6 ][ 8 ][ 9 ][-1 ]
  * </PRE>
- *
  */
 BOOST_AUTO_TEST_CASE(Test2)
 {
@@ -227,7 +223,6 @@ BOOST_AUTO_TEST_CASE(Test2)
  * @brief Tests whether setting and getting works correctly
  *
  * @test
- *
  */
 BOOST_AUTO_TEST_CASE(Test3)
 {

@@ -7,7 +7,7 @@
  * @section LICENSE
  * <PRE>
  * segmentation-fold can predict RNA 2D structures including K-turns.
- * Copyright (C) 2012-2015 Youri Hoogstrate
+ * Copyright (C) 2012-2016 Youri Hoogstrate
  *
  * This file is part of segmentation-fold.
  *
@@ -53,7 +53,6 @@ BOOST_AUTO_TEST_SUITE(Testing)
  * @brief Tests size of the SegmeentTreeElement
  *
  * @test
- *
  */
 BOOST_AUTO_TEST_CASE(Test1)
 {
@@ -76,11 +75,12 @@ BOOST_AUTO_TEST_CASE(Test1)
 	BOOST_CHECK_EQUAL(element_01.size(), 2);
 }
 
+
+
 /**
  * @brief Tests whether segments with a different 5' length can be searched through each other
  *
  * @test
- *
  */
 BOOST_AUTO_TEST_CASE(Test2)
 {
@@ -149,11 +149,12 @@ BOOST_AUTO_TEST_CASE(Test2)
 	BOOST_CHECK(segment_06->gibbs_free_energy == energy_02);
 }
 
+
+
 /**
  * @brief Tests whether segments with a different 5' sequence can be searched through each other
  *
  * @test
- *
  */
 BOOST_AUTO_TEST_CASE(Test3)
 {
@@ -212,11 +213,11 @@ BOOST_AUTO_TEST_CASE(Test3)
 }
 
 
+
 /**
  * @brief Tests whether segments with a different 3' length can be searched through each other
  *
  * @test
- *
  */
 BOOST_AUTO_TEST_CASE(Test4)
 {
@@ -274,11 +275,12 @@ BOOST_AUTO_TEST_CASE(Test4)
 	BOOST_CHECK(segment_06->gibbs_free_energy == energy_02);
 }
 
+
+
 /**
  * @brief Tests whether segments with a different 3' sequence can be searched through each other
  *
  * @test
- *
  */
 BOOST_AUTO_TEST_CASE(Test5)
 {
@@ -336,11 +338,12 @@ BOOST_AUTO_TEST_CASE(Test5)
 	BOOST_CHECK(segment_06->gibbs_free_energy == energy_02);
 }
 
+
+
 /**
  * @brief Tests error throwing when inserting segments with identical sequences
  *
  * @test
- *
  */
 BOOST_AUTO_TEST_CASE(Test6)
 {
