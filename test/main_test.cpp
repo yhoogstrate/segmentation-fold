@@ -259,6 +259,29 @@ BOOST_AUTO_TEST_CASE(Test_bifurcation)
  * this might result into unneccesairy errors.
  *
  * @todo BOOST_REQUIRE_EQUAL << md5sum , segment_file
+ *
+ * @bug
+
+
+GUAGUCGUGAGGUAGAGCGACCGAUUAGACAAACUUACAGACGC
+((.((((((((((......)))(.((....)))))))).)))))
+
+
+GUAGUCGUGAGGUAGAGCGACCGAUUAGACAAACUUAC
+((((((((........))))).((..((.....)))))
+
+
+GUAGUCGUGAGUAGAGCGACCGAUUAGACAAACUUAC
+((((((((.......))))).((..((.....)))))
+
+
+
+GUAGUCGUGAGUAGAGCGACGAUUAGACAAACUUAC
+((((((((.......)))))((..((.....)))))
+
+
+
+
  */
 BOOST_AUTO_TEST_CASE(Test_kturns)
 {
@@ -278,6 +301,8 @@ BOOST_AUTO_TEST_CASE(Test_kturns)
 		Zuker zuker = Zuker(settings, (*example).sequence, thermodynamics);
 		zuker.energy();
 		zuker.traceback();
+		
+		std::cout << (*example).sequence.str() << "\n";
 		
 		std::string predicted_structure = "";
 		zuker.dot_bracket.format((unsigned int)(*example).sequence.size() , predicted_structure);  ///@todo unsigned int -> size_t
@@ -631,14 +656,11 @@ BOOST_AUTO_TEST_CASE(Test_zuker_08)
  * @brief Tests prediction of certain structure tested with mfold/vienna
  *
  * @test
- * 
- * @todo figure out why the interior loop is chosen instead of the bulge - previous analysis indicated that the interior loop might get a too large energy score
  */
 BOOST_AUTO_TEST_CASE(Test_zuker_09)
 {
 	Sequence sequence = Sequence("CCCaaaGGGGGAAACCCCCGGG");
 	std::string true_structure = "(((...(((((...))))))))";
-	//                        ->  .((...(((((...))))).))    << seems to be optimal - should be picked up as wij bifurcation because it is unpaired!
 	
 	// Load variables etc.
 	Settings settings = Settings(0, nullptr, sequence);
@@ -648,17 +670,12 @@ BOOST_AUTO_TEST_CASE(Test_zuker_09)
 	Zuker zuker = Zuker(settings, sequence, thermodynamics);
 	float energy = zuker.energy();
 	
-	// i = 2
-	// i' = 6
-	// j' = 18
-	// j = 20
-	
 	zuker.traceback();
 	std::string predicted_structure;
 	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure);///@todo unsigned int -> size_t
 	
 	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
-	BOOST_CHECK_EQUAL(energy , -12.4000006f);
+	BOOST_CHECK_EQUAL(energy , -12.000001f);
 }
 
 

@@ -65,10 +65,10 @@ Zuker::Zuker(Settings &arg_settings, Sequence &arg_sequence, ReadData &arg_therm
 	wmij(arg_sequence.size(), N_INFINITY),
 
 	tij_v(arg_sequence.size(), {false, Pair(UNBOUND, UNBOUND), V_MATRIX}),					//@todo use N instead of 0? >> if so, set UNBOUND to N  + 1 or so
-	tij_w(arg_sequence.size(), {false, Pair(UNBOUND, UNBOUND), W_MATRIX}),					//@todo use N instead of 0? >> if so, set UNBOUND to N  + 1 or so
-	tij_wm(arg_sequence.size(), {false, Pair(UNBOUND, UNBOUND), WM_MATRIX}),				//@todo use N instead of 0? >> if so, set UNBOUND to N  + 1 or so
+	  tij_w(arg_sequence.size(), {false, Pair(UNBOUND, UNBOUND), W_MATRIX}),					//@todo use N instead of 0? >> if so, set UNBOUND to N  + 1 or so
+	  tij_wm(arg_sequence.size(), {false, Pair(UNBOUND, UNBOUND), WM_MATRIX}),				//@todo use N instead of 0? >> if so, set UNBOUND to N  + 1 or so
 
-	sij(arg_sequence.size(), nullptr)
+	  sij(arg_sequence.size(), nullptr)
 {
 	//@todo see which ones can drop
 	this->tij_v.fill({false, {NOT_YET_CALCULATED, NOT_YET_CALCULATED}});
@@ -148,7 +148,7 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 	SegmentTraceback  *tmp_segmenttraceback = nullptr;
 	
 	energy = this->get_hairpin_loop_element(p1);						// Hairpin element
-	traceback_jump2 tmp_tij = traceback_jump2{true, {UNBOUND, p1.second - 1}, V_MATRIX};
+	traceback_jump2 tmp_tij = traceback_jump2 {true, {UNBOUND, p1.second - 1}, V_MATRIX};
 	
 	
 	// SegmentLoop element
@@ -192,7 +192,6 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 				else if(ip == (p1.first + 1) || jp == (p1.second - 1))// Bulge-loop element
 				{
 					tmp = this->get_bulge_loop_element(region) + v_ij_jp;
-					
 					if(tmp < energy)
 					{
 						energy = tmp;
@@ -205,7 +204,6 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 				else											// Interior loop or Segment
 				{
 					tmp = this->get_interior_loop_element(region) + v_ij_jp;
-					
 					if(tmp < energy)
 					{
 						energy = tmp;
@@ -238,10 +236,19 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 		}
 		
 		
-		if(ip + 1 < p1.second)
+		// find multibranch loops enclosed by (i,j)
+		// if ip - p1.first + 1 < this->settings.minimal_hairpin_length)
+		// if p1.second - ip + 1 < this->settings.minimal_hairpin_length)
+		if(p1.first + 1 < ip && ip + 2 < p1.second)
 		{
-			Pair p3 = Pair(p1.first, ip);
-			Pair p4 = Pair(ip + 1, p1.second);
+#if DEBUG
+			if(p1.first + 1 >= ip || ip >= p1.second - 2)
+			{
+				throw std::invalid_argument("Zuker::v(" + std::to_string(p1.first) + ", " + std::to_string(p1.second) + ") -> m(" + std::to_string(p1.first + 1) + ", " + std::to_string(ip) + ", " + std::to_string(ip + 1) + ", " + std::to_string(p1.second - 1) + "): incorrect loop size");
+			}
+#endif //DEBUG
+			Pair p3 = Pair(p1.first + 1, ip);
+			Pair p4 = Pair(ip + 1, p1.second - 1);
 			tmp = this->wmij.get(p3) + this->wmij.get(p4);
 			if(tmp < energy)
 			{
@@ -254,7 +261,7 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 		}
 	}
 	
-	this->tij_v.set(p1, tmp_tij );
+	this->tij_v.set(p1, tmp_tij);
 	if(tmp_segmenttraceback != nullptr)
 	{
 		this->sij.set(p1, tmp_segmenttraceback);
@@ -416,7 +423,7 @@ float Zuker::wm(Pair &p1, PairingPlus &p1p)
 	float energy;
 	energy = this->vij.get(p1);
 	
-	traceback_jump2 tmp_tij = this->tij_v.get(p1);
+	traceback_jump2 tmp_tij = {false , p1 , V_MATRIX};
 	Pair p2, p3;
 	
 	for(k = p1.first + 1; k < p1.second; k++)
@@ -429,7 +436,7 @@ float Zuker::wm(Pair &p1, PairingPlus &p1p)
 		{
 			// TB to p2 and p3, as bifurcation
 			energy = tmp;
-			tmp_tij.target = {k,k};
+			tmp_tij.target = {k, k};
 			tmp_tij.target_matrix = WM_MATRIX; // go back to the v matrix - for both
 		}
 	}
@@ -508,13 +515,13 @@ void Zuker::traceback(void)
 		{
 			case V_MATRIX:
 				action = this->tij_v.get(pair1);
-			break;
+				break;
 			case W_MATRIX:
 				action = this->tij_w.get(pair1);
-			break;
+				break;
 			case WM_MATRIX:
 				action = this->tij_wm.get(pair1);
-			break;
+				break;
 		}
 		
 		
@@ -550,8 +557,16 @@ void Zuker::traceback(void)
 		{
 			if(action.target.first == action.target.second)
 			{
-				this->traceback_push(pair1.first, action.target.first,action.target_matrix);// W or WM matrix
-				this->traceback_push(action.target.first + 1, pair1.second,action.target_matrix);// W or WM matrix
+				if(matrix == V_MATRIX)
+				{
+					this->traceback_push(pair1.first + 1, action.target.first, action.target_matrix); // W or WM matrix
+					this->traceback_push(action.target.first + 1, pair1.second - 1, action.target_matrix); // W or WM matrix
+				}
+				else
+				{
+					this->traceback_push(pair1.first, action.target.first, action.target_matrix); // W or WM matrix
+					this->traceback_push(action.target.first + 1, pair1.second, action.target_matrix); // W or WM matrix
+				}
 			}
 			else
 			{

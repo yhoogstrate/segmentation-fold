@@ -58,7 +58,7 @@
 
 
 
-BOOST_AUTO_TEST_SUITE(Test_energy_loading) // Test energy loading
+BOOST_AUTO_TEST_SUITE(Test_energy_loading)// Test energy loading
 
 
 /**
@@ -201,11 +201,6 @@ BOOST_AUTO_TEST_CASE(Test3_multiloop_decomp_tRNA)
 	Zuker zuker = Zuker(settings, sequence, thermodynamics);
 	zuker.energy();
 	
-	//  ((((((...((((((...))))))..((((....))))..((((((...))))))...))))))
-	//           :             :  :          :  :             :
-	//           9             23 26         37 40            54
-	
-	
 	// pairs itself
 	Pair p1 = Pair(9, 23);
 	Pair p2 = Pair(26, 37);
@@ -304,6 +299,7 @@ BOOST_AUTO_TEST_CASE(Test_W_matrix_01)
 	}
 	
 	zuker.energy();
+	
 }
 
 
@@ -375,33 +371,27 @@ BOOST_AUTO_TEST_CASE(Test_Sequence_GGGAAACCC)
 	// Checking these guys:                *
 	//  -   -   -   -   -   -   -   -  1,7
 	//      -   -   -   -   -   -  2,6  -
-	//          -   -   -   -  3,5  -   -
-	//              -   -  0,0  -   -   -
+	//          -   -   -   -  *,?  -   -
+	//              -   -  *,?  -   -   -
 	//                  -   -   -   -   -
 	//                      -   -   -   -
 	//                          -   -   -
 	//                              -   -
 	//                                  -
 	Pair pend = Pair(0, 8);
+	
 	traceback_jump2 jump_1 = zuker.tij_v.get(pend);
-	traceback_jump2 jump_2 = zuker.tij_v.get(jump_1.target);
-	traceback_jump2 jump_3 = zuker.tij_v.get(jump_2.target);
-	traceback_jump2 jump_4 = zuker.tij_v.get(jump_3.target);
-	
 	BOOST_CHECK_EQUAL(jump_1.target.first, 1);
-	BOOST_CHECK_EQUAL(jump_2.target.first, 2);
-	BOOST_CHECK_EQUAL(jump_3.target.first, 3);
-	BOOST_CHECK_EQUAL(jump_4.target.first, UNBOUND);
-	
 	BOOST_CHECK_EQUAL(jump_1.target.second, 7);
-	BOOST_CHECK_EQUAL(jump_2.target.second, 6);
-	BOOST_CHECK_EQUAL(jump_3.target.second, 5);
-	//BOOST_CHECK_EQUAL(jump_4.target.second, 0); << this one is not defined, since the first one says unbound (meaning, no target)
-	
 	BOOST_CHECK_EQUAL(jump_1.store_pair, true);
+	
+	traceback_jump2 jump_2 = zuker.tij_v.get(jump_1.target);
+	BOOST_CHECK_EQUAL(jump_2.target.first, 2);
+	BOOST_CHECK_EQUAL(jump_2.target.second, 6);
 	BOOST_CHECK_EQUAL(jump_2.store_pair, true);
-	BOOST_CHECK_EQUAL(jump_3.store_pair, true);
-	BOOST_CHECK_EQUAL(jump_4.store_pair, false);
+	
+	traceback_jump2 jump_3 = zuker.tij_v.get(jump_2.target);
+	BOOST_CHECK_EQUAL(jump_3.target.first, UNBOUND);// third hop, eol
 	
 	// check total energy
 	BOOST_CHECK_EQUAL(energy, -32.50);

@@ -113,7 +113,7 @@ void Settings::print_version(void)
 #else
 #define BUILD_TYPE_STRING " (release)"
 #endif
-	
+
 	std::cout << "[Version]\n  " PACKAGE_STRING GIT_SHA1_STRING BUILD_TYPE_STRING "\n\n";
 	std::cout << "[License]\n  GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>.\n\n";
 	std::cout << "  This is free software: you are free to change and redistribute it.\n";

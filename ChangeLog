@@ -2,7 +2,9 @@
 	* v1.6.0
 	  - Many changes in the way of dealing with multiloops.
 	  - Additional test cases
-
+	    * Functional tests comparing with results found with mfold/unafold/vienna
+	  - Removal of @date tags because it's a pair to keep up to date and github has the blame functionality
+	  - Stricter implementation of the c++11/c++14 standard
 
 2016-02-09  Youri Hoogstrate
 	* v1.5.0

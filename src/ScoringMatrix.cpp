@@ -114,8 +114,13 @@ signed int ScoringMatrix<T>::get_position(Pair &p)
 #if DEBUG
 	signed int output;
 	
+	
+	//printf(" *       {%i,%i}\n",p.first,p.second);
+	
 	if(p.first < this->grid_size && p.second < this->grid_size)
 	{
+		//printf(" **      {%i,%i}\n",p.first,p.second);
+		
 		if(p.second == p.first || (p.first - 1) == p.second)			// The first 2 diagonals get -1 because they use a pre-defined variable
 		{
 			return -1;
@@ -126,14 +131,17 @@ signed int ScoringMatrix<T>::get_position(Pair &p)
 			size_t bottom = this->number_of_elements(r);
 			size_t row = (this->grid_size - 1) - p.second;
 			
+			//printf(" *-      {%i,%i}\n",p.first,p.second);
+			
 			///@todo change tis into size_t, and if out of bounds have to be returned, change this to MAX VALsize_t -1 and MAX VAL size_t -2
 			return (signed int) this->m.size() - (signed int) bottom - (signed int) row - 1;
 		}
-		
 	}
 	
+	//printf(" *?      {%i,%i}\n",p.first,p.second);
+	
 	// The out of bound may never occur in a good implementation of the algorithm
-	throw std::invalid_argument("ScoringMatrix::get_position: Out of bound");
+	throw std::invalid_argument("ScoringMatrix::get_position: Out of bound (" + std::to_string(p.first)  + "," + std::to_string(p.second)  + ")");
 	
 	return output;
 	

@@ -1,7 +1,6 @@
 /**
  * @file src/GibbsFreeEnergy.cpp
  *
- *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
@@ -333,7 +332,6 @@ inline float GibbsFreeEnergy::get_stack(Pairing &pairing1, Pairing &pairing2)
 
 /**
  * @brief Loads terminal stack of an interior loop
- *
  */
 inline float GibbsFreeEnergy::get_tstacki(Pairing &pairing1, Nucleotide arg_i1, Nucleotide arg_j1)
 {
@@ -638,7 +636,6 @@ float GibbsFreeEnergy::get_hairpin_loop_element(Pair &arg_pair)
  *
  * @return Amount of corresponding Gibbs free energy if there is an bulge loop betweein (i,j) and (i',j'); infinity otherwise.
  *
- *
  * @todo check: why check the size of only one size? -> does the algorithm ensure one side is always == 0?
  */
 float GibbsFreeEnergy::get_bulge_loop_element(Region &r)
@@ -657,7 +654,7 @@ float GibbsFreeEnergy::get_bulge_loop_element(Region &r)
 #if DEBUG
 	else if(n_unpaired < 1)
 	{
-		printf("Warning: unneccesairy call of get_bulge_loop_element()");
+		std::cerr << "Warning: unneccesairy call of get_bulge_loop_element()";
 		energy = N_INFINITY;
 	}
 #endif // DEBUG
@@ -706,7 +703,6 @@ float GibbsFreeEnergy::get_bulge_loop_element(Region &r)
  * - loop internal loop < min hairpin loop?
  * - use switches
  *
- *
  * @param arg_region as region with Nucleotides i (pair1.first), j (pair1.second), i') and j' as positions of the sequence, where i paired to j, i' to j' and where i < i' < j' < j
  *
  * @return Amount of corresponding Gibbs free energy if there is an internal/interior loop betweein (i,j) and (i',j'); infinity otherwise.
@@ -718,20 +714,22 @@ float GibbsFreeEnergy::get_interior_loop_element(Region &arg_region)
 	
 	float energy = 0.0;
 	
-	unsigned int l1 = (arg_region.pair2.first - arg_region.pair1.first);
-	unsigned int l2 = (arg_region.pair1.second - arg_region.pair2.second);
+	unsigned int l1 = arg_region.pair2.first - arg_region.pair1.first;
+	unsigned int l2 = arg_region.pair1.second - arg_region.pair2.second;
 	
+	//{i}{i'}..     -> l1 = 2 - 1 = 1
+	//{j}{j'}..     -> l2 = 8 - 9 = 1
+	//nup = 1 + 1 - 2 = 0 (correct)
 	n_unpaired = l1 + l2 - 2;// saves one CPU operation
 	
 	///@todo the following conversion is WEIRD but seems to solve the error
 	///Only the results should be converted, so max(l1,l2) , min(l1,l2) and make negative if l2 > l1
 	n_asym = ((signed int) l1 - (signed int) l2); // saves two CPU operations
 	
-	
 	// 5') [i] ... [...] [i'] ... (3'
 	//      |             |
 	// 3') [j] ... [...] [j'] ... (5'
-	if(arg_region.pair2.second - arg_region.pair2.first - 1 <=  this->thermodynamics.minimal_hairpin_length)
+	if(arg_region.pair2.second - arg_region.pair2.first - 1 <=  this->thermodynamics.minimal_hairpin_length)///@todo arg_region.pair2.size() + test
 	{
 		energy = N_INFINITY;
 	}
@@ -746,7 +744,7 @@ float GibbsFreeEnergy::get_interior_loop_element(Region &arg_region)
 		Pairing pairing1 = Pairing(ni, nj);
 		Pairing pairing2 = Pairing(njp, nip);							// I and J are switched because 5' and 3' rotate after a hairpin
 		
-		
+		//@todo this would mean that 2,2 loops get an equal penalty as 1,3 and 3,1 ?
 		energy += this->get_loop_interior(n_unpaired);
 		
 		// tstki example:
@@ -757,7 +755,6 @@ float GibbsFreeEnergy::get_interior_loop_element(Region &arg_region)
 		// 3') xxxC            Uxxxh
 		//         [x2]{R2}[y1]
 		//
-		//
 		// {h} and {x} are nucleotides that don't matter of which h represent the hairpin.
 		//
 		// G-C is the first pair (5' -> 3')
@@ -767,17 +764,30 @@ float GibbsFreeEnergy::get_interior_loop_element(Region &arg_region)
 		// And the 'reverse' stack: [U-A][y1][y2]
 		//
 		// This is done in the following two lines:
-		
 		energy += this->get_tstacki(pairing1, this->sequence[arg_region.pair1.first + 1], this->sequence[arg_region.pair1.second - 1]);
 		energy += this->get_tstacki(pairing2, this->sequence[arg_region.pair2.second + 1], this->sequence[arg_region.pair2.first - 1]); // watch out for 5' <-> 3' rotation: (jp + 1) and (ip - 1)
 		
-		if(n_unpaired > 30)///@todo it is not logical to have this equation only above nup=30? dbl check this with other folding algorithms >> "the f(m) array (see Ninio for details)"
-		{
-			energy += std::min(this->get_miscloop(MISCLOOP_ASYMETRIC_INTENRAL_LOOP), ((float) abs(n_asym) * this->get_poppen(std::min((unsigned int) this->thermodynamics.poppen_p.size() , std::min(arg_region.pair2.first - arg_region.pair1.first, arg_region.pair1.second - arg_region.pair2.second)) - 1)));
-		}
+		// Asymetrical penalty
+		energy += std::min(
+					  this->get_miscloop(MISCLOOP_ASYMETRIC_INTENRAL_LOOP),
+					  (
+						  (float) abs(n_asym) * this->get_poppen(
+							  std::min(
+								  (unsigned int) this->thermodynamics.poppen_p.size() ,
+								  std::min(
+									  l1,
+									  l2
+								  )
+							  ) - 1
+						  )
+					  )
+				  );
 	}
 	else
 	{
+		///@todo SWITCH(n_unpaired)
+		
+		
 		// 5') [i] [i+1] [i']
 		//      |         |
 		// 3') [j] [j-1] [j']
@@ -806,7 +816,6 @@ float GibbsFreeEnergy::get_interior_loop_element(Region &arg_region)
 #else
 			energy += this->get_int11(pairing1.type, pairing2.type, this->sequence[arg_region.pair1.first + 1], this->sequence[arg_region.pair1.second - 1]);
 #endif //DEBUG
-			
 		}
 		
 		// 5') [i] [i+1]       [i']
@@ -885,7 +894,7 @@ float GibbsFreeEnergy::get_interior_loop_element(Region &arg_region)
 					  [this->sequence[arg_region.pair1.first + 2]]
 					  [this->sequence[arg_region.pair1.second - 2]];
 		}
-		else//@todo figure out when this should happen - probably never
+		else//@todo figure out when this should happen - probably never << probably when very small loops are requested
 		{
 			energy = N_INFINITY;
 		}
@@ -898,7 +907,6 @@ float GibbsFreeEnergy::get_interior_loop_element(Region &arg_region)
 
 /**
  * @brief Finds a possible AU Gibbs free energy penalty for a Stacking element.
- *
  *
  * @param arg_pairing containing Nucleotide at position i of the sequence, paired to nucleotide j in the sequence, where i < j.
  *
@@ -922,7 +930,6 @@ float GibbsFreeEnergy::get_AU_penalty(Pairing &arg_pairing)
  * @brief Finds an estimated amount of Gibbs free energy for a canonical pairing between two nucleotides when surrounded by a segment.
  *
  * @todo move this to config file
- *
  *
  * @todo change into stacking penalty or something - penalties are independent from the neighbours?
  * @todo check if this data is not in one of the other stacking files

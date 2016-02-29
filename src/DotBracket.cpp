@@ -115,7 +115,7 @@ void DotBracket::format(unsigned int n, std::string &output)
 	
 	
 	// Check if the number of ( and ) chars is identical
-	#if DEBUG
+#if DEBUG
 	unsigned int left = 0;
 	unsigned int right = 0;
 	
@@ -125,12 +125,12 @@ void DotBracket::format(unsigned int n, std::string &output)
 		{
 			case DOTBRACKET__PAIRING_LEFT:
 				left++;
-			break;
+				break;
 			case DOTBRACKET__PAIRING_RIGHT:
 				right++;
-			break;
+				break;
 			default:
-			break;
+				break;
 		}
 	}
 	
@@ -139,7 +139,7 @@ void DotBracket::format(unsigned int n, std::string &output)
 		throw std::out_of_range("DotBracket::format(): produced invalid 2D-structure '" + output + "', probably because of unexpected internal bug elsewhere in the code.");
 	}
 	
-	#endif // DEBUG
+#endif // DEBUG
 }
 
 

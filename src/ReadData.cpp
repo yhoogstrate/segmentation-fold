@@ -1,7 +1,6 @@
 /**
  * @file src/ReadData.cpp
  *
- *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
@@ -63,7 +62,6 @@
 
 /**
  * @brief Initiates a ReadData class.
- *
  */
 ReadData::ReadData() :
 	loop_hairpin(30 + 1, N_INFINITY),
@@ -96,7 +94,6 @@ ReadData::ReadData() :
  * @section DESCRIPTION
  * Structure:
  * p2n(j',i') p2n(j,i) n2n(j'-1) n2n(i'-1) n2n(i'-2)
- *
  *
  * @todo Find out if NUCLEOTIDE: 4 is a remaining part of code for DNA folding where 4 ment NUCLEOTIDE T or that it means NUCLEOTIDE_UNKNOWN
  *
@@ -2832,7 +2829,9 @@ void ReadData::load_loop_hairpin()
 }
 
 
+
 /**
+ * @brief Loads the interior loops
  **/
 void ReadData::load_loop_interior()
 {
@@ -2876,7 +2875,6 @@ void ReadData::load_loop_interior()
  * @brief Load the f(m) array ("see Ninio for details")
  *
  * @attention more details: http://www.bioinfo.rpi.edu/zukerm/rna/energy/efiles-3.0-rna/#MISC
- *
  */
 void ReadData::load_poppen()
 {
