@@ -1,13 +1,12 @@
 /**
  * @file include/SegmentLoopTree.hpp
  *
- * @date 2015-12-11
  *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
- * Copyright (C) 2012-2015 Youri Hoogstrate
+ * Copyright (C) 2012-2016 Youri Hoogstrate
  *
  * This file is part of segmentation-fold.
  *
@@ -37,7 +36,6 @@
 /**
  * @brief Struct used in the SegmentLoopTree data structure
  *
- * @date 2015-12-07
  */
 struct SegmentLoopTreeElement
 {
@@ -57,7 +55,6 @@ struct SegmentLoopTreeElement
  * @section DESCRIPTION
  * Stores all (K-turn) segments in memory.
  *
- * @date 2015-12-07
  */
 class SegmentLoopTree
 {

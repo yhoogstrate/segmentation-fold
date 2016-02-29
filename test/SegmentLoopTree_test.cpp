@@ -1,13 +1,11 @@
 /**
  * @file test/SegmentTree_test.cpp
  *
- * @date 2016-01-21
- *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
- * Copyright (C) 2012-2015 Youri Hoogstrate
+ * Copyright (C) 2012-2016 Youri Hoogstrate
  *
  * This file is part of segmentation-fold.
  *
@@ -56,8 +54,6 @@ BOOST_AUTO_TEST_SUITE(Testing)
  * @brief Tests quering using a SubSequence element instead of deep copied sub sequences
  *
  * @test
- *
- * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test1)
 {
@@ -92,8 +88,6 @@ BOOST_AUTO_TEST_CASE(Test1)
  * @brief Tests whether left and right are chosen correctly
  *
  * @test
- *
- * @date 2015-12-07
  */
 BOOST_AUTO_TEST_CASE(Test2)
 {
@@ -137,8 +131,6 @@ BOOST_AUTO_TEST_CASE(Test2)
  * @brief Tests whether the tree queries correctly when multiple elements are inserted
  *
  * @test
- *
- * @date 2015-12-07
  */
 BOOST_AUTO_TEST_CASE(Test3)
 {
@@ -249,7 +241,6 @@ BOOST_AUTO_TEST_CASE(Test3)
 	
 	BOOST_CHECK(segmentloop_tree_05.search(p1) != nullptr);
 	BOOST_CHECK(segmentloop_tree_05.search(p1)->gibbs_free_energy == -1.0);
-	
 	
 	
 	BOOST_CHECK(segmentloop_tree_05.size() == 6);

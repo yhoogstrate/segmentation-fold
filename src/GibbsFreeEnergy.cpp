@@ -1,13 +1,11 @@
 /**
  * @file src/GibbsFreeEnergy.cpp
  *
- * @date 2016-01-22
- *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
- * Copyright (C) 2012-2015 Youri Hoogstrate
+ * Copyright (C) 2012-2016 Youri Hoogstrate
  *
  * This file is part of segmentation-fold.
  *
@@ -53,7 +51,6 @@
 /**
  * @brief Constructs the GibssFreeEnergy class by interpoliting based based on the sequence size
  *
- * @date 2015-06-30
  */
 GibbsFreeEnergy::GibbsFreeEnergy(Sequence &arg_sequence, ReadData &arg_thermodynamics) :
 	sequence(arg_sequence),
@@ -76,7 +73,6 @@ GibbsFreeEnergy::GibbsFreeEnergy(Sequence &arg_sequence, ReadData &arg_thermodyn
  * Pairing(i,j) Pairing(i',j') Nucleotide(i+1) Nucleotide(j-1)
  * </PRE>
  *
- * @date 2015-07-04
  */
 inline float GibbsFreeEnergy::get_int11(PairingType &arg_p1, PairingType &arg_p2, Nucleotide arg_i1, Nucleotide arg_j1)
 {
@@ -108,7 +104,6 @@ inline float GibbsFreeEnergy::get_int11(PairingType &arg_p1, PairingType &arg_p2
 
  * </PRE>
  *
- * @date 2015-07-04
  */
 inline float GibbsFreeEnergy::get_int21(PairingType &arg_p1, PairingType &arg_p2, Nucleotide arg_i1, Nucleotide arg_j1, Nucleotide arg_j2)
 {
@@ -126,7 +121,6 @@ inline float GibbsFreeEnergy::get_int21(PairingType &arg_p1, PairingType &arg_p2
  * Pairing(j',i') Pairing(j,  i) Nucleotide(j'+1) Nucleotide(i'-1) Nucleotide(i'-2)
  * </PRE>
  *
- * @date 2015-07-04
  */
 inline float GibbsFreeEnergy::get_int22(PairingType &arg_p1, PairingType &arg_p2, Nucleotide arg_x1, Nucleotide arg_y1, Nucleotide arg_x2, Nucleotide arg_y2)
 {
@@ -138,7 +132,6 @@ inline float GibbsFreeEnergy::get_int22(PairingType &arg_p1, PairingType &arg_p2
 /**
  * @brief Returns the Gibbs Free Energy of some predifined variables
  *
- * @date 2015-07-04
  *
  * @todo #if DEBUG -> check for out of bound
  */
@@ -152,7 +145,6 @@ inline float GibbsFreeEnergy::get_miscloop(unsigned char arg_param)
 /**
  * @brief Returns the Gibbs Free Energy of a tloop
  *
- * @date 2015-07-04
  */
 inline float GibbsFreeEnergy::get_tloop(Sequence &arg_subsequence)
 {
@@ -174,7 +166,6 @@ inline float GibbsFreeEnergy::get_tloop(Sequence &arg_subsequence)
 /**
  * @brief Returns the Gibbs Free Energy of a triloop
  *
- * @date 2015-07-04
  */
 inline float GibbsFreeEnergy::get_triloop(Sequence &arg_subsequence)
 {
@@ -210,7 +201,6 @@ inline float GibbsFreeEnergy::get_tstackh(PairingType &arg_p1, Nucleotide arg_ip
 /**
  * @brief Returns Gibbs free energy for hairpin loops
  *
- * @date 2016-01-21
  */
 inline float GibbsFreeEnergy::get_loop_hairpin(unsigned int arg_n_unpaired)
 {
@@ -231,7 +221,6 @@ inline float GibbsFreeEnergy::get_loop_hairpin(unsigned int arg_n_unpaired)
 /**
  * @brief Returns Gibbs free energy for bulge loop
  *
- * @date 2016-01-21
  */
 inline float GibbsFreeEnergy::get_loop_bulge(unsigned int arg_n_unpaired)
 {
@@ -252,7 +241,6 @@ inline float GibbsFreeEnergy::get_loop_bulge(unsigned int arg_n_unpaired)
 /**
  * @brief Returns Gibbs free energy for interior loop
  *
- * @date 2016-01-21
  */
 inline float GibbsFreeEnergy::get_loop_interior(unsigned int arg_n_unpaired)
 {
@@ -273,7 +261,6 @@ inline float GibbsFreeEnergy::get_loop_interior(unsigned int arg_n_unpaired)
 /**
  * @brief Returns Gibbs free energy for a poly-C loop
  *
- * @date 2016-01-21
  */
 inline float GibbsFreeEnergy::get_poly_C_loop_penalty(Pair &arg_p, unsigned int n_unpaired)
 {
@@ -309,7 +296,6 @@ inline float GibbsFreeEnergy::get_poly_C_loop_penalty(Pair &arg_p, unsigned int 
 /**
  * @brief Returns Gibbs free energy for the GGG...U loop
  *
- * @date 2015-07-10
  *
  * @todo merge this with the poly-C loop ; you can gain performance here since the one excludes the other
  */
@@ -336,7 +322,6 @@ inline float GibbsFreeEnergy::get_GGG_U_loop_penalty(Pair &arg_p)
 /**
  * @brief Returns Gibbs free energy for connecting Stacking elements
  *
- * @date 2015-07-10
  */
 inline float GibbsFreeEnergy::get_stack(Pairing &pairing1, Pairing &pairing2)
 {
@@ -347,8 +332,6 @@ inline float GibbsFreeEnergy::get_stack(Pairing &pairing1, Pairing &pairing2)
 
 /**
  * @brief Loads terminal stack of an interior loop
- *
- * @date 2015-06-23
  */
 inline float GibbsFreeEnergy::get_tstacki(Pairing &pairing1, Nucleotide arg_i1, Nucleotide arg_j1)
 {
@@ -361,7 +344,6 @@ inline float GibbsFreeEnergy::get_tstacki(Pairing &pairing1, Nucleotide arg_i1, 
 /**
  * @brief Returns Gibbs free energy for poppen
  *
- * @date 2015-07-10
  *
  * @todo /s/poppen_p/poppen
  */
@@ -374,7 +356,6 @@ inline float GibbsFreeEnergy::get_poppen(unsigned int arg_n_unpaired_in_smallest
 /**
  * @brief Pre-calculates and caches all the loop_hairpin energy values based on the maximal possible length
  *
- * @date 2016-01-21
  */
 inline void GibbsFreeEnergy::interpolate_loop_hairpin()
 {
@@ -414,7 +395,6 @@ inline void GibbsFreeEnergy::interpolate_loop_hairpin()
  *
  * For the given example: 12-3-4
  *
- * @date 2016-01-21
  */
 inline void GibbsFreeEnergy::interpolate_loop_bulge()
 {
@@ -453,7 +433,6 @@ inline void GibbsFreeEnergy::interpolate_loop_bulge()
  *
  * sequence length - 4(pairs of loop) - min_hairpin_length
  *
- * @date 2016-01-21
  */
 inline void GibbsFreeEnergy::interpolate_loop_interior()
 {
@@ -488,7 +467,6 @@ inline void GibbsFreeEnergy::interpolate_loop_interior()
  *
  * @todo optimize possibly overwritten values
  *
- * @date 2016-01-21
  */
 inline void GibbsFreeEnergy::interpolate_loop_hairpin_C_penalty()
 {
@@ -525,7 +503,6 @@ inline void GibbsFreeEnergy::interpolate_loop_hairpin_C_penalty()
  * 3') [j] [j-1] ...
  * </PRE>
  *
- * @date 2016-01-21
  *
  * @param arg_pair Pair containing nucleotides i and j indicating their positions in the sequence, where i < j.
  *
@@ -572,7 +549,6 @@ float GibbsFreeEnergy::get_stacking_pair_element(Pair &arg_pair)
  * 3') [j] [j-1] ...
  * </PRE>
  *
- * @date 2015-02-17
  *
  * @param arg_pair Pair containing nucleotides i and j indicating their positions in the sequence, where i < j.
  *
@@ -652,7 +628,6 @@ float GibbsFreeEnergy::get_hairpin_loop_element(Pair &arg_pair)
  *
  * The corresponding energy is found in additional tables.
  *
- * @date 2015-06-30
  *
  * @param i Nucleotide position of the sequence, paired to j, where i < i' (ip) < j' (jp) < j
  * @param j Nucleotide position of the sequence, paired to i, where i < i' (ip) < j' (jp) < j
@@ -660,7 +635,6 @@ float GibbsFreeEnergy::get_hairpin_loop_element(Pair &arg_pair)
  * @param jp (j') Nucleotide position of the sequence, paired to i', where i < i' (ip) < j' (jp) < j
  *
  * @return Amount of corresponding Gibbs free energy if there is an bulge loop betweein (i,j) and (i',j'); infinity otherwise.
- *
  *
  * @todo check: why check the size of only one size? -> does the algorithm ensure one side is always == 0?
  */
@@ -680,7 +654,7 @@ float GibbsFreeEnergy::get_bulge_loop_element(Region &r)
 #if DEBUG
 	else if(n_unpaired < 1)
 	{
-		printf("Warning: unneccesairy call of get_bulge_loop_element()");
+		std::cerr << "Warning: unneccesairy call of get_bulge_loop_element()";
 		energy = N_INFINITY;
 	}
 #endif // DEBUG
@@ -729,8 +703,6 @@ float GibbsFreeEnergy::get_bulge_loop_element(Region &r)
  * - loop internal loop < min hairpin loop?
  * - use switches
  *
- * @date 2016-01-21
- *
  * @param arg_region as region with Nucleotides i (pair1.first), j (pair1.second), i') and j' as positions of the sequence, where i paired to j, i' to j' and where i < i' < j' < j
  *
  * @return Amount of corresponding Gibbs free energy if there is an internal/interior loop betweein (i,j) and (i',j'); infinity otherwise.
@@ -742,20 +714,22 @@ float GibbsFreeEnergy::get_interior_loop_element(Region &arg_region)
 	
 	float energy = 0.0;
 	
-	unsigned int l1 = (arg_region.pair2.first - arg_region.pair1.first);
-	unsigned int l2 = (arg_region.pair1.second - arg_region.pair2.second);
+	unsigned int l1 = arg_region.pair2.first - arg_region.pair1.first;
+	unsigned int l2 = arg_region.pair1.second - arg_region.pair2.second;
 	
+	//{i}{i'}..     -> l1 = 2 - 1 = 1
+	//{j}{j'}..     -> l2 = 8 - 9 = 1
+	//nup = 1 + 1 - 2 = 0 (correct)
 	n_unpaired = l1 + l2 - 2;// saves one CPU operation
 	
 	///@todo the following conversion is WEIRD but seems to solve the error
 	///Only the results should be converted, so max(l1,l2) , min(l1,l2) and make negative if l2 > l1
 	n_asym = ((signed int) l1 - (signed int) l2); // saves two CPU operations
 	
-	
 	// 5') [i] ... [...] [i'] ... (3'
 	//      |             |
 	// 3') [j] ... [...] [j'] ... (5'
-	if(arg_region.pair2.second - arg_region.pair2.first - 1 <=  this->thermodynamics.minimal_hairpin_length)
+	if(arg_region.pair2.second - arg_region.pair2.first - 1 <=  this->thermodynamics.minimal_hairpin_length)///@todo arg_region.pair2.size() + test
 	{
 		energy = N_INFINITY;
 	}
@@ -770,7 +744,7 @@ float GibbsFreeEnergy::get_interior_loop_element(Region &arg_region)
 		Pairing pairing1 = Pairing(ni, nj);
 		Pairing pairing2 = Pairing(njp, nip);							// I and J are switched because 5' and 3' rotate after a hairpin
 		
-		
+		//@todo this would mean that 2,2 loops get an equal penalty as 1,3 and 3,1 ?
 		energy += this->get_loop_interior(n_unpaired);
 		
 		// tstki example:
@@ -781,7 +755,6 @@ float GibbsFreeEnergy::get_interior_loop_element(Region &arg_region)
 		// 3') xxxC            Uxxxh
 		//         [x2]{R2}[y1]
 		//
-		//
 		// {h} and {x} are nucleotides that don't matter of which h represent the hairpin.
 		//
 		// G-C is the first pair (5' -> 3')
@@ -791,17 +764,30 @@ float GibbsFreeEnergy::get_interior_loop_element(Region &arg_region)
 		// And the 'reverse' stack: [U-A][y1][y2]
 		//
 		// This is done in the following two lines:
-		
 		energy += this->get_tstacki(pairing1, this->sequence[arg_region.pair1.first + 1], this->sequence[arg_region.pair1.second - 1]);
 		energy += this->get_tstacki(pairing2, this->sequence[arg_region.pair2.second + 1], this->sequence[arg_region.pair2.first - 1]); // watch out for 5' <-> 3' rotation: (jp + 1) and (ip - 1)
 		
-		if(n_unpaired > 30)///@todo it is not logical to have this equation only above nup=30? dbl check this with other folding algorithms >> "the f(m) array (see Ninio for details)"
-		{
-			energy += std::min(this->get_miscloop(MISCLOOP_ASYMETRIC_INTENRAL_LOOP), ((float) abs(n_asym) * this->get_poppen(std::min((unsigned int) this->thermodynamics.poppen_p.size() , std::min(arg_region.pair2.first - arg_region.pair1.first, arg_region.pair1.second - arg_region.pair2.second)) - 1)));
-		}
+		// Asymetrical penalty
+		energy += std::min(
+					  this->get_miscloop(MISCLOOP_ASYMETRIC_INTENRAL_LOOP),
+					  (
+						  (float) abs(n_asym) * this->get_poppen(
+							  std::min(
+								  (unsigned int) this->thermodynamics.poppen_p.size() ,
+								  std::min(
+									  l1,
+									  l2
+								  )
+							  ) - 1
+						  )
+					  )
+				  );
 	}
 	else
 	{
+		///@todo SWITCH(n_unpaired)
+		
+		
 		// 5') [i] [i+1] [i']
 		//      |         |
 		// 3') [j] [j-1] [j']
@@ -830,7 +816,6 @@ float GibbsFreeEnergy::get_interior_loop_element(Region &arg_region)
 #else
 			energy += this->get_int11(pairing1.type, pairing2.type, this->sequence[arg_region.pair1.first + 1], this->sequence[arg_region.pair1.second - 1]);
 #endif //DEBUG
-			
 		}
 		
 		// 5') [i] [i+1]       [i']
@@ -909,7 +894,7 @@ float GibbsFreeEnergy::get_interior_loop_element(Region &arg_region)
 					  [this->sequence[arg_region.pair1.first + 2]]
 					  [this->sequence[arg_region.pair1.second - 2]];
 		}
-		else//@todo figure out when this should happen - probably never
+		else//@todo figure out when this should happen - probably never << probably when very small loops are requested
 		{
 			energy = N_INFINITY;
 		}
@@ -922,8 +907,6 @@ float GibbsFreeEnergy::get_interior_loop_element(Region &arg_region)
 
 /**
  * @brief Finds a possible AU Gibbs free energy penalty for a Stacking element.
- *
- * @date 2015-02-17
  *
  * @param arg_pairing containing Nucleotide at position i of the sequence, paired to nucleotide j in the sequence, where i < j.
  *
@@ -947,8 +930,6 @@ float GibbsFreeEnergy::get_AU_penalty(Pairing &arg_pairing)
  * @brief Finds an estimated amount of Gibbs free energy for a canonical pairing between two nucleotides when surrounded by a segment.
  *
  * @todo move this to config file
- *
- * @date 2016-01-21
  *
  * @todo change into stacking penalty or something - penalties are independent from the neighbours?
  * @todo check if this data is not in one of the other stacking files

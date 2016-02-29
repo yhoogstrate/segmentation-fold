@@ -59,12 +59,21 @@
 Zuker::Zuker(Settings &arg_settings, Sequence &arg_sequence, ReadData &arg_thermodynamics) :
 	GibbsFreeEnergy(arg_sequence, arg_thermodynamics),
 	settings(arg_settings),
+
 	vij(arg_sequence.size(), N_INFINITY),
 	wij(arg_sequence.size(), 0.0),
-	tij(arg_sequence.size(), {false, Pair(UNBOUND, UNBOUND)}),					//@todo use N instead of 0? >> if so, set UNBOUND to N  + 1 or so
-	sij(arg_sequence.size(), nullptr)
+	wmij(arg_sequence.size(), N_INFINITY),
+
+	tij_v(arg_sequence.size(), {false, Pair(UNBOUND, UNBOUND), V_MATRIX}),					//@todo use N instead of 0? >> if so, set UNBOUND to N  + 1 or so
+	  tij_w(arg_sequence.size(), {false, Pair(UNBOUND, UNBOUND), W_MATRIX}),					//@todo use N instead of 0? >> if so, set UNBOUND to N  + 1 or so
+	  tij_wm(arg_sequence.size(), {false, Pair(UNBOUND, UNBOUND), WM_MATRIX}),				//@todo use N instead of 0? >> if so, set UNBOUND to N  + 1 or so
+
+	  sij(arg_sequence.size(), nullptr)
 {
-	this->tij.fill({false, {NOT_YET_CALCULATED, NOT_YET_CALCULATED}});
+	//@todo see which ones can drop
+	this->tij_v.fill({false, {NOT_YET_CALCULATED, NOT_YET_CALCULATED}});
+	this->tij_w.fill({false, {NOT_YET_CALCULATED, NOT_YET_CALCULATED}});
+	this->tij_wm.fill({false, {NOT_YET_CALCULATED, NOT_YET_CALCULATED}});
 	
 	this->sequence_begin = this->sequence.data.begin();
 	this->traceback_stacktop = -1;
@@ -118,12 +127,12 @@ float Zuker::energy(void)
 float Zuker::v(Pair &p1, PairingPlus &p1p)
 {
 #if DEBUG
-	if(this->tij.get(p1).target.first != (unsigned int) NOT_YET_CALCULATED)
+	if(this->tij_w.get(p1).target.first != (unsigned int) NOT_YET_CALCULATED)
 	{
 		throw std::invalid_argument("Zuker::v(" + std::to_string(p1.first) + ", " + std::to_string(p1.second) + "): redundant calculation, please request values from the ScoringMatrix directly");
 	}
 	
-	if(!p1p.is_canonical() || (p1.second - p1.first) <= this->settings.minimal_hairpin_length)
+	if(!p1p.is_canonical() || (p1p.size) < this->settings.minimal_hairpin_length)
 	{
 		throw std::invalid_argument("Zuker::v(" + std::to_string(p1.first) + ", " + std::to_string(p1.second) + "): this pair should never be checked within this function because it's energy is infinity by definition");
 	}
@@ -138,10 +147,9 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 	SegmentLoop *tmp_segmentloop;
 	SegmentTraceback  *tmp_segmenttraceback = nullptr;
 	
-	Pair tmp_loopmatrix_value;
+	energy = this->get_hairpin_loop_element(p1);						// Hairpin element
+	traceback_jump2 tmp_tij = traceback_jump2 {true, {UNBOUND, p1.second - 1}, V_MATRIX};
 	
-	energy = this->get_hairpin_loop_element(p1);					// Hairpin element
-	tmp_loopmatrix_value = {p1.first + 1, p1.second - 1};
 	
 	// SegmentLoop element
 	SubSequence ps1 = this->sequence.ssubseq(p1.first + 1 , p1.second - 1); ///@todo use Pair()
@@ -161,13 +169,14 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 		for(jp = p1.second - 1; jp > ip; jp--)
 		{
 			PairingPlus pairing2 = PairingPlus(this->sequence_begin + ip, this->sequence_begin + jp);
-			if(pairing2.type != PairingType::None)				// The following structure elements must be enclosed by pairings on both sides
+			if(pairing2.is_canonical())									// The following structure elements must be enclosed by pairings on both sides
 			{
 				Pair p2 = Pair(ip, jp);
 				float v_ij_jp = this->vij.get(p2);
 				
 				Region region = Region {p1, p2};
 				
+				///@todo put out of the loop?!
 				if(ip == (p1.first + 1) && jp == (p1.second - 1))// Stacking element
 				{
 					tmp = this->get_stacking_pair_element(p1) + v_ij_jp;
@@ -175,31 +184,32 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 					{
 						energy = tmp;
 						
-						tmp_loopmatrix_value = {p1.first + 1, p1.second - 1};
+						tmp_tij.target = {p1.first + 1, p1.second - 1};
+						tmp_tij.target_matrix = V_MATRIX;
 						tmp_segmenttraceback = nullptr;
 					}
 				}
 				else if(ip == (p1.first + 1) || jp == (p1.second - 1))// Bulge-loop element
 				{
 					tmp = this->get_bulge_loop_element(region) + v_ij_jp;
-					
 					if(tmp < energy)
 					{
 						energy = tmp;
 						
-						tmp_loopmatrix_value = {ip, jp};
+						tmp_tij.target = {ip, jp};
+						tmp_tij.target_matrix = V_MATRIX;
 						tmp_segmenttraceback = nullptr;
 					}
 				}
 				else											// Interior loop or Segment
 				{
 					tmp = this->get_interior_loop_element(region) + v_ij_jp;
-					
 					if(tmp < energy)
 					{
 						energy = tmp;
 						
-						tmp_loopmatrix_value = {ip, jp};
+						tmp_tij.target = {ip, jp};
+						tmp_tij.target_matrix = V_MATRIX;
 						tmp_segmenttraceback = nullptr;
 					}
 					
@@ -216,7 +226,8 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 						{
 							energy = tmp_k;
 							
-							tmp_loopmatrix_value = {ip, jp};
+							tmp_tij.target = {ip, jp};
+							tmp_tij.target_matrix = V_MATRIX;
 							tmp_segmenttraceback = &tmp_segment->traceback;
 						}
 					}
@@ -224,39 +235,33 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 			}
 		}
 		
-		/*
-		i=0, j=11 < indicated in brackets
-			 |       i' = 5
-		[(...)(...)]
 		
-		  |          i' = 2
-		[()(......)]
-		
-				|    i' = 8
-		[(......)()]
-		
-		-> earlier versions compromised this function
-		   by using it to 'extend' their stack
-		   one bell of the fork was 0 size and the other bell
-		   was the remainder
-		*/
-		if(ip > p1.first + 1 && ip < p1.second - 2)												// Multi-loop element
+		// find multibranch loops enclosed by (i,j)
+		// if ip - p1.first + 1 < this->settings.minimal_hairpin_length)
+		// if p1.second - ip + 1 < this->settings.minimal_hairpin_length)
+		if(p1.first + 1 < ip && ip + 2 < p1.second)
 		{
+#if DEBUG
+			if(p1.first + 1 >= ip || ip >= p1.second - 2)
+			{
+				throw std::invalid_argument("Zuker::v(" + std::to_string(p1.first) + ", " + std::to_string(p1.second) + ") -> m(" + std::to_string(p1.first + 1) + ", " + std::to_string(ip) + ", " + std::to_string(ip + 1) + ", " + std::to_string(p1.second - 1) + "): incorrect loop size");
+			}
+#endif //DEBUG
 			Pair p3 = Pair(p1.first + 1, ip);
 			Pair p4 = Pair(ip + 1, p1.second - 1);
-			tmp = this->wij.get(p3) + this->wij.get(p4);///@todo from V or W?
-			
+			tmp = this->wmij.get(p3) + this->wmij.get(p4);
 			if(tmp < energy)
 			{
 				energy = tmp;
 				
-				tmp_loopmatrix_value = {ip, ip}; // bifurcation via V - (i,ip),(ip+1,j)
+				tmp_tij.target = {ip, ip};
+				tmp_tij.target_matrix = WM_MATRIX;
 				tmp_segmenttraceback = nullptr;
 			}
 		}
 	}
 	
-	this->tij.set(p1, {true, tmp_loopmatrix_value}); //set to True because i,j are paired
+	this->tij_v.set(p1, tmp_tij);
 	if(tmp_segmenttraceback != nullptr)
 	{
 		this->sij.set(p1, tmp_segmenttraceback);
@@ -283,7 +288,7 @@ float Zuker::w(Pair &p1)
 		throw std::invalid_argument("Zuker::w(" + std::to_string(p1.first) + ", " + std::to_string(p1.second) + "): out of bound");
 	}
 	
-	if(this->tij.get(p1).target.first != (unsigned int) NOT_YET_CALCULATED)
+	if(this->tij_w.get(p1).target.first != (unsigned int) NOT_YET_CALCULATED)
 	{
 		throw std::invalid_argument("Zuker::w(" + std::to_string(p1.first) + ", " + std::to_string(p1.second) + "): redundant calculation, please request values from the ScoringMatrix directly");
 	}
@@ -293,27 +298,33 @@ float Zuker::w(Pair &p1)
 	signed int tmp_pij, tmp_qij;
 	unsigned int n = (p1.second - p1.first);
 	
+	
+	energy = 0.0;
+	tmp_pij = UNBOUND;
+	PairingPlus p1p = PairingPlus(this->sequence_begin + p1.first, this->sequence_begin + p1.second);
+	
 	if(n <= this->settings.minimal_hairpin_length)
 	{
 		this->vij.set(p1, N_INFINITY);
-		
-		energy = 0.0;
-		tmp_pij = UNBOUND;
 	}
 	else
 	{
-		PairingPlus p1p = PairingPlus(this->sequence_begin + p1.first, this->sequence_begin + p1.second);
+		float tmp;
 		
 		if(!p1p.is_canonical())
 		{
-			tmp_pij = UNBOUND;
-			energy = N_INFINITY;
+			this->vij.set(p1, N_INFINITY);
 		}
 		else
 		{
-			tmp_pij = BOUND;
-			energy = this->v(p1, p1p);
+			tmp = this->v(p1, p1p);
+			if(tmp < energy)
+			{
+				energy = tmp;
+				tmp_pij = BOUND;
+			}
 		}
+		
 		
 		/*
 		The following bifurcations have to be tested:
@@ -333,11 +344,9 @@ float Zuker::w(Pair &p1)
 		|  )( |  (iter 3; k=+3)
 		|   )(|  (iter 4; k=+4)
 		*/
-		
-		if(n >= 2 and tmp_pij != BOUND)// if it is bound, use Vij
+		if(n >= 2)// && tmp_pij != BOUND)// if it is bound, use Vij
 		{
 			Pair p2, p3;
-			float tmp;
 			
 			// pre-iter 1
 			p3 = Pair(p1.first + 1, p1.second);
@@ -361,7 +370,7 @@ float Zuker::w(Pair &p1)
 			}
 			
 			// remaining iterations
-			for(unsigned int k = p1.first + 1; k < p1.second  - 1; k++)
+			for(unsigned int k = p1.first + 1; k < p1.second - 1; k++)
 			{
 				p2 = Pair(p1.first, k);
 				p3 = Pair(k + 1, p1.second);
@@ -379,16 +388,83 @@ float Zuker::w(Pair &p1)
 		}
 	}
 	
-	///@todo get some way to obtain the index just once? -> this could be generalized at the top level as well (add it to the pair for example)
+	// Calculate it, must be after v()
+	this->wm(p1, p1p);
 	this->wij.set(p1, energy);
 	
-	
-	// UNBOUND means dead end
-	// if it is BOUND it is being set by Vij in advance
-	if(tmp_pij != BOUND)
+	if(tmp_pij == BOUND)
 	{
-		this->tij.set(p1, { false, {tmp_pij, tmp_qij} });
+		this->tij_w.set(p1, {false, p1, V_MATRIX});
 	}
+	else
+	{
+		this->tij_w.set(p1, {false, {tmp_pij, tmp_qij}, W_MATRIX});
+	}
+	
+	return energy;
+}
+
+
+
+/**
+ * @brief Decomposes a multiloop
+ */
+float Zuker::wm(Pair &p1, PairingPlus &p1p)
+{
+#if DEBUG
+	if(p1.first >= p1.second)
+	{
+		throw std::invalid_argument("Zuker::wm(" + std::to_string(p1.first) + ", " + std::to_string(p1.second) + "): out of bound");
+	}
+#endif //DEBUG
+	
+	unsigned int k;
+	float tmp;
+	float energy;
+	energy = this->vij.get(p1);
+	
+	traceback_jump2 tmp_tij = {false , p1 , V_MATRIX};
+	Pair p2, p3;
+	
+	for(k = p1.first + 1; k < p1.second; k++)
+	{
+		p2 = Pair(p1.first, k);
+		p3 = Pair(k + 1, p1.second);
+		tmp = this->wmij.get(p2) + this->wmij.get(p3);
+		
+		if(tmp < energy)
+		{
+			// TB to p2 and p3, as bifurcation
+			energy = tmp;
+			tmp_tij.target = {k, k};
+			tmp_tij.target_matrix = WM_MATRIX; // go back to the v matrix - for both
+		}
+	}
+	
+	p2 = Pair(p1.first + 1, p1.second);
+	tmp = this->wmij.get(p2);
+	if(tmp < energy)
+	{
+		// TB to p1l, not as bifurcation
+		energy = tmp;
+		tmp_tij.target = p2;
+		tmp_tij.target_matrix = WM_MATRIX;//stay in wm
+	}
+	
+	
+	
+	p2 = Pair(p1.first , p1.second - 1);
+	tmp = this->wmij.get(p2);
+	if(tmp < energy)
+	{
+		// TB to p1r, not as bifurcation
+		energy = tmp;
+		tmp_tij.target = p2;
+		tmp_tij.target_matrix = WM_MATRIX;//stay in wm
+	}
+	
+	this->tij_wm.set(p1, tmp_tij);
+	this->wmij.set(p1, energy);
 	
 	return energy;
 }
@@ -409,6 +485,7 @@ float Zuker::w(Pair &p1)
 void Zuker::traceback(void)
 {
 	unsigned int i, j;
+	char matrix;
 	unsigned int tmp_i, tmp_j;
 	SegmentTraceback *independent_segment_traceback;
 	
@@ -416,9 +493,14 @@ void Zuker::traceback(void)
 	Pair pair1;
 	
 	this->folded_segments = 0;
-	this->traceback_push(0, (unsigned int) this->sequence.size() - 1);///@todo use size_t
 	
-	while(this->traceback_pop(&i, &j))
+	
+	// only initize traceback if it provides free energy
+	pair1 = Pair(0, this->sequence.size() - 1);
+	this->traceback_push(0, (unsigned int) this->sequence.size() - 1, W_MATRIX);///@todo use size_t
+	
+	
+	while(this->traceback_pop(&i, &j, &matrix))
 	{
 #if DEBUG
 		if(i >= j)
@@ -427,8 +509,20 @@ void Zuker::traceback(void)
 		}
 #endif //DEBUG
 		
+		
 		pair1 = Pair(i, j);
-		action = this->tij.get(pair1);
+		switch(matrix)
+		{
+			case V_MATRIX:
+				action = this->tij_v.get(pair1);
+				break;
+			case W_MATRIX:
+				action = this->tij_w.get(pair1);
+				break;
+			case WM_MATRIX:
+				action = this->tij_wm.get(pair1);
+				break;
+		}
 		
 		
 		// Check whether the action for the current position is to STORE
@@ -463,20 +557,20 @@ void Zuker::traceback(void)
 		{
 			if(action.target.first == action.target.second)
 			{
-				if(action.store_pair)
+				if(matrix == V_MATRIX)
 				{
-					this->traceback_push(pair1.first + 1 , action.target.first);
-					this->traceback_push(action.target.first + 1, pair1.second - 1);
+					this->traceback_push(pair1.first + 1, action.target.first, action.target_matrix); // W or WM matrix
+					this->traceback_push(action.target.first + 1, pair1.second - 1, action.target_matrix); // W or WM matrix
 				}
 				else
 				{
-					this->traceback_push(pair1.first , action.target.first);
-					this->traceback_push(action.target.first + 1, pair1.second);
+					this->traceback_push(pair1.first, action.target.first, action.target_matrix); // W or WM matrix
+					this->traceback_push(action.target.first + 1, pair1.second, action.target_matrix); // W or WM matrix
 				}
 			}
 			else
 			{
-				this->traceback_push(action.target.first , action.target.second);
+				this->traceback_push(action.target.first, action.target.second, action.target_matrix);//V or W matrix because it doesn't fork
 			}
 		}
 		
@@ -491,13 +585,13 @@ void Zuker::traceback(void)
  *
  * @param i Nucleotide position of the sequence, paired to j, where i < j
  * @param j Nucleotide position of the sequence, paired to i, where i < j
- * @param pick_from_v_path
+ * @param char matrix to traceback from - v, w, or wm
  *
  * @todo use Pair() instead of i and j
  */
-void Zuker::traceback_push(unsigned int i, unsigned int j)
+void Zuker::traceback_push(unsigned int i, unsigned int j, char matrix)
 {
-	this->traceback_stack.push_back({i, j});
+	this->traceback_stack.push_back({i, j, matrix});
 }
 
 
@@ -505,15 +599,13 @@ void Zuker::traceback_push(unsigned int i, unsigned int j)
 /**
  * @brief Pops from the stack.
  *
- * @date 2016-01-21
- *
  * @param i Nucleotide position of the sequence, paired to j, where i < j
  * @param j Nucleotide position of the sequence, paired to i, where i < j
- * @param pick_from_v_path
+ * @param char matrix to traceback from - v, w, or wm
  *
  * @return True for success; False otherwise.
  */
-bool Zuker::traceback_pop(unsigned int *i, unsigned int *j)
+bool Zuker::traceback_pop(unsigned int *i, unsigned int *j, char *matrix)
 {
 	if(not this->traceback_stack.empty())
 	{
@@ -521,6 +613,7 @@ bool Zuker::traceback_pop(unsigned int *i, unsigned int *j)
 		
 		(*i) = jump.i;
 		(*j) = jump.j;
+		(*matrix) = jump.matrix;
 		
 		this->traceback_stack.pop_back();
 		
@@ -535,8 +628,6 @@ bool Zuker::traceback_pop(unsigned int *i, unsigned int *j)
 /**
  * @brief Prints the 2D structure as DotBracket (dbn) format
  *
- * @date 2016-01-21
- *
  * @todo Change this to Zuker::output(), add enum for OutputType::DotBracket / OutputType::ConnectivityTable / OutputType::RNAXml
  */
 void Zuker::print_2D_structure(void)
@@ -547,9 +638,8 @@ void Zuker::print_2D_structure(void)
 	std::string dotbracket = "";
 	this->dot_bracket.format((unsigned int) n, dotbracket); ///@todo use size_t
 	
-	printf(">Sequence length: %zubp, dE: %g kcal/mole, segments: %i\n", n, this->wij.get(pair), this->folded_segments++);
-	printf("%s\n", this->sequence.str().c_str());
-	std::cout << dotbracket << "\n";
+	printf(">Sequence length: %zubp, dE: %.2f kcal/mole, segments: %i\n", n, this->wij.get(pair), this->folded_segments++);
+	std::cout << this->sequence.str() << "\n" << dotbracket << "\n";
 }
 
 

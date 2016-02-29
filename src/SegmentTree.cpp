@@ -1,13 +1,12 @@
 /**
  * @file src/SegmentTree.cpp
  *
- * @date 2015-05-02
  *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
- * Copyright (C) 2012-2015 Youri Hoogstrate
+ * Copyright (C) 2012-2016 Youri Hoogstrate
  *
  * This file is part of segmentation-fold and originally taken from
  * yh-kt-fold.
@@ -47,7 +46,6 @@
 /**
  * @brief Initializes an empty tree
  *
- * @date 2013-07-25
  */
 SegmentTree::SegmentTree()
 {
@@ -59,7 +57,6 @@ SegmentTree::SegmentTree()
 /**
  * @brief Destructs the tree recursively
  *
- * @date 2013-07-25
  */
 SegmentTree::~SegmentTree()
 {
@@ -71,7 +68,6 @@ SegmentTree::~SegmentTree()
 /**
  * @brief Searches a pair by using sets of iterators
  *
- * @date 2015-05-02
  */
 Segment *SegmentTree::search(SubSequence &arg_segment5p, SubSequence &arg_segment3p)
 {
@@ -83,7 +79,6 @@ Segment *SegmentTree::search(SubSequence &arg_segment5p, SubSequence &arg_segmen
 /**
  * @brief Adds a Segment (as member of a SegmentTreeElement) to the tree.
  *
- * @date 2014-04-03
  */
 void SegmentTree::insert(Segment &arg_segment)
 {
@@ -104,7 +99,6 @@ void SegmentTree::insert(Segment &arg_segment)
 /**
  * @brief Returns whether the tree is empty or not
  *
- * @date 2015-05-02
  */
 bool SegmentTree::empty(void)
 {
@@ -116,7 +110,6 @@ bool SegmentTree::empty(void)
 /**
  * @brief Counts recursively the elements in the tree
  *
- * @date 2015-04-22
  *
  * @todo If this function becomes inline, it can not be found anymore... This is probably because its kinda recursive since it uses another inline function? Inlines seem to have to be defined in a header file
  * @link http://www.parashift.com/c++-faq-lite/inline-member-fns.html

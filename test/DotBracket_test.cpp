@@ -1,13 +1,11 @@
 /**
  * @file test/DotBracket_test.cpp
  *
- * @date 2015-05-02
- *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
- * Copyright (C) 2012-2015 Youri Hoogstrate
+ * Copyright (C) 2012-2016 Youri Hoogstrate
  *
  * This file is part of segmentation-fold.
  *
@@ -41,8 +39,6 @@ BOOST_AUTO_TEST_SUITE(Testing)
 /**
  * @brief Tests whether the match function matches an exactly identical string
  *
- * @date 2015-05-02
- *
  * @test
  */
 BOOST_AUTO_TEST_CASE(Test1)
@@ -55,10 +51,10 @@ BOOST_AUTO_TEST_CASE(Test1)
 	BOOST_CHECK_MESSAGE(db.match(dot_bracket_pattern, dot_bracket_subject), "DotBracket pattern '" << dot_bracket_pattern << "' doesn't match subject '" << dot_bracket_subject << "'");
 }
 
+
+
 /**
  * @brief Tests whether the match function matches two different strings as different
- *
- * @date 2015-05-02
  *
  * @test
  */
@@ -73,10 +69,9 @@ BOOST_AUTO_TEST_CASE(Test2)
 }
 
 
+
 /**
  * @brief Tests whether the match function matches a structure that matches a pattern
- *
- * @date 2015-05-02
  *
  * @test
  */

@@ -1,14 +1,13 @@
 /**
  * @file src/SegmentTraceback.cpp
  *
- * @date 2016-01-22
  *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
  * <PRE>
  * segmentation-fold can predict RNA 2D structures including K-turns.
- * Copyright (C) 2012-2015 Youri Hoogstrate
+ * Copyright (C) 2012-2016 Youri Hoogstrate
  *
  * This file is part of segmentation-fold.
  *
@@ -69,7 +68,6 @@
  *
  * @param arg_bonds The bonds are given from outside to inside (FiFo)
  *
- * @date 2015-08-03
  */
 SegmentTraceback::SegmentTraceback(std::vector <Pair> arg_bonds):
 	bonds(arg_bonds)
@@ -82,7 +80,6 @@ SegmentTraceback::SegmentTraceback(std::vector <Pair> arg_bonds):
 /**
  * @brief Resets the traceback to the first bond of the segment
  *
- * @date 2015-04-16
  */
 void SegmentTraceback::reset(void)
 {
@@ -94,7 +91,6 @@ void SegmentTraceback::reset(void)
 /**
  * @brief Returns the number of bonds present in the traceback
  *
- * @date 2015-08-05
  * */
 size_t SegmentTraceback::size(void)
 {
@@ -111,7 +107,6 @@ size_t SegmentTraceback::size(void)
  *
  * @return Whether the return was VALID - if false is returned, the traceback is being reset to it's origin and will return true again.
  *
- * @date 2016-01-21
  */
 bool SegmentTraceback::traceback(unsigned int &i, unsigned int &j)
 {

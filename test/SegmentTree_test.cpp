@@ -1,13 +1,11 @@
 /**
  * @file test/SegmentTree_test.cpp
  *
- * @date 2016-01-21
- *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
- * Copyright (C) 2012-2015 Youri Hoogstrate
+ * Copyright (C) 2012-2016 Youri Hoogstrate
  *
  * This file is part of segmentation-fold.
  *
@@ -55,8 +53,6 @@ BOOST_AUTO_TEST_SUITE(Testing)
  * @brief Tests quering using a SubSequence element instead of deep copied sub sequences
  *
  * @test
- *
- * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test1)
 {
@@ -114,12 +110,12 @@ BOOST_AUTO_TEST_CASE(Test1)
 	BOOST_CHECK(segment_query != nullptr);
 }
 
+
+
 /**
  * @brief Tests if searching a 0 size tree properly returns a nullptr
  *
  * @test
- *
- * @date 2015-05-01
  */
 BOOST_AUTO_TEST_CASE(Test2)
 {
@@ -157,12 +153,12 @@ BOOST_AUTO_TEST_CASE(Test2)
 	BOOST_CHECK(segment_query01 == nullptr);
 }
 
+
+
 /**
  * @brief Tests if for a tree with 1 element searching works
  *
  * @test
- *
- * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test3)
 {
@@ -213,12 +209,12 @@ BOOST_AUTO_TEST_CASE(Test3)
 	BOOST_CHECK(&segment_01 == segment_query01);
 }
 
+
+
 /**
  * @brief Tests if 2 sized tree searching works
  *
  * @test
- *
- * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test4)
 {
@@ -284,12 +280,12 @@ BOOST_AUTO_TEST_CASE(Test4)
 	BOOST_CHECK(segment_02.name != segment_query01->name);
 }
 
+
+
 /**
  * @brief Tests if for 5 sized trees (with elements of different sizes and equences) searching works, in all possible orders of being added
  *
  * @test
- *
- * @date 2015-05-01
  */
 BOOST_AUTO_TEST_CASE(Test5)
 {
@@ -453,12 +449,12 @@ BOOST_AUTO_TEST_CASE(Test5)
 	BOOST_CHECK(segment_tree.search(segment_xx_5p , segment_xx_3p) == nullptr);
 }
 
+
+
 /**
  * @brief Tests whether an exception is raised if a segment with a duplicate sequence is added
  *
  * @test
- *
- * @date 2015-05-01
  */
 BOOST_AUTO_TEST_CASE(Test6)
 {
@@ -482,12 +478,12 @@ BOOST_AUTO_TEST_CASE(Test6)
 	BOOST_CHECK_THROW(segment_tree.insert(segment_02), std::invalid_argument);
 }
 
+
+
 /**
  * @brief Tests whether a reverse complement Segment does not throw an exception
  *
  * @test
- *
- * @date 2015-05-01
  */
 BOOST_AUTO_TEST_CASE(Test7)
 {

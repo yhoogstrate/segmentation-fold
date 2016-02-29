@@ -1,3 +1,15 @@
+2016-02-23  Youri Hoogstrate
+	* v1.6.0
+	  - Many changes in the way of dealing with multiloops, rewritten traceback
+	    * This implementation allows traceback from any start point
+	  - Additional test cases
+	    * Functional tests comparing with results found with mfold/unafold/vienna
+	  - Removal of @date tags because it's a pair to keep up to date and github has the blame functionality
+	  - Stricter implementation of the c++11/c++14 standard
+	  - PairingPlus can be initialized using only a Sequence and a Pair
+	  - Added check for DotBracket structures with an unequal number of left and right parenthesis in DEBUG mode
+	  - Interior loop corrects for asymmetrical loops smaller than 30bp
+
 2016-02-09  Youri Hoogstrate
 	* v1.5.0
 	  - Issue of leaking energy from paired into unpaired structures

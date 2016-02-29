@@ -119,7 +119,7 @@ class FoldController:
         if version_match:
             version = version_match.group(1)
             suffix = version_match.group(2)
-            if version[0:4] != "1.5.":
+            if version[0:4] not in ["1.5.","1.6."]:
                 raise EnvironmentError('Installed version of segmentation-fold ('+str(version)+') is out of date.')
             
             if suffix.find("(debug)") != -1:

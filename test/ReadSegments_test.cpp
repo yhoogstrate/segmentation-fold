@@ -1,14 +1,12 @@
 /**
  * @file test/ReadSegments_test.cpp
  *
- * @date 2016-01-21
- *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
  * <PRE>
  * segmentation-fold can predict RNA 2D structures including K-turns.
- * Copyright (C) 2012-2015 Youri Hoogstrate
+ * Copyright (C) 2012-2016 Youri Hoogstrate
  *
  * This file is part of segmentation-fold.
  *
@@ -70,7 +68,6 @@ BOOST_AUTO_TEST_SUITE(Testing_Segments)
  *
  * @test
  *
- * @date 2015-12-07
  */
 BOOST_AUTO_TEST_CASE(Test1)
 {
@@ -104,7 +101,6 @@ BOOST_AUTO_TEST_CASE(Test1)
  *
  * @test
  *
- * @date 2016-01-20
  */
 BOOST_AUTO_TEST_CASE(Test2)
 {
@@ -148,7 +144,7 @@ BOOST_AUTO_TEST_CASE(Test2)
 	SubSequence subsequence_3p = SubSequence(position_3p_s, position_3p_e);
 	Segment *segment = segments.search(subsequence_5p, subsequence_3p);
 	
-	BOOST_REQUIRE(segment != NULL);
+	BOOST_REQUIRE(segment != nullptr);
 	BOOST_CHECK_EQUAL(segment->gibbs_free_energy , (float) - 11.1072);
 	
 	
@@ -222,7 +218,6 @@ BOOST_AUTO_TEST_CASE(Test2)
  * 3') AAGAAG (5'
  * </PRE>
  *
- * @date 2015-12-11
  *
  * @todo also check segments pop() function
  */
@@ -270,7 +265,7 @@ BOOST_AUTO_TEST_CASE(Test3)
 	Segment *segment = segments.search(subsequence_5p, subsequence_3p);
 	
 	
-	BOOST_REQUIRE(segment != NULL);
+	BOOST_REQUIRE(segment != nullptr);
 	BOOST_CHECK_EQUAL(segment->gibbs_free_energy , (float) - 11.1072);
 	
 	
@@ -297,7 +292,6 @@ BOOST_AUTO_TEST_CASE(Test3)
  *
  * @test
  *
- * @date 2015-12-07
  */
 BOOST_AUTO_TEST_CASE(Test4)
 {
@@ -338,7 +332,6 @@ BOOST_AUTO_TEST_CASE(Test4)
  *
  * @test
  *
- * @date 2015-12-07
  */
 BOOST_AUTO_TEST_CASE(Test5)
 {
@@ -745,7 +738,7 @@ BOOST_AUTO_TEST_CASE(Test5)
 		
 		segment = segment_tree.search(subsequence_5p, subsequence_3p);
 		
-		BOOST_REQUIRE_MESSAGE(segment != NULL , "failed with segment: " << segments[i].first.str().c_str() << "," << segments[i].second.str().c_str());
+		BOOST_REQUIRE_MESSAGE(segment != nullptr , "failed with segment: " << segments[i].first.str().c_str() << "," << segments[i].second.str().c_str());
 		BOOST_CHECK_MESSAGE(segment->gibbs_free_energy == (float) - 11.1072 , "failed with segment: " << segments[i].first.str().c_str() << "," << segments[i].second.str().c_str());
 	}
 	
@@ -759,7 +752,6 @@ BOOST_AUTO_TEST_CASE(Test5)
  *
  * @test
  *
- * @date 2015-12-07
  */
 BOOST_AUTO_TEST_CASE(Test_E1)
 {
@@ -782,7 +774,6 @@ BOOST_AUTO_TEST_CASE(Test_E1)
  *
  * @test
  *
- * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(Test6)
 {
@@ -890,7 +881,6 @@ BOOST_AUTO_TEST_CASE(Test6)
  *
  * @test
  *
- * @date 2015-12-11
  */
 BOOST_AUTO_TEST_CASE(Test7)
 {
@@ -947,7 +937,6 @@ BOOST_AUTO_TEST_CASE(Test7)
  *
  * @test
  *
- * @date 2015-12-11
  */
 BOOST_AUTO_TEST_CASE(Test8)
 {

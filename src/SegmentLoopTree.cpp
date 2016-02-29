@@ -1,13 +1,12 @@
 /**
  * @file src/SegmentLoopTree.cpp
  *
- * @date 2015-12-07
  *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
- * Copyright (C) 2012-2015 Youri Hoogstrate
+ * Copyright (C) 2012-2016 Youri Hoogstrate
  *
  * This file is part of segmentation-fold and originally taken from
  * yh-kt-fold.
@@ -46,7 +45,6 @@
 /**
  * @brief Initializes an empty tree
  *
- * @date 2015-12-05
  */
 SegmentLoopTree::SegmentLoopTree()
 {
@@ -58,7 +56,6 @@ SegmentLoopTree::SegmentLoopTree()
 /**
  * @brief Destructs the tree recursively
  *
- * @date 2015-12-05
  */
 SegmentLoopTree::~SegmentLoopTree()
 {
@@ -70,7 +67,6 @@ SegmentLoopTree::~SegmentLoopTree()
 /**
  * @brief
  *
- * @date 2015-12-05
  */
 SegmentLoop *SegmentLoopTree::search(SubSequence &arg_subsequence)
 {
@@ -82,7 +78,6 @@ SegmentLoop *SegmentLoopTree::search(SubSequence &arg_subsequence)
 /**
  * @brief
  *
- * @date 2015-12-07
  */
 SegmentLoop *SegmentLoopTree::search(SubSequence &arg_subsequence, SegmentLoopTreeElement *arg_element)
 {
@@ -115,7 +110,6 @@ SegmentLoop *SegmentLoopTree::search(SubSequence &arg_subsequence, SegmentLoopTr
 /**
  * @brief Adds a Segment (as member of a SegmentLoopTreeElement) to the tree.
  *
- * @date 2015-12-05
  */
 void SegmentLoopTree::insert(SegmentLoop &arg_segmentloop)
 {
@@ -136,7 +130,6 @@ void SegmentLoopTree::insert(SegmentLoop &arg_segmentloop)
 /**
  * @brief
  *
- * @date 2015-12-05
  */
 void SegmentLoopTree::insert(SegmentLoop &arg_segmentloop, SegmentLoopTreeElement *arg_element)
 {
@@ -178,11 +171,10 @@ void SegmentLoopTree::insert(SegmentLoop &arg_segmentloop, SegmentLoopTreeElemen
 /**
  * @brief Returns whether the tree is empty or not
  *
- * @date 2015-05-02
  */
 bool SegmentLoopTree::empty(void)
 {
-	return (this->root == NULL);
+	return (this->root == nullptr);
 }
 
 
@@ -190,7 +182,6 @@ bool SegmentLoopTree::empty(void)
 /**
  * @brief Counts the elements in the subtree recursively
  *
- * @date 2015-12-07
  */
 size_t SegmentLoopTree::size(SegmentLoopTreeElement *arg_element)
 {
@@ -202,7 +193,6 @@ size_t SegmentLoopTree::size(SegmentLoopTreeElement *arg_element)
 /**
  * @brief Counts the elements in the tree recursively
  *
- * @date 2015-12-07
  */
 size_t SegmentLoopTree::size(void)
 {

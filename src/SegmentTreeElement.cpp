@@ -1,13 +1,12 @@
 /**
  * @file src/SegmentTreeElement.cpp
  *
- * @date 2015-05-02
  *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
- * Copyright (C) 2012-2015 Youri Hoogstrate
+ * Copyright (C) 2012-2016 Youri Hoogstrate
  *
  * This file is part of segmentation-fold and originally taken from
  * yh-kt-fold.
@@ -46,7 +45,6 @@
 /**
  * @brief Constructs a SegmentTreeElement by setting all pointers to nullptr and inserting the Segment object
  *
- * @date 2015-04-29
  */
 SegmentTreeElement::SegmentTreeElement(Segment &arg_segment) :
 	segment(arg_segment)
@@ -70,7 +68,6 @@ SegmentTreeElement::SegmentTreeElement(Segment &arg_segment) :
 /**
  * @brief Destructor
  *
- * @date 2013-07-26
  */
 SegmentTreeElement::~SegmentTreeElement()
 {
@@ -93,7 +90,6 @@ SegmentTreeElement::~SegmentTreeElement()
 /**
  * @brief Adds a Segment (as member of a SegmentTreeElement) to another element of the tree.
  *
- * @date 2015-04-29
  *
  * @todo use constants or static enum for cases 1, 2, 3 and 4
  */
@@ -274,7 +270,6 @@ void SegmentTreeElement::add_segment(Segment &arg_segment, char &arg_search_type
 /**
  * @brief Searches whether a segment exists in the tree
  *
- * @date 2015-04-29
  *
  * @todo use constants or static enum for cases 1, 2, 3 and 4
  */
@@ -409,7 +404,6 @@ Segment *SegmentTreeElement::search_segment(SubSequence &arg_sequence_5p, SubSeq
 /**
  * @brief Counts recursively the number of elements in the tree
  *
- * @date 2015-04-29
  */
 size_t SegmentTreeElement::size(void)
 {

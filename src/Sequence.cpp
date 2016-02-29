@@ -1,13 +1,12 @@
 /**
  * @file src/Sequence.cpp
  *
- * @date 2015-12-07
  *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
- * Copyright (C) 2012-2015 Youri Hoogstrate
+ * Copyright (C) 2012-2016 Youri Hoogstrate
  *
  * This file is part of segmentation-fold.
  *
@@ -35,7 +34,6 @@
 
 
 /**
- * @date 2014-03-10
  */
 Sequence::Sequence()
 {
@@ -46,7 +44,6 @@ Sequence::Sequence()
 /**
  * @brief Initiates a sequences and adds all nucleoides from arg_asequence
  *
- * @date 2014-04-15
  */
 Sequence::Sequence(const char *arg_sequence)
 {
@@ -63,7 +60,6 @@ Sequence::Sequence(const char *arg_sequence)
 /**
  * @brief Initiates a sequences and adds all nucleoides from arg_asequence
  *
- * @date 2014-05-18
  */
 Sequence::Sequence(std::vector<Nucleotide> &arg_nucleotides)
 {
@@ -78,7 +74,6 @@ Sequence::Sequence(std::vector<Nucleotide> &arg_nucleotides)
 /**
  * @brief Initializes a Sequence from a std::string of charset "^[actguACTUG ]+$"
  *
- * @date 2014-05-18
  */
 Sequence::Sequence(std::string &arg_nucleotides)
 {
@@ -93,7 +88,6 @@ Sequence::Sequence(std::string &arg_nucleotides)
 /**
  * @brief Initializes a Sequence from a const std::string of charset "^[actguACTUG ]+$"
  *
- * @date 2014-05-18
  */
 Sequence::Sequence(const std::string &arg_nucleotides)
 {
@@ -108,7 +102,6 @@ Sequence::Sequence(const std::string &arg_nucleotides)
 /**
  * @brief Adds a Nucleotide to the end of the Sequence
  *
- * @date 2014-05-18
  */
 void Sequence::push_back(Nucleotide nucleotide)
 {
@@ -120,7 +113,6 @@ void Sequence::push_back(Nucleotide nucleotide)
 /**
  * @brief Adds a char of charset "^[actguACTUG]$" as Nucleotide to the Sequence
  *
- * @date 2014-05-18
  */
 void Sequence::push_back(char arg_char)
 {
@@ -164,7 +156,6 @@ void Sequence::push_back(char arg_char)
  * @param arg_start is the (0-based offset) nucleotide in the sequence where the subsequence starts
  * @param arg_stop is the (0-based offset) nucleotide in the sequence where the subsequence ends
  *
- * @date 2016-01-21
  */
 Sequence Sequence::subseq(size_t arg_start, size_t arg_stop)
 {
@@ -183,7 +174,6 @@ Sequence Sequence::subseq(size_t arg_start, size_t arg_stop)
  * @param arg_start is the (0-based offset) nucleotide in the sequence where the subsequence starts
  * @param arg_stop is the (0-based offset) nucleotide in the sequence where the subsequence ends
  *
- * @date 2016-01-21
  */
 SubSequence Sequence::ssubseq(size_t arg_start, size_t arg_stop)
 {
@@ -195,7 +185,6 @@ SubSequence Sequence::ssubseq(size_t arg_start, size_t arg_stop)
 /**
  * @brief Gives the number of Nucleotides in the Sequence
  *
- * @date 2014-05-18
  */
 size_t Sequence::size()
 {
@@ -207,7 +196,6 @@ size_t Sequence::size()
 /**
  * @brief Returns whether the Sequence is empty or not
  *
- * @date 2014-05-18
  *
  * @todo check if this can be inlined?
  */
@@ -224,7 +212,6 @@ bool Sequence::empty()
  * introduces an unnecessairy amount of comparisons; the size of the
  * sequence can be found prior to a loop using Sequence::size()
  *
- * @date 2014-05-18
  */
 Nucleotide Sequence::operator[](size_t arg_position)
 {
@@ -240,7 +227,6 @@ Nucleotide Sequence::operator[](size_t arg_position)
  * Nucleotides are represented in uppercase and U's are chosen over T's
  * because it's in an RNA context
  *
- * @date 2014-04-15
  */
 std::string Sequence::str()
 {
@@ -273,7 +259,6 @@ std::string Sequence::str()
 /**
  * @brief returns IS_EQUAL, IS_SMALLER (if this is smaller) or IS_LARGER (if arg_query is smaller)
  *
- * @date 2015-12-05
  */
 char Sequence::compare(Sequence &arg_query)
 {
@@ -311,7 +296,6 @@ char Sequence::compare(Sequence &arg_query)
 /**
  * @brief Compares whether this sequence is smaller, larger or equal compared to a given SubSequence
  *
- * @date 2015-12-07
  */
 char Sequence::compare(SubSequence &arg_query)
 {

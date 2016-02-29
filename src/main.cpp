@@ -11,10 +11,9 @@
  * @section LICENSE
  * <PRE>
  * segmentation-fold can predict RNA 2D structures including K-turns.
- * Copyright (C) 2012-2015 Youri Hoogstrate
+ * Copyright (C) 2012-2016 Youri Hoogstrate
  *
- * This file is part of segmentation-fold and originally taken from
- * yh-kt-fold.
+ * This file is part of segmentation-fold
  *
  * segmentation-fold is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -63,8 +62,6 @@
  *
  * @param argc Number of commandline arguments.
  * @param argv Array of strings with the actual commandline arguments.
- *
- * @date 2015-12-07
  *
  * @return 0 For success; 1 for abnormal termination
  */

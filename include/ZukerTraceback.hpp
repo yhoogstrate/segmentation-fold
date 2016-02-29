@@ -1,14 +1,12 @@
 /**
  * @file include/ZukerTraceback.hpp
  *
- * @date 2016-01-20
- *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
  * <PRE>
  * segmentation-fold can predict RNA 2D structures including K-turns.
- * Copyright (C) 2012-2015 Youri Hoogstrate
+ * Copyright (C) 2012-2016 Youri Hoogstrate
  *
  * This file is part of segmentation-fold.
  *
@@ -37,7 +35,6 @@
 #include "Pair.hpp"
 
 
-///@date 2016-01-20
 struct traceback_jump2
 {
 	bool store_pair;// is True, position (i,j) have to be stored as pair: i:'(', j:')'
@@ -45,6 +42,8 @@ struct traceback_jump2
 	// target.first == target.second implies bifurcation between (i, target.first) & (target.first + 1, j)
 	// target.first < 0, end of line; stop traceback -> preferably if target.first > n (sequence size)
 	Pair target;
+	
+	char target_matrix;
 };
 
 #endif	// ZUKERTRACEBACK_HPP

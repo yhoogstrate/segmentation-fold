@@ -1,14 +1,12 @@
 /**
  * @file test/GibbsFreeEnergy_test.cpp
  *
- * @date 2016-01-21
- *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
  * <PRE>
  * segmentation-fold can predict RNA 2D structures including K-turns.
- * Copyright (C) 2012-2015 Youri Hoogstrate
+ * Copyright (C) 2012-2016 Youri Hoogstrate
  *
  * This file is part of segmentation-fold.
  *
@@ -69,8 +67,6 @@ BOOST_AUTO_TEST_SUITE(Testing_hairpin_loop_element)
  * @test GibbsFreeEnergy::get_hairpin_loop_element
  * @test GibbsFreeEnergy::get_loop_hairpin
  * @test GibbsFreeEnergy::get_tloop
- *
- * @date 2015-06-23
  */
 BOOST_AUTO_TEST_CASE(TestHairpinLoop1)
 {
@@ -103,8 +99,6 @@ BOOST_AUTO_TEST_CASE(TestHairpinLoop1)
  * @brief Tests hairpinloops with 3 unpaired nucleotides
  *
  * @test GibbsFreeEnergy::get_hairpin_loop_element
- *
- * @date 2015-06-23
  */
 BOOST_AUTO_TEST_CASE(TestHairpinLoop2)
 {
@@ -138,8 +132,6 @@ BOOST_AUTO_TEST_CASE(TestHairpinLoop2)
  *
  * @test GibbsFreeEnergy::get_hairpin_loop_element
  * @test GibbsFreeEnergy::get_tstackh
- *
- * @date 2015-06-23
  */
 BOOST_AUTO_TEST_CASE(TestHairpinLoop3)
 {
@@ -171,8 +163,6 @@ BOOST_AUTO_TEST_CASE(TestHairpinLoop3)
  * @brief Tests hairpinloops with hairpinloop = 31 chars (energy = fixed)
  *
  * @test GibbsFreeEnergy::get_hairpin_loop_element
- *
- * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(TestHairpinLoop4)
 {
@@ -204,8 +194,6 @@ BOOST_AUTO_TEST_CASE(TestHairpinLoop4)
  * @brief Tests hairpinloops that are poly-C  & get_miscloop(MISCLOOP_C_HAIRPIN_OF_3) & get_miscloop(MISCLOOP_C_HAIRPIN_INTERCEPT) & get_miscloop(MISCLOOP_C_HAIRPIN_SLOPE)
  *
  * @test
- *
- * @date 2016-01-20
  */
 BOOST_AUTO_TEST_CASE(TestHairpinLoop5)
 {
@@ -257,8 +245,6 @@ BOOST_AUTO_TEST_CASE(TestHairpinLoop5)
  * @brief Tests hairpinloops have a GGG_U_loop & get_miscloop(MISCLOOP_GGG_U_PENALTY)
  *
  * @test GibbsFreeEnergy::get_hairpin_loop_element
- *
- * @date 2015-06-23
  */
 BOOST_AUTO_TEST_CASE(TestHairpinLoop6)
 {
@@ -358,8 +344,6 @@ BOOST_AUTO_TEST_SUITE(TestingBulgeloop)
  * </PRE>
  *
  * @test GibbsFreeEnergy::get_bulge_loop_element
- *
- * @date 2015-06-23
  */
 BOOST_AUTO_TEST_CASE(TestBulgeLoop1)
 {
@@ -441,8 +425,6 @@ BOOST_AUTO_TEST_CASE(TestBulgeLoop1)
  * </PRE>
  *
  * @test GibbsFreeEnergy::get_bulge_loop_element
- *
- * @date 2015-06-22
  */
 BOOST_AUTO_TEST_CASE(TestBulgeLoop2)
 {
@@ -512,8 +494,6 @@ BOOST_AUTO_TEST_CASE(TestBulgeLoop2)
  * </PRE>
  *
  * @test GibbsFreeEnergy::get_bulge_loop_element
- *
- * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(TestBulgeLoop3)
 {
@@ -576,8 +556,6 @@ BOOST_AUTO_TEST_CASE(TestBulgeLoop3)
  * </PRE>
  *
  * @test GibbsFreeEnergy::get_bulge_loop_element
- *
- * @date 2015-06-23
  */
 BOOST_AUTO_TEST_CASE(TestBulgeLoop4)
 {
@@ -655,8 +633,6 @@ BOOST_AUTO_TEST_SUITE(TestingInteriorloop)
  * </PRE>
  *
  * @test GibbsFreeEnergy::get_interior_loop_element
- *
- * @date 2015-06-23
  */
 BOOST_AUTO_TEST_CASE(TestInteriorLoop1)
 {
@@ -773,8 +749,6 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop1)
  * </PRE>
  *
  * @test GibbsFreeEnergy::get_interior_loop_element
- *
- * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(TestInteriorLoop2)
 {
@@ -1073,8 +1047,6 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop2)
  * </PRE>
  *
  * @test GibbsFreeEnergy::get_interior_loop_element
- *
- * @date 2016-01-21
  */
 BOOST_AUTO_TEST_CASE(TestInteriorLoop2_poppen)
 {
@@ -1424,8 +1396,6 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop2_poppen)
  * </PRE>
  *
  * @test get_int11 & get_interior_loop_element
- *
- * @date 2015-06-23
  */
 BOOST_AUTO_TEST_CASE(TestInteriorLoop3)
 {
@@ -1519,8 +1489,6 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop3)
  * </PRE>
  *
  * @test GibbsFreeEnergy::get_interior_loop_element
- *
- * @date 2015-06-23
  */
 BOOST_AUTO_TEST_CASE(TestInteriorLoop4)
 {
@@ -1623,8 +1591,6 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop4)
  *
  * @test GibbsFreeEnergy::get_interior_loop_element
  * @test GibbsFreeEnergy::get_int21 (using reverse sequence)
- *
- * @date 2015-06-23
  */
 BOOST_AUTO_TEST_CASE(TestInteriorLoop5)
 {
@@ -1736,8 +1702,6 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop5)
  * </PRE>
  *
  * @test
- *
- * @date 2015-06-23
  */
 BOOST_AUTO_TEST_CASE(TestInteriorLoop6)
 {
@@ -1820,6 +1784,115 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop6)
 	BOOST_CHECK_EQUAL(energy ,
 					  energy_loop_hairpin + energy_hairpin_stack + energy_hairpin_triloop_GaaaC +
 					  energy_interior_loop_penalty2
+					 );
+}
+
+
+
+/**
+ * @brief Tests interior loop of size unpaired = 4, n_abs = 1
+ *
+ * @section DESCRIPTION
+ *    Predicts the Gibbs free energy of the following structure:
+ *
+ * <PRE>
+ *   5') [i] [i+1] [i+2] [j-2] [i'] ...
+ *        |                     |
+ *   3') [j]       [j-1]       [j'] ...
+ * </PRE>
+ *
+ *  With interior loop sequence:
+ * <PRE>
+ *       aaa
+ * 5') gcG Cga
+ *     |||   || a
+ * 3') cgC Gca
+ *        a
+ * </PRE>
+ *
+ * @test
+ */
+BOOST_AUTO_TEST_CASE(TestInteriorLoop7)
+{
+	float energy_loop_hairpin = 0.0;
+	float energy_hairpin_stack = 0.0;
+	float energy_hairpin_triloop_GaaaC = 0.0;
+	
+	Sequence rna = Sequence("gcGaaaCgaaacGaCgc");
+	
+	// Check hairpin
+	unsigned int hairpin_size = 3;
+	
+	Pair ph = Pair();
+	ph.first = 7;
+	ph.second = ph.first + hairpin_size + 1;
+	
+	BOOST_CHECK_EQUAL(rna[ph.first], Nucleotide::G);
+	BOOST_CHECK_EQUAL(rna[ph.second], Nucleotide::C);
+	
+	PairingPlus hpairing = PairingPlus(rna, ph);
+	
+	// Check interior loop
+	unsigned int n_unpaired_r1 = 3;
+	unsigned int n_unpaired_r2 = 1;
+	
+	unsigned int i = 2;
+	unsigned int j = i + n_unpaired_r1 + 2 + hairpin_size + 2 + n_unpaired_r2 + 1;
+	
+	unsigned int ip = i + n_unpaired_r1 + 1;
+	unsigned int jp = i + n_unpaired_r1 + 2 + hairpin_size + 2;
+	
+	
+	BOOST_CHECK_EQUAL(rna[i] , Nucleotide::G);
+	BOOST_CHECK_EQUAL(rna[j] , Nucleotide::C);
+	
+	BOOST_CHECK_EQUAL(rna[ip] , Nucleotide::C);
+	BOOST_CHECK_EQUAL(rna[jp] , Nucleotide::G);
+	
+	
+	BOOST_CHECK_EQUAL(rna[i + 1] , Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[i + 2] , Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[i + 3] , Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[ip - 1] , Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[ip - 2] , Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[ip - 3] , Nucleotide::A);
+	BOOST_CHECK(rna[i] != Nucleotide::A);
+	BOOST_CHECK(rna[i + 4] != Nucleotide::A);
+	BOOST_CHECK(rna[ip] != Nucleotide::A);
+	BOOST_CHECK(rna[ip - 4] != Nucleotide::A);
+	
+	BOOST_CHECK_EQUAL(rna[j - 1] , Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[jp + 1] , Nucleotide::A);
+	BOOST_CHECK(rna[j] != Nucleotide::A);
+	BOOST_CHECK(rna[j - 2] != Nucleotide::A);
+	BOOST_CHECK(rna[jp] != Nucleotide::A);
+	BOOST_CHECK(rna[jp + 2] != Nucleotide::A);
+	
+	
+	
+	Pair p = Pair {i, j};
+	Pair pp = Pair {ip, jp};
+	
+	Region r = Region {p, pp};
+	
+	// Compare energy
+	ReadData thermodynamics = ReadData();
+	GibbsFreeEnergy gfe = GibbsFreeEnergy(rna, thermodynamics);
+	
+	// Set penalties: ensure the hairpin gets 0 energy
+	thermodynamics.tstackh[hpairing.type][rna[ph.first + 1]][rna[ph.second - 1]] = energy_hairpin_stack;
+	thermodynamics.tloop_map[Sequence("GaaaC")] = energy_hairpin_triloop_GaaaC;
+	thermodynamics.loop_hairpin[hairpin_size] = energy_loop_hairpin;
+	
+	// Check
+	float energy = gfe.get_interior_loop_element(r);
+	
+	BOOST_CHECK_EQUAL(energy ,
+					  energy_loop_hairpin + energy_hairpin_stack + energy_hairpin_triloop_GaaaC +
+					  thermodynamics.loop_interior[4] +
+					  thermodynamics.tstki[PairingType::GC][Nucleotide::A][Nucleotide::A] +
+					  thermodynamics.tstki[PairingType::CG][Nucleotide::A][Nucleotide::A] +
+					  1.0f // asymetric penalty
 					 );
 }
 

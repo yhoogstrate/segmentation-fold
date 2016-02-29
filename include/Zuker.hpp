@@ -36,15 +36,20 @@
 #include "Utils/utils.hpp"
 
 
+#define V_MATRIX 1
+#define W_MATRIX 2
+#define WM_MATRIX 3
+
+
 /**
  * @brief Jumping element for the traceback function
- *
- * @date 2013-10-02
  */
 struct traceback_jump
 {
 	unsigned int i;
 	unsigned int j;
+	
+	char matrix;
 };
 
 
@@ -61,7 +66,6 @@ struct traceback_jump
  * model with Segments/K-turns functionality for RNA secondary structure
  * prediction.
  *
- * @date 2016-01-21
  */
 class Zuker: public GibbsFreeEnergy
 {
@@ -87,21 +91,25 @@ class Zuker: public GibbsFreeEnergy
 		// Energy functions:
 		float v(Pair &p1, PairingPlus &p1p);
 		float w(Pair &p1);
+		float wm(Pair &p1, PairingPlus &p1p);
 		
 		// Trace-back related:
 		void traceback(void);
-		void traceback_push(unsigned int i, unsigned int j);
-		bool traceback_pop(unsigned int *i, unsigned int *j);
+		void traceback_push(unsigned int i, unsigned int j, char matrix);
+		bool traceback_pop(unsigned int *i, unsigned int *j, char *matrix);
 		
 		// Output functions
 		void print_2D_structure(void);
 		
 		// Energy matrices
-		ScoringMatrix<float> vij;
-		ScoringMatrix<float> wij;
+		ScoringMatrix<float> vij;//paired matrix
+		ScoringMatrix<float> wij;//unpaired matrix
+		ScoringMatrix<float> wmij;//multiloop matrix
 		
 		// Traceback matrices
-		ScoringMatrix<traceback_jump2> tij;// Traceback matrix, merges pij and qij and loopmatrix and pathmatrix_corrected_from
+		ScoringMatrix<traceback_jump2> tij_v;
+		ScoringMatrix<traceback_jump2> tij_w;
+		ScoringMatrix<traceback_jump2> tij_wm;
 		ScoringMatrix<SegmentTraceback *> sij;
 		
 #if DEBUG

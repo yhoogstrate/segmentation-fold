@@ -1,12 +1,11 @@
 /**
  * @file include/ScoringMatrix.hpp
  *
- * @date 2016-01-22
- *
  * @author Youri Hoogstrate
+ *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
- * Copyright (C) 2012-2015 Youri Hoogstrate
+ * Copyright (C) 2012-2016 Youri Hoogstrate
  *
  * This file is part of segmentation-fold and originally taken from
  * yh-kt-fold.
@@ -37,8 +36,6 @@
 
 /**
  * @brief A (memory efficient) lower triangle of an n*n scoring matrix plus an additional vertical.
- *
- * @date 2016-01-22
  *
  * @section DESCRIPTION
  * For a matrix of n*n, all values (x,x) for 0 < x < n are initialized with a: 0

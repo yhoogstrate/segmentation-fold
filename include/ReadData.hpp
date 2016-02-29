@@ -1,14 +1,11 @@
 /**
  * @file include/ReadData.hpp
  *
- * @date 2015-12-07
- *
  * @author Youri Hoogstrate
- * @author Lisa Yu
  *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
- * Copyright (C) 2012-2015 Youri Hoogstrate
+ * Copyright (C) 2012-2016 Youri Hoogstrate
  *
  * This file is part of segmentation-fold and originally taken from
  * yh-kt-fold.

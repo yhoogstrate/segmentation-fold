@@ -1,13 +1,11 @@
 /**
  * @file include/Direction.hpp
  *
- * @date 2015-05-02
- *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
- * Copyright (C) 2012-2015 Youri Hoogstrate
+ * Copyright (C) 2012-2016 Youri Hoogstrate
  *
  * This file is part of segmentation-fold.
  *
@@ -48,7 +46,6 @@ written down in reverse, as you can see when the sequence is expanded:
 
 This struct is used to define such Direction to a sequence, most often
 in the context of Segment.
- * @date 2014-03-13
  */
 enum struct Direction : bool
 {

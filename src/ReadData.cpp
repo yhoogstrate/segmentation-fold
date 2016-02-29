@@ -1,13 +1,11 @@
 /**
  * @file src/ReadData.cpp
  *
- * @date 2016-01-21
- *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
- * Copyright (C) 2012-2015 Youri Hoogstrate
+ * Copyright (C) 2012-2016 Youri Hoogstrate
  *
  * This file is part of segmentation-fold and originally taken from
  * yh-kt-fold.
@@ -64,8 +62,6 @@
 
 /**
  * @brief Initiates a ReadData class.
- *
- * @date 2013-03-31
  */
 ReadData::ReadData() :
 	loop_hairpin(30 + 1, N_INFINITY),
@@ -98,8 +94,6 @@ ReadData::ReadData() :
  * @section DESCRIPTION
  * Structure:
  * p2n(j',i') p2n(j,i) n2n(j'-1) n2n(i'-1) n2n(i'-2)
- *
- * @date 2016-01-21
  *
  * @todo Find out if NUCLEOTIDE: 4 is a remaining part of code for DNA folding where 4 ment NUCLEOTIDE T or that it means NUCLEOTIDE_UNKNOWN
  *
@@ -2440,7 +2434,6 @@ void ReadData::loadAsint5()
  * bulge[0], ... ,bulge[29] correspond to bulge loops of size 1,...,30 respectively
  * From 31 and further extrapolation is applied and described in more detail in Zuker::energyBulgeLoop()
  *
- * @date 2016-01-21
  */
 void ReadData::load_loop_bulge()
 {
@@ -2764,7 +2757,6 @@ void ReadData::loadEparam()
  * @section DESCRIPTION
  * The prelog parameter is used for extrapolation of loops of size larger than 30 nucleotides.
  *
- * @date 2016-01-21
  *
  * @todo Use data files (XML) for storage.
  */
@@ -2801,7 +2793,6 @@ void ReadData::load_miscloop()
 
 
 /**
- * @date 2016-01-21
  */
 void ReadData::load_loop_hairpin()
 {
@@ -2838,8 +2829,9 @@ void ReadData::load_loop_hairpin()
 }
 
 
+
 /**
- * @date 2016-01-21
+ * @brief Loads the interior loops
  **/
 void ReadData::load_loop_interior()
 {
@@ -2883,8 +2875,6 @@ void ReadData::load_loop_interior()
  * @brief Load the f(m) array ("see Ninio for details")
  *
  * @attention more details: http://www.bioinfo.rpi.edu/zukerm/rna/energy/efiles-3.0-rna/#MISC
- *
- * @date 2016-01-21
  */
 void ReadData::load_poppen()
 {
@@ -2906,7 +2896,6 @@ void ReadData::load_poppen()
  *
  * p2n(i,j) p2n(i',j') n2n(i+1) n2n(j-1)
  *
- * @date 2016-01-21
  */
 void ReadData::load_int11()
 {
@@ -3492,7 +3481,6 @@ void ReadData::load_int11()
 /**
  * @brief Structure of data should be: int22[pairing(i,j)][pairing(i',j')][i+1][j-1]][i+2]][j-2]];
  *
- * @date 2016-01-21
  */
 void ReadData::load_int22()
 {
@@ -12716,7 +12704,6 @@ void ReadData::load_int22()
 
 
 /**
- * @date 2016-01-21
  */
 void ReadData::load_stack()
 {
@@ -12760,7 +12747,6 @@ void ReadData::load_stack()
 
 
 /**
- * @date 2016-01-21
  */
 void ReadData::load_tloop()
 {
@@ -12801,7 +12787,6 @@ void ReadData::load_tloop()
  *
  * @note no triloops available
  *
- * @date 2015-06-23
  */
 void ReadData::load_triloop()
 {
@@ -12814,7 +12799,6 @@ void ReadData::load_triloop()
  * @section DESCRIPTION
  *  Access: tstkh[PairingType(i,j)][Nucleotide i + 1][Nucleotide j - 1]
  *
- * @date 2016-01-21
  */
 void ReadData::load_tstackh()
 {
@@ -12920,7 +12904,6 @@ void ReadData::load_tstackh()
 /**
  * @brief Terminal stack interior loop
  *
- * @date 2016-01-21
  */
 void ReadData::load_tstacki()
 {

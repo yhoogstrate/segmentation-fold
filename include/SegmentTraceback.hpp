@@ -1,13 +1,12 @@
 /**
  * @file include/SegmentTraceback.hpp
  *
- * @date 2016-01-22
  *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
  * segmentation-fold can predict RNA 2D structures including K-turns.
- * Copyright (C) 2012-2015 Youri Hoogstrate
+ * Copyright (C) 2012-2016 Youri Hoogstrate
  *
  * This file is part of segmentation-fold.
  *
@@ -81,7 +80,6 @@
  * tb:  --------->  [i,j], [i+1, j-1], [i+2, j-2]
  *
  *
- * @date 2016-01-21
  */
 class SegmentTraceback
 {
