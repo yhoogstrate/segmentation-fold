@@ -279,13 +279,11 @@ BOOST_AUTO_TEST_CASE(Test_kturns)
 		zuker.energy();
 		zuker.traceback();
 		
-		std::cout << (*example).sequence.str() << "\n";
-		
 		std::string predicted_structure = "";
 		zuker.dot_bracket.format((unsigned int)(*example).sequence.size() , predicted_structure);  ///@todo unsigned int -> size_t
 		
 		BOOST_REQUIRE_EQUAL((*example).dot_bracket_pattern.size() , predicted_structure.size());
-		BOOST_CHECK_MESSAGE(db.match((*example).dot_bracket_pattern, predicted_structure), "Predicted structure of '" << (*example).title << "' doesn't match it's true structure:\n\t" << predicted_structure << " (predicted structure)\n\t" << (*example).dot_bracket_pattern << " (pattern of true structure)\n");
+		BOOST_CHECK_MESSAGE(db.match((*example).dot_bracket_pattern, predicted_structure), "Predicted structure:\n\t" << (*example).title << "\n\t" << (*example).sequence.str() << "\ndoesn't match it's true structure:\n\t" << predicted_structure << " (predicted structure)\n\t" << (*example).dot_bracket_pattern << " (pattern of true structure)\n");
 	}
 }
 
