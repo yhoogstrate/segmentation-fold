@@ -201,7 +201,7 @@ size_t SegmentLoopTree::size(void)
  */
 void SegmentLoopTree::clear(SegmentLoopTreeElement *arg_element)
 {
-	if(arg_element!=nullptr)
+	if(arg_element != nullptr)
 	{
 		this->clear(arg_element->left);
 		this->clear(arg_element->right);
