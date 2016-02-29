@@ -67,6 +67,7 @@ class SegmentLoopTree
 		SegmentLoop *search(SubSequence &arg_segment, SegmentLoopTreeElement *arg_element);
 		
 		size_t size(SegmentLoopTreeElement *arg_element);
+		void clear(SegmentLoopTreeElement *arg_element);
 		
 	public:
 		SegmentLoopTree();
@@ -77,6 +78,8 @@ class SegmentLoopTree
 		
 		bool empty(void);
 		size_t size(void);
+		
+		void clear(void);
 };
 
 
