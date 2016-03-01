@@ -71,7 +71,7 @@ Zuker::Zuker(Settings &arg_settings, Sequence &arg_sequence, ReadData &arg_therm
 	sij(arg_sequence.size(), nullptr)
 {
 #if DEBUG
-	this->tij_v.fill({{NOT_YET_CALCULATED, NOT_YET_CALCULATED}, W_MATRIX});
+	this->tij_v.fill({{NOT_YET_CALCULATED, NOT_YET_CALCULATED}, V_MATRIX});
 	this->tij_w.fill({{NOT_YET_CALCULATED, NOT_YET_CALCULATED}, W_MATRIX});
 #endif //DEBUG
 	
