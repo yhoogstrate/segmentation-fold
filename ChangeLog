@@ -1,3 +1,8 @@
+2016-03-01  Youri Hoogstrate
+	* v1.6.2
+	  - Fixes defining max value of a float for certain compilers/CPUs
+	  - Solved two memory errors for SegmentLoop objects
+
 2016-02-29  Youri Hoogstrate
 	* v1.6.1
 	  - Lower memory footprint for traceback matrices

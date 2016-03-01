@@ -41,24 +41,15 @@
 #include <string.h>
 #include <time.h>
 #include <unistd.h>
-
 #include <limits.h>
-#include <float.h>
-
 #include <algorithm>
 #include <array>
 #include <string>
 #include <vector>
 
-// http://stackoverflow.com/a/7266266 << template way of doing it
-// http://stackoverflow.com/a/28338942
-//#define N_INFINITY  FLT_MAX
-#define MAX_OF(type) \
-    (((type)(~0LLU) > (type)((1LLU<<((sizeof(type)<<3)-1))-1LLU)) ? (long long unsigned int)(type)(~0LLU) : (long long unsigned int)(type)((1LLU<<((sizeof(type)<<3)-1))-1LLU))
-#define MIN_OF(type) \
-    (((type)(1LLU<<((sizeof(type)<<3)-1)) < (type)1) ? (long long int)((~0LLU)-((1LLU<<((sizeof(type)<<3)-1))-1LLU)) : 0LL)
 
-#define N_INFINITY         (float) MAX_OF(float)
+// if a bifurcation of vij + vij gets summed up, it will be exactly the max val of a float
+#define N_INFINITY         std::numeric_limits<float>::max() / 2
 
 #define BOUND              -1
 #define UNBOUND            -2

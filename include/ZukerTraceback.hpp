@@ -35,6 +35,22 @@
 #include "Pair.hpp"
 
 
+
+
+/**
+ * @brief Jumping element for the traceback function
+ * 
+ * @todo use pair
+ */
+struct traceback_jump
+{
+	unsigned int i;
+	unsigned int j;
+	
+	char matrix;
+};
+
+
 struct traceback_jump2
 {
 	// target.first == target.second implies bifurcation between (i, target.first) & (target.first + 1, j)

@@ -41,17 +41,6 @@
 #define WM_MATRIX 3
 
 
-/**
- * @brief Jumping element for the traceback function
- */
-struct traceback_jump
-{
-	unsigned int i;
-	unsigned int j;
-	
-	char matrix;
-};
-
 
 #include "ZukerTraceback.hpp"
 #include "GibbsFreeEnergy.hpp"
@@ -65,7 +54,6 @@ struct traceback_jump
  * The program implements the Zuker's minimum Gibbs free energy energy
  * model with Segments/K-turns functionality for RNA secondary structure
  * prediction.
- *
  */
 class Zuker: public GibbsFreeEnergy
 {
