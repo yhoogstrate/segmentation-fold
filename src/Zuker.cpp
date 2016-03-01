@@ -64,16 +64,16 @@ Zuker::Zuker(Settings &arg_settings, Sequence &arg_sequence, ReadData &arg_therm
 	wij(arg_sequence.size(), 0.0),
 	wmij(arg_sequence.size(), N_INFINITY),
 
-	tij_v(arg_sequence.size(), {Pair(UNBOUND, UNBOUND), V_MATRIX}),					//@todo use N instead of 0? >> if so, set UNBOUND to N  + 1 or so
-	  tij_w(arg_sequence.size(), {Pair(UNBOUND, UNBOUND), W_MATRIX}),					//@todo use N instead of 0? >> if so, set UNBOUND to N  + 1 or so
-	  tij_wm(arg_sequence.size(), {Pair(UNBOUND, UNBOUND), WM_MATRIX}),				//@todo use N instead of 0? >> if so, set UNBOUND to N  + 1 or so
+	tij_v(arg_sequence.size(), {Pair(UNBOUND, UNBOUND), V_MATRIX}),				//@todo use N instead of 0? >> if so, set UNBOUND to N  + 1 or so
+	tij_w(arg_sequence.size(), {Pair(UNBOUND, UNBOUND), W_MATRIX}),				//@todo use N instead of 0? >> if so, set UNBOUND to N  + 1 or so
+	tij_wm(arg_sequence.size(), {Pair(UNBOUND, UNBOUND), WM_MATRIX}),			//@todo use N instead of 0? >> if so, set UNBOUND to N  + 1 or so
 
-	  sij(arg_sequence.size(), nullptr)
+	sij(arg_sequence.size(), nullptr)
 {
 	//@todo see which ones can drop
-	this->tij_v.fill({{NOT_YET_CALCULATED, NOT_YET_CALCULATED}, V_MATRIX});
-	this->tij_w.fill({{NOT_YET_CALCULATED, NOT_YET_CALCULATED}, W_MATRIX});
-	this->tij_wm.fill({{NOT_YET_CALCULATED, NOT_YET_CALCULATED}, WM_MATRIX});
+	//this->tij_v.fill({{NOT_YET_CALCULATED, NOT_YET_CALCULATED}, V_MATRIX});
+	//this->tij_w.fill({{NOT_YET_CALCULATED, NOT_YET_CALCULATED}, W_MATRIX});
+	//this->tij_wm.fill({{NOT_YET_CALCULATED, NOT_YET_CALCULATED}, WM_MATRIX});
 	
 	this->sequence_begin = this->sequence.data.begin();
 	this->traceback_stacktop = -1;
@@ -250,6 +250,7 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 			Pair p3 = Pair(p1.first + 1, ip);
 			Pair p4 = Pair(ip + 1, p1.second - 1);
 			tmp = this->wmij.get(p3) + this->wmij.get(p4);
+			
 			if(tmp < energy)
 			{
 				energy = tmp;
@@ -392,7 +393,7 @@ float Zuker::w(Pair &p1)
 	this->wm(p1, p1p);
 	this->wij.set(p1, energy);
 	
-	if(tmp_pij == BOUND)
+	if(tmp_pij == BOUND)// no oneliner possible
 	{
 		this->tij_w.set(p1, {p1, V_MATRIX});
 	}
@@ -451,8 +452,6 @@ float Zuker::wm(Pair &p1, PairingPlus &p1p)
 		tmp_tij.target_matrix = WM_MATRIX;//stay in wm
 	}
 	
-	
-	
 	p2 = Pair(p1.first , p1.second - 1);
 	tmp = this->wmij.get(p2);
 	if(tmp < energy)
@@ -494,7 +493,6 @@ void Zuker::traceback(void)
 	
 	this->folded_segments = 0;
 	
-	
 	// only initize traceback if it provides free energy
 	pair1 = Pair(0, this->sequence.size() - 1);
 	this->traceback_push(0, (unsigned int) this->sequence.size() - 1, W_MATRIX);///@todo use size_t
@@ -529,14 +527,12 @@ void Zuker::traceback(void)
 #endif //DEBUG
 		}
 		
-		
-		// Check whether the action for the current position is to STORE
-		//if(action.store_pair)										// Store current pair (i,j)
+		// Checks whether the action for the current position is to STORE
 		if(matrix == V_MATRIX)
 		{
 			this->dot_bracket.store(i, j);
 			
-			independent_segment_traceback = this->sij.get(pair1);	///@todo implement it as independent_segment_traceback = this->nij.search(p); or sth like that
+			independent_segment_traceback = this->sij.get(pair1);///@todo implement it as independent_segment_traceback = this->nij.search(p); or sth like that
 			if(independent_segment_traceback != nullptr)// If a Segment's traceback is found, trace its internal structure back
 			{
 				this->folded_segments++;
@@ -565,18 +561,18 @@ void Zuker::traceback(void)
 			{
 				if(matrix == V_MATRIX)
 				{
-					this->traceback_push(pair1.first + 1, action.target.first, action.target_matrix); // W or WM matrix
-					this->traceback_push(action.target.first + 1, pair1.second - 1, action.target_matrix); // W or WM matrix
+					this->traceback_push(pair1.first + 1, action.target.first, action.target_matrix);
+					this->traceback_push(action.target.first + 1, pair1.second - 1, action.target_matrix);
 				}
 				else
 				{
-					this->traceback_push(pair1.first, action.target.first, action.target_matrix); // W or WM matrix
-					this->traceback_push(action.target.first + 1, pair1.second, action.target_matrix); // W or WM matrix
+					this->traceback_push(pair1.first, action.target.first, action.target_matrix);
+					this->traceback_push(action.target.first + 1, pair1.second, action.target_matrix);
 				}
 			}
 			else
 			{
-				this->traceback_push(action.target.first, action.target.second, action.target_matrix);//V or W matrix because it doesn't fork
+				this->traceback_push(action.target.first, action.target.second, action.target_matrix);
 			}
 		}
 		
@@ -613,7 +609,7 @@ void Zuker::traceback_push(unsigned int i, unsigned int j, char matrix)
  */
 bool Zuker::traceback_pop(unsigned int *i, unsigned int *j, char *matrix)
 {
-	if(not this->traceback_stack.empty())
+	if(!this->traceback_stack.empty())
 	{
 		traceback_jump jump = this->traceback_stack.back();
 		
