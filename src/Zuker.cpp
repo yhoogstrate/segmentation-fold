@@ -509,7 +509,6 @@ void Zuker::traceback(void)
 		}
 #endif //DEBUG
 		
-		
 		pair1 = Pair(i, j);
 		switch(matrix)
 		{
@@ -522,6 +521,12 @@ void Zuker::traceback(void)
 			case WM_MATRIX:
 				action = this->tij_wm.get(pair1);
 				break;
+#if DEBUG
+			default:
+				throw std::invalid_argument("Zuker::traceback(): (" + std::to_string(pair1.first) + ", " + std::to_string(pair1.second) +") targetting from unset location\n");
+				return void();
+			break;
+#endif //DEBUG
 		}
 		
 		
