@@ -70,10 +70,10 @@ Zuker::Zuker(Settings &arg_settings, Sequence &arg_sequence, ReadData &arg_therm
 
 	sij(arg_sequence.size(), nullptr)
 {
-	//@todo see which ones can drop
-	//this->tij_v.fill({{NOT_YET_CALCULATED, NOT_YET_CALCULATED}, V_MATRIX});
-	//this->tij_w.fill({{NOT_YET_CALCULATED, NOT_YET_CALCULATED}, W_MATRIX});
-	//this->tij_wm.fill({{NOT_YET_CALCULATED, NOT_YET_CALCULATED}, WM_MATRIX});
+#if DEBUG
+	this->tij_v.fill({{NOT_YET_CALCULATED, NOT_YET_CALCULATED}, W_MATRIX});
+	this->tij_w.fill({{NOT_YET_CALCULATED, NOT_YET_CALCULATED}, W_MATRIX});
+#endif //DEBUG
 	
 	this->sequence_begin = this->sequence.data.begin();
 	this->traceback_stacktop = -1;
@@ -127,7 +127,7 @@ float Zuker::energy(void)
 float Zuker::v(Pair &p1, PairingPlus &p1p)
 {
 #if DEBUG
-	if(this->tij_w.get(p1).target.first != (unsigned int) NOT_YET_CALCULATED)
+	if(this->tij_v.get(p1).target.first != (unsigned int) NOT_YET_CALCULATED)
 	{
 		throw std::invalid_argument("Zuker::v(" + std::to_string(p1.first) + ", " + std::to_string(p1.second) + "): redundant calculation, please request values from the ScoringMatrix directly");
 	}
