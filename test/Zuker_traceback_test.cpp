@@ -1171,7 +1171,7 @@ void test_sij(Zuker &zuker, size_t n)
 void test_tij(Zuker &zuker)
 {
 	Pair p = Pair();
-	traceback_jump2 t;
+	traceback_jump t;
 	
 	p = {0, 0};
 	t = zuker.tij_v.get(p);
@@ -1914,7 +1914,7 @@ BOOST_AUTO_TEST_CASE(Test_bulge_loop)
 			for(unsigned int y = x;  y < (unsigned int) sequence.size(); y++)
 			{
 				Pair p = Pair(x,y);
-				traceback_jump2 t = zuker.tij_v.get(p);
+				traceback_jump t = zuker.tij_v.get(p);
 				if(t.target.first == (unsigned int) UNBOUND)
 				{
 					printf("	p = {%i, %i};t = zuker.tij_v.get(p);BOOST_CHECK_EQUAL(t.target.first, UNBOUND);\n", x,  y, t.store_pair ? "true" : "false");

@@ -65,10 +65,10 @@ Zuker::Zuker(Settings &arg_settings, Sequence &arg_sequence, ReadData &arg_therm
 	wmij(arg_sequence.size(), N_INFINITY),
 
 	tij_v(arg_sequence.size(), {Pair(UNBOUND, UNBOUND), V_MATRIX}),				//@todo use N instead of 0? >> if so, set UNBOUND to N  + 1 or so
-	tij_w(arg_sequence.size(), {Pair(UNBOUND, UNBOUND), W_MATRIX}),				//@todo use N instead of 0? >> if so, set UNBOUND to N  + 1 or so
-	tij_wm(arg_sequence.size(), {Pair(UNBOUND, UNBOUND), WM_MATRIX}),			//@todo use N instead of 0? >> if so, set UNBOUND to N  + 1 or so
+	  tij_w(arg_sequence.size(), {Pair(UNBOUND, UNBOUND), W_MATRIX}),				//@todo use N instead of 0? >> if so, set UNBOUND to N  + 1 or so
+	  tij_wm(arg_sequence.size(), {Pair(UNBOUND, UNBOUND), WM_MATRIX}),			//@todo use N instead of 0? >> if so, set UNBOUND to N  + 1 or so
 
-	sij(arg_sequence.size(), nullptr)
+	  sij(arg_sequence.size(), nullptr)
 {
 #if DEBUG
 	this->tij_v.fill({{NOT_YET_CALCULATED, NOT_YET_CALCULATED}, V_MATRIX});
@@ -148,7 +148,7 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 	SegmentTraceback  *tmp_segmenttraceback = nullptr;
 	
 	energy = this->get_hairpin_loop_element(p1);						// Hairpin element
-	traceback_jump2 tmp_tij = traceback_jump2 {{UNBOUND, p1.second - 1}, V_MATRIX};
+	traceback_jump tmp_tij = traceback_jump {{UNBOUND, p1.second - 1}, V_MATRIX};
 	
 	
 	// SegmentLoop element
@@ -424,7 +424,7 @@ float Zuker::wm(Pair &p1, PairingPlus &p1p)
 	float energy;
 	energy = this->vij.get(p1);
 	
-	traceback_jump2 tmp_tij = {p1, V_MATRIX};
+	traceback_jump tmp_tij = {p1, V_MATRIX};
 	Pair p2, p3;
 	
 	for(k = p1.first + 1; k < p1.second; k++)
@@ -483,57 +483,54 @@ float Zuker::wm(Pair &p1, PairingPlus &p1p)
  */
 void Zuker::traceback(void)
 {
-	char matrix;
-	SegmentTraceback *independent_segment_traceback;
-	
-	traceback_jump2 action;
-	Pair pair1, pair_tmp;
-	
 	this->folded_segments = 0;
 	
+	SegmentTraceback *independent_segment_traceback;
+	Pair pair_tmp;
+	
+	traceback_jump origin = {{0, (unsigned int) this->sequence.size() - 1}, W_MATRIX};
+	traceback_jump action;
+	
 	// only initize traceback if it provides free energy
-	pair1 = Pair(0, this->sequence.size() - 1);
-	this->traceback_push(0, (unsigned int) this->sequence.size() - 1, W_MATRIX);///@todo use size_t
-	
-	
-	while(this->traceback_pop(&pair1.first, &pair1.second, &matrix))
+	this->traceback_push(origin);///@todo use size_t
+	while(this->traceback_pop(origin.target.first, origin.target.second, origin.target_matrix))
 	{
 #if DEBUG
-		if(pair1.first >= pair1.second)
+		if(origin.target.first >= origin.target.second)
 		{
-			throw std::invalid_argument("Zuker::traceback(): invalid jump (i:" + std::to_string(pair1.first) + " >= j:" + std::to_string(pair1.second) + ")");
+			throw std::invalid_argument("Zuker::traceback(): invalid jump (i:" + std::to_string(origin.target.first) + " >= j:" + std::to_string(origin.target.second) + ")");
 		}
 #endif //DEBUG
 		
-		switch(matrix)
+		switch(origin.target_matrix)
 		{
 			case V_MATRIX:
-				action = this->tij_v.get(pair1);
+				action = this->tij_v.get(origin.target);
 				break;
 			case W_MATRIX:
-				action = this->tij_w.get(pair1);
+				action = this->tij_w.get(origin.target);
 				break;
 			case WM_MATRIX:
-				action = this->tij_wm.get(pair1);
+				action = this->tij_wm.get(origin.target);
 				break;
 #if DEBUG
 			default:
-				throw std::invalid_argument("Zuker::traceback(): (" + std::to_string(pair1.first) + ", " + std::to_string(pair1.second) +") targetting from unset location\n");
+				throw std::invalid_argument("Zuker::traceback(): (" + std::to_string(origin.target.first) + ", " + std::to_string(origin.target.second) + ") targetting from unset location\n");
 				return void();
-			break;
+				break;
 #endif //DEBUG
 		}
 		
 		// Checks whether the action for the current position is to STORE
-		if(matrix == V_MATRIX)
+		if(origin.target_matrix == V_MATRIX)
 		{
-			this->dot_bracket.store(pair1);
+			this->dot_bracket.store(origin.target);
 			
-			independent_segment_traceback = this->sij.get(pair1);///@todo implement it as independent_segment_traceback = this->nij.search(p); or sth like that
+			independent_segment_traceback = this->sij.get(origin.target);///@todo implement it as independent_segment_traceback = this->nij.search(p); or sth like that
 			if(independent_segment_traceback != nullptr)// If a Segment's traceback is found, trace its internal structure back
 			{
 				this->folded_segments++;
-				pair_tmp = pair1;
+				pair_tmp = origin.target;
 				
 				while(independent_segment_traceback->traceback(pair_tmp.first, pair_tmp.second))
 				{
@@ -554,20 +551,20 @@ void Zuker::traceback(void)
 		{
 			if(action.target.first == action.target.second)
 			{
-				if(matrix == V_MATRIX)
+				if(origin.target_matrix == V_MATRIX)
 				{
-					this->traceback_push(pair1.first + 1, action.target.first, action.target_matrix);
-					this->traceback_push(action.target.first + 1, pair1.second - 1, action.target_matrix);
+					this->traceback_push({{origin.target.first + 1, action.target.first}, action.target_matrix});
+					this->traceback_push({{action.target.first + 1, origin.target.second - 1}, action.target_matrix});
 				}
 				else
 				{
-					this->traceback_push(pair1.first, action.target.first, action.target_matrix);
-					this->traceback_push(action.target.first + 1, pair1.second, action.target_matrix);
+					this->traceback_push({{origin.target.first, action.target.first}, action.target_matrix});
+					this->traceback_push({{action.target.first + 1, origin.target.second}, action.target_matrix});
 				}
 			}
 			else
 			{
-				this->traceback_push(action.target.first, action.target.second, action.target_matrix);
+				this->traceback_push(action);
 			}
 		}
 		
@@ -580,15 +577,13 @@ void Zuker::traceback(void)
 /**
  * @brief Pushes (i,j) & matrix-flag onto the stack
  *
- * @param i Nucleotide position of the sequence, paired to j, where i < j
- * @param j Nucleotide position of the sequence, paired to i, where i < j
- * @param char matrix to traceback from - v, w, or wm
+ * @param arg_jump Pair to jump to + matrix to traceback from - v, w, or wm
  *
- * @todo use Pair() instead of i and j
+ * @todo inline
  */
-void Zuker::traceback_push(unsigned int i, unsigned int j, char matrix)
+void Zuker::traceback_push(traceback_jump arg_jump)
 {
-	this->traceback_stack.push_back({i, j, matrix});
+	this->traceback_stack.push_back(arg_jump);
 }
 
 
@@ -600,17 +595,19 @@ void Zuker::traceback_push(unsigned int i, unsigned int j, char matrix)
  * @param j Nucleotide position of the sequence, paired to i, where i < j
  * @param char matrix to traceback from - v, w, or wm
  *
+ * @todo use traceback_jump
+ *
  * @return True for success; False otherwise.
  */
-bool Zuker::traceback_pop(unsigned int *i, unsigned int *j, char *matrix)
+bool Zuker::traceback_pop(unsigned int &i, unsigned int &j, char &matrix)
 {
 	if(!this->traceback_stack.empty())
 	{
 		traceback_jump jump = this->traceback_stack.back();
 		
-		(*i) = jump.i;
-		(*j) = jump.j;
-		(*matrix) = jump.matrix;
+		i = jump.target.first;
+		j = jump.target.second;
+		matrix = jump.target_matrix;
 		
 		this->traceback_stack.pop_back();
 		
