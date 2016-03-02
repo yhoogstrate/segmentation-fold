@@ -380,15 +380,15 @@ BOOST_AUTO_TEST_CASE(Test_Sequence_GGGAAACCC)
 	//                                  -
 	Pair pend = Pair(0, 8);
 	
-	traceback_jump2 jump_1 = zuker.tij_v.get(pend);
+	traceback_jump jump_1 = zuker.tij_v.get(pend);
 	BOOST_CHECK_EQUAL(jump_1.target.first, 1);
 	BOOST_CHECK_EQUAL(jump_1.target.second, 7);
 	
-	traceback_jump2 jump_2 = zuker.tij_v.get(jump_1.target);
+	traceback_jump jump_2 = zuker.tij_v.get(jump_1.target);
 	BOOST_CHECK_EQUAL(jump_2.target.first, 2);
 	BOOST_CHECK_EQUAL(jump_2.target.second, 6);
 	
-	traceback_jump2 jump_3 = zuker.tij_v.get(jump_2.target);
+	traceback_jump jump_3 = zuker.tij_v.get(jump_2.target);
 	BOOST_CHECK_EQUAL(jump_3.target.first, UNBOUND);// third hop, eol
 	
 	// check total energy

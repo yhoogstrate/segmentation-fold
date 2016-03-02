@@ -83,7 +83,7 @@ class Zuker: public GibbsFreeEnergy
 		
 		// Trace-back related:
 		void traceback(void);
-		void traceback_push(unsigned int i, unsigned int j, char matrix);
+		void traceback_push(traceback_jump arg_jump);
 		bool traceback_pop(unsigned int *i, unsigned int *j, char *matrix);
 		
 		// Output functions
@@ -95,9 +95,9 @@ class Zuker: public GibbsFreeEnergy
 		ScoringMatrix<float> wmij;//multiloop matrix
 		
 		// Traceback matrices
-		ScoringMatrix<traceback_jump2> tij_v;
-		ScoringMatrix<traceback_jump2> tij_w;
-		ScoringMatrix<traceback_jump2> tij_wm;
+		ScoringMatrix<traceback_jump> tij_v;
+		ScoringMatrix<traceback_jump> tij_w;
+		ScoringMatrix<traceback_jump> tij_wm;
 		ScoringMatrix<SegmentTraceback *> sij;
 		
 #if DEBUG

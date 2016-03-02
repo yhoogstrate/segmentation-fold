@@ -39,25 +39,14 @@
 
 /**
  * @brief Jumping element for the traceback function
- * 
- * @todo use pair
+ *
+ * target.first == target.second implies bifurcation between (i, target.first) & (target.first + 1, j)
+ * target.first < 0, end of line; stop traceback -> preferably if target.first > n (sequence size)
  */
 struct traceback_jump
 {
-	unsigned int i;
-	unsigned int j;
-	
-	char matrix;
-};
-
-
-struct traceback_jump2
-{
-	// target.first == target.second implies bifurcation between (i, target.first) & (target.first + 1, j)
-	// target.first < 0, end of line; stop traceback -> preferably if target.first > n (sequence size)
 	Pair target;
-	
-	char target_matrix;
+	char target_matrix;///@todo although a bool 'jump matrix' should contain as much information because jump from W <-> WM does not happen
 };
 
 #endif	// ZUKERTRACEBACK_HPP
