@@ -11,6 +11,7 @@ before_install:
 install:
   - sudo apt-get install -qq libboost-filesystem1.55-dev libboost-test1.55-dev valgrind astyle
   - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
+  - sed -i.bak "s/#pragma/\/\/#pragma/" src/Zuker.cpp 
   - cmake .
   - make
 
@@ -25,7 +26,7 @@ addons:
 
 script:
   - ctest
-  - ctest -T memcheck
+  - for f in ./build/test/*; do valgrind --leak-check=full --show-reachable=yes --error-exitcode=1 "$f"; done
   - if make tidy | grep "Formatted " ; then exit 2; else echo "No changes found by astyle" ; make tidy; fi;
 
 notifications:
