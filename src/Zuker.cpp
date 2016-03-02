@@ -483,13 +483,11 @@ float Zuker::wm(Pair &p1, PairingPlus &p1p)
  */
 void Zuker::traceback(void)
 {
-	unsigned int i, j;
 	char matrix;
-	unsigned int tmp_i, tmp_j;
 	SegmentTraceback *independent_segment_traceback;
 	
 	traceback_jump2 action;
-	Pair pair1;
+	Pair pair1, pair_tmp;
 	
 	this->folded_segments = 0;
 	
@@ -498,16 +496,15 @@ void Zuker::traceback(void)
 	this->traceback_push(0, (unsigned int) this->sequence.size() - 1, W_MATRIX);///@todo use size_t
 	
 	
-	while(this->traceback_pop(&i, &j, &matrix))
+	while(this->traceback_pop(&pair1.first, &pair1.second, &matrix))
 	{
 #if DEBUG
-		if(i >= j)
+		if(pair1.first >= pair1.second)
 		{
-			throw std::invalid_argument("Zuker::traceback(): invalid jump (i:" + std::to_string(i) + " >= j:" + std::to_string(j) + ")");
+			throw std::invalid_argument("Zuker::traceback(): invalid jump (i:" + std::to_string(pair1.first) + " >= j:" + std::to_string(pair1.second) + ")");
 		}
 #endif //DEBUG
 		
-		pair1 = Pair(i, j);
 		switch(matrix)
 		{
 			case V_MATRIX:
@@ -530,25 +527,23 @@ void Zuker::traceback(void)
 		// Checks whether the action for the current position is to STORE
 		if(matrix == V_MATRIX)
 		{
-			this->dot_bracket.store(i, j);
+			this->dot_bracket.store(pair1);
 			
 			independent_segment_traceback = this->sij.get(pair1);///@todo implement it as independent_segment_traceback = this->nij.search(p); or sth like that
 			if(independent_segment_traceback != nullptr)// If a Segment's traceback is found, trace its internal structure back
 			{
 				this->folded_segments++;
+				pair_tmp = pair1;
 				
-				tmp_i = i;
-				tmp_j = j;
-				
-				while(independent_segment_traceback->traceback(tmp_i, tmp_j))
+				while(independent_segment_traceback->traceback(pair_tmp.first, pair_tmp.second))
 				{
 #if DEBUG
-					if(tmp_i >= tmp_j)
+					if(pair_tmp.first >= pair_tmp.second)
 					{
-						throw std::invalid_argument("Zuker::traceback(): segment/segmentloop introduced invalid jump (" + std::to_string(tmp_i) + "," + std::to_string(tmp_j) + ")\n");
+						throw std::invalid_argument("Zuker::traceback(): segment/segmentloop introduced invalid jump (" + std::to_string(pair_tmp.first) + "," + std::to_string(pair_tmp.second) + ")\n");
 					}
 #endif //DEBUG
-					this->dot_bracket.store(tmp_i, tmp_j);
+					this->dot_bracket.store(pair_tmp);
 				}
 			}
 		}

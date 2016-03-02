@@ -71,12 +71,11 @@ signed int DotBracket::find(unsigned int arg_i)
 /**
  * @brief Stores pairing (i,j)
  *
- * @param arg_i Nucleotide position in the RNA sequence pairing with (,j)
- * @param arg_j Nucleotide position in the RNA sequence pairing with (i,)
+ * @param arg_pair Nucleotides position in the RNA sequence
  */
-void DotBracket::store(unsigned int arg_i, unsigned int arg_j)
+void DotBracket::store(Pair &arg_pair)
 {
-	this->pairings.push_back({arg_i, arg_j});
+	this->pairings.push_back(arg_pair);
 }
 
 
