@@ -501,7 +501,7 @@ void Zuker::traceback(void)
 #if DEBUG
 		if(pair1.first >= pair1.second)
 		{
-			throw std::invalid_argument("Zuker::traceback(): invalid jump (i:" + std::to_string(i) + " >= j:" + std::to_string(j) + ")");
+			throw std::invalid_argument("Zuker::traceback(): invalid jump (i:" + std::to_string(pair1.first) + " >= j:" + std::to_string(pair1.second) + ")");
 		}
 #endif //DEBUG
 		
