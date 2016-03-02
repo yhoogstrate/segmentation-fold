@@ -486,17 +486,14 @@ void Zuker::traceback(void)
 	char matrix;
 	SegmentTraceback *independent_segment_traceback;
 	
-	traceback_jump action;
+	traceback_jump action = {{0, (unsigned int) this->sequence.size() - 1}, W_MATRIX};
 	Pair pair1, pair_tmp;
 	
 	this->folded_segments = 0;
 	
 	// only initize traceback if it provides free energy
-	pair1 = Pair(0, this->sequence.size() - 1);
-	this->traceback_push({{0, (unsigned int) this->sequence.size() - 1}, W_MATRIX});///@todo use size_t
-	
-	
-	while(this->traceback_pop(&pair1.first, &pair1.second, &matrix))
+	this->traceback_push(action);///@todo use size_t
+	while(this->traceback_pop(pair1.first, pair1.second, matrix))
 	{
 #if DEBUG
 		if(pair1.first >= pair1.second)
@@ -602,15 +599,15 @@ void Zuker::traceback_push(traceback_jump arg_jump)
  *
  * @return True for success; False otherwise.
  */
-bool Zuker::traceback_pop(unsigned int *i, unsigned int *j, char *matrix)
+bool Zuker::traceback_pop(unsigned int &i, unsigned int &j, char &matrix)
 {
 	if(!this->traceback_stack.empty())
 	{
 		traceback_jump jump = this->traceback_stack.back();
 		
-		(*i) = jump.target.first;
-		(*j) = jump.target.second;
-		(*matrix) = jump.target_matrix;
+		i = jump.target.first;
+		j = jump.target.second;
+		matrix = jump.target_matrix;
 		
 		this->traceback_stack.pop_back();
 		

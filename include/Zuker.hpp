@@ -84,7 +84,7 @@ class Zuker: public GibbsFreeEnergy
 		// Trace-back related:
 		void traceback(void);
 		void traceback_push(traceback_jump arg_jump);
-		bool traceback_pop(unsigned int *i, unsigned int *j, char *matrix);
+		bool traceback_pop(unsigned int &i, unsigned int &j, char &matrix);
 		
 		// Output functions
 		void print_2D_structure(void);
