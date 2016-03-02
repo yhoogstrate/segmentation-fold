@@ -25,7 +25,7 @@ addons:
 
 script:
   - ctest
-  - for f in ./build/test/*; do valgrind --leak-check=full "$f"; done
+  - for f in ./build/test/*; do valgrind --leak-check=full --show-reachable=yes --error-exitcode=1 "$f"; done
   - if make tidy | grep "Formatted " ; then exit 2; else echo "No changes found by astyle" ; make tidy; fi;
 
 notifications:
