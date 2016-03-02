@@ -30,6 +30,7 @@
 
 
 #include "main.hpp"
+#include "Pair.hpp"
 
 
 
@@ -50,7 +51,7 @@ class DotBracket
 	public:
 		DotBracket();
 		
-		void store(unsigned int arg_i, unsigned int arg_j);
+		void store(Pair &arg_pair);
 		int  find(unsigned int arg_i);
 		void format(unsigned int n, std::string &output);
 		
