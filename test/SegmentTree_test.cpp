@@ -373,11 +373,11 @@ BOOST_AUTO_TEST_CASE(Test5)
 	
 	unsigned int i, j;
 	
-	SegmentTree segment_tree = SegmentTree();
+	SegmentTree segment_tree;
 	
 	for(i = 0; i < 120; i++)											// Test with 120 different orders of adding segments
 	{
-		SegmentTree segment_tree = SegmentTree();
+		segment_tree = SegmentTree();
 		
 		BOOST_CHECK(segment_tree.empty() == true);
 		BOOST_CHECK(segment_tree.size() == 0);

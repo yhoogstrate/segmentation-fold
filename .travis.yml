@@ -25,7 +25,7 @@ addons:
 
 script:
   - ctest
-  - ctest -T memcheck
+  - for f in ./build/test/*; do valgrind --leak-check=full "$f"; done
   - if make tidy | grep "Formatted " ; then exit 2; else echo "No changes found by astyle" ; make tidy; fi;
 
 notifications:
