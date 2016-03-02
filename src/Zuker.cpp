@@ -483,54 +483,54 @@ float Zuker::wm(Pair &p1, PairingPlus &p1p)
  */
 void Zuker::traceback(void)
 {
-	char matrix;
-	SegmentTraceback *independent_segment_traceback;
-	
-	traceback_jump action = {{0, (unsigned int) this->sequence.size() - 1}, W_MATRIX};
-	Pair pair1, pair_tmp;
-	
 	this->folded_segments = 0;
 	
+	SegmentTraceback *independent_segment_traceback;
+	Pair pair_tmp;
+	
+	traceback_jump origin = {{0, (unsigned int) this->sequence.size() - 1}, W_MATRIX};
+	traceback_jump action;
+	
 	// only initize traceback if it provides free energy
-	this->traceback_push(action);///@todo use size_t
-	while(this->traceback_pop(pair1.first, pair1.second, matrix))
+	this->traceback_push(origin);///@todo use size_t
+	while(this->traceback_pop(origin.target.first, origin.target.second, origin.target_matrix))
 	{
 #if DEBUG
-		if(pair1.first >= pair1.second)
+		if(origin.target.first >= origin.target.second)
 		{
-			throw std::invalid_argument("Zuker::traceback(): invalid jump (i:" + std::to_string(pair1.first) + " >= j:" + std::to_string(pair1.second) + ")");
+			throw std::invalid_argument("Zuker::traceback(): invalid jump (i:" + std::to_string(origin.target.first) + " >= j:" + std::to_string(origin.target.second) + ")");
 		}
 #endif //DEBUG
 		
-		switch(matrix)
+		switch(origin.target_matrix)
 		{
 			case V_MATRIX:
-				action = this->tij_v.get(pair1);
+				action = this->tij_v.get(origin.target);
 				break;
 			case W_MATRIX:
-				action = this->tij_w.get(pair1);
+				action = this->tij_w.get(origin.target);
 				break;
 			case WM_MATRIX:
-				action = this->tij_wm.get(pair1);
+				action = this->tij_wm.get(origin.target);
 				break;
 #if DEBUG
 			default:
-				throw std::invalid_argument("Zuker::traceback(): (" + std::to_string(pair1.first) + ", " + std::to_string(pair1.second) + ") targetting from unset location\n");
+				throw std::invalid_argument("Zuker::traceback(): (" + std::to_string(origin.target.first) + ", " + std::to_string(origin.target.second) + ") targetting from unset location\n");
 				return void();
 				break;
 #endif //DEBUG
 		}
 		
 		// Checks whether the action for the current position is to STORE
-		if(matrix == V_MATRIX)
+		if(origin.target_matrix == V_MATRIX)
 		{
-			this->dot_bracket.store(pair1);
+			this->dot_bracket.store(origin.target);
 			
-			independent_segment_traceback = this->sij.get(pair1);///@todo implement it as independent_segment_traceback = this->nij.search(p); or sth like that
+			independent_segment_traceback = this->sij.get(origin.target);///@todo implement it as independent_segment_traceback = this->nij.search(p); or sth like that
 			if(independent_segment_traceback != nullptr)// If a Segment's traceback is found, trace its internal structure back
 			{
 				this->folded_segments++;
-				pair_tmp = pair1;
+				pair_tmp = origin.target;
 				
 				while(independent_segment_traceback->traceback(pair_tmp.first, pair_tmp.second))
 				{
@@ -551,20 +551,20 @@ void Zuker::traceback(void)
 		{
 			if(action.target.first == action.target.second)
 			{
-				if(matrix == V_MATRIX)
+				if(origin.target_matrix == V_MATRIX)
 				{
-					this->traceback_push({{pair1.first + 1, action.target.first}, action.target_matrix});
-					this->traceback_push({{action.target.first + 1, pair1.second - 1}, action.target_matrix});
+					this->traceback_push({{origin.target.first + 1, action.target.first}, action.target_matrix});
+					this->traceback_push({{action.target.first + 1, origin.target.second - 1}, action.target_matrix});
 				}
 				else
 				{
-					this->traceback_push({{pair1.first, action.target.first}, action.target_matrix});
-					this->traceback_push({{action.target.first + 1, pair1.second}, action.target_matrix});
+					this->traceback_push({{origin.target.first, action.target.first}, action.target_matrix});
+					this->traceback_push({{action.target.first + 1, origin.target.second}, action.target_matrix});
 				}
 			}
 			else
 			{
-				this->traceback_push({{action.target.first, action.target.second}, action.target_matrix});
+				this->traceback_push(action);
 			}
 		}
 		
