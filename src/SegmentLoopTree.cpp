@@ -87,13 +87,10 @@ SegmentLoop *SegmentLoopTree::search(SubSequence &arg_subsequence, SegmentLoopTr
 			case IS_LARGER:// the tree element is larger, thus the subsequence is left (smaller) of the current element
 				return this->search(arg_subsequence, arg_element->left);
 				break;
-			//case IS_EQUAL:
-			default:
+			default://case IS_EQUAL:
 				return &arg_element->segmentloop;
 				break;
 		}
-		
-		//return nullptr;
 	}
 	else
 	{
@@ -124,7 +121,6 @@ void SegmentLoopTree::insert(SegmentLoop &arg_segmentloop)
 
 /**
  * @brief
- *
  */
 void SegmentLoopTree::insert(SegmentLoop &arg_segmentloop, SegmentLoopTreeElement *arg_element)
 {
@@ -151,13 +147,11 @@ void SegmentLoopTree::insert(SegmentLoop &arg_segmentloop, SegmentLoopTreeElemen
 				arg_element->left = new SegmentLoopTreeElement(arg_segmentloop);
 			}
 			break;
-			
 #if DEBUG
 		default://  inserting same element twice
-			throw std::invalid_argument("SegmentLoopTree - inserting same element twice.");
+			throw std::invalid_argument("SegmentLoopTree::insert() inserting same element twice.");
 			break;
 #endif //DEBUG
-			
 	}
 }
 
@@ -179,14 +173,13 @@ bool SegmentLoopTree::empty(void)
  */
 size_t SegmentLoopTree::size(SegmentLoopTreeElement *arg_element)
 {
-	return (arg_element == nullptr) ? 0 : 1 + this->size(arg_element->left) + this->size(arg_element->right);
+	return this->empty() ? 0 : 1 + this->size(arg_element->left) + this->size(arg_element->right);
 }
 
 
 
 /**
  * @brief Counts the elements in the tree recursively
- *
  */
 size_t SegmentLoopTree::size(void)
 {
