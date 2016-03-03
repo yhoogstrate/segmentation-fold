@@ -307,8 +307,8 @@ Segment *ReadSegments::parse_segment(std::string arg_name, std::string arg_seque
 		if(arg_bonds[k] != ' ')
 		{
 			bonds.push_back(Pair {i, j});
-			i = 0;
-			j = 0;
+			//i = 0;
+			//j = 0;
 		}
 		
 		if(arg_sequence_5p[k] != ' ')
@@ -354,7 +354,7 @@ SegmentLoop *ReadSegments::parse_segmentloop(std::string arg_name, std::string a
 /**
  * @brief converts "((.((..))).)" into (1,1),(1,2),(2,1),(1,1)
  */
-std::vector<Pair> ReadSegments::dotbracket_to_bonds(std::string &arg_dot_bracket)
+std::vector<Pair> ReadSegments::dotbracket_to_bonds2(std::string &arg_dot_bracket)
 {
 	std::vector<Pair> bonds = std::vector<Pair>();
 	
@@ -405,10 +405,12 @@ std::vector<Pair> ReadSegments::dotbracket_to_bonds(std::string &arg_dot_bracket
 /**
  * @brief converts "((.((..))).)" into (1,1),(1,2),(2,1),(1,1)
  */
-std::vector<Pair> ReadSegments::dotbracket_to_bonds2(std::string &arg_dot_bracket)
+std::vector<Pair> ReadSegments::dotbracket_to_bonds(std::string &arg_dot_bracket)
 {
 	std::vector<unsigned int> left_parenthesis = std::vector<unsigned int>();
 	std::vector<Pair> bonds = std::vector<Pair>();
+	
+	printf("starting\n");
 	
 	unsigned int i;
 	for(i = 1;i <= arg_dot_bracket.size();i++)
@@ -425,8 +427,8 @@ std::vector<Pair> ReadSegments::dotbracket_to_bonds2(std::string &arg_dot_bracke
 				}
 				else
 				{
-					//pop
-					bonds.push_back({left_parenthesis.back(),i});
+					printf("add bond\n");
+					bonds.push_back({left_parenthesis.back(), arg_dot_bracket.size() - i + 1});
 					left_parenthesis.pop_back();
 				}
 			break;
@@ -465,7 +467,6 @@ void ReadSegments::clear(void)
 
 /**
  * @brief Destructor
- *
  */
 ReadSegments::~ReadSegments()
 {

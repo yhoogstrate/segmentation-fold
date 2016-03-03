@@ -530,9 +530,11 @@ void Zuker::traceback(void)
 			if(independent_segment_traceback != nullptr)// If a Segment's traceback is found, trace its internal structure back
 			{
 				this->folded_segments++;
-				pair_tmp = origin.target;
+				//pair_tmp = origin.target;
 				
-				while(independent_segment_traceback->traceback(pair_tmp.first, pair_tmp.second))
+				while(independent_segment_traceback->traceback(
+					origin.target.first, origin.target.second,
+					pair_tmp.first, pair_tmp.second))
 				{
 #if DEBUG
 					if(pair_tmp.first >= pair_tmp.second)

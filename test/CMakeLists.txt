@@ -49,9 +49,9 @@ add_executable(position_test           Position_test.cpp ../src/Sequence.cpp ../
 add_executable(sequence_test           Sequence_test.cpp ../src/Sequence.cpp ../src/SubSequence.cpp)
 add_executable(pairingplus_test        PairingPlus_test.cpp ../src/Sequence.cpp ../src/PairingPlus.cpp ../src/Pairing.cpp ../src/SubSequence.cpp)
 add_executable(pairing_test            Pairing_test.cpp ../src/Pairing.cpp)
-add_executable(segmenttraceback_test   SegmentTraceback_test.cpp ../src/SegmentTraceback.cpp)
-add_executable(segment_test            Segment_test.cpp ../src/SegmentTraceback.cpp ../src/Segment.cpp ../src/Sequence.cpp ../src/SubSequence.cpp)
-add_executable(segmentloop_test        SegmentLoop_test.cpp ../src/SegmentTraceback.cpp ../src/SegmentLoop.cpp ../src/Sequence.cpp ../src/SubSequence.cpp)
+#add_executable(segmenttraceback_test   SegmentTraceback_test.cpp ../src/SegmentTraceback.cpp)
+#add_executable(segment_test            Segment_test.cpp ../src/SegmentTraceback.cpp ../src/Segment.cpp ../src/Sequence.cpp ../src/SubSequence.cpp)
+#add_executable(segmentloop_test        SegmentLoop_test.cpp ../src/SegmentTraceback.cpp ../src/SegmentLoop.cpp ../src/Sequence.cpp ../src/SubSequence.cpp)
 add_executable(segmenttreeelement_test SegmentTreeElement_test.cpp ../src/SegmentTreeElement.cpp ../src/SegmentTraceback.cpp ../src/Segment.cpp ../src/Sequence.cpp  ../src/SubSequence.cpp)
 add_executable(segmenttree_test        SegmentTree_test.cpp ../src/SegmentTree.cpp ../src/SegmentTreeElement.cpp ../src/SegmentTraceback.cpp ../src/Segment.cpp ../src/Sequence.cpp ../src/SubSequence.cpp)
 add_executable(segmentlooptree_test    SegmentLoopTree_test.cpp ../src/SegmentTraceback.cpp ../src/SegmentLoop.cpp ../src/SegmentLoopTree.cpp ../src/Sequence.cpp ../src/SubSequence.cpp)
@@ -71,9 +71,9 @@ set_target_properties(direction_test
                       sequence_test
                       pairingplus_test
                       pairing_test
-                      segmenttraceback_test
-                      segment_test
-                      segmentloop_test
+#                      segmenttraceback_test
+#                      segment_test
+#                      segmentloop_test
                       segmenttreeelement_test
                       segmenttree_test
                       segmentlooptree_test

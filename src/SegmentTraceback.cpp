@@ -1,7 +1,6 @@
 /**
  * @file src/SegmentTraceback.cpp
  *
- *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
@@ -67,7 +66,6 @@
  * tb:  --------->  [i,j], [i+1, j-1], [i+2, j-2]
  *
  * @param arg_bonds The bonds are given from outside to inside (FiFo)
- *
  */
 SegmentTraceback::SegmentTraceback(std::vector <Pair> arg_bonds):
 	bonds(arg_bonds)
@@ -108,8 +106,24 @@ size_t SegmentTraceback::size(void)
  * @return Whether the return was VALID - if false is returned, the traceback is being reset to it's origin and will return true again.
  *
  */
-bool SegmentTraceback::traceback(unsigned int &i, unsigned int &j)
+bool SegmentTraceback::traceback(unsigned int &i, unsigned int &j,unsigned int &ip, unsigned int &jp)
 {
+	if(this->it == this->bonds.end())
+	{
+		this->reset();
+		
+		return false;
+	}
+	else
+	{
+		ip = i + (*this->it).first;
+		jp = j - (*this->it).second;
+		
+		this->it++;
+		
+		return true;
+	}
+	/*
 	if(this->it == this->bonds.end())
 	{
 		this->reset();
@@ -124,5 +138,5 @@ bool SegmentTraceback::traceback(unsigned int &i, unsigned int &j)
 		this->it++;
 		
 		return true;
-	}
+	}*/
 }

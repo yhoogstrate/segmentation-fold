@@ -1,7 +1,6 @@
 /**
  * @file include/SegmentTraceback.hpp
  *
- *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
@@ -92,7 +91,8 @@ class SegmentTraceback
 	public:
 		SegmentTraceback(std::vector<Pair> arg_bonds);
 		
-		bool traceback(unsigned int &i, unsigned int &j);
+		//bool traceback(unsigned int &i, unsigned int &j);
+		bool traceback(unsigned int &i, unsigned int &j, unsigned int &ip, unsigned int &jp);
 		void reset(void);
 		
 		size_t size(void);
