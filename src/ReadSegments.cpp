@@ -219,7 +219,6 @@ void ReadSegments::parse_segments(ptree &xml_segments)
 
 /**
  * @brief Parses the <segmentloops> section of the XML file
- *
  */
 void ReadSegments::parse_segmentloops(ptree &xml_segments)
 {
@@ -354,9 +353,6 @@ SegmentLoop *ReadSegments::parse_segmentloop(std::string arg_name, std::string a
 
 /**
  * @brief converts "((.((..))).)" into (1,1),(1,2),(2,1),(1,1)
- *
- *
- * @todo fix for:  ((( ))) ((( )))
  */
 std::vector<Pair> ReadSegments::dotbracket_to_bonds(std::string &arg_dot_bracket)
 {
@@ -403,6 +399,48 @@ std::vector<Pair> ReadSegments::dotbracket_to_bonds(std::string &arg_dot_bracket
 	
 	return bonds;
 }
+
+
+
+/**
+ * @brief converts "((.((..))).)" into (1,1),(1,2),(2,1),(1,1)
+ */
+std::vector<Pair> ReadSegments::dotbracket_to_bonds2(std::string &arg_dot_bracket)
+{
+	std::vector<unsigned int> left_parenthesis = std::vector<unsigned int>();
+	std::vector<Pair> bonds = std::vector<Pair>();
+	
+	unsigned int i;
+	for(i = 1;i <= arg_dot_bracket.size();i++)
+	{
+		switch(arg_dot_bracket[i-1])
+		{
+			case DOTBRACKET__PAIRING_LEFT:// (
+				left_parenthesis.push_back(i);
+			break;
+			case DOTBRACKET__PAIRING_RIGHT:// )
+				if(left_parenthesis.empty())
+				{
+					throw std::invalid_argument("ReadSegments::dotbracket_to_bonds("+arg_dot_bracket+"): number of parenthesis don't add up");
+				}
+				else
+				{
+					//pop
+					bonds.push_back({left_parenthesis.back(),i});
+					left_parenthesis.pop_back();
+				}
+			break;
+		}
+	}
+	
+	if(!left_parenthesis.empty())
+	{
+		throw std::invalid_argument("ReadSegments::dotbracket_to_bonds("+arg_dot_bracket+"): number of parenthesis don't add up");
+	}
+	
+	return bonds;
+}
+
 
 
 /**

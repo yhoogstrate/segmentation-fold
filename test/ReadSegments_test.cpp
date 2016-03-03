@@ -936,13 +936,11 @@ BOOST_AUTO_TEST_CASE(Test7)
  * @brief tests bonds parsing
  *
  * @test
- *
  */
 BOOST_AUTO_TEST_CASE(Test8)
 {
 	std::string filename = "tmp.readsegments_test_test8";
 	
-	//ReadSegments rs = ReadSegments(filename);
 	Test_ReadSegments trs = Test_ReadSegments(filename);
 	
 	
@@ -972,6 +970,48 @@ BOOST_AUTO_TEST_CASE(Test8)
 	BOOST_CHECK_EQUAL(dbn2_bonds[2].second , 1);
 	BOOST_CHECK_EQUAL(dbn2_bonds[3].first , 1);
 	BOOST_CHECK_EQUAL(dbn2_bonds[3].second , 1);
+}
+
+
+
+/**
+ * @brief tests bonds parsing
+ *
+ * @test ReadSegments::dotbracket_to_bonds2
+ */
+BOOST_AUTO_TEST_CASE(Test9)
+{
+	std::string filename = "tmp.readsegments_test_test9";
+	
+	Test_ReadSegments trs = Test_ReadSegments(filename);
+	
+	//should convert into (1,5),(6,10)
+	std::string dbn1 = "(...)";
+	std::vector<Pair> dbn1_bonds = trs.dotbracket_to_bonds2(dbn1);
+	BOOST_CHECK_EQUAL(dbn1_bonds.size() , 1);
+	BOOST_CHECK_EQUAL(dbn1_bonds[0].first , 1);
+	BOOST_CHECK_EQUAL(dbn1_bonds[0].second , 5);
+	
+	//should convert into (1,5),(6,10)
+	std::string dbn2 = "(...)(...)";
+	std::vector<Pair> dbn2_bonds = trs.dotbracket_to_bonds2(dbn2);
+	BOOST_CHECK_EQUAL(dbn2_bonds.size() , 2);
+	BOOST_CHECK_EQUAL(dbn2_bonds[0].first , 1);
+	BOOST_CHECK_EQUAL(dbn2_bonds[0].second , 5);
+	BOOST_CHECK_EQUAL(dbn2_bonds[1].first , 6);
+	BOOST_CHECK_EQUAL(dbn2_bonds[1].second , 10);
+	
+	std::string dbn3 = "(())(...)()";
+	std::vector<Pair> dbn3_bonds = trs.dotbracket_to_bonds2(dbn3);
+	BOOST_CHECK_EQUAL(dbn3_bonds.size() , 4);
+	BOOST_CHECK_EQUAL(dbn3_bonds[0].first , 1);
+	BOOST_CHECK_EQUAL(dbn3_bonds[0].second , 4);
+	BOOST_CHECK_EQUAL(dbn3_bonds[1].first , 2);
+	BOOST_CHECK_EQUAL(dbn3_bonds[1].second , 3);
+	BOOST_CHECK_EQUAL(dbn3_bonds[2].first , 5);
+	BOOST_CHECK_EQUAL(dbn3_bonds[2].second , 9);
+	BOOST_CHECK_EQUAL(dbn3_bonds[3].first , 10);
+	BOOST_CHECK_EQUAL(dbn3_bonds[3].second , 11);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
