@@ -208,7 +208,7 @@ inline float GibbsFreeEnergy::get_loop_hairpin(unsigned int arg_n_unpaired)
 	///@todo Throw exception
 	if(arg_n_unpaired >= (unsigned int) this->thermodynamics.loop_hairpin.size())
 	{
-		fprintf(stderr, "GibbsFreeEnergy::get_loop_hairpin - Out of bound: %i ,size = %i" "\n", arg_n_unpaired, (int)this->thermodynamics.loop_hairpin.size());
+		fprintf(stderr, "GibbsFreeEnergy::get_loop_hairpin() - Out of bound: %i ,size = %i" "\n", arg_n_unpaired, (int)this->thermodynamics.loop_hairpin.size());
 		exit(1);
 	}
 #endif //DEBUG
@@ -654,7 +654,7 @@ float GibbsFreeEnergy::get_bulge_loop_element(Region &r)
 #if DEBUG
 	else if(n_unpaired < 1)
 	{
-		std::cerr << "Warning: unneccesairy call of get_bulge_loop_element()";
+		throw std::invalid_argument("GibbsFreeEnergy::get_bulge_loop_element({" + std::to_string(r.pair1.first) + "," + std::to_string(r.pair1.second) + "},{" + std::to_string(r.pair2.first) + "," + std::to_string(r.pair2.second) + "}): unnecessary invocation because of loop size");
 		energy = N_INFINITY;
 	}
 #endif // DEBUG
