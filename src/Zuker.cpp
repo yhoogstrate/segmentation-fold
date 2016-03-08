@@ -140,6 +140,7 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 	
 	unsigned int ip;
 	unsigned int jp;
+	Pair p2 = Pair(p1.first+1, p1.second-1);
 	
 	float energy, tmp, tmp_k;
 	
@@ -152,7 +153,7 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 	
 	
 	// SegmentLoop element
-	SubSequence ps1 = this->sequence.ssubseq(p1.first + 1 , p1.second - 1); ///@todo use Pair()
+	SubSequence ps1 = this->sequence.ssubseq(p2.first,p2.second); ///@todo use Pair()
 	tmp_segmentloop = this->thermodynamics.segmentloops.search(ps1);
 	if(tmp_segmentloop != nullptr)
 	{
@@ -164,6 +165,20 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 		}
 	}
 	
+	
+	float v_ij_jp = this->vij.get(p2);
+	// Stacking element
+	tmp = this->get_stacking_pair_element(p1) + v_ij_jp;
+	if(tmp < energy)
+	{
+		energy = tmp;
+
+		tmp_tij.target = p2;
+		tmp_tij.target_matrix = V_MATRIX;
+		tmp_segmenttraceback = nullptr;
+	}
+	
+	
 	for(ip = p1.first + 1; ip < p1.second; ip++)
 	{
 		for(jp = p1.second - 1; jp > ip; jp--)
@@ -171,25 +186,12 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 			PairingPlus pairing2 = PairingPlus(this->sequence_begin + ip, this->sequence_begin + jp);
 			if(pairing2.is_canonical())									// The following structure elements must be enclosed by pairings on both sides
 			{
-				Pair p2 = Pair(ip, jp);
-				float v_ij_jp = this->vij.get(p2);
+				p2 = Pair(ip, jp);
+				v_ij_jp = this->vij.get(p2);
 				
-				Region region = Region {p1, p2};
+				Region region = Region{p1, p2};
 				
-				///@todo put out of the loop?!
-				if(ip == (p1.first + 1) && jp == (p1.second - 1))// Stacking element
-				{
-					tmp = this->get_stacking_pair_element(p1) + v_ij_jp;
-					if(tmp < energy)
-					{
-						energy = tmp;
-						
-						tmp_tij.target = {p1.first + 1, p1.second - 1};
-						tmp_tij.target_matrix = V_MATRIX;
-						tmp_segmenttraceback = nullptr;
-					}
-				}
-				else if(ip == (p1.first + 1) || jp == (p1.second - 1))// Bulge-loop element
+				if(ip-p1.first == 1 || p1.second - jp == 1)// Bulge-loop element
 				{
 					tmp = this->get_bulge_loop_element(region) + v_ij_jp;
 					if(tmp < energy)
