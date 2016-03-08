@@ -140,7 +140,6 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 	
 	unsigned int ip;
 	unsigned int jp;
-	Pair p2 = Pair(p1.first+1, p1.second-1);
 	
 	float energy, tmp, tmp_k;
 	
@@ -149,8 +148,21 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 	SegmentTraceback  *tmp_segmenttraceback = nullptr;
 	
 	energy = this->get_hairpin_loop_element(p1);						// Hairpin element
-	traceback_jump tmp_tij = traceback_jump {{UNBOUND, p1.second - 1}, V_MATRIX};
+	traceback_jump tmp_tij = traceback_jump {{UNBOUND, UNBOUND}, V_MATRIX};
 	
+	
+	// Stacking element
+	Pair p2 = Pair(p1.first+1, p1.second-1);
+	float v_ij_jp = this->vij.get(p2);
+	tmp = this->get_stacking_pair_element(p1) + v_ij_jp;
+	if(tmp < energy)
+	{
+		energy = tmp;
+
+		tmp_tij.target = p2;
+		tmp_tij.target_matrix = V_MATRIX;
+		tmp_segmenttraceback = nullptr;
+	}
 	
 	// SegmentLoop element
 	SubSequence ps1 = this->sequence.ssubseq(p2.first,p2.second); ///@todo use Pair()
@@ -166,39 +178,25 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 	}
 	
 	
-	float v_ij_jp = this->vij.get(p2);
-	// Stacking element
-	tmp = this->get_stacking_pair_element(p1) + v_ij_jp;
-	if(tmp < energy)
+	for(p2.first = p1.first + 1; p2.first < p1.second; p2.first++)
 	{
-		energy = tmp;
-
-		tmp_tij.target = p2;
-		tmp_tij.target_matrix = V_MATRIX;
-		tmp_segmenttraceback = nullptr;
-	}
-	
-	
-	for(ip = p1.first + 1; ip < p1.second; ip++)
-	{
-		for(jp = p1.second - 1; jp > ip; jp--)
+		for(p2.second = p1.second - 1; p2.second > p2.first; p2.second--)
 		{
-			PairingPlus pairing2 = PairingPlus(this->sequence_begin + ip, this->sequence_begin + jp);
+			PairingPlus pairing2 = PairingPlus(this->sequence_begin + p2.first, this->sequence_begin + p2.second);
 			if(pairing2.is_canonical())									// The following structure elements must be enclosed by pairings on both sides
 			{
-				p2 = Pair(ip, jp);
 				v_ij_jp = this->vij.get(p2);
 				
 				Region region = Region{p1, p2};
 				
-				if(ip-p1.first == 1 || p1.second - jp == 1)// Bulge-loop element
+				if(p2.first-p1.first == 1 || p1.second - p2.second == 1)// Bulge-loop element
 				{
 					tmp = this->get_bulge_loop_element(region) + v_ij_jp;
 					if(tmp < energy)
 					{
 						energy = tmp;
 						
-						tmp_tij.target = {ip, jp};
+						tmp_tij.target = p2;
 						tmp_tij.target_matrix = V_MATRIX;
 						tmp_segmenttraceback = nullptr;
 					}
@@ -210,14 +208,14 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 					{
 						energy = tmp;
 						
-						tmp_tij.target = {ip, jp};
+						tmp_tij.target = p2;
 						tmp_tij.target_matrix = V_MATRIX;
 						tmp_segmenttraceback = nullptr;
 					}
 					
 					// Find segments:
-					SubSequence pp1 = this->sequence.ssubseq(p1.first + 1, ip - 1);
-					SubSequence pp2 = this->sequence.ssubseq(jp + 1, p1.second - 1);
+					SubSequence pp1 = this->sequence.ssubseq(p1.first + 1, p2.first - 1);
+					SubSequence pp2 = this->sequence.ssubseq(p2.second + 1, p1.second - 1);
 					tmp_segment = this->thermodynamics.segments.search(pp1 , pp2);
 					
 					if(tmp_segment != nullptr)
@@ -228,7 +226,7 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 						{
 							energy = tmp_k;
 							
-							tmp_tij.target = {ip, jp};
+							tmp_tij.target = p2;
 							tmp_tij.target_matrix = V_MATRIX;
 							tmp_segmenttraceback = &tmp_segment->traceback;
 						}
@@ -241,23 +239,23 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 		// find multibranch loops enclosed by (i,j)
 		// if ip - p1.first + 1 < this->settings.minimal_hairpin_length)
 		// if p1.second - ip + 1 < this->settings.minimal_hairpin_length)
-		if(p1.first + 1 < ip && ip + 2 < p1.second)
+		if(p1.first + 1 < p2.first && p2.first + 2 < p1.second)
 		{
 #if DEBUG
-			if(p1.first + 1 >= ip || ip >= p1.second - 2)
+			if(p1.first + 1 >= p2.first || p2.first >= p1.second - 2)
 			{
-				throw std::invalid_argument("Zuker::v(" + std::to_string(p1.first) + ", " + std::to_string(p1.second) + ") -> m(" + std::to_string(p1.first + 1) + ", " + std::to_string(ip) + ", " + std::to_string(ip + 1) + ", " + std::to_string(p1.second - 1) + "): incorrect loop size");
+				throw std::invalid_argument("Zuker::v(" + std::to_string(p1.first) + ", " + std::to_string(p1.second) + ") -> m(" + std::to_string(p1.first + 1) + ", " + std::to_string(p2.first) + ", " + std::to_string(p2.first + 1) + ", " + std::to_string(p1.second - 1) + "): incorrect loop size");
 			}
 #endif //DEBUG
-			Pair p3 = Pair(p1.first + 1, ip);
-			Pair p4 = Pair(ip + 1, p1.second - 1);
+			Pair p3 = Pair(p1.first + 1, p2.first);
+			Pair p4 = Pair(p2.first + 1, p1.second - 1);
 			tmp = this->wmij.get(p3) + this->wmij.get(p4);
 			
 			if(tmp < energy)
 			{
 				energy = tmp;
 				
-				tmp_tij.target = {ip, ip};
+				tmp_tij.target = {p2.first, p2.first};
 				tmp_tij.target_matrix = WM_MATRIX;
 				tmp_segmenttraceback = nullptr;
 			}
