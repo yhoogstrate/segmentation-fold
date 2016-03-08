@@ -186,7 +186,7 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 			{
 				energy = tmp;
 				tmp_tij.target = p2;
-				tmp_segmenttraceback = nullptr;
+				//tmp_segmenttraceback = nullptr;
 			}
 		}
 	}
@@ -206,7 +206,7 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 			{
 				energy = tmp;
 				tmp_tij.target = p2;
-				tmp_segmenttraceback = nullptr;
+				//tmp_segmenttraceback = nullptr;
 			}
 		}
 	}
@@ -229,7 +229,7 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 					
 					tmp_tij.target = p2;
 					tmp_segmenttraceback = nullptr;
-					tmp_tij.target_matrix = V_MATRIX;
+					//tmp_tij.target_matrix = V_MATRIX;
 				}
 				
 				// Find segments:
@@ -247,36 +247,47 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 						
 						tmp_tij.target = p2;
 						tmp_segmenttraceback = &tmp_segment->traceback;
-						tmp_tij.target_matrix = V_MATRIX;
+						//tmp_tij.target_matrix = V_MATRIX;
 					}
 				}
 			}
 		}
-		
-		///@todo create 4th independent loop
-		// find multibranch loops enclosed by (i,j)
-		// if ip - p1.first + 1 < this->settings.minimal_hairpin_length)
-		// if p1.second - ip + 1 < this->settings.minimal_hairpin_length)
-		if(p1.first + 1 < p2.first && p2.first + 2 < p1.second)
-		{
+	}
+	
+	
+	//this->settings.minimal_hairpin_length)
+	/*   CAA
+	 * CC \ A
+	 * ||   G   <- k (p2.first)
+	 * CC  /G
+	 *   C  A
+	 *    AA
+	 *
+	 */
+	// Multi-loop - comparison part of the loop looks weird, but otherwise it may become negative while it's unsigned
+	for(
+		p2.first = p1.first + 2 + this->settings.minimal_hairpin_length;
+		p2.first + 2 + this->settings.minimal_hairpin_length < p1.second;
+		p2.first++)
+	{
 #if DEBUG
-			if(p1.first + 1 >= p2.first || p2.first >= p1.second - 2)
-			{
-				throw std::invalid_argument("Zuker::v(" + std::to_string(p1.first) + ", " + std::to_string(p1.second) + ") -> m(" + std::to_string(p1.first + 1) + ", " + std::to_string(p2.first) + ", " + std::to_string(p2.first + 1) + ", " + std::to_string(p1.second - 1) + "): incorrect loop size");
-			}
+		///@todo use minimal hairpin size as well - be aware of unsigned int
+		if(p1.first + 1 >= p2.first || p2.first >= p1.second - 2)
+		{
+			throw std::invalid_argument("Zuker::v(" + std::to_string(p1.first) + ", " + std::to_string(p1.second) + ") -> m(" + std::to_string(p1.first + 1) + ", " + std::to_string(p2.first) + ", " + std::to_string(p2.first + 1) + ", " + std::to_string(p1.second - 1) + "): incorrect loop size");
+		}
 #endif //DEBUG
-			Pair p3 = Pair(p1.first + 1, p2.first);
-			Pair p4 = Pair(p2.first + 1, p1.second - 1);
-			tmp = this->wmij.get(p3) + this->wmij.get(p4);
+		Pair p3 = Pair(p1.first + 1, p2.first);
+		Pair p4 = Pair(p2.first + 1, p1.second - 1);
+		tmp = this->wmij.get(p3) + this->wmij.get(p4);
+		
+		if(tmp < energy)
+		{
+			energy = tmp;
 			
-			if(tmp < energy)
-			{
-				energy = tmp;
-				
-				tmp_tij.target = {p2.first, p2.first};
-				tmp_tij.target_matrix = WM_MATRIX;
-				//tmp_segmenttraceback = nullptr;
-			}
+			tmp_tij.target = {p2.first, p2.first};
+			tmp_tij.target_matrix = WM_MATRIX;
+			//tmp_segmenttraceback = nullptr;
 		}
 	}
 	
