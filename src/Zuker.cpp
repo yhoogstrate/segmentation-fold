@@ -138,9 +138,6 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 	}
 #endif //DEBUG
 	
-	unsigned int ip;
-	unsigned int jp;
-	
 	float energy, tmp, tmp_k;
 	
 	Segment *tmp_segment;
@@ -148,11 +145,21 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 	SegmentTraceback  *tmp_segmenttraceback = nullptr;
 	
 	energy = this->get_hairpin_loop_element(p1);						// Hairpin element
-	traceback_jump tmp_tij = traceback_jump {{UNBOUND, p1.second - 1}, V_MATRIX};
+	traceback_jump tmp_tij = traceback_jump {{UNBOUND, UNBOUND}, V_MATRIX};
 	
+	
+	// Stacking element
+	Pair p2 = Pair(p1.first + 1, p1.second - 1);
+	float v_ij_jp = this->vij.get(p2);
+	tmp = this->get_stacking_pair_element(p1) + v_ij_jp;
+	if(tmp < energy)
+	{
+		energy = tmp;
+		tmp_tij.target = p2;
+	}
 	
 	// SegmentLoop element
-	SubSequence ps1 = this->sequence.ssubseq(p1.first + 1 , p1.second - 1); ///@todo use Pair()
+	SubSequence ps1 = this->sequence.ssubseq(p2.first, p2.second); ///@todo use Pair()
 	tmp_segmentloop = this->thermodynamics.segmentloops.search(ps1);
 	if(tmp_segmentloop != nullptr)
 	{
@@ -164,106 +171,135 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 		}
 	}
 	
-	for(ip = p1.first + 1; ip < p1.second; ip++)
+	// L-bulge
+	p2.second = p1.second - 1;
+	for(p2.first = p1.first + 2; p2.first < p2.second; p2.first++)
 	{
-		for(jp = p1.second - 1; jp > ip; jp--)
+		PairingPlus pairing2 = PairingPlus(this->sequence_begin + p2.first, this->sequence_begin + p2.second);
+		if(pairing2.is_canonical())
 		{
-			PairingPlus pairing2 = PairingPlus(this->sequence_begin + ip, this->sequence_begin + jp);
-			if(pairing2.is_canonical())									// The following structure elements must be enclosed by pairings on both sides
-			{
-				Pair p2 = Pair(ip, jp);
-				float v_ij_jp = this->vij.get(p2);
-				
-				Region region = Region {p1, p2};
-				
-				///@todo put out of the loop?!
-				if(ip == (p1.first + 1) && jp == (p1.second - 1))// Stacking element
-				{
-					tmp = this->get_stacking_pair_element(p1) + v_ij_jp;
-					if(tmp < energy)
-					{
-						energy = tmp;
-						
-						tmp_tij.target = {p1.first + 1, p1.second - 1};
-						tmp_tij.target_matrix = V_MATRIX;
-						tmp_segmenttraceback = nullptr;
-					}
-				}
-				else if(ip == (p1.first + 1) || jp == (p1.second - 1))// Bulge-loop element
-				{
-					tmp = this->get_bulge_loop_element(region) + v_ij_jp;
-					if(tmp < energy)
-					{
-						energy = tmp;
-						
-						tmp_tij.target = {ip, jp};
-						tmp_tij.target_matrix = V_MATRIX;
-						tmp_segmenttraceback = nullptr;
-					}
-				}
-				else											// Interior loop or Segment
-				{
-					tmp = this->get_interior_loop_element(region) + v_ij_jp;
-					if(tmp < energy)
-					{
-						energy = tmp;
-						
-						tmp_tij.target = {ip, jp};
-						tmp_tij.target_matrix = V_MATRIX;
-						tmp_segmenttraceback = nullptr;
-					}
-					
-					// Find segments:
-					SubSequence pp1 = this->sequence.ssubseq(p1.first + 1, ip - 1);
-					SubSequence pp2 = this->sequence.ssubseq(jp + 1, p1.second - 1);
-					tmp_segment = this->thermodynamics.segments.search(pp1 , pp2);
-					
-					if(tmp_segment != nullptr)
-					{
-						tmp_k = tmp_segment->gibbs_free_energy + this->get_stacking_pair_without_surrounding(p1p) + v_ij_jp;
-						
-						if(tmp_k < energy)
-						{
-							energy = tmp_k;
-							
-							tmp_tij.target = {ip, jp};
-							tmp_tij.target_matrix = V_MATRIX;
-							tmp_segmenttraceback = &tmp_segment->traceback;
-						}
-					}
-				}
-			}
-		}
-		
-		
-		// find multibranch loops enclosed by (i,j)
-		// if ip - p1.first + 1 < this->settings.minimal_hairpin_length)
-		// if p1.second - ip + 1 < this->settings.minimal_hairpin_length)
-		if(p1.first + 1 < ip && ip + 2 < p1.second)
-		{
-#if DEBUG
-			if(p1.first + 1 >= ip || ip >= p1.second - 2)
-			{
-				throw std::invalid_argument("Zuker::v(" + std::to_string(p1.first) + ", " + std::to_string(p1.second) + ") -> m(" + std::to_string(p1.first + 1) + ", " + std::to_string(ip) + ", " + std::to_string(ip + 1) + ", " + std::to_string(p1.second - 1) + "): incorrect loop size");
-			}
-#endif //DEBUG
-			Pair p3 = Pair(p1.first + 1, ip);
-			Pair p4 = Pair(ip + 1, p1.second - 1);
-			tmp = this->wmij.get(p3) + this->wmij.get(p4);
+			v_ij_jp = this->vij.get(p2);
+			Region region = Region {p1, p2};
 			
+			tmp = this->get_bulge_loop_element(region) + v_ij_jp;
 			if(tmp < energy)
 			{
 				energy = tmp;
-				
-				tmp_tij.target = {ip, ip};
-				tmp_tij.target_matrix = WM_MATRIX;
-				tmp_segmenttraceback = nullptr;
+				tmp_tij.target = p2;
+				//tmp_segmenttraceback = nullptr;
 			}
 		}
 	}
 	
+	// R-bulge
+	p2.first = p1.first + 1;
+	for(p2.second = p1.second - 2; p2.second > p2.first; p2.second--)
+	{
+		PairingPlus pairing2 = PairingPlus(this->sequence_begin + p2.first, this->sequence_begin + p2.second);
+		if(pairing2.is_canonical())
+		{
+			v_ij_jp = this->vij.get(p2);
+			Region region = Region {p1, p2};
+			
+			tmp = this->get_bulge_loop_element(region) + v_ij_jp;
+			if(tmp < energy)
+			{
+				energy = tmp;
+				tmp_tij.target = p2;
+				//tmp_segmenttraceback = nullptr;
+			}
+		}
+	}
+	
+	// Interior or Segment
+	for(p2.first = p1.first + 2; p2.first < p1.second; p2.first++)
+	{
+		for(p2.second = p1.second - 2; p2.second > p2.first; p2.second--)
+		{
+			PairingPlus pairing2 = PairingPlus(this->sequence_begin + p2.first, this->sequence_begin + p2.second);
+			if(pairing2.is_canonical())									// The following structure elements must be enclosed by pairings on both sides
+			{
+				v_ij_jp = this->vij.get(p2);
+				Region region = Region {p1, p2};
+				
+				tmp = this->get_interior_loop_element(region) + v_ij_jp;
+				if(tmp < energy)
+				{
+					energy = tmp;
+					
+					tmp_tij.target = p2;
+					tmp_segmenttraceback = nullptr;
+					//tmp_tij.target_matrix = V_MATRIX;
+				}
+				
+				// Find segments:
+				SubSequence pp1 = this->sequence.ssubseq(p1.first + 1, p2.first - 1);
+				SubSequence pp2 = this->sequence.ssubseq(p2.second + 1, p1.second - 1);
+				tmp_segment = this->thermodynamics.segments.search(pp1 , pp2);
+				
+				if(tmp_segment != nullptr)
+				{
+					tmp_k = tmp_segment->gibbs_free_energy + this->get_stacking_pair_without_surrounding(p1p) + v_ij_jp;
+					
+					if(tmp_k < energy)
+					{
+						energy = tmp_k;
+						
+						tmp_tij.target = p2;
+						tmp_segmenttraceback = &tmp_segment->traceback;
+						//tmp_tij.target_matrix = V_MATRIX;
+					}
+				}
+			}
+		}
+	}
+	
+	
+	//this->settings.minimal_hairpin_length)
+	/*   CAA
+	 * CC \ A
+	 * ||   G   <- k (p2.first)
+	 * CC  /G
+	 *   C  A
+	 *    AA
+	 *
+	 */
+	// Multi-loop - comparison part of the loop looks weird, but otherwise it may become negative while it's unsigned
+	for(
+		p2.first = p1.first + 2 + this->settings.minimal_hairpin_length;
+		p2.first + 2 + this->settings.minimal_hairpin_length < p1.second;
+		p2.first++)
+	{
+#if DEBUG
+		///@todo use minimal hairpin size as well - be aware of unsigned int
+		if(p1.first + 1 >= p2.first || p2.first >= p1.second - 2)
+		{
+			throw std::invalid_argument("Zuker::v(" + std::to_string(p1.first) + ", " + std::to_string(p1.second) + ") -> m(" + std::to_string(p1.first + 1) + ", " + std::to_string(p2.first) + ", " + std::to_string(p2.first + 1) + ", " + std::to_string(p1.second - 1) + "): incorrect loop size");
+		}
+#endif //DEBUG
+		Pair p3 = Pair(p1.first + 1, p2.first);
+		Pair p4 = Pair(p2.first + 1, p1.second - 1);
+		tmp = this->wmij.get(p3) + this->wmij.get(p4);
+		
+		if(tmp < energy)
+		{
+			energy = tmp;
+			
+			tmp_tij.target = {p2.first, p2.first};
+			tmp_tij.target_matrix = WM_MATRIX;
+			//tmp_segmenttraceback = nullptr;
+		}
+	}
+	
+#if DEBUG
+	if(tmp_segmenttraceback != nullptr && tmp_tij.target_matrix == WM_MATRIX)
+	{
+		throw std::invalid_argument("Zuker::v(" + std::to_string(p1.first) + ", " + std::to_string(p1.second) + ") impossible: bifucation && segment");
+	}
+#endif //DEBUG
+	
 	this->tij_v.set(p1, tmp_tij);
-	if(tmp_segmenttraceback != nullptr)
+	if(tmp_segmenttraceback != nullptr && tmp_tij.target_matrix != WM_MATRIX)
 	{
 		this->sij.set(p1, tmp_segmenttraceback);
 	}
