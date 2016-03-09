@@ -463,8 +463,38 @@ float Zuker::wm(Pair &p1, PairingPlus &p1p)
 	traceback_jump tmp_tij = {p1, V_MATRIX};
 	Pair p2, p3;
 	
-	for(k = p1.first + 1; k < p1.second; k++)
+	/* p1.first
+	 *  \
+	 *   CAA
+	 * CC \ A
+	 * ||   G   << k
+	 * CC  /G   << k + 1
+	 *   C  A
+	 * /  AA
+	 *|
+	 * \ p1.second
+	 * 
+	 * WM ij must be able to return:
+	 *  - A valid hairpin
+	 *  - A multi loop (i,k) (k+1,j)
+	 * 
+	 * this->settings.minimal_hairpin_length = 3
+	 * 
+	 * weird construction with the minimal hairpin length is due to unsigned int behavior
+	 */
+	for(
+		k = p1.first + 1 + this->settings.minimal_hairpin_length;
+		k + this->settings.minimal_hairpin_length < p1.second - 1;
+		k++)
 	{
+#if DEBUG
+///@todo if smaller than min hairpin loop it will always be N_INFINITY?
+		if(p1.first >= p1.second)
+		{
+			throw std::invalid_argument("Zuker::wm(" + std::to_string(p1.first) + ", " + std::to_string(p1.second) + "): out of bound");
+		}
+#endif //DEBUG
+		
 		p2 = Pair(p1.first, k);
 		p3 = Pair(k + 1, p1.second);
 		tmp = this->wmij.get(p2) + this->wmij.get(p3);
