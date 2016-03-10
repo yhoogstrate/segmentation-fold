@@ -43,7 +43,6 @@
 
 /**
  * @brief Initializes an empty tree
- *
  */
 SegmentLoopTree::SegmentLoopTree()
 {
@@ -63,7 +62,7 @@ SegmentLoopTree::~SegmentLoopTree()
 
 
 /**
- * @brief
+ * @brief Searches for a certain SegmentLoop given a SubSequence (2 pointers make it much quicker than a deep copy of a Sequence)
  */
 SegmentLoop *SegmentLoopTree::search(SubSequence &arg_subsequence)
 {
@@ -73,7 +72,7 @@ SegmentLoop *SegmentLoopTree::search(SubSequence &arg_subsequence)
 
 
 /**
- * @brief
+ * @brief Search per element
  */
 SegmentLoop *SegmentLoopTree::search(SubSequence &arg_subsequence, SegmentLoopTreeElement *arg_element)
 {
@@ -87,13 +86,10 @@ SegmentLoop *SegmentLoopTree::search(SubSequence &arg_subsequence, SegmentLoopTr
 			case IS_LARGER:// the tree element is larger, thus the subsequence is left (smaller) of the current element
 				return this->search(arg_subsequence, arg_element->left);
 				break;
-			//case IS_EQUAL:
-			default:
+			default://case IS_EQUAL - return current SegmentLoop:
 				return &arg_element->segmentloop;
 				break;
 		}
-		
-		//return nullptr;
 	}
 	else
 	{
@@ -123,8 +119,7 @@ void SegmentLoopTree::insert(SegmentLoop &arg_segmentloop)
 
 
 /**
- * @brief
- *
+ * @brief Insert element
  */
 void SegmentLoopTree::insert(SegmentLoop &arg_segmentloop, SegmentLoopTreeElement *arg_element)
 {
@@ -151,13 +146,11 @@ void SegmentLoopTree::insert(SegmentLoop &arg_segmentloop, SegmentLoopTreeElemen
 				arg_element->left = new SegmentLoopTreeElement(arg_segmentloop);
 			}
 			break;
-			
 #if DEBUG
 		default://  inserting same element twice
-			throw std::invalid_argument("SegmentLoopTree - inserting same element twice.");
+			throw std::invalid_argument("SegmentLoopTree::insert() inserting same element twice.");
 			break;
 #endif //DEBUG
-			
 	}
 }
 
@@ -165,7 +158,6 @@ void SegmentLoopTree::insert(SegmentLoop &arg_segmentloop, SegmentLoopTreeElemen
 
 /**
  * @brief Returns whether the tree is empty or not
- *
  */
 bool SegmentLoopTree::empty(void)
 {
@@ -186,7 +178,6 @@ size_t SegmentLoopTree::size(SegmentLoopTreeElement *arg_element)
 
 /**
  * @brief Counts the elements in the tree recursively
- *
  */
 size_t SegmentLoopTree::size(void)
 {

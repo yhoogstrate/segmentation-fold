@@ -44,7 +44,6 @@
 
 /**
  * @brief Constructs a SegmentTreeElement by setting all pointers to nullptr and inserting the Segment object
- *
  */
 SegmentTreeElement::SegmentTreeElement(Segment &arg_segment) :
 	segment(arg_segment)
@@ -67,7 +66,6 @@ SegmentTreeElement::SegmentTreeElement(Segment &arg_segment) :
 
 /**
  * @brief Destructor
- *
  */
 SegmentTreeElement::~SegmentTreeElement()
 {
@@ -89,7 +87,6 @@ SegmentTreeElement::~SegmentTreeElement()
 
 /**
  * @brief Adds a Segment (as member of a SegmentTreeElement) to another element of the tree.
- *
  *
  * @todo use constants or static enum for cases 1, 2, 3 and 4
  */
@@ -403,7 +400,6 @@ Segment *SegmentTreeElement::search_segment(SubSequence &arg_sequence_5p, SubSeq
 
 /**
  * @brief Counts recursively the number of elements in the tree
- *
  */
 size_t SegmentTreeElement::size(void)
 {
