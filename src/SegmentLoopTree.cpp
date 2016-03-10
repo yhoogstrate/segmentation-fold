@@ -43,7 +43,6 @@
 
 /**
  * @brief Initializes an empty tree
- *
  */
 SegmentLoopTree::SegmentLoopTree()
 {
@@ -63,7 +62,7 @@ SegmentLoopTree::~SegmentLoopTree()
 
 
 /**
- * @brief
+ * @brief Searches for a certain SegmentLoop given a SubSequence (2 pointers make it much quicker than a deep copy of a Sequence)
  */
 SegmentLoop *SegmentLoopTree::search(SubSequence &arg_subsequence)
 {
@@ -73,7 +72,7 @@ SegmentLoop *SegmentLoopTree::search(SubSequence &arg_subsequence)
 
 
 /**
- * @brief
+ * @brief Search per element
  */
 SegmentLoop *SegmentLoopTree::search(SubSequence &arg_subsequence, SegmentLoopTreeElement *arg_element)
 {
@@ -87,7 +86,7 @@ SegmentLoop *SegmentLoopTree::search(SubSequence &arg_subsequence, SegmentLoopTr
 			case IS_LARGER:// the tree element is larger, thus the subsequence is left (smaller) of the current element
 				return this->search(arg_subsequence, arg_element->left);
 				break;
-			default://case IS_EQUAL:
+			default://case IS_EQUAL - return current SegmentLoop:
 				return &arg_element->segmentloop;
 				break;
 		}
@@ -120,7 +119,7 @@ void SegmentLoopTree::insert(SegmentLoop &arg_segmentloop)
 
 
 /**
- * @brief
+ * @brief Insert element
  */
 void SegmentLoopTree::insert(SegmentLoop &arg_segmentloop, SegmentLoopTreeElement *arg_element)
 {
@@ -159,7 +158,6 @@ void SegmentLoopTree::insert(SegmentLoop &arg_segmentloop, SegmentLoopTreeElemen
 
 /**
  * @brief Returns whether the tree is empty or not
- *
  */
 bool SegmentLoopTree::empty(void)
 {
@@ -173,7 +171,7 @@ bool SegmentLoopTree::empty(void)
  */
 size_t SegmentLoopTree::size(SegmentLoopTreeElement *arg_element)
 {
-	return this->empty() ? 0 : 1 + this->size(arg_element->left) + this->size(arg_element->right);
+	return (arg_element == nullptr) ? 0 : 1 + this->size(arg_element->left) + this->size(arg_element->right);
 }
 
 
