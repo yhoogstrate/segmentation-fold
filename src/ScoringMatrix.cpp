@@ -101,7 +101,6 @@ T ScoringMatrix<T>::get(Pair &pair)
 /**
  * @brief Calculates the position (x,y) in the matrix corresponds to the position in the vector
  *
- *
  * @todo MAKE CONSTANT OF -2
  * @todo MAKE CONSTANT OF -1
  *
@@ -110,9 +109,25 @@ T ScoringMatrix<T>::get(Pair &pair)
 template <class T>
 signed int ScoringMatrix<T>::get_position(Pair &p)
 {
-#if DEBUG
-	signed int output;
+	signed int output = 0;
 	
+#if DEBUG
+	if(p.first >= this->grid_size || p.second >= this->grid_size)
+	{
+		throw std::invalid_argument("ScoringMatrix::get_position: Out of bound (" + std::to_string(p.first)  + "," + std::to_string(p.second)  + ")");
+	}
+	else
+	{
+		if(
+			p.second != p.first &&
+			(p.first - 1) != p.second &&
+			p.second <= p.first
+			)
+		{
+			throw std::invalid_argument("ScoringMatrix::get_position: Out of bound (" + std::to_string(p.first)  + "," + std::to_string(p.second)  + ")");
+		}
+	}
+# endif // DEBUG
 	
 	if(p.first < this->grid_size && p.second < this->grid_size)
 	{
@@ -131,31 +146,7 @@ signed int ScoringMatrix<T>::get_position(Pair &p)
 		}
 	}
 	
-	// The out of bound may never occur in a good implementation of the algorithm
-	throw std::invalid_argument("ScoringMatrix::get_position: Out of bound (" + std::to_string(p.first)  + "," + std::to_string(p.second)  + ")");
-	
 	return output;
-	
-#else //DEBUG
-	
-	// This piece also returns if a position in the upper triangle is requested, while it should throw out of bound
-	// This exception will only be thrown if there is compiled with DEBUG
-	
-	///@todo reduce to one comparison instead of 2
-	///@todo create function is_within_first_diagonals()
-	if(p.second == p.first || (p.first - 1) == p.second)
-	{
-		return -1;
-	}
-	else
-	{
-		unsigned int r = this->grid_size - p.first - 1;
-		unsigned int bottom = this->number_of_elements(r);
-		unsigned int row = (this->grid_size - 1) - p.second;
-	
-		return this->m.size() - bottom - row - 1;
-	}
-# endif // DEBUG
 }
 
 
