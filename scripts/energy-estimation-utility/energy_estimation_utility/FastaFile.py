@@ -46,10 +46,14 @@ class FastaFile:
                             yield sequence
                         sequence = {'name':line_s[1:],'sequence':''}
                     else:
-                        sequence['sequence'] += line_s.upper().replace("\n","").strip()
+                        sequence_line = line_s.upper().replace("\n","").strip()
+                        sequence['sequence'] += sequence_line
         
         if(sequence):
-            yield sequence
+            if re.match("^[ACTGUactug]+$",seqeunce['sequence']):
+                yield sequence
+            #else:
+                #print "Warning, invalid sequence detected"
     
     def __iter__(self):
         for sequence in self.parse():
