@@ -3,8 +3,6 @@
 """
 @file scripts/energy-estimation/energy_estimation_utility/FastaFile.py
 
-@date 2015-07-29
-
 @author Youri Hoogstrate
 
 @section LICENSE
@@ -30,6 +28,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 </PRE>
 """
 
+import re
+
 class FastaFile:
     def __init__(self,filename):
         self.filename = filename
@@ -37,23 +37,24 @@ class FastaFile:
     def parse(self):
         sequence = None
         
+        print "ALIVE"
+        
         with open(self.filename,'r') as self.fh:
             for line in self.fh:
                 line_s = line.strip()
                 if(len(line_s) > 0):
                     if(line[0] == '>'):
                         if(sequence):
-                            yield sequence
+                            if re.match("^[ACTGUactug]+$",sequence['sequence']):
+                                yield sequence
                         sequence = {'name':line_s[1:],'sequence':''}
                     else:
                         sequence_line = line_s.upper().replace("\n","").strip()
                         sequence['sequence'] += sequence_line
         
         if(sequence):
-            if re.match("^[ACTGUactug]+$",seqeunce['sequence']):
+            if re.match("^[ACTGUactug]+$",sequence['sequence']):
                 yield sequence
-            #else:
-                #print "Warning, invalid sequence detected"
     
     def __iter__(self):
         for sequence in self.parse():
