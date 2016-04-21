@@ -1,16 +1,14 @@
 #!/usr/bin/env python
 
 """
-@file scripts/energy-estimation/bin/energy-estimation
-
-@date 2015-07-24
+@file scripts/energy-estimation/setup.py
 
 @author Youri Hoogstrate
 
 @section LICENSE
 <PRE>
 segmentation-fold can predict RNA 2D structures including K-turns.
-Copyright (C) 2012-2015 Youri Hoogstrate
+Copyright (C) 2012-2016 Youri Hoogstrate
 
 This file is part of segmentation-fold and originally taken from
 yh-kt-fold.
@@ -30,20 +28,33 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 </PRE>
 """
 
-import energy_estimation_utility
+import segmentation_fold_utils
 
 from distutils.core import setup
+from setuptools.command.install import install
 from setuptools import setup, find_packages
 
-setup(name='energy-estimation-utility',
-		version=energy_estimation_utility.__version__,
-		description='energy-estimation-utility for segmentation-fold',
-		author=energy_estimation_utility.__author__,
-		maintainer=energy_estimation_utility.__author__,
-		license=energy_estimation_utility.__license__,
-		url=energy_estimation_utility.__homepage__,
-		scripts=["bin/energy-estimation-utility","bin/scan-for-segments"],
-		packages=['energy_estimation_utility'],
+import os
+
+class RunMarkdown(install):
+	def run(self):
+		install.run(self)
+		os.system('markdown bin/README.md > bin/README.html 2> /dev/null')
+
+setup(name='segmentation-fold-utils',
+		version=segmentation_fold_utils.__version__,
+		description='energy estimation utils for segmentation-fold',
+		author=segmentation_fold_utils.__author__,
+		maintainer=segmentation_fold_utils.__author__,
+		license=segmentation_fold_utils.__license__,
+		url=segmentation_fold_utils.__homepage__,
+		scripts=["bin/segmentation-fold-utils"],
+		packages=['segmentation_fold_utils'],
+		test_suite='tests',
+		install_requires=[
+			'HTSeq >= 0.6.1',
+			'pysam >= 0.8.0'
+		],
 		classifiers=[
 			'Environment :: Console',
 			'Intended Audience :: Science/Research',
@@ -52,4 +63,5 @@ setup(name='energy-estimation-utility',
 			'Topic :: Scientific/Engineering',
 			'Topic :: Scientific/Engineering :: Bio-Informatics',
 			],
+		cmdclass={'install':RunMarkdown}
 	)

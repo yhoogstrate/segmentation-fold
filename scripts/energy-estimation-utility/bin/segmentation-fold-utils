@@ -1,0 +1,11 @@
+#!/usr/bin/python
+
+from segmentation_fold_utils.CLI import *
+
+def main():
+	args = CLI()
+
+
+if __name__ == "__main__":
+	main()
+

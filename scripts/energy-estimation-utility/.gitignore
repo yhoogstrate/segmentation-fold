@@ -1,3 +1,6 @@
 build
-energy_estimation_utility.egg-info/
+*.egg-info/
 dist
+.eggs
+*/*.pyc
+

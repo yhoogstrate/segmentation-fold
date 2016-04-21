@@ -1,14 +1,10 @@
 #!/usr/bin/env python
 
 """
-@file scripts/energy-estimation-utility/energy_estimation_utility/CLI.py
-
-@author Youri Hoogstrate
-
 @section LICENSE
 <PRE>
 segmentation-fold can predict RNA 2D structures including K-turns.
-Copyright (C) 2012-2015 Youri Hoogstrate
+Copyright (C) 2012-2016 Youri Hoogstrate
 
 This file is part of segmentation-fold
 
@@ -27,9 +23,18 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 </PRE>
 """
 
-import sys,argparse,textwrap,datetime
+import sys,argparse,textwrap,datetime,click
+from segmentation_fold_utils import __version__, __author__, __homepage__
 
+
+@click.version_option(__version__)
+@click.group()
 def CLI():
+	pass
+
+
+@CLI.command(name='energy-estimation')
+def CLI_energy_estimation():
 	parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter,epilog="For more info please visit:\n<https://github.com/yhoogstrate/segmentation-fold>")
 	
 	parser.add_argument("-t","--temp-dir",default="/tmp",help="Directory in which the temporary files will be created")
@@ -41,7 +46,7 @@ def CLI():
 	return parser.parse_args()
 
 
-
+@CLI.command(name='scan-for-segments')
 def CLI_scan_for_segments():
 	parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter,epilog="For more info please visit:\n<https://github.com/yhoogstrate/segmentation-fold>")
 	
@@ -54,3 +59,10 @@ def CLI_scan_for_segments():
 	parser.add_argument("fasta_file",help="FASTA file containing the sequences that will be scanned for the presence of segments from --xml-file")
 	
 	return parser.parse_args()
+
+@CLI.command(name='cd-box',short_help='Scans through a sequence for subsequences that may contain C/D-box K-turns')
+@click.argument('fasta_file', type=click.File('r'))
+@click.option('--inner-dist','-d',type=int, default=250,help="The maximal distance between the boxes (default=250).")
+def CLI_scan_for_cd_box_kturns(fasta_file):
+	pass
+
