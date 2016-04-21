@@ -24,14 +24,27 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 
+import logging
 import pysam
 
 
 class FindCDboxes:
 	"""detecting C boxes in chr22 takes ~7min
 	"""
+	
+	logger = logging.getLogger("segmentation_fold_utils::FindCDboxes")
+	
 	def __init__(self,genome,box1,box2,search_fwd,search_rev,inner_dist):
-		pass
+		self.genome = genome
+		self.box1 = box1.upper().replace('U','T').strip('N')
+		self.box2 = box2.upper().replace('U','T').strip('N')
+		self.k = len(self.box1)
+		self.l = len(self.box2)
+		self.m = max(self.k, self.l)
+		self.search_fwd = search_fwd
+		self.search_rev = search_rev
+		self.inner_dist = inner_dist
+		
 	
 	def match_base(self,base_pattern, base_query):
 		if base_query == "A":
@@ -47,20 +60,17 @@ class FindCDboxes:
 	
 	def match(self,pattern, query):
 		for i in range(len(pattern)):
-			if not match_base(pattern[i], query[i]):
+			if not self.match_base(pattern[i], query[i]):
 				return False
 		return True
 	
-	def run(self):
-		ref = pysam.FastaFile(fa_file)
+	def run(self,output_file):
+		fh = open(output_file,"w")
+		ref = pysam.FastaFile(self.genome)
 		for chromosome in ref.references:
 			# Look fwd
 			n = ref.get_reference_length(chromosome)
-			print chromosome+": ("+str(n)+")"
-			
-			#motif_a = 'NRUGAUG'
-			motif_a = 'RUGAUG'.replace('U','T')
-			motif_b = 'CUGA'.replace('U','T')
+			self.logger.debug(chromosome+": ("+str(n)+")")
 			
 			#k=7
 			#n=10
@@ -69,24 +79,20 @@ class FindCDboxes:
 			#i[0] = 2,9
 			#i[0] = 3,10
 			
-			k = len(motif_a)
-			l = len(motif_b)
 			#n = 10
 			
-			for i in range(n-max(k,l)+1):
-				chunk1 = ref.fetch(chromosome,i,i+k)
-				if match(motif_a,chunk1):
-					print chromosome+":"+str(i)+"\tC-box"
+			for i in range(n-self.m+1):
+				chunk1 = ref.fetch(chromosome,i,i+self.k)
+				if self.match(self.box1,chunk1):
+					fh.write(chromosome+":"+str(i)+"\tbox1\n")
 				
-				chunk2 = ref.fetch(chromosome,i,i+l)
-				if match(motif_b,chunk2):
-					print chromosome+":"+str(i)+"\tD-box"
-				
-			#./find.py > hg19_c_d_boxes.txt 
+				chunk2 = ref.fetch(chromosome,i,i+self.l)
+				if self.match(self.box2,chunk2):
+					fh.write(chromosome+":"+str(i)+"\tbox2\n")
 			
 			#print
 			#print match(motif_a,"A"+"TGATG"),"- should be True"
 			#print match(motif_a,"G"+"TGATG"),"- should be True"
 			#print match(motif_a,"C"+"TGATG"),"- should be False"
 			#print match(motif_a,"T"+"TGATG"),"- should be False"
-			
+		fh.close()

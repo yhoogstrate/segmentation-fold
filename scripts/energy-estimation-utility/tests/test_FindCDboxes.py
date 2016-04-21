@@ -31,7 +31,9 @@ from segmentation_fold_utils.FindCDboxes import FindCDboxes
 
 class TestFindCDboxes(unittest.TestCase):
 	def test_01(self):
-		pass
+		output_file = "TestFindCDboxes.test_01.txt"
+		boxes = FindCDboxes('tests/test-data/FindCDboxes.genome.txt','NRUGAUG','CUGA',True,True,250)
+		boxes.run(output_file)
 
 def main():
 	unittest.main()
