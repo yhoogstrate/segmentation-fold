@@ -30,16 +30,16 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 import segmentation_fold_utils
 
+#from setuptools.command.install import install
 from distutils.core import setup
-from setuptools.command.install import install
 from setuptools import setup, find_packages
 
 import os
 
-class RunMarkdown(install):
-	def run(self):
-		install.run(self)
-		os.system('markdown bin/README.md > bin/README.html 2> /dev/null')
+#class RunMarkdown(install):
+#	def run(self):
+#		install.run(self)
+#		os.system('markdown bin/README.md > bin/README.html 2> /dev/null')
 
 setup(name='segmentation-fold-utils',
 		version=segmentation_fold_utils.__version__,
@@ -50,7 +50,7 @@ setup(name='segmentation-fold-utils',
 		url=segmentation_fold_utils.__homepage__,
 		scripts=["bin/segmentation-fold-utils"],
 		packages=['segmentation_fold_utils'],
-		test_suite='tests',
+		test_suite="tests",
 		install_requires=[
 			'HTSeq >= 0.6.1',
 			'pysam >= 0.8.0'
@@ -63,5 +63,5 @@ setup(name='segmentation-fold-utils',
 			'Topic :: Scientific/Engineering',
 			'Topic :: Scientific/Engineering :: Bio-Informatics',
 			],
-		cmdclass={'install':RunMarkdown}
+#		cmdclass={'install':RunMarkdown}
 	)
