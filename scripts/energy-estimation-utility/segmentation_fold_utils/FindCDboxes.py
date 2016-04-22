@@ -30,6 +30,8 @@ import pysam
 
 class FindCDboxes:
 	"""detecting C boxes in chr22 takes ~7min
+	
+	results are 0-based, both start and end
 	"""
 	
 	logger = logging.getLogger("segmentation_fold_utils::FindCDboxes")
@@ -40,11 +42,73 @@ class FindCDboxes:
 		self.box2 = box2.upper().replace('U','T').strip('N')
 		self.k = len(self.box1)
 		self.l = len(self.box2)
-		self.m = max(self.k, self.l)
+		self.m = min(self.k, self.l)
 		self.search_fwd = search_fwd
 		self.search_rev = search_rev
 		self.inner_dist = inner_dist
 		
+		if search_rev:
+			self.box1r = self.reverse_complement(self.box1)
+			self.box2r = self.reverse_complement(self.box2)
+	
+	def reverse_complement(self, sequence):
+		"""Instead of RC' the entire genome, as what would biologically
+		make sense because of the double stranded DNA, we 'reverse complement'
+		the box motif.
+		
+		------ fwd ------>
+		aaaaaaaCTGAaaaaaaa
+		       ||||
+		motif: CTGA
+		
+		<------ rev ------
+		tttttttTCAGttttttt
+		       ||||
+		motif: TCAG
+		
+		---------------------------------
+		motif containing R (A|G)
+		
+		------ fwd ------>
+		aaaaaaaCAGAaaaaaaa <- match1
+		aaaaaaaCGGAaaaaaaa <- match1
+		       ||||
+		motif: CRGA
+		
+		<------ rev ------
+		tttttttTC{rc:R}Gttttttt
+		       ||||
+		motif: TCAG
+		
+		(reverse searching should also start with the highest position)
+		
+		
+		"""
+		rc = ''
+		tt = {
+			'N':'N',
+			'A':'T',
+			'C':'G',
+			'T':'A',
+			'G':'C',
+			
+			'R':'Y',# R = (A||G), rc(A||G) = (T||C) = Y
+			'Y':'R',
+			'K':'M',
+			'M':'K',# M = (A||C), rc(A||C) = (T||G) = K
+			'S':'S',# S = (G||C), rc(G||C) = (C||G) = S
+			'W':'W',# W = (A||U), rc(A||U) = (U||A) = W
+			
+			'B':'V',# B = (C||G||T), rc(C||G||T) = (G||C||A) = V
+			'D':'H',# D = AGT, rc(AGT) = TCA = H
+			'H':'D',# H = ACT, rc(ACT) = TGA = D
+			'V':'B'# V = ACG, rc(ACG) = TGC = B
+		}
+		
+		for base in sequence[::-1]:
+			rc += tt[base]
+		
+		return rc
 	
 	def match_base(self,base_pattern, base_query):
 		if base_query == "A":
@@ -70,29 +134,17 @@ class FindCDboxes:
 		for chromosome in ref.references:
 			# Look fwd
 			n = ref.get_reference_length(chromosome)
-			self.logger.debug(chromosome+": ("+str(n)+")")
-			
-			#k=7
-			#n=10
-			#i[0] = 0,7
-			#i[0] = 1,8
-			#i[0] = 2,9
-			#i[0] = 3,10
-			
-			#n = 10
+			self.logger.debug("scanning "+chromosome+" ("+str(n)+" bases)")
 			
 			for i in range(n-self.m+1):
-				chunk1 = ref.fetch(chromosome,i,i+self.k)
+				k = i+self.k
+				chunk1 = ref.fetch(chromosome,i,k)
 				if self.match(self.box1,chunk1):
-					fh.write(chromosome+":"+str(i)+"\tbox1\n")
+					fh.write(chromosome+":"+str(i)+"-"+str(k-1)+"\tbox2\n")
 				
-				chunk2 = ref.fetch(chromosome,i,i+self.l)
+				l = i+self.l
+				chunk2 = ref.fetch(chromosome,i,l)
 				if self.match(self.box2,chunk2):
-					fh.write(chromosome+":"+str(i)+"\tbox2\n")
-			
-			#print
-			#print match(motif_a,"A"+"TGATG"),"- should be True"
-			#print match(motif_a,"G"+"TGATG"),"- should be True"
-			#print match(motif_a,"C"+"TGATG"),"- should be False"
-			#print match(motif_a,"T"+"TGATG"),"- should be False"
+					fh.write(chromosome+":"+str(i)+"-"+str(l-1)+"\tbox2\n")
+		
 		fh.close()
