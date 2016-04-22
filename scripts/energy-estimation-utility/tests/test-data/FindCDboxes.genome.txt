@@ -1,7 +1,0 @@
->chr1
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
->chr2
-CTGAaaaaaaaCTGA
->chr3
-aaaaaCTGAaaaaaaaCTGAaaaaa
-

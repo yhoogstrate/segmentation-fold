@@ -1,17 +1,10 @@
 #!/usr/bin/env python
 
 """
-@file scripts/energy-estimation/setup.py
-
-@author Youri Hoogstrate
-
-@section LICENSE
-<PRE>
 segmentation-fold can predict RNA 2D structures including K-turns.
 Copyright (C) 2012-2016 Youri Hoogstrate
 
-This file is part of segmentation-fold and originally taken from
-yh-kt-fold.
+This file is part of segmentation-fold.
 
 segmentation-fold is free software: you can redistribute it and/or
 modify it under the terms of the GNU General Public License as published
@@ -25,8 +18,8 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
-</PRE>
 """
+
 
 import segmentation_fold_utils
 

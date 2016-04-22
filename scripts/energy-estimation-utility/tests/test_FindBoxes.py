@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 
 """
-@section LICENSE
-<PRE>
 segmentation-fold can predict RNA 2D structures including K-turns.
 Copyright (C) 2012-2016 Youri Hoogstrate
 
@@ -20,31 +18,29 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
-</PRE>
 """
 
 
-import unittest,logging,sys
+import unittest,logging,sys,filecmp
 logging.basicConfig(level=logging.DEBUG,format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",stream=sys.stdout)
 
-from segmentation_fold_utils.FindCDboxes import FindCDboxes
+from segmentation_fold_utils.FindBoxes import FindBoxes
 
-class TestFindCDboxes(unittest.TestCase):
+class TestFindBoxes(unittest.TestCase):
 	def test_01(self):
 		# Chech whether pattern inversion works as expected
-		boxes = FindCDboxes('/dev/null','NRUGAUG','CUGA',True,True,250)
+		boxes = FindBoxes('/dev/null','NRUGAUG','CUGA',True,True,250)
 		
-		self.assertEqual( boxes.box1r , 'CATCAY' )# R = A||G -> rc(A||G) = T||C = Y
+		self.assertEqual( boxes.box1r , 'CATCAYN' )# R = A||G -> rc(A||G) = T||C = Y
 		self.assertEqual( boxes.box2r , "TCAG" )# CUGA -> CTGA -> (rev) AGUC -> (rc) TCAG
 	
 	def test_02(self):
-		output_file = "TestFindCDboxes.test_02.txt"
-		boxes = FindCDboxes('tests/test-data/FindCDboxes.genome.txt','NRUGAUG','CUGA',True,True,250)
+		input_file = 'FindBoxes.genome.fa'
+		output_file = "FindBoxes.test_02.bed"
+		boxes = FindBoxes('tests/test-data/'+input_file,'NRUGAUG','CUGA',True,True,250)
 		boxes.run(output_file)
 		
-		
-	
-	
+		self.assertTrue(filecmp.cmp(output_file,"tests/test-data/"+output_file) )
 
 def main():
 	unittest.main()
