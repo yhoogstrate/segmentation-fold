@@ -4,4 +4,4 @@ dist
 .eggs
 */*.pyc
 
-*.txt
+/*.txt
