@@ -44,7 +44,9 @@ setup(name='segmentation-fold-utils',
 		scripts=["bin/segmentation-fold-utils"],
 		packages=['segmentation_fold_utils'],
 		test_suite="tests",
+		setup_requires=['numpy'],
 		install_requires=[
+			'numpy',
 			'HTSeq >= 0.6.1',
 			'pysam >= 0.8.0'
 		],
