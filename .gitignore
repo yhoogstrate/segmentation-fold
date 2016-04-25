@@ -47,3 +47,4 @@ doc/man
 doc/Doxyfile
 doc/doxygen*.db
 tmp.*
+*.directory

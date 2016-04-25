@@ -33,7 +33,7 @@ class FindBoxes:
 	
 	logger = logging.getLogger("segmentation_fold_utils::FindBoxes")
 	
-	def __init__(self,genome,box1,box2,search_fwd,search_rev,inner_dist):
+	def __init__(self,genome,box1,box2,search_fwd,search_rev):
 		self.genome = genome
 		self.box1 = box1.upper().replace('U','T')#.strip('N')
 		self.box2 = box2.upper().replace('U','T')#.strip('N')
@@ -42,7 +42,6 @@ class FindBoxes:
 		self.m = min(self.k, self.l)
 		self.search_fwd = search_fwd
 		self.search_rev = search_rev
-		self.inner_dist = inner_dist
 		
 		if self.search_rev:
 			self.box1r = self.reverse_complement(self.box1)
