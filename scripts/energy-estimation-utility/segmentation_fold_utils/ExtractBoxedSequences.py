@@ -29,7 +29,6 @@ class ExtractBoxedSequences:
         """
         Inserts box1 or box1r - this is usually the box that is lagging behind
         """
-        position.append(None)
         lib.append(position)
 
     def update_cboxes(self, lib, position, fasta_output_file):
@@ -45,18 +44,19 @@ class ExtractBoxedSequences:
             item = lib[i]
             
             if item[0] != position[0] or item[2]+self.max_inner_dist < position[1]:
-                if item[4] != None:
-                    _start = max(0,item[1]-self.bp_extension)
-                    _end = item[4][2]+self.bp_extension
-                    seq = self.ref.fetch(item[0],_start,_end)
-                    if self.prog_actg_seq.match(seq):
-                        fasta_output_file.write(">"+item[0]+":"+str(_start)+"-"+str(_end)+"\n")
-                        fasta_output_file.write(seq+"\n")
-                    else:
-                       self.logger.debug("Invalid sequencae was found: "+item[0]+":"+str(_start)+"-"+str(_end)+"\n"+seq)
-                to_pop.append(i)
+                if len(item[4]) != 0:
+                    for box2 in item[4]:
+                        _start = max(0,item[1]-self.bp_extension)
+                        _end = box2[2]+self.bp_extension
+                        seq = self.ref.fetch(item[0],_start,_end)
+                        if self.prog_actg_seq.match(seq):
+                            fasta_output_file.write(">"+item[0]+":"+str(_start)+"-"+str(_end)+"\n")
+                            fasta_output_file.write(seq+"\n")
+                        else:
+                           self.logger.debug("Invalid sequencae was found: "+item[0]+":"+str(_start)+"-"+str(_end)+"\n"+seq)
+                    to_pop.append(i)
             else:
-                lib[i][4] = position
+                lib[i][4].append(position)
         
         to_pop.reverse()
         for i in to_pop:
@@ -78,14 +78,13 @@ class ExtractBoxedSequences:
                     _box, _seq = _name.split(":",1)
                     if _box == "box1-f":
                         print boxes_forward
-                        self.insert_box1(boxes_forward,[_chr,_start,_end,_strand])
+                        boxes_forward.append([_chr,_start,_end,_strand,[]])
                         print " --- "
                         print boxes_forward
                         print "------------------------------------\n\n"
                     elif _box == "box2-f":
+                        print "UPDATING"
                         self.update_cboxes(boxes_forward,[_chr,_start,_end,_strand],fasta_output_file)
-                    else:
-                        print "["+_box+"]"
         
         self.update_cboxes(boxes_forward,["NOTEXIST",-1,-1,"+"],fasta_output_file)# Trigger last one to be exported as well
 
