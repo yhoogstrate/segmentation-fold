@@ -28,13 +28,26 @@ from segmentation_fold_utils.ExtractBoxedSequences import ExtractBoxedSequences
 
 class TestExtractBoxedSequences(unittest.TestCase):
     def test_01(self):
-        input_fasta_file = 'ExtractBoxedSequences.test_01.in.fa'
-        input_bed_file =   "ExtractBoxedSequences.test_01.in.bed"
-        output_fasta_file = "ExtractBoxedSequences.test_01.out.fa"
-        sequences = ExtractBoxedSequences('tests/test-data/'+input_fasta_file,open('tests/test-data/'+input_bed_file,"r"),open('tests/test-data/'+output_fasta_file,'r'),90,0)
-        sequences.run(open(output_fasta_file,"w"))
+        fasta_input_file = 'ExtractBoxedSequences.test_01.in.fa'
+        bed_input_file =   "ExtractBoxedSequences.test_01.in.bed"
+        fasta_output_file = "ExtractBoxedSequences.test_01.out.fa"
+
+        sequences = ExtractBoxedSequences('tests/test-data/'+fasta_input_file,open('tests/test-data/'+bed_input_file,"r"),open('tests/test-data/'+fasta_output_file,'r'),90,0)
+        sequences.run(open(fasta_output_file,"w"))
         
-        #self.assertTrue(filecmp.cmp(output_file,"tests/test-data/"+output_file) )
+        self.assertTrue(filecmp.cmp(fasta_output_file,"tests/test-data/"+fasta_output_file) )
+
+    def test_02(self):
+        fasta_input_file = 'ExtractBoxedSequences.test_02.in.fa'
+        bed_input_file =   "ExtractBoxedSequences.test_02.in.bed"
+        fasta_output_file = "ExtractBoxedSequences.test_02.out.fa"
+
+        sequences = ExtractBoxedSequences('tests/test-data/'+fasta_input_file,open('tests/test-data/'+bed_input_file,"r"),open('tests/test-data/'+fasta_output_file,'r'),90,0)
+        sequences.run(open(fasta_output_file,"w"))
+        
+        self.assertTrue(filecmp.cmp(fasta_output_file,"tests/test-data/"+fasta_output_file) )
+
+
 
 def main():
     unittest.main()
