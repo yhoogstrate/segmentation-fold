@@ -134,8 +134,7 @@ class FindBoxes:
 				self.logger.info("The faid index of "+output_file+" is older than the file itself. Removing the index.")
 				os.remove(faid_index)
 	
-	def run(self,output_file):
-		fh = open(output_file,"w")
+	def run(self,fh):
 		self.check_faid_out_of_date(self.genome)
 		ref = pysam.FastaFile(self.genome)
 		for chromosome in ref.references:
