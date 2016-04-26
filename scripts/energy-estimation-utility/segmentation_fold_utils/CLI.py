@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 
 """
-@section LICENSE
-<PRE>
 segmentation-fold can predict RNA 2D structures including K-turns.
 Copyright (C) 2012-2016 Youri Hoogstrate
 
@@ -20,11 +18,13 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
-</PRE>
 """
 
 import sys,argparse,textwrap,datetime,click
 from segmentation_fold_utils import __version__, __author__, __homepage__
+
+from segmentation_fold_utils.FindBoxes import FindBoxes
+from segmentation_fold_utils.ExtractBoxedSequences import ExtractBoxedSequences
 
 
 @click.version_option(__version__)
@@ -61,9 +61,23 @@ def CLI_scan_for_segments():
 	return parser.parse_args()
 
 @CLI.command(name='cd-box',short_help='Scans through a sequence for subsequences that may contain C/D-box K-turns')
-@click.argument('input_fasta_file', type=click.File('r'))
+@click.argument('fasta_input_file', type=click.File('r'))
 @click.option('--inner-dist','-d',type=int, default=250,help="The maximal distance between the boxes (default=250).")
-def CLI_scan_for_cd_box_kturns(input_fasta_file,box1,box2,forward,reverse,output_bed_file):
-	boxes = FindBoxes(input_fasta_file,box1,box2,forward,reverse,output_bed_file)
-        boxes.run(output_bed_file)
+def CLI_scan_for_cd_box_kturns(fasta_input_file,box1,box2,forward,reverse,bed_output_file):
+    boxes = FindBoxes(fasta_input_file,box1,box2,forward,reverse,bed_output_file)
+    boxes.run(bed_output_file)
+
+
+@CLI.command(name='extract-boxed-sequences',short_help='bed_input_file has to be  created with \'find-box\' as part of this utility')
+@click.argument('fasta_input_file',  type=click.Path(exists=True))
+@click.argument('bed_input_file', type=click.File('r'))
+@click.argument('fasta_output_file', type=click.File('w'))
+@click.option('--max-inner-dist','-d',type=int, default=250,help="Maximal distance between the boxes (default=250bp)")
+@click.option('--bp-extension','-e',type=int, default=10,help="Extend the extraced boxed sequences with this umber of bases (default: 10bp)")
+def CLI_extract_boxed_sequences(fasta_input_file,bed_input_file,fasta_output_file,max_inner_dist,bp_extension):
+    sequences = ExtractBoxedSequences(fasta_input_file,bed_input_file,fasta_output_file,max_inner_dist,bp_extension)
+    sequences.run(fasta_output_file)
+
+
+
 

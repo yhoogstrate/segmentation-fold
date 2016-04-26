@@ -77,13 +77,8 @@ class ExtractBoxedSequences:
                     _end = int(_end)
                     _box, _seq = _name.split(":",1)
                     if _box == "box1-f":
-                        print boxes_forward
                         boxes_forward.append([_chr,_start,_end,_strand,[]])
-                        print " --- "
-                        print boxes_forward
-                        print "------------------------------------\n\n"
                     elif _box == "box2-f":
-                        print "UPDATING"
                         self.update_cboxes(boxes_forward,[_chr,_start,_end,_strand],fasta_output_file)
         
         self.update_cboxes(boxes_forward,["NOTEXIST",-1,-1,"+"],fasta_output_file)# Trigger last one to be exported as well
