@@ -31,7 +31,7 @@ class TestExtractBoxedSequences(unittest.TestCase):
         input_fasta_file = 'FindBoxes.genome.fa'
         input_bed_file = "FindBoxes.test_02.bed"
         output_fasta_file = "ExtractBoxedSequences.test_01.fa"
-        sequences = ExtractBoxedSequences('tests/test-data/'+input_fasta_file,open(input_bed_file,"r"),open('tests/test-data/'+output_fasta_file,'r'),90,10)
+        sequences = ExtractBoxedSequences('tests/test-data/'+input_fasta_file,open(input_bed_file,"r"),open('tests/test-data/'+output_fasta_file,'r'),90,0)
         sequences.run(open(output_fasta_file,"w"))
         
         #self.assertTrue(filecmp.cmp(output_file,"tests/test-data/"+output_file) )

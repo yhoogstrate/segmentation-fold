@@ -28,3 +28,9 @@ chr9	28	35	box1-r:CATCAYN	-
 chr9	35	42	box1-r:CATCAYN	-
 chr9	42	49	box1-r:CATCAYN	-
 chr9	49	56	box1-r:CATCAYN	-
+chr10	0	7	box1-f:NRTGATG	+
+chr10	14	18	box2-f:CTGA	+
+chr10	28	35	box1-f:NRTGATG	+
+chr10	42	46	box2-f:CTGA	+
+chr10	56	63	box1-f:NRTGATG	+
+chr10	70	74	box2-f:CTGA	+

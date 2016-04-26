@@ -3,5 +3,8 @@ build
 dist
 .eggs
 */*.pyc
-
+/*.bed
+/*.fa
+/*.fasta
+/*.fai
 /*.txt

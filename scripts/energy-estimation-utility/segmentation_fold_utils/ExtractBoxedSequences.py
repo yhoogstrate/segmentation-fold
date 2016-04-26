@@ -41,28 +41,29 @@ class ExtractBoxedSequences:
         to_pop = []
         for i in range(len(lib)):
             item = lib[i]
+            print item,"=box=",position
             
-            if item[0] != position[0] or item[1]+len(motif_a)+max_inner_dist < position[1]:
-                #print "Cleaning",item
-                if item[2] != None:
-                    #print "C/D box at ",item," d=",item[2][1]-item[1]-len(motif_a)
-                    seq = self.ref.fetch(item[0],item[1]-self.bp_extension,item[2][1]+self.bp_extension+len(motif_b))
-                    if re.match("^[ACTGUactgu]+$",seq):
-                        print ">"+item[0]+":"+str(item[1]-bp_extension)+"-"+str(item[2][1]+bp_extension+len(motif_b)-1)
-                        print seq
-                    else:
-                        self.logger.debug("Invalid sequencae was found: "+position[0]+":"+str(position[1])+"-"+str(position[2])+"\n"+seq)
+            if item[0] != position[0] or item[2]+self.max_inner_dist < position[1]:
+                if item[4] != None:
+                    print "**",item
+                    #seq = self.ref.fetch(item[0],item[1]-self.bp_extension,position[2]+self.bp_extension)
+                    #print seq
+                    #if re.match("^[ACTGUactgu]+$",seq):
+                    #    print ">"+item[0]+":"+str(item[1]-self.bp_extension)+"-"+str(item[2][1]+self.bp_extension+len(motif_b)-1)
+                    #    print seq
+                    #else:
+                     #   self.logger.debug("Invalid sequencae was found: "+position[0]+":"+str(position[1])+"-"+str(position[2])+"\n"+seq)
                 to_pop.append(i)
-        else:
-                lib[i][2] = position
-    
+            else:
+                lib[i][4] = position
+        
         to_pop.reverse()
         for i in to_pop:
-                lib.pop(i)
+            lib.pop(i)
 
     def run(self, output_fasta_file):
         self.ref = pysam.FastaFile(self.fasta_input_file)
-        previous_cboxes = []
+        boxes_foward = []
         
         self.bed_input_file.seek(0)
         for line in self.bed_input_file:
@@ -75,10 +76,9 @@ class ExtractBoxedSequences:
                     _end = int(_end)
                     _box, _seq = _name.split(":",1)
                     if _box == "box1-f":
-                        self.insert_box1(previous_cboxes,[_chr,_start,_end])
-                        print previous_cboxes
+                        self.insert_box1(boxes_foward,[_chr,_start,_end,_strand])
                     elif _box == "box1-r":
-                        self.update_cboxes(previous_cboxes,[_chr,_start,_end])
+                        self.update_cboxes(boxes_foward,[_chr,_start,_end,_strand])
                     
 
 
