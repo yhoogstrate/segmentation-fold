@@ -1,16 +1,8 @@
 #!/usr/bin/env python
 
 """
-@file scripts/energy-estimation/bin/energy-estimation
-
-@date 2015-07-15
-
-@author Youri Hoogstrate
-
-@section LICENSE
-<PRE>
 segmentation-fold can predict RNA 2D structures including K-turns.
-Copyright (C) 2012-2015 Youri Hoogstrate
+Copyright (C) 2012-2016 Youri Hoogstrate
 
 This file is part of segmentation-fold and originally taken from
 yh-kt-fold.
@@ -27,18 +19,17 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
-</PRE>
 """
 
-from energy_estimation_utility.RNA import *
-from energy_estimation_utility.DataController import *
-from energy_estimation_utility.BinarySplit import *
-from energy_estimation_utility.CLI import *
-from energy_estimation_utility.FoldController import *
+from segmentation_fold_utils.RNA import *
+from segmentation_fold_utils.XMLFile import *
+from segmentation_fold_utils.BinarySplit import *
+from segmentation_fold_utils.CLI import *
+from segmentation_fold_utils.FoldController import *
 
 if __name__ == "__main__":
     args = CLI()
-    data = DataController(args.xml_file)
+    data = XMLFile(args.xml_file)
     
     fc = FoldController(args.segmentation_fold,args.temp_dir+"/segments_test_","", None)
     fc.get_version()

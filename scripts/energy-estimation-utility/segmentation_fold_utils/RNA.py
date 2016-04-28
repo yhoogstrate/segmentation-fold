@@ -1,16 +1,8 @@
 #!/usr/bin/env python
 
 """
-@file scripts/energy-estimation-utility/energy_estimation_utility/RNA.py
-
-@date 2015-07-15
-
-@author Youri Hoogstrate
-
-@section LICENSE
-<PRE>
 segmentation-fold can predict RNA 2D structures including K-turns.
-Copyright (C) 2012-2015 Youri Hoogstrate
+Copyright (C) 2012-2016 Youri Hoogstrate
 
 This file is part of segmentation-fold and originally taken from
 yh-kt-fold.
@@ -27,7 +19,6 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
-</PRE>
 """
 
 
@@ -43,3 +34,13 @@ class RNA:
     
     def get_structures(self):
         return self.structures
+    
+    def get_unique_associated_segments(self):
+        segments = []
+        
+        for structure in self.structures:
+            for associated_segment in structure['associated_segments']:
+                segments.append(associated_segment)
+        
+        return list(set(segments))
+        

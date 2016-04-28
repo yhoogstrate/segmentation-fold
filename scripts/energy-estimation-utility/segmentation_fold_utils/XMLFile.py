@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 
 """
-@section LICENSE
-<PRE>
 segmentation-fold can predict RNA 2D structures including K-turns.
 Copyright (C) 2012-2016 Youri Hoogstrate
 
@@ -21,7 +19,6 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
-</PRE>
 """
 
 
@@ -29,21 +26,23 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 import random
 
 from xml.dom.minidom import parseString
-from energy_estimation_utility.RNA import *
+from segmentation_fold_utils.RNA import *
+from segmentation_fold_utils.FastaFile import *
 
 
 
-class DataController:
-    def __init__(self,xmlfile):
-        self.xmlfile = xmlfile
+class XMLFile:
+    def __init__(self,xml_input_file):
+        self.xml_input_file = xml_input_file
         
         self.segments = {}
+        #self.segmentloops = {}
         self.tests = []
         
         self.parse()
     
     def parse(self):
-        fh = open(self.xmlfile,'r')
+        fh = open(self.xml_input_file,'r')
         data = fh.read()
         fh.close()
         
@@ -107,7 +106,6 @@ class DataController:
         
         return seq
         
-    
     def shuffle_sequence(self,sequence,segments):
         """Should preserve all subsequences of the motif
         """
@@ -143,3 +141,15 @@ class DataController:
         
         random.shuffle(slices)
         return "".join(slices)
+
+    def get_combinations(self,fasta_input_file):
+        if fasta_input_file == None:
+            for item in self:
+                for segment in item.get_unique_associated_segments():
+                    yield item.name,item.sequence,segment,self.segments[segment]
+        else:
+            fasta = FastaFile(fasta_input_file)
+            for sequence in fasta:
+                for item in self:
+                   for segment in item.get_unique_associated_segments():
+                        yield sequence['name'], sequence['sequence'],segment,self.segments[segment]
