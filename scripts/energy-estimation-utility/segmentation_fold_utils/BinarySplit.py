@@ -1,16 +1,8 @@
 #!/usr/bin/env python
 
 """
-@file scripts/energy-estimation-utility/energy_estimation_utility/BinarySplit.py
-
-@date 2015-07-20
-
-@author Youri Hoogstrate
-
-@section LICENSE
-<PRE>
 segmentation-fold can predict RNA 2D structures including K-turns.
-Copyright (C) 2012-2015 Youri Hoogstrate
+Copyright (C) 2012-2016 Youri Hoogstrate
 
 This file is part of segmentation-fold.
 
@@ -26,7 +18,6 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
-</PRE>
 """
 
 

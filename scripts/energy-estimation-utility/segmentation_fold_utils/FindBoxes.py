@@ -31,9 +31,9 @@ class FindBoxes:
 	results are in BED format: "0-based, half open" - i.e. first position is: chr1\t0\t1
 	"""
 	
-	logger = logging.getLogger("segmentation_fold_utils::FindBoxes")
+	logger = logging.getLogger("segmentation-fold-utils::FindBoxes")
 	
-	def __init__(self,genome,box1,box2,search_fwd,search_rev,inner_dist):
+	def __init__(self,genome,box1,box2,search_fwd,search_rev):
 		self.genome = genome
 		self.box1 = box1.upper().replace('U','T')#.strip('N')
 		self.box2 = box2.upper().replace('U','T')#.strip('N')
@@ -42,7 +42,6 @@ class FindBoxes:
 		self.m = min(self.k, self.l)
 		self.search_fwd = search_fwd
 		self.search_rev = search_rev
-		self.inner_dist = inner_dist
 		
 		if self.search_rev:
 			self.box1r = self.reverse_complement(self.box1)
@@ -135,8 +134,7 @@ class FindBoxes:
 				self.logger.info("The faid index of "+output_file+" is older than the file itself. Removing the index.")
 				os.remove(faid_index)
 	
-	def run(self,output_file):
-		fh = open(output_file,"w")
+	def run(self,fh):
 		self.check_faid_out_of_date(self.genome)
 		ref = pysam.FastaFile(self.genome)
 		for chromosome in ref.references:

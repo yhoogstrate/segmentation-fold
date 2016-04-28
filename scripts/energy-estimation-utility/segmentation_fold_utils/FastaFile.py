@@ -37,8 +37,6 @@ class FastaFile:
     def parse(self):
         sequence = None
         
-        print "ALIVE"
-        
         with open(self.filename,'r') as self.fh:
             for line in self.fh:
                 line_s = line.strip()

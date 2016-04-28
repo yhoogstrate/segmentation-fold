@@ -2,7 +2,10 @@ build
 *.egg-info/
 dist
 .eggs
-*/*.pyc
-
+*.pyc
+/*.bed
+/*.fa
+/*.fasta
+/*.fai
 /*.txt
 /*.bed
