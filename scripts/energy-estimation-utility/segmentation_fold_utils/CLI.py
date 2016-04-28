@@ -60,9 +60,21 @@ def CLI_scan_for_segments():
 	
 	return parser.parse_args()
 
-@CLI.command(name='cd-box',short_help='Scans through a sequence for subsequences that may contain C/D-box K-turns')
-@click.argument('fasta_file', type=click.File('r'))
-@click.option('--inner-dist','-d',type=int, default=250,help="The maximal distance between the boxes (default=250).")
-def CLI_scan_for_cd_box_kturns(fasta_file):
-	pass
 
+@CLI.command(name='extract-boxed-sequences')
+def CLI_scan_for_segments():
+	sequences = ExtractBoxedSequences()
+	sequences.run()
+
+
+@CLI.command(name='cd-box',short_help='Scans through a sequence for subsequences that may contain C/D-box K-turns')
+@click.option('--box1',default='NRUGAUG',help="The first motif/box (default is C-box: NRUGAUG)")
+@click.option('--box2',default='CUGA',help="The second motif/box (default is D-box: CUGA)")
+@click.option('--forward/--no-foward',help="Scan in the forward strand of the genome (default: True / --forward)")
+@click.option('--reverse/--no-foward',help="Scan in the reverse complement strand of the genome (default: True / --reverse)")
+@click.option('--inner-dist','-d',type=int, default=250,help="The maximal distance between the boxes (default=250).")
+@click.argument('input_fasta_file', type=click.Path(exists=True))
+@click.argument('output_bed_file', type=click.File('w'))
+def CLI_scan_for_cd_box_kturns(input_fasta_file,box1,box2,forward,reverse,output_bed_file):
+	boxes = FindBoxes(input_fasta_file,box1,box2,forward,reverse,inner_dist)
+	boxes.run(output_bed_file)
