@@ -26,35 +26,88 @@ logging.basicConfig(level=logging.DEBUG,format="%(asctime)s - %(name)s - %(level
 
 from segmentation_fold_utils.XMLFile import XMLFile
 
+def get_n_lines(filename):
+    i = 0
+    with open(filename,"r") as fh:
+        for line in fh:
+            i += 1
+    return i
+
 class TestXMLFile(unittest.TestCase):
-	def test_01(self):
-		input_xml_file = 'XMLFile.test_01.in.xml'
-		input_fasta_file = None
-		
-		xml = XMLFile("tests/test-data/"+input_xml_file)
-		for a,b,c,d in xml.get_combinations(input_fasta_file):
-			print "-----------------------------------"
-			print str(a)
-			print str(b)
-			print str(c)
-			print str(d)
-			print "-----------------------------------\n\n\n\n"
-	
-	def test_02(self):
-		input_xml_file = 'XMLFile.test_01.in.xml'
-		input_fasta_file = 'XMLFile.test_02.in.fa'
-		
-		xml = XMLFile("tests/test-data/"+input_xml_file)
-		for a,b,c,d in xml.get_combinations("tests/test-data/"+input_fasta_file):
-			print "-----------------------------------"
-			print str(a)
-			print str(b)
-			print str(c)
-			print str(d)
-			print "-----------------------------------\n\n\n\n"
+    def test_01(self):
+        input_xml_file = 'XMLFile.test_01.in.xml'
+        input_fasta_file = None
+        dbn_output_file = 'XMLFile.test_01.out.dbn'
+        
+        i = 0
+        xml = XMLFile("tests/test-data/"+input_xml_file)
+        for sequence_name, sequence, segment_name, segment in xml.get_combinations(input_fasta_file):
+            if i == 0:
+                self.assertEqual(sequence_name,"C/D-box snoRNA")
+                self.assertEqual(sequence,"GCUCUGACCGAAAGGCGUGAUGAGC")
+                self.assertEqual(segment_name,"Kt-CD-box.CGU")
+                self.assertEqual(segment['5'],"CGUGAU")
+                self.assertEqual(segment['x'],'   :::')
+                self.assertEqual(segment['3'],'   AGU')
+            elif i == 1:
+                self.assertEqual(sequence_name,"Artificial double C/D K-turn construct")
+                self.assertEqual(sequence,"GGGAGUCUUGUGAUGAGAAGUACUGGAUCUGAAGUAGCCCUUUUUGGGCUACUUGUGAUGAAACACUCAUGGUCUGAAGACUCCC")
+                self.assertEqual(segment_name,"Kt-CD-box.UGU")
+                self.assertEqual(segment['5'],"UGUGAU")
+                self.assertEqual(segment['x'],'   :::')
+                self.assertEqual(segment['3'],'   AGU')
+            i += 1
+        
+        self.assertEqual(i,2)
+        
+        xml.estimate_energy("/tmp","segmentation-fold","tests/test-data/"+input_xml_file,1,0,0,input_fasta_file,open(dbn_output_file,"w"))
+        self.assertEqual(get_n_lines(dbn_output_file),7)
+    
+    def test_02(self):
+        input_xml_file = 'XMLFile.test_01.in.xml'
+        input_fasta_file = "tests/test-data/"+'XMLFile.test_02.in.fa'
+        dbn_output_file = 'XMLFile.test_02.out.dbn'
+        
+        i = 0
+        xml = XMLFile("tests/test-data/"+input_xml_file)
+        for sequence_name, sequence, segment_name, segment in xml.get_combinations(input_fasta_file):
+            if i == 0:
+                self.assertEqual(sequence_name,"C/D-box snoRNA")
+                self.assertEqual(sequence,"GCUCUGACCGAAAGGCGUGAUGAGC")
+                self.assertEqual(segment_name,"Kt-CD-box.CGU")
+                self.assertEqual(segment['5'],"CGUGAU")
+                self.assertEqual(segment['x'],'   :::')
+                self.assertEqual(segment['3'],'   AGU')
+            if i == 1:
+                self.assertEqual(sequence_name,"C/D-box snoRNA")
+                self.assertEqual(sequence,"GCUCUGACCGAAAGGCGUGAUGAGC")
+                self.assertEqual(segment_name,"Kt-CD-box.UGU")
+                self.assertEqual(segment['5'],"UGUGAU")
+                self.assertEqual(segment['x'],'   :::')
+                self.assertEqual(segment['3'],'   AGU')
+            elif i == 2:
+                self.assertEqual(sequence_name,"Artificial double C/D K-turn construct")
+                self.assertEqual(sequence,"GGGAGUCUUGUGAUGAGAAGUACUGGAUCUGAAGUAGCCCUUUUUGGGCUACUUGUGAUGAAACACUCAUGGUCUGAAGACUCCC")
+                self.assertEqual(segment_name,"Kt-CD-box.CGU")
+                self.assertEqual(segment['5'],"CGUGAU")
+                self.assertEqual(segment['x'],'   :::')
+                self.assertEqual(segment['3'],'   AGU')
+            elif i == 3:
+                self.assertEqual(sequence_name,"Artificial double C/D K-turn construct")
+                self.assertEqual(sequence,"GGGAGUCUUGUGAUGAGAAGUACUGGAUCUGAAGUAGCCCUUUUUGGGCUACUUGUGAUGAAACACUCAUGGUCUGAAGACUCCC")
+                self.assertEqual(segment_name,"Kt-CD-box.UGU")
+                self.assertEqual(segment['5'],"UGUGAU")
+                self.assertEqual(segment['x'],'   :::')
+                self.assertEqual(segment['3'],'   AGU')
+            i += 1
+        
+        self.assertEqual(i,4)
+        
+        xml.estimate_energy("/tmp","segmentation-fold","tests/test-data/"+input_xml_file,1,0,0,input_fasta_file,open(dbn_output_file,"w"))
+        self.assertEqual(get_n_lines(dbn_output_file),11)
 
 def main():
-	unittest.main()
+    unittest.main()
 
 if __name__ == '__main__':
-	main()
+    main()

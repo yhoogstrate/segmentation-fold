@@ -28,6 +28,7 @@ import random
 from xml.dom.minidom import parseString
 from segmentation_fold_utils.RNA import *
 from segmentation_fold_utils.FastaFile import *
+from segmentation_fold_utils.BinarySplit import *
 
 
 
@@ -105,6 +106,9 @@ class XMLFile:
             seq = seq[::-1]
         
         return seq
+    
+    def sanitize_name(self,name):
+        return name.replace("_","").replace("'","").replace('"','').replace('/','').replace('(','').replace(')','').replace(';','')
         
     def shuffle_sequence(self,sequence,segments):
         """Should preserve all subsequences of the motif
@@ -146,10 +150,27 @@ class XMLFile:
         if fasta_input_file == None:
             for item in self:
                 for segment in item.get_unique_associated_segments():
-                    yield item.name,item.sequence,segment,self.segments[segment]
+                    yield item.name, item.sequence, segment, self.segments[segment]
         else:
             fasta = FastaFile(fasta_input_file)
             for sequence in fasta:
                 for item in self:
                    for segment in item.get_unique_associated_segments():
-                        yield sequence['name'], sequence['sequence'],segment,self.segments[segment]
+                        yield sequence['name'], sequence['sequence'], segment, self.segments[segment]
+    
+    def estimate_energy(self,temp_dir,segmentation_fold,xml_file,threads,precision,randomize,sequences_from_fasta_file,dbn_output_file):
+        for sequence_name,sequence,segment_name,segment in self.get_combinations(sequences_from_fasta_file):
+            sequence_name = self.sanitize_name(sequence_name)
+            segment_name = self.sanitize_name(segment_name)
+            
+            dbn_output_file.write(">"+sequence_name+" x "+segment_name+"\n")
+            dbn_output_file.write(sequence+"\n")
+            
+            b = BinarySplit(
+                segmentation_fold,
+                temp_dir+"/segments_"+sequence_name+"_"+segment_name+"_",
+                sequence,
+                {segment_name:segment},
+                precision, (3.5/2), threads) 
+            for transition in b.find_transitions():
+                dbn_output_file.write(transition['structure_max']+"\t"+transition['structure_min']+"\t"+str(transition['energy'])+"\n")

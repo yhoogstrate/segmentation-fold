@@ -40,7 +40,7 @@ class TestFindBoxes(unittest.TestCase):
 		boxes = FindBoxes('tests/test-data/'+input_file,'NRUGAUG','CUGA',True,True)
 		boxes.run(open(output_file,"w"))
 		
-		self.assertTrue(filecmp.cmp(output_file,"tests/test-data/"+output_file) )
+		self.assertTrue(filecmp.cmp(output_file,"tests/test-data/"+output_file))
 
 def main():
 	unittest.main()

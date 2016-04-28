@@ -54,8 +54,8 @@ def get_sequence_and_segments(xml_file,fasta_file):
 @click.option("--precision","-p",default=0.0025,help="Minimal difference for binary split - the smaller this value the slower. if this value equals 0, the difference is set to infinity (default: 0.0025)")
 @click.option("--randomize","-r",default=0,type=int,help="Randomize or shuffle each sequence this many times; (default: 0, 0 means disabled)")
 @click.option("--sequences_from_fasta_file","-f", type=click.File('r'),default=None,help="Use sequences from a FASTA file instead of using the XML file that also contains the segments. In XML files you can explicitly link one Segment(Loop) to one particular sequence instead of doing n*n comparisons (default: None)")
-@click.argument('output_dbn_file', type=click.File('w'))
-def CLI_energy_estimation(temp_dir,segmentation_fold,xml_file,threads,precision,randomize,sequences_from_fasta_file,output_dbn_file):
+@click.argument('dbn_output_file', type=click.File('w'))
+def CLI_energy_estimation(temp_dir,segmentation_fold,xml_file,threads,precision,randomize,sequences_from_fasta_file,dbn_output_file):
 	print sequences_from_fasta_file
 	#for sequence, segment in get_sequence_and_segments(xml_file,fasta_file):
 	#	do_test(sequence, segment)

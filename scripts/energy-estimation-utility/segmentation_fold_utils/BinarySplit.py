@@ -35,10 +35,13 @@ class BinarySplit:
         self.sequence = sequence
         self.associated_segments = arg_associated_segments
         
-        self.precision = precision
         self.max_per_base = max_per_base
-        
         self.min_energy = - abs(max_per_base) * len(sequence)
+        
+        if precision > 0:
+            self.precision = precision
+        else:
+            self.precision = abs(self.min_energy)
         
         self.threads_per_instance = threads
     
@@ -77,7 +80,13 @@ class BinarySplit:
                 
                 return results_min + results_max
             else:
+                # In some rare cases, multiple segments may ifnd their transition for the same energy value
+                # In such cases, you would need a copy for each segment to be able to find the total number of segments back
+                n = abs(min_energy['results']['number_segments']-max_energy['results']['number_segments'])
+                out = []
+                for i in range(n):
+                    out.append({'structure_min':min_energy['results']['dot_bracket'],'structure_max':max_energy['results']['dot_bracket'],'energy':splitpoint})
                 
-                return [{'structure_min':min_energy['results']['dot_bracket'],'structure_max':max_energy['results']['dot_bracket'],'energy':splitpoint}]
+                return out
         else:
             return []
