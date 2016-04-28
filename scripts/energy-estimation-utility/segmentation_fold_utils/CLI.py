@@ -25,25 +25,13 @@ from segmentation_fold_utils import __version__, __author__, __homepage__
 
 from segmentation_fold_utils.FindBoxes import FindBoxes
 from segmentation_fold_utils.ExtractBoxedSequences import ExtractBoxedSequences
+from segmentation_fold_utils.XMLFile import XMLFile
 
 
 @click.version_option(__version__)
 @click.group()
 def CLI():
-	pass
-
-
-def get_sequence_and_segments(xml_file,fasta_file):
-	xml = parse_xml(xml_file)
-	
-	if sequence_from_xml_file:
-		for sequence, segment in xml.pairs():
-			yield sequence,segment
-	else:
-		# Assert len input_fasta_file == 1
-		for sequence in parse_fasta(input_fasta_file[0]):
-			for segment in xml.segments():
-				yield sequence,segment
+    pass
 
 
 @CLI.command(name="estimate-energy",short_help="Estimates whether a certain Segment(Loop) is present and for which delta-G this transistion takes place")
@@ -51,15 +39,13 @@ def get_sequence_and_segments(xml_file,fasta_file):
 @click.option("--segmentation-fold","-s",default="segmentation-fold",help="Location of segmentatio-fold binary (default: segmentation-fold)")
 @click.option("--xml-file","-x", type=click.File('r'),default="/usr/local/share/segmentation-fold/segments.xml",help="Location of segments.xml (default: /usr/local/share/segmentation-fold/segments.xml)")
 @click.option("--threads","-T",default=2,type=int,help="Number of threads per spawned instance of segmentation-fold")
-@click.option("--precision","-p",default=0.0025,help="Minimal difference for binary split - the smaller this value the slower. if this value equals 0, the difference is set to infinity (default: 0.0025)")
+@click.option("--precision","-p",default=0.005,help="Minimal difference for binary split - the smaller this value the slower. if this value equals 0, the difference is set to infinity (default: 0.0025)")
 @click.option("--randomize","-r",default=0,type=int,help="Randomize or shuffle each sequence this many times; (default: 0, 0 means disabled)")
-@click.option("--sequences_from_fasta_file","-f", type=click.File('r'),default=None,help="Use sequences from a FASTA file instead of using the XML file that also contains the segments. In XML files you can explicitly link one Segment(Loop) to one particular sequence instead of doing n*n comparisons (default: None)")
+@click.option("--sequences-from-fasta-file","-f", type=click.Path(exists=True),default=None,help="Use sequences from a FASTA file instead of using the XML file that also contains the segments. In XML files you can explicitly link one Segment(Loop) to one particular sequence instead of doing n*n comparisons (default: None)")
 @click.argument('dbn_output_file', type=click.File('w'))
 def CLI_energy_estimation(temp_dir,segmentation_fold,xml_file,threads,precision,randomize,sequences_from_fasta_file,dbn_output_file):
-	print sequences_from_fasta_file
-	#for sequence, segment in get_sequence_and_segments(xml_file,fasta_file):
-	#	do_test(sequence, segment)
-
+    xml = XMLFile(xml_file)
+    xml.estimate_energy(temp_dir,segmentation_fold,threads,precision,randomize,sequences_from_fasta_file,dbn_output_file)
 
 
 @CLI.command(name='find-boxes',short_help='Finds all occurances of two given boxes (sequence motifs) within a FASTA file')

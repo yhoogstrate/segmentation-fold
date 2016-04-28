@@ -43,9 +43,7 @@ class XMLFile:
         self.parse()
     
     def parse(self):
-        fh = open(self.xml_input_file,'r')
-        data = fh.read()
-        fh.close()
+        data = self.xml_input_file.read()
         
         root = parseString(data)
         segments = root.getElementsByTagName('segments')[0]
@@ -158,7 +156,7 @@ class XMLFile:
                    for segment in item.get_unique_associated_segments():
                         yield sequence['name'], sequence['sequence'], segment, self.segments[segment]
     
-    def estimate_energy(self,temp_dir,segmentation_fold,xml_file,threads,precision,randomize,sequences_from_fasta_file,dbn_output_file):
+    def estimate_energy(self,temp_dir,segmentation_fold,threads,precision,randomize,sequences_from_fasta_file,dbn_output_file):
         for sequence_name,sequence,segment_name,segment in self.get_combinations(sequences_from_fasta_file):
             sequence_name = self.sanitize_name(sequence_name)
             segment_name = self.sanitize_name(segment_name)
