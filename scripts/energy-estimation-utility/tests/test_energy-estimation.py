@@ -38,13 +38,7 @@ class TestXMLFile(unittest.TestCase):
         input_xml_file = 'XMLFile.test_01.in.xml'
         dbn_output_file = 'XMLFile.test_01.out.dbn'
         
-        command = ["segmentation-fold-utils", \
-            "estimate-energy", \
-            "--xml-file","tests/test-data/"+input_xml_file, \
-            "--threads","1", \
-            "--precision","0", \
-            "--randomize","0", \
-            dbn_output_file]
+        command = ["segmentation-fold-utils", "estimate-energy", "--xml-file","tests/test-data/"+input_xml_file, "--threads","1", "--precision","0", "--randomize","0", dbn_output_file]
         
         self.assertEqual(subprocess.call(command) , 0)
         self.assertEqual(get_n_lines(dbn_output_file),7)
@@ -54,14 +48,7 @@ class TestXMLFile(unittest.TestCase):
         input_fasta_file = "tests/test-data/"+'XMLFile.test_02.in.fa'
         dbn_output_file = 'XMLFile.test_02.out.dbn'
         
-        command = ["segmentation-fold-utils", \
-            "estimate-energy", \
-            "--xml-file","tests/test-data/"+input_xml_file, \
-            "--threads","1", \
-            "--precision","0", \
-            "--randomize","0", \
-            "--sequences-from-fasta-file",input_fasta_file, \
-            dbn_output_file]
+        command = ["segmentation-fold-utils", "estimate-energy", "--xml-file","tests/test-data/"+input_xml_file, "--threads","1", "--precision","0", "--randomize","0", "--sequences-from-fasta-file",input_fasta_file, dbn_output_file]
         
         self.assertEqual(subprocess.call(command) , 0)
         self.assertEqual(get_n_lines(dbn_output_file),11)

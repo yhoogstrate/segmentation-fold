@@ -58,6 +58,6 @@ setup(name='segmentation-fold-utils',
 			'Operating System :: OS Independent'
 			'Topic :: Scientific/Engineering',
 			'Topic :: Scientific/Engineering :: Bio-Informatics'
-			],
-#		cmdclass={'install':RunMarkdown}
+			]
+#		,cmdclass={'install':RunMarkdown}
 	)
