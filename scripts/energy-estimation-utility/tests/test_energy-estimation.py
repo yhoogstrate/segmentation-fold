@@ -24,7 +24,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 import unittest,logging,sys,filecmp,subprocess
 logging.basicConfig(level=logging.DEBUG,format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",stream=sys.stdout)
 
-from segmentation_fold_utils.XMLFile import XMLFile
 
 def get_n_lines(filename):
     i = 0
