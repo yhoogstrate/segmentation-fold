@@ -161,14 +161,31 @@ class XMLFile:
             sequence_name = self.sanitize_name(sequence_name)
             segment_name = self.sanitize_name(segment_name)
             
-            dbn_output_file.write(">"+sequence_name+" x "+segment_name+"\n")
-            dbn_output_file.write(sequence+"\n")
-            
-            b = BinarySplit(
-                segmentation_fold,
-                temp_dir+"/segments_"+sequence_name+"_"+segment_name+"_",
-                sequence,
-                {segment_name:segment},
-                precision, (3.5/2), threads) 
-            for transition in b.find_transitions():
-                dbn_output_file.write(transition['structure_max']+"\t"+transition['structure_min']+"\t"+str(transition['energy'])+"\n")
+            if randomize <= 0:
+                dbn_output_file.write(">"+sequence_name+" x "+segment_name+"\n")
+                dbn_output_file.write(sequence+"\n")
+                
+                b = BinarySplit(
+                    segmentation_fold,
+                    temp_dir+"/segments_"+sequence_name+"_"+segment_name+"_",
+                    sequence,
+                    {segment_name:segment},
+                    precision, (3.5/2), threads) 
+                for transition in b.find_transitions():
+                    dbn_output_file.write(transition['structure_max']+"\t"+transition['structure_min']+"\t"+str(transition['energy'])+"\n")
+            else:
+                for i in range(1,randomize+1):
+                    sequence_r = self.shuffle_sequence(sequence,{segment_name:segment})
+                    sequence_name_r = self.sanitize_name(sequence_name+" (shuffle iteration: "+str(i))
+                    
+                    dbn_output_file.write(">"+sequence_name_r+") x "+segment_name+"\n")
+                    dbn_output_file.write(sequence_r+"\n")
+                    
+                    b = BinarySplit(
+                        segmentation_fold,
+                        temp_dir+"/segments_"+sequence_name_r+"_"+segment_name+"_",
+                        sequence_r,
+                        {segment_name:segment},
+                        precision, (3.5/2), threads) 
+                    for transition in b.find_transitions():
+                        dbn_output_file.write(transition['structure_max']+"\t"+transition['structure_min']+"\t"+str(transition['energy'])+"\n")

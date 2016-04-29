@@ -105,6 +105,17 @@ class TestXMLFile(unittest.TestCase):
         
         xml.estimate_energy("/tmp","segmentation-fold",1,0,0,input_fasta_file,open(dbn_output_file,"w"))
         self.assertEqual(get_n_lines(dbn_output_file),11)
+    
+    def test_03(self):
+        input_xml_file = 'XMLFile.test_01.in.xml'
+        input_fasta_file = None
+        dbn_output_file = 'XMLFile.test_03.out.dbn'
+        
+        i = 0
+        xml = XMLFile(open("tests/test-data/"+input_xml_file,"r"))
+        xml.estimate_energy("/tmp","segmentation-fold",1,0,50,input_fasta_file,open(dbn_output_file,"w"))
+        self.assertTrue(get_n_lines(dbn_output_file) >= 200)
+    
 
 def main():
     unittest.main()

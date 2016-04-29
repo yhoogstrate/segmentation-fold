@@ -21,8 +21,9 @@ install:
   - sudo apt-get install -qq libboost-filesystem1.55-dev libboost-test1.55-dev valgrind astyle
   - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
   - sed -i.bak "s/#pragma/\/\/#pragma/" src/Zuker.cpp 
-  - cmake .
+  - cmake -DCMAKE_INSTALL_PREFIX=~/.local .
   - make
+  - make install
 
 addons:
   apt:
