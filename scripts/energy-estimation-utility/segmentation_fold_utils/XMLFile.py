@@ -25,9 +25,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 import random
 
-from segmentation_fold_utils.RNA import *
-from segmentation_fold_utils.FastaFile import *
-from segmentation_fold_utils.BinarySplit import *
+from segmentation_fold_utils.RNA import RNA
+from segmentation_fold_utils.FastaFile import FastaFile
+from segmentation_fold_utils.BinarySplit import BinarySplit
 
 #from xml.dom.minidom import parseString
 
