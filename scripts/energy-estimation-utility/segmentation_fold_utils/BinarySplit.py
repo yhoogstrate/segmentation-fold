@@ -22,8 +22,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
 
-from energy_estimation_utility import FoldController
-from energy_estimation_utility.FoldController import *
+from segmentation_fold_utils.FoldController import FoldController
 
 
 
