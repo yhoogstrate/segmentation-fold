@@ -39,8 +39,8 @@ def CLI():
 @click.option("--segmentation-fold","-s",default="segmentation-fold",help="Location of segmentatio-fold binary (default: segmentation-fold)")
 @click.option("--xml-file","-x", type=click.File('r'),default="/usr/local/share/segmentation-fold/segments.xml",help="Location of segments.xml (default: /usr/local/share/segmentation-fold/segments.xml)")
 @click.option("--threads","-T",default=2,type=int,help="Number of threads per spawned instance of segmentation-fold")
-@click.option("--precision","-p",default=0.005,help="Minimal difference for binary split - the smaller this value the slower. if this value equals 0, the difference is set to infinity (default: 0.0025)")
-@click.option("--randomize","-r",default=0,type=int,help="Randomize or shuffle each sequence this many times; (default: 0, 0 means disabled)")
+@click.option("--precision","-p",default=0.05,help="Minimal difference for binary split - the smaller this value the slower. if this value equals 0, the difference is set to infinity (default: 0.05)")
+@click.option("--randomize","-r",default=0,type=int,help="Shuffle each sequence this many times and predict energy of shuffled sequence(s) (default: 0, 0 means disabled)")
 @click.option("--sequences-from-fasta-file","-f", type=click.Path(exists=True),default=None,help="Use sequences from a FASTA file instead of using the XML file that also contains the segments. In XML files you can explicitly link one Segment(Loop) to one particular sequence instead of doing n*n comparisons (default: None)")
 @click.argument('dbn_output_file', type=click.File('w'))
 def CLI_energy_estimation(temp_dir,segmentation_fold,xml_file,threads,precision,randomize,sequences_from_fasta_file,dbn_output_file):
@@ -67,6 +67,17 @@ def CLI_extract_boxed_sequences(fasta_input_file,bed_output_file,box1,box2,forwa
 @click.option('--max-inner-dist','-d',type=int, default=250,help="Maximal distance between the boxes (default=250bp)")
 @click.option('--bp-extension','-e',type=int, default=10,help="Extend the extraced boxed sequences with this umber of bases (default: 10bp)")
 def CLI_extract_boxed_sequences(fasta_input_file,bed_input_file,fasta_output_file,max_inner_dist,bp_extension):
+    sequences = ExtractBoxedSequences(fasta_input_file,bed_input_file,fasta_output_file,max_inner_dist,bp_extension)
+    sequences.run(fasta_output_file)
+
+
+@CLI.command(name='add-read-counts',short_help='Add read counts falling within a region contained in the fasta header of the dbn file')
+@click.argument('dbn_input_file', type=click.Path(exists=True))
+@click.argument('bam_input_file', type=click.Path(exists=True))
+@click.argument('dbn_output_file', type=click.File('w'))
+@click.option('--regex','-r', default=">.*?(chr[^:]):([0-9]+)-([0-9]+)",help="Regex to capture the targeted location")
+# possible more sam/bam flag requirements, e.g. multimap limits etc.
+def CLI_add_read_counts(fasta_input_file,bed_input_file,fasta_output_file,max_inner_dist,bp_extension):
     sequences = ExtractBoxedSequences(fasta_input_file,bed_input_file,fasta_output_file,max_inner_dist,bp_extension)
     sequences.run(fasta_output_file)
 
