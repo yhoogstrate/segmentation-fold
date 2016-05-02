@@ -25,6 +25,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 import random,re,logging,subprocess
 import pysam
 
+from segmentation_fold_utils.GeneAnnotation import GeneAnnotation
+
 
 class DBNFile:
     
@@ -98,7 +100,7 @@ class DBNFile:
             k += 1
             j = 0
             
-            for position_g in re.finditer('>([^:]+):([0-9]+)-([0-9]+)',structure['name']):
+            for position_g in regex_prog.finditer(structure['name']):
                 position = [position_g.group(1),int(position_g.group(2)),int(position_g.group(3))]
                 if position[1] > position[2]:
                     position = [position[0], position[2], position[1]]
@@ -135,3 +137,48 @@ class DBNFile:
                     self.error.warning('Couldn\'t indexing BAM file with samtools: '+bam_file+'. Are you sure samtools is installed?')
         else:
             self.logger.warning('Missing chromosomes in BAM file - is it empty?')
+
+    def filter_annotated_entries(self,regex,bed_input_file,dbn_output_file_o,dbn_output_file_n):
+        genes = GeneAnnotation()
+        genes.parse_bed(bed_input_file)
+        
+        i = 0
+        j = 0
+        
+        regex_prog = re.compile(regex)
+        
+        for structure in self.parse():
+            annotations = set([])
+            for position_g in regex_prog.finditer(structure['name']):
+                position = [position_g.group(1),int(position_g.group(2)),int(position_g.group(3))]
+                if position[1] > position[2]:
+                    position = [position[0], position[2], position[1]]
+                
+                annotations = annotations.union(genes.get_annotations(position[0],position[1],position[2]))
+            
+            annotations = list(annotations)
+            if len(annotations) == 0:
+                i += 1
+                dbn_output_file_n.write(structure['name']+"\n")
+                dbn_output_file_n.write(structure['sequence']+"\n")
+                for transition in structure['transitions']:
+                    transition_f = transition
+                    transition_f[2] = str(transition_f[2])
+                    dbn_output_file_n.write("\t".join(transition_f)+"\n")
+
+            else:
+                j += 1
+                dbn_output_file_o.write(structure['name']+' (overlap in '+bed_input_file.name+': '+",".join(annotations)+')'+"\n")
+                dbn_output_file_o.write(structure['sequence']+"\n")
+                for transition in structure['transitions']:
+                    transition_f = transition
+                    transition_f[2] = str(transition_f[2])
+                    dbn_output_file_o.write("\t".join(transition_f)+"\n")
+        
+        # Click does not produce a file if nothing is written to it, not even with open(...,'w+)
+        if i == 0:
+            dbn_output_file_n.write("")
+        if j == 0:
+            dbn_output_file_o.write("")
+        
+        self.logger.info("Written "+str(i)+" (unannotated) entries to "+dbn_output_file_n.name+" and "+str(j)+" (annotated) entries to "+dbn_output_file_o.name)

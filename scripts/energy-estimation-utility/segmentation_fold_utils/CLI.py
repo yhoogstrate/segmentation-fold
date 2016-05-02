@@ -75,9 +75,19 @@ def CLI_extract_boxed_sequences(fasta_input_file,bed_input_file,fasta_output_fil
 @click.argument('dbn_input_file', type=click.File('w'))
 @click.argument('bam_input_file', type=click.Path(exists=True))
 @click.argument('dbn_output_file', type=click.File('w'))
-@click.option('--regex','-r', default=">.*?(chr[^:]):([0-9]+)-([0-9]+)",help="Regex to capture the targeted location (default: '>.*?(chr[^:]):([0-9]+)-([0-9]+)' )")
+@click.option('--regex','-r', default=">.*?(chr[^:]):([0-9]+)-([0-9]+)",help="Regex to capture the targeted location in DBN file (default: '>.*?(chr[^:]):([0-9]+)-([0-9]+)' )")
 # possibility for more sam/bam flag requirements, e.g. multimap limits etc.
 def CLI_add_read_counts(dbn_input_file,bam_input_file,regex,dbn_output_file):
     structures = DNBFile(dbn_input_file,True)#estimate_energy_results is set to True because this only works with files produced by the estimate-energy subprogram
     structures.annotate_read_counts(bam_input_file,regex,dbn_output_file)
 
+
+@CLI.command(name='filter-annotated-entries',short_help='Split entries into two files based on whether they overlap annotations in a bed file')
+@click.argument('dbn_input_file', type=click.File('w'))
+@click.argument('bed_input_file', type=click.Path(exists=True))
+@click.argument('dbn_output_file_overlapping', type=click.File('w'))
+@click.argument('dbn_output_file_non_overlapping', type=click.File('w'))
+@click.option('--regex','-r', default=">.*?(chr[^:]):([0-9]+)-([0-9]+)",help="Regex to capture the targeted location in DBN file (default: '>.*?(chr[^:]):([0-9]+)-([0-9]+)' )")
+def CLI_filter_annotaed_entries(dbn_input_file,bam_input_file,regex,dbn_output_file):
+    structures = DNBFile(dbn_input_file,True)#estimate_energy_results is set to True because this only works with files produced by the estimate-energy subprogram
+    structures.filter_annotated_entries(regex,bed_input_file,dbn_output_file_overlapping,dbn_output_file_non_overlapping)
