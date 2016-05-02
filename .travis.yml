@@ -18,7 +18,7 @@ install:
   - sudo pip install pysam
   - sudo pip install click
   - sudo pip install nose
-  - sudo apt-get install -qq libboost-filesystem1.55-dev libboost-test1.55-dev valgrind astyle
+  - sudo apt-get install -qq libboost-filesystem1.55-dev libboost-test1.55-dev valgrind astyle samtools
   - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
   - sed -i.bak "s/#pragma/\/\/#pragma/" src/Zuker.cpp 
   - cmake -DCMAKE_INSTALL_PREFIX=~/.local .
