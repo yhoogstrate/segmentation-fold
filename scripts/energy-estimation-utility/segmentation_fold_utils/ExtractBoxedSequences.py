@@ -72,6 +72,7 @@ class ExtractBoxedSequences:
         If an iteration is beyond a certain cbox, get it out.
         If it has linked D-box, store it or print it
         """
+        
         to_pop = []
         for i in range(len(lib)):
             item = lib[i]
@@ -90,8 +91,9 @@ class ExtractBoxedSequences:
                             else:
                                 fasta_output_file.write(">"+item[0]+":"+str(_start)+"-"+str(_end)+"(+)\n")
                             fasta_output_file.write(seq+"\n")
+                            self.n += 1
                         else:
-                           self.logger.debug("Invalid sequencae was found: "+item[0]+":"+str(_start)+"-"+str(_end)+"\n"+seq)
+                           self.logger.debug("Invalid sequence was found: "+item[0]+":"+str(_start)+"-"+str(_end)+"\n"+seq)
                     to_pop.append(i)
             else:
                 lib[i][4].append(position)
@@ -104,6 +106,7 @@ class ExtractBoxedSequences:
         self.ref = pysam.FastaFile(self.fasta_input_file)
         boxes_forward = []
         boxes_reverse = []
+        self.n = 0
         
         self.bed_input_file.seek(0)
         for line in self.bed_input_file:
@@ -115,6 +118,7 @@ class ExtractBoxedSequences:
                     _start = int(_start)
                     _end = int(_end)
                     _box, _seq = _name.split(":",1)
+                    
                     if _box == "box1-f":
                         boxes_forward.append([_chr,_start,_end,_strand,[]])
                     elif _box == "box2-f":
@@ -127,3 +131,8 @@ class ExtractBoxedSequences:
         
         self.update_using_box2(boxes_forward,["NOTEXIST",-1,-1,"+"],fasta_output_file)# Trigger last one to be exported as well
         self.update_using_box2(boxes_reverse,["NOTEXIST",-1,-1,"-"],fasta_output_file)# Trigger last one to be exported as well
+        
+        if self.n == 0:# Click does not produce a file if nothing is written to it, not even with open(...,'w+)
+            fasta_output_file.write("")
+            
+        self.logger.info("Written "+str(self.n)+" sequences to "+fasta_output_file.name)

@@ -146,8 +146,8 @@ class FindBoxes:
 				k = i+self.k
 				l = i+self.l
 				
-				chunk1 = ref.fetch(chromosome,i,k).upper()
-				chunk2 = ref.fetch(chromosome,i,l).upper()
+				chunk1 = ref.fetch(chromosome,i,k).upper().replace('U','T')
+				chunk2 = ref.fetch(chromosome,i,l).upper().replace('U','T')
 				
 				if self.search_fwd:
 					if self.match(self.box1,chunk1):

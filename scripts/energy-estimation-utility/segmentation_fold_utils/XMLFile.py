@@ -176,7 +176,7 @@ class XMLFile:
             else:
                 for i in range(1,randomize+1):
                     sequence_r = self.shuffle_sequence(sequence,{segment_name:segment})
-                    sequence_name_r = self.sanitize_name(sequence_name+" (shuffle iteration: "+str(i))
+                    sequence_name_r = self.sanitize_name(sequence_name+" (shuffle iteration: "+str(i)+")")
                     
                     dbn_output_file.write(">"+sequence_name_r+") x "+segment_name+"\n")
                     dbn_output_file.write(sequence_r+"\n")

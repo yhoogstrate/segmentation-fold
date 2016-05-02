@@ -10,3 +10,5 @@ dist
 /*.txt
 /*.bed
 /*.dbn
+/*.bam
+/*.bai

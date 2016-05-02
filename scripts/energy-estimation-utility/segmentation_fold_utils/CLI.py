@@ -71,13 +71,13 @@ def CLI_extract_boxed_sequences(fasta_input_file,bed_input_file,fasta_output_fil
     sequences.run(fasta_output_file)
 
 
-@CLI.command(name='add-read-counts',short_help='Add read counts falling within a region contained in the fasta header of the dbn file')
-@click.argument('dbn_input_file', type=click.Path(exists=True))
+@CLI.command(name='add-read-counts',short_help='Annotate sequences by adding the read counts from a bam file, within a region contained in the fasta header of the dbn file')
+@click.argument('dbn_input_file', type=click.File('w'))
 @click.argument('bam_input_file', type=click.Path(exists=True))
 @click.argument('dbn_output_file', type=click.File('w'))
-@click.option('--regex','-r', default=">.*?(chr[^:]):([0-9]+)-([0-9]+)",help="Regex to capture the targeted location")
-# possible more sam/bam flag requirements, e.g. multimap limits etc.
-def CLI_add_read_counts(fasta_input_file,bed_input_file,fasta_output_file,max_inner_dist,bp_extension):
-    sequences = ExtractBoxedSequences(fasta_input_file,bed_input_file,fasta_output_file,max_inner_dist,bp_extension)
-    sequences.run(fasta_output_file)
+@click.option('--regex','-r', default=">.*?(chr[^:]):([0-9]+)-([0-9]+)",help="Regex to capture the targeted location (default: '>.*?(chr[^:]):([0-9]+)-([0-9]+)' )")
+# possibility for more sam/bam flag requirements, e.g. multimap limits etc.
+def CLI_add_read_counts(dbn_input_file,bam_input_file,regex,dbn_output_file):
+    structures = DNBFile(dbn_input_file,True)#estimate_energy_results is set to True because this only works with files produced by the estimate-energy subprogram
+    structures.annotate_read_counts(bam_input_file,regex,dbn_output_file)
 
