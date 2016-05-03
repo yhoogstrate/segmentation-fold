@@ -31,82 +31,20 @@ class Test_add_read_counts(unittest.TestCase):
         Do the unit test via the command line
          - Requires segmentation-fold-utils to be installed
         """
-        fasta_input_file = "ExtractBoxedSequences.test_01.in.fa"
-        bed_input_file =   "ExtractBoxedSequences.test_01.in.bed"
-        fasta_output_file = "ExtractBoxedSequences.test_01.out.fa"
-
+        dbn_input_file = 'DBNFile.test_01.in.dbn'
+        bam_input_file = 'DBNFile.test_01.in.bam'
+        dbn_output_file = 'DBNFile.test_01.out.dbn'
         
         command = ["segmentation-fold-utils", \
-                    "extract-boxed-sequences", \
-                    "--max-inner-dist","90",
-                    "--bp-extension","0",
-                    "tests/test-data/"+fasta_input_file, \
-                    "tests/test-data/"+bed_input_file, \
-                    fasta_output_file]
+                    "add-read-counts", \
+                    "--regex",">.*?(chr[^:]):([0-9]+)-([0-9]+)",
+                    "tests/test-data/"+dbn_input_file, \
+                    "tests/test-data/"+bam_input_file, \
+                    dbn_output_file]
         
         self.assertEqual(subprocess.call(command) , 0)
         
-        self.assertTrue(filecmp.cmp(fasta_output_file,"tests/test-data/"+fasta_output_file))
-
-    def test_02(self):
-        """
-        Tests the reverse complement extraction
-        """
-        fasta_input_file = 'ExtractBoxedSequences.test_02.in.fa'
-        bed_input_file =   "ExtractBoxedSequences.test_02.in.bed"
-        fasta_output_file = "ExtractBoxedSequences.test_02.out.fa"
-        
-        command = ["segmentation-fold-utils", \
-                    "extract-boxed-sequences", \
-                    "--max-inner-dist","90",
-                    "--bp-extension","0",
-                    "tests/test-data/"+fasta_input_file, \
-                    "tests/test-data/"+bed_input_file, \
-                    fasta_output_file]
-        self.assertEqual(subprocess.call(command) , 0)
-        self.assertTrue(filecmp.cmp(fasta_output_file,"tests/test-data/"+fasta_output_file))
-        
-
-    def test_03(self):
-        """
-        Tests whether the max_insertion_size works
-        """
-        fasta_input_file = 'ExtractBoxedSequences.test_03.in.fa'
-        bed_input_file =   "ExtractBoxedSequences.test_03.in.bed"
-        fasta_output_file_1 = "ExtractBoxedSequences.test_03.out.1.fa"
-        fasta_output_file_2 = "ExtractBoxedSequences.test_03.out.2.fa"
-        fasta_output_file_3 = "ExtractBoxedSequences.test_03.out.3.fa"
-        
-        # Inner dist between boxes in example file is 10bp
-        command = ["segmentation-fold-utils", \
-                    "extract-boxed-sequences", \
-                    "--max-inner-dist","9",
-                    "--bp-extension","0",
-                    "tests/test-data/"+fasta_input_file, \
-                    "tests/test-data/"+bed_input_file, \
-                    fasta_output_file_1]
-        self.assertEqual(subprocess.call(command) , 0)
-        self.assertTrue(filecmp.cmp(fasta_output_file_1,"tests/test-data/"+fasta_output_file_1))
-        
-        command = ["segmentation-fold-utils", \
-                    "extract-boxed-sequences", \
-                    "--max-inner-dist","10",
-                    "--bp-extension","0",
-                    "tests/test-data/"+fasta_input_file, \
-                    "tests/test-data/"+bed_input_file, \
-                    fasta_output_file_2]
-        self.assertEqual(subprocess.call(command) , 0)
-        self.assertTrue(filecmp.cmp(fasta_output_file_2,"tests/test-data/"+fasta_output_file_2))
-        
-        command = ["segmentation-fold-utils", \
-                    "extract-boxed-sequences", \
-                    "--max-inner-dist","11",
-                    "--bp-extension","0",
-                    "tests/test-data/"+fasta_input_file, \
-                    "tests/test-data/"+bed_input_file, \
-                    fasta_output_file_3]
-        self.assertEqual(subprocess.call(command) , 0)
-        self.assertTrue(filecmp.cmp(fasta_output_file_3,"tests/test-data/"+fasta_output_file_3))
+        self.assertTrue(filecmp.cmp(dbn_output_file,"tests/test-data/"+dbn_output_file))
 
 
 def main():

@@ -26,6 +26,7 @@ from segmentation_fold_utils import __version__, __author__, __homepage__
 from segmentation_fold_utils.FindBoxes import FindBoxes
 from segmentation_fold_utils.ExtractBoxedSequences import ExtractBoxedSequences
 from segmentation_fold_utils.XMLFile import XMLFile
+from segmentation_fold_utils.DBNFile import DBNFile
 
 
 @click.version_option(__version__)
@@ -60,7 +61,7 @@ def CLI_extract_boxed_sequences(fasta_input_file,bed_output_file,box1,box2,forwa
     boxes.run(bed_output_file)
 
 
-@CLI.command(name='extract-boxed-sequences',short_help='Extracts boxes sequences from bed_input_file which has to be created with \'find-box\', part of this utility')
+@CLI.command(name='extract-boxed-sequences',short_help='Extracts boxed sequences from bed_input_file which has to be created with \'find-box\', part of this utility')
 @click.argument('fasta_input_file',  type=click.Path(exists=True))
 @click.argument('bed_input_file', type=click.File('r'))
 @click.argument('fasta_output_file', type=click.File('w'))
@@ -72,13 +73,13 @@ def CLI_extract_boxed_sequences(fasta_input_file,bed_input_file,fasta_output_fil
 
 
 @CLI.command(name='add-read-counts',short_help='Annotate sequences by adding the read counts from a bam file, within a region contained in the fasta header of the dbn file')
-@click.argument('dbn_input_file', type=click.File('w'))
+@click.argument('dbn_input_file', type=click.File('r'))
 @click.argument('bam_input_file', type=click.Path(exists=True))
 @click.argument('dbn_output_file', type=click.File('w'))
 @click.option('--regex','-r', default=">.*?(chr[^:]):([0-9]+)-([0-9]+)",help="Regex to capture the targeted location in DBN file (default: '>.*?(chr[^:]):([0-9]+)-([0-9]+)' )")
 # possibility for more sam/bam flag requirements, e.g. multimap limits etc.
 def CLI_add_read_counts(dbn_input_file,bam_input_file,regex,dbn_output_file):
-    structures = DNBFile(dbn_input_file,True)#estimate_energy_results is set to True because this only works with files produced by the estimate-energy subprogram
+    structures = DBNFile(dbn_input_file,True)#estimate_energy_results is set to True because this only works with files produced by the estimate-energy subprogram
     structures.annotate_read_counts(bam_input_file,regex,dbn_output_file)
 
 
@@ -89,5 +90,5 @@ def CLI_add_read_counts(dbn_input_file,bam_input_file,regex,dbn_output_file):
 @click.argument('dbn_output_file_non_overlapping', type=click.File('w'))
 @click.option('--regex','-r', default=">.*?(chr[^:]):([0-9]+)-([0-9]+)",help="Regex to capture the targeted location in DBN file (default: '>.*?(chr[^:]):([0-9]+)-([0-9]+)' )")
 def CLI_filter_annotaed_entries(dbn_input_file,bam_input_file,regex,dbn_output_file):
-    structures = DNBFile(dbn_input_file,True)#estimate_energy_results is set to True because this only works with files produced by the estimate-energy subprogram
+    structures = DBNFile(dbn_input_file,True)#estimate_energy_results is set to True because this only works with files produced by the estimate-energy subprogram
     structures.filter_annotated_entries(regex,bed_input_file,dbn_output_file_overlapping,dbn_output_file_non_overlapping)
