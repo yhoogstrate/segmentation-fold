@@ -39,7 +39,7 @@ Important information about the input:
  - `FASTA_INPUT_FILE` can be any generic FASTA file that can be read with pysam. This means that if the sequence is split into multiple lines, they must all be at the same length.
  - `BED_INPUT_FILE` the bed file should be provided by `find-boxes` as it properly denotes the names (box1-f, box1-r, box2-f and box2-r) which are used for extraction.
  - `-d, --max-inner-dist INTEGER` Only sequences for which the distance in bases between the boxes is smaller than this distance, will be extracted. Boxes are excluded from this distance.
- - ` -e, --bp-extension INTEGER` Each sequence will be exteded with:
+ - `-e, --bp-extension INTEGER` Each sequence will be exteded with:
   * The boxes
   * An optional number of bases provided with this argument
 

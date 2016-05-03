@@ -66,7 +66,7 @@ def CLI_extract_boxed_sequences(fasta_input_file,bed_output_file,box1,box2,forwa
 @click.argument('bed_input_file', type=click.File('r'))
 @click.argument('fasta_output_file', type=click.File('w'))
 @click.option('--max-inner-dist','-d',type=int, default=250,help="Maximal distance between the boxes (default=250bp)")
-@click.option('--bp-extension','-e',type=int, default=10,help="Extend the extraced boxed sequences with this umber of bases (default: 10bp)")
+@click.option('--bp-extension','-e',type=int, default=10,help="Extend extracted sequences with this number of bases (default: 10bp)")
 def CLI_extract_boxed_sequences(fasta_input_file,bed_input_file,fasta_output_file,max_inner_dist,bp_extension):
     sequences = ExtractBoxedSequences(fasta_input_file,bed_input_file,fasta_output_file,max_inner_dist,bp_extension)
     sequences.run(fasta_output_file)

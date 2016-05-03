@@ -151,14 +151,14 @@ class FindBoxes:
 				
 				if self.search_fwd:
 					if self.match(self.box1,chunk1):
-						fh.write(chromosome+"\t"+str(i)+"\t"+str(k)+"\tbox1-f:"+self.box1+"\t+\n")
+						fh.write(chromosome+"\t"+str(i)+"\t"+str(k)+"\tbox1-f:"+self.box1+"\t0\t+\n")
 					if self.match(self.box2,chunk2):
-						fh.write(chromosome+"\t"+str(i)+"\t"+str(l)+"\tbox2-f:"+self.box2+"\t+\n")
+						fh.write(chromosome+"\t"+str(i)+"\t"+str(l)+"\tbox2-f:"+self.box2+"\t0\t+\n")
 				
 				if self.search_rev:
 					if self.match(self.box1r,chunk1):
-						fh.write(chromosome+"\t"+str(i)+"\t"+str(k)+"\tbox1-r:"+self.box1r+"\t-\n")
+						fh.write(chromosome+"\t"+str(i)+"\t"+str(k)+"\tbox1-r:"+self.box1r+"\t0\t-\n")
 					if self.match(self.box2r,chunk2):
-						fh.write(chromosome+"\t"+str(i)+"\t"+str(l)+"\tbox2-r:"+self.box2r+"\t-\n")
+						fh.write(chromosome+"\t"+str(i)+"\t"+str(l)+"\tbox2-r:"+self.box2r+"\t0\t-\n")
 		
 		fh.close()

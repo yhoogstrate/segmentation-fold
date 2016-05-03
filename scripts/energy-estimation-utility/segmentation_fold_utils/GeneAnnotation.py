@@ -60,14 +60,14 @@ class GeneAnnotation:
             line = line.strip()
             if len(line) > 0 and line[0] != "#":
                 params = line.split("\t")
-                if len(params) >= 4:
+                if len(params) >= 6:
                     _chr = params[0]
                     _start = int(params[1])
                     _end = int(params[2])
                     _name = params[3]
-                if len(params) >= 5:
-                    _strand = params[4]
+                    _score = int(params[4])
+                    _strand = params[5]
                 else:
-                    _strand = None
+                    self.logger.warning("Invalid BED file - not enough columns")
                 
                 self.add_annotation(_name, _chr, _start, _end)

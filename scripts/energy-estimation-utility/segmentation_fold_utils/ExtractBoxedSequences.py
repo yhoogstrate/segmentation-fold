@@ -111,10 +111,10 @@ class ExtractBoxedSequences:
         self.bed_input_file.seek(0)
         for line in self.bed_input_file:
             line = line.strip()
-            if len(line) > 0:
+            if len(line) > 0 and line[0] != '#':
                 params = line.split("\t")
-                if len(params) > 1:
-                    _chr, _start, _end, _name, _strand = params
+                if len(params) >= 6:
+                    _chr, _start, _end, _name, _score, _strand = params
                     _start = int(_start)
                     _end = int(_end)
                     _box, _seq = _name.split(":",1)
@@ -128,6 +128,8 @@ class ExtractBoxedSequences:
                         boxes_reverse.append([_chr,_start,_end,_strand,[]])
                     elif _box == "box1-r":
                         self.update_using_box2(boxes_reverse,[_chr,_start,_end,_strand],fasta_output_file)
+                else:
+                    self.logger.debug("Invalid BED line detected")
         
         self.update_using_box2(boxes_forward,["NOTEXIST",-1,-1,"+"],fasta_output_file)# Trigger last one to be exported as well
         self.update_using_box2(boxes_reverse,["NOTEXIST",-1,-1,"-"],fasta_output_file)# Trigger last one to be exported as well
