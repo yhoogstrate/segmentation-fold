@@ -46,7 +46,8 @@ class Test_filter_annotated_entries(unittest.TestCase):
         
         self.assertEqual(subprocess.call(command) , 0)
         
-        self.assertTrue(filecmp.cmp(dbn_output_file,"tests/test-data/"+dbn_output_file))
+        self.assertTrue(filecmp.cmp(dbn_output_file_o,"tests/test-data/"+dbn_output_file_o))
+        self.assertTrue(filecmp.cmp(dbn_output_file_n,"tests/test-data/"+dbn_output_file_n))
 
 
 def main():
