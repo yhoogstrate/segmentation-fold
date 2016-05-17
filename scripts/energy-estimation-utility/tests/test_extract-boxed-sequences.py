@@ -34,7 +34,6 @@ class Test_find_boxes(unittest.TestCase):
         fasta_input_file = "ExtractBoxedSequences.test_01.in.fa"
         bed_input_file =   "ExtractBoxedSequences.test_01.in.bed"
         fasta_output_file = "ExtractBoxedSequences.test_01.out.fa"
-
         
         command = ["segmentation-fold-utils", \
                     "extract-boxed-sequences", \

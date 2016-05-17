@@ -49,8 +49,8 @@ def CLI_energy_estimation(temp_dir,segmentation_fold,xml_file,threads,precision,
     xml.estimate_energy(temp_dir,segmentation_fold,threads,precision,randomize,sequences_from_fasta_file,dbn_output_file)
 
 
-@CLI.command(name='find-boxes',short_help='Finds all occurances of two given boxes (sequence motifs) within a FASTA file')
-@click.argument('fasta_input_file',  type=click.Path(exists=True))
+@CLI.command(name='find-boxes',short_help='Finds all occurances of two given boxes (sequence motifs) within a FASTA file (sequence headers may not contain spaces)')
+@click.argument('fasta_input_file', type=click.Path(exists=True))
 @click.argument('bed_output_file', type=click.File('w'))
 @click.option('--box1','-c',default='NRUGAUG',help="Sequence of box1 (default = C-box: 'NRUGAUG')")
 @click.option('--box2','-d',default='CUGA',help="Sequence of box2 (default = D-box: 'CUGA')")

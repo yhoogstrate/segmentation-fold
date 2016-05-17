@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 
-import os,logging
+import os,logging,re
 import pysam
 
 
@@ -134,8 +134,23 @@ class FindBoxes:
 				self.logger.info("The faid index of "+output_file+" is older than the file itself. Removing the index.")
 				os.remove(faid_index)
 	
+	def check_valid_pysam_fasta_names(self,fasta_file):
+		"""
+		Returns False if the chromosome name contains a space (expect for at the very end)
+		"""
+		prog = re.compile("^>.*? [^ ]")
+		with open(fasta_file,'r') as fh:
+			for line in fh:
+				if prog.match(line):
+					self.logger.error("FASTA files with chromosome names containing spaces are not supported by pysam: "+line)
+					return False
+		return True
+	
 	def run(self,fh):
 		self.check_faid_out_of_date(self.genome)
+		if not self.check_valid_pysam_fasta_names(self.genome):
+			raise Exception("Invalid FASTA file")
+		
 		ref = pysam.FastaFile(self.genome)
 		for chromosome in ref.references:
 			# Look fwd
