@@ -26,46 +26,59 @@ logging.basicConfig(level=logging.DEBUG,format="%(asctime)s - %(name)s - %(level
 
 
 class Test_find_boxes(unittest.TestCase):
-	def test_01(self):
-		"""
-		Do the unit test via the command line
-		 - Requires segmentation-fold-utils to be installed
-		"""
-		input_file = "functional.test_01.in.fa"
-		output_file = "functional.test_01.tmp.bed"
-		
-		command = ["segmentation-fold-utils", \
-					"find-boxes", \
-					"--box1","NRUGAUG",
-					"--box2","CUGA",
-					"--forward",
-					"--reverse",
-					"tests/test-data/"+input_file, \
-					output_file]
-		
-		self.assertEqual(subprocess.call(command) , 0)
-		#self.assertTrue(filecmp.cmp(output_file,"tests/test-data/"+output_file))
-		
-		fasta_input_file = input_file
-		bed_input_file = output_file
-		fasta_output_file = "functional.test_01.tmp.fa"
-		
-		command = ["segmentation-fold-utils", \
-					"extract-boxed-sequences", \
-					"--max-inner-dist","90",
-					"--bp-extension","0",
-					"tests/test-data/"+fasta_input_file, \
-					bed_input_file, \
-					fasta_output_file]
-		
-		self.assertEqual(subprocess.call(command) , 0)
-		#self.assertTrue(filecmp.cmp(fasta_output_file,"tests/test-data/"+fasta_output_file))
-
-
+    def test_01(self):
+        """
+        Do the unit test via the command line
+         - Requires segmentation-fold-utils to be installed
+        """
+        input_file = "functional.test_01.in.fa"
+        output_file = "functional.test_01.tmp.bed"
+        
+        command = ["segmentation-fold-utils", \
+                    "find-boxes", \
+                    "--box1","NRUGAUG",
+                    "--box2","CUGA",
+                    "--forward",
+                    "--reverse",
+                    "tests/test-data/"+input_file, \
+                    output_file]
+        
+        self.assertEqual(subprocess.call(command) , 0)
+        #self.assertTrue(filecmp.cmp(output_file,"tests/test-data/"+output_file))
+        
+        fasta_input_file = input_file
+        bed_input_file = output_file
+        fasta_output_file = "functional.test_01.tmp.fa"
+        
+        command = ["segmentation-fold-utils",
+                    "extract-boxed-sequences",
+                    "--max-inner-dist","90",
+                    "--bp-extension","3",
+                    "tests/test-data/"+fasta_input_file,
+                    bed_input_file,
+                    fasta_output_file]
+        
+        self.assertEqual(subprocess.call(command) , 0)
+        #self.assertTrue(filecmp.cmp(fasta_output_file,"tests/test-data/"+fasta_output_file))
+        
+        input_xml_file = 'XMLFile.test_01.in.xml'
+        input_fasta_file = fasta_output_file
+        dbn_output_file = 'functional.test_01.tmp.dbn'
+        command = ["segmentation-fold-utils",
+                   "estimate-energy",
+                   "--xml-file","tests/test-data/"+input_xml_file,
+                   "--threads","1",
+                   "--precision","0",
+                   "--randomize","0",
+                   "--sequences-from-fasta-file",input_fasta_file,
+                   dbn_output_file]
+        
+        self.assertEqual(subprocess.call(command) , 0)
+        ##self.assertEqual(get_n_lines(dbn_output_file),7)
 
 
 def main():
-	unittest.main()
+    unittest.main()
 
 if __name__ == '__main__':
-	main()
+    main()

@@ -33,7 +33,7 @@ class ExtractBoxedSequences:
     box1r = "box1r"
     box2r = "box2r"
 
-    prog_actg_seq = re.compile("^[ACTGactg]+$")
+    prog_actg_seq = re.compile("^[ACTUGactug]+$")
 
     def __init__(self, fasta_input_file, bed_input_file, fasta_output_file, max_inner_dist, bp_extension):
         self.fasta_input_file = fasta_input_file
@@ -82,7 +82,7 @@ class ExtractBoxedSequences:
                     for box2 in item[4]:
                         _start = max(0,item[1]-self.bp_extension)
                         _end = box2[2]+self.bp_extension
-                        seq = self.ref.fetch(item[0],_start,_end)
+                        seq = self.ref.fetch(item[0],_start,_end).replace('U','T').replace('u','t')
                         
                         if self.prog_actg_seq.match(seq):
                             if position[3] == "-":

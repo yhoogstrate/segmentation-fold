@@ -83,8 +83,7 @@ class FoldController:
         
         error = error.strip()
         if len(error) > 0:
-            print "Error: "+error
-            exit(1)
+            raise Exception(str(error))
         
         output = output.split("\n")
         de = self.findDE(output[0])

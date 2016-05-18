@@ -106,7 +106,10 @@ class XMLFile:
         return seq
     
     def sanitize_name(self,name):
-        return name.replace("_","").replace("'","").replace('"','').replace('/','').replace('(','').replace(')','').replace(';','')
+        name = name.replace(" ","_").replace("\t","_")
+        
+        charset = '-_.abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+        return ''.join(c for c in name if c in charset)
         
     def shuffle_sequence(self,sequence,segments):
         """Should preserve all subsequences of the motif
@@ -153,13 +156,13 @@ class XMLFile:
             fasta = FastaFile(fasta_input_file)
             for sequence in fasta:
                 for item in self:
-                   for segment in item.get_unique_associated_segments():
+                    for segment in item.get_unique_associated_segments():
                         yield sequence['name'], sequence['sequence'], segment, self.segments[segment]
     
     def estimate_energy(self,temp_dir,segmentation_fold,threads,precision,randomize,sequences_from_fasta_file,dbn_output_file):
         for sequence_name,sequence,segment_name,segment in self.get_combinations(sequences_from_fasta_file):
-            sequence_name = self.sanitize_name(sequence_name)
-            segment_name = self.sanitize_name(segment_name)
+            sequence_name_s = self.sanitize_name(sequence_name)
+            segment_name_s = self.sanitize_name(segment_name)
             
             if randomize <= 0:
                 dbn_output_file.write(">"+sequence_name+" x "+segment_name+"\n")
@@ -167,7 +170,7 @@ class XMLFile:
                 
                 b = BinarySplit(
                     segmentation_fold,
-                    temp_dir+"/segments_"+sequence_name+"_"+segment_name+"_",
+                    temp_dir+"/segments_"+sequence_name_s+"_"+segment_name_s+"_",
                     sequence,
                     {segment_name:segment},
                     precision, (3.5/2), threads) 
@@ -183,7 +186,7 @@ class XMLFile:
                     
                     b = BinarySplit(
                         segmentation_fold,
-                        temp_dir+"/segments_"+sequence_name_r+"_"+segment_name+"_",
+                        temp_dir+"/segments_"+sequence_name_r+"_"+segment_name_s+"_",
                         sequence_r,
                         {segment_name:segment},
                         precision, (3.5/2), threads) 

@@ -26,31 +26,51 @@ logging.basicConfig(level=logging.DEBUG,format="%(asctime)s - %(name)s - %(level
 
 
 class Test_find_boxes(unittest.TestCase):
-	def test_01(self):
-		"""
-		Do the unit test via the command line
-		 - Requires segmentation-fold-utils to be installed
-		"""
-		input_file = "FindBoxes.genome.fa"
-		output_file = "FindBoxes.test_02.bed"
-		
-		command = ["segmentation-fold-utils", \
-					"find-boxes", \
-					"--box1","NRUGAUG",
-					"--box2","CUGA",
-					"--forward",
-					"--reverse",
-					"tests/test-data/"+input_file, \
-					output_file]
-		
-		self.assertEqual(subprocess.call(command) , 0)
-		
-		self.assertTrue(filecmp.cmp(output_file,"tests/test-data/"+output_file))
+    def test_01(self):
+        """
+        Do the unit test via the command line
+         - Requires segmentation-fold-utils to be installed
+        """
+        input_file = "FindBoxes.genome.fa"
+        output_file = "FindBoxes.test_02.bed"
+        
+        command = ["segmentation-fold-utils",
+                    "find-boxes",
+                    "--box1","NRUGAUG",
+                    "--box2","CUGA",
+                    "--forward",
+                    "--reverse",
+                    "tests/test-data/"+input_file,
+                    output_file]
+        
+        self.assertEqual(subprocess.call(command) , 0)
+        
+        self.assertTrue(filecmp.cmp(output_file,"tests/test-data/"+output_file))
+    
+    
+    def test_03(self):
+        """
+        Do the unit test via the command line
+         - Requires segmentation-fold-utils to be installed
+        """
+        input_file = "FindBoxes.test_03.in.fa"
+        output_file = "FindBoxes.test_03.out.bed"
+        
+        command = ["segmentation-fold-utils",
+                    "find-boxes",
+                    "--box1","NRUGAUG",
+                    "--box2","CUGA",
+                    "--forward",
+                    "--reverse",
+                    "tests/test-data/"+input_file,
+                    output_file]
+        
+        self.assertNotEqual(subprocess.call(command,stdout = subprocess.PIPE, stderr = subprocess.PIPE) , 0)
 
 
 
 def main():
-	unittest.main()
+    unittest.main()
 
 if __name__ == '__main__':
-	main()
+    main()
