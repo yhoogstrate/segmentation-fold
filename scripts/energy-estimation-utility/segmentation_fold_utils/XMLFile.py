@@ -186,7 +186,7 @@ class XMLFile:
                     
                     b = BinarySplit(
                         segmentation_fold,
-                        temp_dir+"/segments_"+sequence_name_r+"_"+segment_name_s+"_",
+                        temp_dir+"/segments_"+self.sanitize_name(sequence_name_r)+"_"+segment_name_s+"_",
                         sequence_r,
                         {segment_name:segment},
                         precision, (3.5/2), threads) 
