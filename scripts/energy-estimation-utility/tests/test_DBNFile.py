@@ -71,15 +71,31 @@ class TestDBNFile(unittest.TestCase):
         dbn_output_file_n = 'DBNFile.test_02.out.n.dbn'
         
         structures = DBNFile(open("tests/test-data/"+dbn_input_file,"r"),True)# open as energy-estimation dbn
-        structures.filter_annotated_entries( \
-            '>.*?(chr[^:]):([0-9]+)-([0-9]+)', \
-            open("tests/test-data/"+bed_input_file,"r"), \
-            open(dbn_output_file_o,"w"), \
-            open(dbn_output_file_n,"w"), \
+        structures.filter_annotated_entries(
+            '>.*?(chr[^:]):([0-9]+)-([0-9]+)',
+            open("tests/test-data/"+bed_input_file,"r"),
+            open(dbn_output_file_o,"w"),
+            open(dbn_output_file_n,"w"),
         )
         
         self.assertTrue(filecmp.cmp(dbn_output_file_o,"tests/test-data/"+dbn_output_file_o))
         self.assertTrue(filecmp.cmp(dbn_output_file_n,"tests/test-data/"+dbn_output_file_n))
+    
+    def test_03(self):
+        dbn_input_file = 'DBNFile.test_03.in.dbn'
+        energy = 0.0
+        dbn_output_file_l = 'DBNFile.test_03.out.l.dbn'
+        dbn_output_file_s = 'DBNFile.test_03.out.s.dbn'
+        
+        structures = DBNFile(open("tests/test-data/"+dbn_input_file,"r"),True)# open as energy-estimation dbn
+        structures.filter_by_energy(
+            open(dbn_output_file_l,"w"),
+            open(dbn_output_file_s,"w"),
+            energy
+        )
+        
+        self.assertTrue(filecmp.cmp(dbn_output_file_l,"tests/test-data/"+dbn_output_file_l))
+        self.assertTrue(filecmp.cmp(dbn_output_file_s,"tests/test-data/"+dbn_output_file_s))
 
 def main():
     unittest.main()

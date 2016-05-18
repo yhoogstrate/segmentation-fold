@@ -182,3 +182,46 @@ class DBNFile:
             dbn_output_file_o.write("")
         
         self.logger.info("Written "+str(i)+" (unannotated) entries to "+dbn_output_file_n.name+" and "+str(j)+" (annotated) entries to "+dbn_output_file_o.name)
+
+    def filter_by_energy(self,dbn_output_file_larger_or_equal,dbn_output_file_smaller,energy):
+        l = 0
+        s = 0
+        
+        for structure in self.parse():
+            tl = 0
+            ts = 0
+            for transition in structure['transitions']:
+                transition_s = "\t".join([str(x) for x in transition])
+                
+                if transition[2] >= energy:
+                    if tl == 0:
+                        # print headers
+                        dbn_output_file_larger_or_equal.write(structure['name']+"\n")
+                        dbn_output_file_larger_or_equal.write(structure['sequence']+"\n")
+                    
+                    dbn_output_file_larger_or_equal.write(transition_s+"\n")
+                    tl += 1
+                else:
+                    if ts == 0:
+                        # print headers
+                        dbn_output_file_smaller.write(structure['name']+"\n")
+                        dbn_output_file_smaller.write(structure['sequence']+"\n")
+                    
+                    dbn_output_file_smaller.write(transition_s+"\n")
+                    ts += 1
+                
+            if ts+tl == 0:
+                dbn_output_file_smaller.write(structure['name']+"\n")
+                dbn_output_file_smaller.write(structure['sequence']+"\n")
+                pass
+            
+            l += tl
+            s += ts
+        
+        # Click does not produce a file if nothing is written to it, not even with open(...,'w+)
+        if l == 0:
+            dbn_output_file_larger_or_equal.write("")
+        if s == 0:
+            dbn_output_file_smaller.write("")
+        
+        self.logger.info("Written "+str(l)+" (larger or equal than) entries to "+dbn_output_file_larger_or_equal.name+" and "+str(s)+" (smaller than) entries to "+dbn_output_file_smaller.name)

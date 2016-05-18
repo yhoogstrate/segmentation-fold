@@ -92,3 +92,13 @@ def CLI_add_read_counts(dbn_input_file,bam_input_file,regex,dbn_output_file):
 def CLI_filter_annotated_entries(dbn_input_file,bed_input_file,regex,dbn_output_file_overlapping,dbn_output_file_non_overlapping):
     structures = DBNFile(dbn_input_file,True)#estimate_energy_results is set to True because this only works with files produced by the estimate-energy subprogram
     structures.filter_annotated_entries(regex,bed_input_file,dbn_output_file_overlapping,dbn_output_file_non_overlapping)
+
+
+@CLI.command(name='filter-by-energy',short_help='Split entries over two files based on the estimated energy')
+@click.argument('dbn_input_file', type=click.File('r'))
+@click.argument('dbn_output_file_larger_or_equal', type=click.File('w'))
+@click.argument('dbn_output_file_smaller', type=click.File('w'))
+@click.option('--energy','-e', type=float,help="Entries with transitions with energy smaller than energy (< e) or without transitions will be put into DBN_OUTPUT_FILE_LARGER_OR_EQUAL and those larger or equal (>= e) to DBN_OUTPUT_FILE_SMALLER")
+def CLI_filter_by_energy(dbn_input_file,dbn_output_file_larger_or_equal,dbn_output_file_smaller,energy):
+    structures = DBNFile(dbn_input_file,True)
+    structures.filter_by_energy(dbn_output_file_larger_or_equal,dbn_output_file_smaller,energy)
