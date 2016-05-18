@@ -1,3 +1,8 @@
+2016-05-18  Youri Hoogstrate
+	* v1.6.5
+	  - Fixes lack of unsetting a pointer when a WM loop overwrites
+	    a Segment(Loop) in the V() function - solves issue 46
+
 2016-03-31  Youri Hoogstrate
 	* v1.6.4
 	  - Fix in both utils when sequences with weird chars are being parsed
