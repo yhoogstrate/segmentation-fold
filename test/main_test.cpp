@@ -655,6 +655,62 @@ BOOST_AUTO_TEST_CASE(Test_zuker_09)
 
 
 
+/**
+ * @brief Tests whether issue 46 (https://github.com/yhoogstrate/segmentation-fold/issues/46) is not occurring anymore
+ *
+ * @test
+ */
+BOOST_AUTO_TEST_CASE(Test_zuker_10_i46)
+{
+	std::string filename = "tmp.functional_test_test10";
+	
+	std::ofstream myfile;
+	myfile.open(filename.c_str());
+	myfile <<   "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+		   "<root>\n"
+		   "	<segments>\n"
+		   "		<segment><id>Kt-CD-box.UGU</id>\n"
+		   "			<sequence_5prime>UGUGAU</sequence_5prime>\n"
+		   "			<bonds          >   :::</bonds>\n"
+		   "			<sequence_3prime>   AGU</sequence_3prime>\n"
+		   "			<energy>0.0</energy>\n"
+		   "			<directions>\n"
+		   "				<five_prime>true</five_prime>\n"
+		   "				<three_prime>true</three_prime>\n"
+		   "			</directions>\n"
+		   "		</segment>\n"
+		   "	</segments>\n"
+		   "	<segmentloops />\n"
+		   "</root>\n";
+	myfile.close();
+	
+	
+	
+	Sequence sequence = Sequence("ACUUGUGAUGAAACACUCAUGGUCUGAAGA");
+	std::string true_structure = "..(..(((((...)).)))..)........";
+	
+	// Load variables etc.
+	
+	char *argv[] = {(char *) PACKAGE_NAME, (char *) "-s", (char *) "ACUUGUGAUGAAACACUCAUGGUCUGAAGA", (char *) "-x" , (char *) filename.c_str(), nullptr};
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	Settings settings = Settings(argc, argv, sequence);
+	//Settings settings = Settings(0, nullptr, sequence);
+	ReadData thermodynamics = ReadData();
+	
+	// Predict structure
+	Zuker zuker = Zuker(settings, sequence, thermodynamics);
+	zuker.energy();
+	zuker.traceback();
+	std::string predicted_structure;
+	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure);///@todo unsigned int -> size_t
+	
+	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
+	
+	unlink(filename.c_str());
+}
+
+
+
 ///@todo Test function with different minimum hairpin size -- should fail at the moment, because somewhere in the traceback or so the number 3 is hard coded
 
 BOOST_AUTO_TEST_SUITE_END()

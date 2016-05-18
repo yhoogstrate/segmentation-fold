@@ -122,7 +122,7 @@ signed int ScoringMatrix<T>::get_position(Pair &p)
 			p.second != p.first &&
 			(p.first - 1) != p.second &&
 			p.second <= p.first
-			)
+		)
 		{
 			throw std::invalid_argument("ScoringMatrix::get_position: Out of bound (" + std::to_string(p.first)  + "," + std::to_string(p.second)  + ")");
 		}

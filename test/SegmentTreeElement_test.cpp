@@ -1,7 +1,6 @@
 /**
  * @file test/SegmentTreeElement_test.cpp
  *
- *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
