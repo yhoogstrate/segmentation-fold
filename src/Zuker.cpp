@@ -287,7 +287,7 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 			
 			tmp_tij.target = {p2.first, p2.first};
 			tmp_tij.target_matrix = WM_MATRIX;
-			//tmp_segmenttraceback = nullptr;
+			tmp_segmenttraceback = nullptr;
 		}
 	}
 	
