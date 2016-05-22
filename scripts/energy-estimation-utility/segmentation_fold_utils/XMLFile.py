@@ -155,9 +155,8 @@ class XMLFile:
         else:
             fasta = FastaFile(fasta_input_file)
             for sequence in fasta:
-                for item in self:
-                    for segment in item.get_unique_associated_segments():
-                        yield sequence['name'], sequence['sequence'], segment, self.segments[segment]
+                for segment in self.segments.keys():
+                    yield sequence['name'], sequence['sequence'], segment, self.segments[segment]
     
     def estimate_energy(self,temp_dir,segmentation_fold,threads,precision,randomize,sequences_from_fasta_file,dbn_output_file):
         for sequence_name,sequence,segment_name,segment in self.get_combinations(sequences_from_fasta_file):
