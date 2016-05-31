@@ -21,8 +21,8 @@
  <http://epydoc.sourceforge.net/manual-fields.html#fields-synonyms>
 """
 
-__version_info__ = ('1', '0', '3')
+__version_info__ = ('2', '0', '0')
 __version__ = '.'.join(__version_info__) if (len(__version_info__) == 3) else '.'.join(__version_info__[0:3])+"-"+__version_info__[3]
 __author__ = 'Youri Hoogstrate'
-__homepage__ = 'https://github.com/yhoogstrate/segmentation-fold'
+__homepage__ = 'https://github.com/yhoogstrate/segmentation-fold/tree/master/scripts/energy-estimation-utility'
 __license__ = 'GNU General Public License v3 (GPLv3)' 

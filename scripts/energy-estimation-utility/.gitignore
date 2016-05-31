@@ -1,3 +1,14 @@
 build
-energy_estimation_utility.egg-info/
+*.egg-info/
 dist
+.eggs
+*.pyc
+/*.bed
+/*.fa
+/*.fasta
+/*.fai
+/*.txt
+/*.bed
+/*.dbn
+/*.bam
+/*.bai

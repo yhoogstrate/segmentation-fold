@@ -1,14 +1,8 @@
 #!/usr/bin/env python
 
 """
-@file scripts/energy-estimation-utility/energy_estimation_utility/DataController.py
-
-@author Youri Hoogstrate
-
-@section LICENSE
-<PRE>
 segmentation-fold can predict RNA 2D structures including K-turns.
-Copyright (C) 2012-2015 Youri Hoogstrate
+Copyright (C) 2012-2016 Youri Hoogstrate
 
 This file is part of segmentation-fold and originally taken from
 yh-kt-fold.
@@ -25,31 +19,31 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
-</PRE>
 """
 
 
 
 import random
 
+from segmentation_fold_utils.RNA import RNA
+from segmentation_fold_utils.FastaFile import FastaFile
+from segmentation_fold_utils.BinarySplit import BinarySplit
+
 from xml.dom.minidom import parseString
-from energy_estimation_utility.RNA import *
 
 
-
-class DataController:
-    def __init__(self,xmlfile):
-        self.xmlfile = xmlfile
+class XMLFile:
+    def __init__(self,xml_input_file):
+        self.xml_input_file = xml_input_file
         
         self.segments = {}
+        #self.segmentloops = {}
         self.tests = []
         
         self.parse()
     
     def parse(self):
-        fh = open(self.xmlfile,'r')
-        data = fh.read()
-        fh.close()
+        data = self.xml_input_file.read()
         
         root = parseString(data)
         segments = root.getElementsByTagName('segments')[0]
@@ -110,8 +104,13 @@ class DataController:
             seq = seq[::-1]
         
         return seq
-        
     
+    def sanitize_name(self,name):
+        name = name.replace(" ","_").replace("\t","_")
+        
+        charset = '-_.abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+        return ''.join(c for c in name if c in charset)
+        
     def shuffle_sequence(self,sequence,segments):
         """Should preserve all subsequences of the motif
         """
@@ -147,3 +146,48 @@ class DataController:
         
         random.shuffle(slices)
         return "".join(slices)
+
+    def get_combinations(self,fasta_input_file):
+        if fasta_input_file == None:
+            for item in self:
+                for segment in item.get_unique_associated_segments():
+                    yield item.name, item.sequence, segment, self.segments[segment]
+        else:
+            fasta = FastaFile(fasta_input_file)
+            for sequence in fasta:
+                for segment in self.segments.keys():
+                    yield sequence['name'], sequence['sequence'], segment, self.segments[segment]
+    
+    def estimate_energy(self,temp_dir,segmentation_fold,threads,precision,randomize,sequences_from_fasta_file,dbn_output_file):
+        for sequence_name,sequence,segment_name,segment in self.get_combinations(sequences_from_fasta_file):
+            sequence_name_s = self.sanitize_name(sequence_name)
+            segment_name_s = self.sanitize_name(segment_name)
+            
+            if randomize <= 0:
+                dbn_output_file.write(">"+sequence_name+" x "+segment_name+"\n")
+                dbn_output_file.write(sequence+"\n")
+                
+                b = BinarySplit(
+                    segmentation_fold,
+                    temp_dir+"/segments_"+sequence_name_s+"_"+segment_name_s+"_",
+                    sequence,
+                    {segment_name:segment},
+                    precision, (3.5/2), threads) 
+                for transition in b.find_transitions():
+                    dbn_output_file.write(transition['structure_max']+"\t"+transition['structure_min']+"\t"+str(transition['energy'])+"\n")
+            else:
+                for i in range(1,randomize+1):
+                    sequence_r = self.shuffle_sequence(sequence,{segment_name:segment})
+                    sequence_name_r = self.sanitize_name(sequence_name+" (shuffle iteration: "+str(i)+")")
+                    
+                    dbn_output_file.write(">"+sequence_name_r+") x "+segment_name+"\n")
+                    dbn_output_file.write(sequence_r+"\n")
+                    
+                    b = BinarySplit(
+                        segmentation_fold,
+                        temp_dir+"/segments_"+self.sanitize_name(sequence_name_r)+"_"+segment_name_s+"_",
+                        sequence_r,
+                        {segment_name:segment},
+                        precision, (3.5/2), threads) 
+                    for transition in b.find_transitions():
+                        dbn_output_file.write(transition['structure_max']+"\t"+transition['structure_min']+"\t"+str(transition['energy'])+"\n")

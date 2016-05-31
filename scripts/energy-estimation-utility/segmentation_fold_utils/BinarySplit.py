@@ -1,16 +1,8 @@
 #!/usr/bin/env python
 
 """
-@file scripts/energy-estimation-utility/energy_estimation_utility/BinarySplit.py
-
-@date 2015-07-20
-
-@author Youri Hoogstrate
-
-@section LICENSE
-<PRE>
 segmentation-fold can predict RNA 2D structures including K-turns.
-Copyright (C) 2012-2015 Youri Hoogstrate
+Copyright (C) 2012-2016 Youri Hoogstrate
 
 This file is part of segmentation-fold.
 
@@ -26,13 +18,11 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
-</PRE>
 """
 
 
 
-from energy_estimation_utility import FoldController
-from energy_estimation_utility.FoldController import *
+from segmentation_fold_utils.FoldController import FoldController
 
 
 
@@ -44,10 +34,13 @@ class BinarySplit:
         self.sequence = sequence
         self.associated_segments = arg_associated_segments
         
-        self.precision = precision
         self.max_per_base = max_per_base
-        
         self.min_energy = - abs(max_per_base) * len(sequence)
+        
+        if precision > 0:
+            self.precision = precision
+        else:
+            self.precision = abs(self.min_energy)
         
         self.threads_per_instance = threads
     
@@ -86,7 +79,13 @@ class BinarySplit:
                 
                 return results_min + results_max
             else:
+                # In some rare cases, multiple segments may ifnd their transition for the same energy value
+                # In such cases, you would need a copy for each segment to be able to find the total number of segments back
+                n = abs(min_energy['results']['number_segments']-max_energy['results']['number_segments'])
+                out = []
+                for i in range(n):
+                    out.append({'structure_min':min_energy['results']['dot_bracket'],'structure_max':max_energy['results']['dot_bracket'],'energy':splitpoint})
                 
-                return [{'structure_min':min_energy['results']['dot_bracket'],'structure_max':max_energy['results']['dot_bracket'],'energy':splitpoint}]
+                return out
         else:
             return []
