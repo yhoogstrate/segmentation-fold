@@ -154,9 +154,8 @@ class FindBoxes:
         with open(fasta_file,'r') as fh:
             for line in fh:
                 if self.prog.match(line):
-                    raise Exception("err")
-                    #self.logger.warn("FASTA file '"+fasta_file+"' contains spaces in line: "+line.strip()+"\nReplacing spaces for tabs in a copy of this file.")
-                    #return self.fix_fasta_file(fasta_file)
+                    self.logger.warn("FASTA file '"+fasta_file+"' contains spaces in line: "+line.strip()+"\nReplacing spaces for tabs in a copy of this file.")
+                    return self.fix_fasta_file(fasta_file)
         
         return fasta_file
     
