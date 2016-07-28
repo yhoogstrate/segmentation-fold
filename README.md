@@ -28,28 +28,35 @@ ___
 [segmentation-fold](https://github.com/yhoogstrate/segmentation-fold) is
 a bioinformatics application that predicts RNA 2D-structure with an
 extended version of the Zuker algorithm. This modification contains a
-new "structure element" named a *segment* and is capable of folding a
-pre-defined substructure with **multiple** canonical or non-canonical
-pairings.
+two new "structure elements", the *segment* and *segmentloop* which are
+capable of folding pre-defined substructure containing **multiple**
+canonical and/or **non-canonical** pairings.
 
-This allows folding of more complex structures like the K-turns, which
-are also part of the implemented free energy tables. These thermodynamic
-parameters (free Gibbs energy levels) have been estimated using a
-computational approach and therefore lack accuracy.
+This allows predicting structures containing sub-structures like K-turns
+and loop-E-motifs, which are also part of the implemented free energy
+tables [segments.xml](https://github.com/yhoogstrate/segmentation-fold/blob/master/share/segmentation-fold/segments.xml).
+These parameters (free Gibbs energy) have been estimated using in silico
+predictions but lack accuracy due to the limited number of available
+datapoints. In order to add novel structures to segmentation-fold, the
+*segments.xml* file needs to be modified.
+
+We have made a set of utilities using segmentation-fold available at
+[./scripts/energy-estimation-utilities/](https://github.com/yhoogstrate/segmentation-fold/blob/master/scripts/energy-estimation-utility/).
+Details on the utilities can be found at [https://github.com/yhoogstrate/segmentation-fold/blob/master/scripts/energy-estimation-utility/README.md](https://github.com/yhoogstrate/segmentation-fold/blob/master/scripts/energy-estimation-utility/README.md).
 
 # INSTALLATION #
 
 ## Prerequisites ##
 
-Segmentation-fold does **not** install on most systems of itself because
-it depends on two additional libraries and an installation library.
+Segmentation-fold does **not** install out of the box because it depends
+on two additional libraries and a tool required for building:
 
 	cmake
 	boost library (-system)
 	boost library (-test)
 	boost library (-xml)
 
-In Ubuntu and Debian you can install these packages with the following command:
+In Debian and Ubuntu you can install these dependencies with the following command:
 
 	sudo apt-get install cmake libboost-system-dev libboost-test-dev libboost-filesystem-dev
 
@@ -67,8 +74,8 @@ following package:
 The doxygen package is version specific because Markdown support is
 implemented in 1.8.3 and above.
 
-To automatically make (new) code styled similar to the programming style
-using in this package, you should have installed the package:
+To make the style of the syntax of (novel) code automatically identical
+to existing code, you should have installed the package:
 
 	astyle
 
@@ -170,8 +177,9 @@ README.md as main page.
 
 ## galaxy ##
 
-segmentation-fold will become available for galaxy. The wrapper will be
-available at:
+segmentation-fold with utilities is available for galaxy at the following url:
+[https://toolshed.g2.bx.psu.edu/view/yhoogstrate/segmentation_fold/](https://toolshed.g2.bx.psu.edu/view/yhoogstrate/segmentation_fold/),
+and the code is maintained at:
 [https://github.com/ErasmusMC-Bioinformatics/segmentation_fold_galaxy_wrapper](https://github.com/ErasmusMC-Bioinformatics/segmentation_fold_galaxy_wrapper)
 # AUTHORS #
 

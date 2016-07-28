@@ -26,6 +26,7 @@
 
 ## galaxy ##
 
-segmentation-fold will become available for galaxy. The wrapper will be
-available at:
+segmentation-fold with utilities is available for galaxy at the following url:
+[https://toolshed.g2.bx.psu.edu/view/yhoogstrate/segmentation_fold/](https://toolshed.g2.bx.psu.edu/view/yhoogstrate/segmentation_fold/),
+and the code is maintained at:
 [https://github.com/ErasmusMC-Bioinformatics/segmentation_fold_galaxy_wrapper](https://github.com/ErasmusMC-Bioinformatics/segmentation_fold_galaxy_wrapper)
