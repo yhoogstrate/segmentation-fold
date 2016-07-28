@@ -1,0 +1,8 @@
+2016-07-28  Youri Hoogstrate
+	* v2.0.1
+	  - Fixed a bug when using FASTA files with names containing
+	    spaces (pysam issue)
+
+2016-05-31  Youri Hoogstrate
+	* v2.0.0
+	  - Entirely refactored, working with Galaxy

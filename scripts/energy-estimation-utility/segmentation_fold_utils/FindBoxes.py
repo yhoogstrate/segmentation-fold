@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 
-import os,logging,re
+import os,logging,re,tempfile
 import pysam
 
 
@@ -133,24 +133,36 @@ class FindBoxes:
         faid_index = output_file+".fai"
         if os.path.isfile(faid_index) and os.path.isfile(output_file):
             if os.path.getmtime(faid_index) < os.path.getmtime(output_file):
-                self.logger.info("The faid index of "+output_file+" is older than the file itself. Removing the index.")
+                self.logger.info("The faid index of "+output_file+" is older than the file itself. Removing the index before creating a new one.")
                 os.remove(faid_index)
     
+    def fix_fasta_file(self,fasta_file):
+        new_file = tempfile.NamedTemporaryFile(suffix='.fasta',delete=False)
+        
+        with open(fasta_file,'r') as fh:
+            for line in fh:
+                if self.prog.match(line):
+                    new_file.write(line.replace(" ","_"))
+                else:
+                    new_file.write(line)
+        
+        return new_file.name
+    
     def check_valid_pysam_fasta_names(self,fasta_file):
-        """
-        Returns False if the chromosome name contains a space (expect for at the very end)
+        """Returns False if the chromosome name contains a space (expect for at the very end)
         """
         with open(fasta_file,'r') as fh:
             for line in fh:
                 if self.prog.match(line):
-                    self.logger.error("FASTA files with chromosome names containing spaces are not supported by pysam: "+line)
-                    return False
-        return True
+                    raise Exception("err")
+                    #self.logger.warn("FASTA file '"+fasta_file+"' contains spaces in line: "+line.strip()+"\nReplacing spaces for tabs in a copy of this file.")
+                    #return self.fix_fasta_file(fasta_file)
+        
+        return fasta_file
     
     def run(self,fh):
+        self.genome = self.check_valid_pysam_fasta_names(self.genome)
         self.check_faid_out_of_date(self.genome)
-        if not self.check_valid_pysam_fasta_names(self.genome):
-            raise Exception("Invalid FASTA file: '"+self.genome+"'")
         
         ref = pysam.FastaFile(self.genome)
         for chromosome in ref.references:

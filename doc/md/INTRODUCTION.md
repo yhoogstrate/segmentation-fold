@@ -28,11 +28,18 @@ ___
 [segmentation-fold](https://github.com/yhoogstrate/segmentation-fold) is
 a bioinformatics application that predicts RNA 2D-structure with an
 extended version of the Zuker algorithm. This modification contains a
-new "structure element" named a *segment* and is capable of folding a
-pre-defined substructure with **multiple** canonical or non-canonical
-pairings.
+two new "structure elements", the *segment* and *segmentloop* which are
+capable of folding pre-defined substructure containing **multiple**
+canonical and/or **non-canonical** pairings.
 
-This allows folding of more complex structures like the K-turns, which
-are also part of the implemented free energy tables. These thermodynamic
-parameters (free Gibbs energy levels) have been estimated using a
-computational approach and therefore lack accuracy.
+This allows predicting structures containing sub-structures like K-turns
+and loop-E-motifs, which are also part of the implemented free energy
+tables [segments.xml](https://github.com/yhoogstrate/segmentation-fold/blob/master/share/segmentation-fold/segments.xml).
+These parameters (free Gibbs energy) have been estimated using in silico
+predictions but lack accuracy due to the limited number of available
+datapoints. In order to add novel structures to segmentation-fold, the
+*segments.xml* file needs to be modified.
+
+We have made a set of utilities using segmentation-fold available at
+[./scripts/energy-estimation-utilities/](https://github.com/yhoogstrate/segmentation-fold/blob/master/scripts/energy-estimation-utility/).
+Details on the utilities can be found at [https://github.com/yhoogstrate/segmentation-fold/blob/master/scripts/energy-estimation-utility/README.md](https://github.com/yhoogstrate/segmentation-fold/blob/master/scripts/energy-estimation-utility/README.md).

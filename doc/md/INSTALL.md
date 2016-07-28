@@ -3,15 +3,15 @@
 
 ## Prerequisites ##
 
-Segmentation-fold does **not** install on most systems of itself because
-it depends on two additional libraries and an installation library.
+Segmentation-fold does **not** install out of the box because it depends
+on two additional libraries and a tool required for building:
 
 	cmake
 	boost library (-system)
 	boost library (-test)
 	boost library (-xml)
 
-In Ubuntu and Debian you can install these packages with the following command:
+In Debian and Ubuntu you can install these dependencies with the following command:
 
 	sudo apt-get install cmake libboost-system-dev libboost-test-dev libboost-filesystem-dev
 
@@ -29,8 +29,8 @@ following package:
 The doxygen package is version specific because Markdown support is
 implemented in 1.8.3 and above.
 
-To automatically make (new) code styled similar to the programming style
-using in this package, you should have installed the package:
+To make the style of the syntax of (novel) code automatically identical
+to existing code, you should have installed the package:
 
 	astyle
 

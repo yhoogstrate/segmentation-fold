@@ -79,11 +79,10 @@ class FoldController:
     
     def run_folding(self):
         argv = [self.binary,'-s',self.sequence,'-x',self.xml_file,'-t',str(self.threads_per_instance)]
-        output,error = subprocess.Popen(argv,stdout = subprocess.PIPE, stderr= subprocess.PIPE).communicate()
-        
-        error = error.strip()
-        if len(error) > 0:
-            raise Exception(str(error))
+        try:
+            output, error = subprocess.Popen(argv,stdout = subprocess.PIPE, stderr= subprocess.PIPE).communicate()
+        except Exception as error:
+            raise Exception(str(error)+" running command:\n"+argv[0]+" '" +"' '".join(argv[1:])+"'")
         
         output = output.split("\n")
         de = self.findDE(output[0])
