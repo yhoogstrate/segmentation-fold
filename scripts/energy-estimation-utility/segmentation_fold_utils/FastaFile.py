@@ -21,17 +21,32 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
-import re
+import re,logging
 
 class FastaFile:
+    logger = logging.getLogger("segmentation-fold-utils::FastaFile")
+    prog = re.compile("^>.*? [^ ]")
+    
     def __init__(self,filename):
         self.filename = filename
+    
+    def fix_fasta_file(self, new_file_handle):
+        diffs = 0
+        with open(self.filename,'r') as fh:
+            for line in fh:
+                if self.prog.match(line):
+                    new_file_handle.write(line.replace(" ","_"))
+                    diffs += 1
+                else:
+                    new_file_handle.write(line)
+        
+        return diffs
     
     def parse(self):
         sequence = None
         
-        with open(self.filename,'r') as self.fh:
-            for line in self.fh:
+        with open(self.filename,'r') as fh:
+            for line in fh:
                 line_s = line.strip()
                 if(len(line_s) > 0):
                     if(line[0] == '>'):
