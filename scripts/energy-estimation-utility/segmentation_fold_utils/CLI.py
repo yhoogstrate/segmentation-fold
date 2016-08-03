@@ -27,6 +27,7 @@ from segmentation_fold_utils.FindBoxes import FindBoxes
 from segmentation_fold_utils.ExtractBoxedSequences import ExtractBoxedSequences
 from segmentation_fold_utils.XMLFile import XMLFile
 from segmentation_fold_utils.DBNFile import DBNFile
+from segmentation_fold_utils.FastaFile import FastaFile
 
 
 @click.version_option(__version__)
@@ -102,3 +103,12 @@ def CLI_filter_annotated_entries(dbn_input_file,bed_input_file,regex,dbn_output_
 def CLI_filter_by_energy(dbn_input_file,dbn_output_file_larger_or_equal,dbn_output_file_smaller,energy):
     structures = DBNFile(dbn_input_file,True)
     structures.filter_by_energy(dbn_output_file_larger_or_equal,dbn_output_file_smaller,energy)
+
+
+@CLI.command(name='fix-fasta-headers',short_help='Replaces spaces in FASTA headers with underscores (for compatibility with pysam)')
+@click.argument('fasta_input_file', type=click.Path(exists=True))
+@click.argument('fasta_output_file', type=click.File('w'))
+def CLI_fix_fasta_headers(fasta_input_file, fasta_output_file):
+    fa = FastaFile(fasta_input_file)
+    fa.fix_fasta_file(fasta_output_file)
+
