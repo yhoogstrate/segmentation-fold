@@ -21,22 +21,24 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 
-import unittest,logging,sys,filecmp
+import unittest,logging,sys,filecmp,subprocess
 logging.basicConfig(level=logging.DEBUG,format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",stream=sys.stdout)
 
-from segmentation_fold_utils.FastaFile import FastaFile
 
-class TestFastaFile(unittest.TestCase):
+class Test_find_boxes(unittest.TestCase):
     def test_01(self):
-        input_fasta_file = 'XMLFile.test_02.in.fa'
-        output_fasta_file = 'XMLFile.test_02.out.fasta-fix.fa'
+        input_file = 'XMLFile.test_02.in.fa'
+        output_file = 'XMLFile.test_02.out.fasta-fix.fa'
         
-        fh = open(output_fasta_file, "w")
-        fa = FastaFile("tests/test-data/"+input_fasta_file)
-        fa.fix_fasta_file(fh)
-        fh.close()
+        command = ["segmentation-fold-utils",
+                    "fix-fasta-headers",
+                    "tests/test-data/"+input_file,
+                    output_file]
         
-        self.assertTrue(filecmp.cmp("tests/test-data/"+output_fasta_file,output_fasta_file))
+        self.assertEqual(subprocess.call(command) , 0)
+        
+        self.assertTrue(filecmp.cmp(output_file,"tests/test-data/"+output_file))
+
 
 def main():
     unittest.main()

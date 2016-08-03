@@ -26,12 +26,14 @@ logging.basicConfig(level=logging.DEBUG,format="%(asctime)s - %(name)s - %(level
 
 from segmentation_fold_utils.XMLFile import XMLFile
 
+
 def get_n_lines(filename):
     i = 0
     with open(filename,"r") as fh:
         for line in fh:
             i += 1
     return i
+
 
 class TestXMLFile(unittest.TestCase):
     def test_01(self):

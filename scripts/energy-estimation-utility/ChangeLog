@@ -1,3 +1,9 @@
+2016-08-03  Youri Hoogstrate
+	* v2.1.0
+	  - Reverted fix of 2.0.1 and added a separate command to fix
+	    these kind of issues:
+	      segmentation-fold-utils fix-fasta-headers IN_F OUT_F
+
 2016-07-28  Youri Hoogstrate
 	* v2.0.1
 	  - Fixed a bug when using FASTA files with names containing

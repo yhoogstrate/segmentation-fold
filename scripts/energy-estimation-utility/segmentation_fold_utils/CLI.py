@@ -106,7 +106,7 @@ def CLI_filter_by_energy(dbn_input_file,dbn_output_file_larger_or_equal,dbn_outp
 
 
 @CLI.command(name='fix-fasta-headers',short_help='Replaces spaces in FASTA headers with underscores (for compatibility with pysam)')
-@click.argument('fasta_input_file', type=click.File('r'))
+@click.argument('fasta_input_file', type=click.Path(exists=True))
 @click.argument('fasta_output_file', type=click.File('w'))
 def CLI_fix_fasta_headers(fasta_input_file, fasta_output_file):
     fa = FastaFile(fasta_input_file)
