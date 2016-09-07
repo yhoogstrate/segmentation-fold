@@ -1,3 +1,8 @@
+2016-09-07  Youri Hoogstrate
+	* v1.6.6
+	  - Small change in test-case that should make certain compilers 
+	    smile again
+
 2016-05-18  Youri Hoogstrate
 	* v1.6.5
 	  - Fixes lack of unsetting a pointer when a WM loop overwrites
