@@ -76,8 +76,8 @@ BOOST_AUTO_TEST_CASE(Test2)
 	Direction d1 = Direction::FivePrime;
 	Direction d2 = Direction::ThreePrime;
 	
-	BOOST_CHECK_EQUAL(sizeof(d1), 1);
-	BOOST_CHECK_EQUAL(sizeof(d2), 1);
+	BOOST_CHECK_EQUAL(sizeof(d1), (size_t) 1);
+	BOOST_CHECK_EQUAL(sizeof(d2), (size_t) 1);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
