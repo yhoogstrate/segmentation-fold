@@ -32,7 +32,6 @@
 
 
 #include <vector>
-#include <vector>
 
 
 #include "Nucleotide.hpp"

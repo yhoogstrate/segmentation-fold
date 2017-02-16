@@ -41,7 +41,6 @@
 #include "SegmentLoopTree.hpp"
 
 #include <vector>
-#include <vector>
 
 #include <boost/test/included/unit_test.hpp>
 

@@ -33,7 +33,6 @@
 #include <ctype.h>
 
 #include <vector>
-#include <vector>
 
 #include "Pair.hpp"
 #include "Region.hpp"
