@@ -40,7 +40,7 @@
 #include "Segment.hpp"
 #include "SegmentTreeElement.hpp"
 
-#include <array>
+#include <vector>
 
 
 

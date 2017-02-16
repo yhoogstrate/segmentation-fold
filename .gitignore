@@ -48,3 +48,4 @@ doc/Doxyfile
 doc/doxygen*.db
 tmp.*
 *.directory
+.venv
