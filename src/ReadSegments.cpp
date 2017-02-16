@@ -32,7 +32,7 @@
 #include <algorithm>
 #include <ctype.h>
 
-#include <array>
+#include <vector>
 #include <vector>
 
 #include "Pair.hpp"

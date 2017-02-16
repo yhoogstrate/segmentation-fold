@@ -37,7 +37,7 @@
 #include "Sequence.hpp"
 #include "Segment.hpp"
 
-#include <array>
+#include <vector>
 
 
 

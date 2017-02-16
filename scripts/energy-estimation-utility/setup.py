@@ -24,8 +24,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 import segmentation_fold_utils
 
 #from setuptools.command.install import install
-from distutils.core import setup
+#from distutils.core import setup
 from setuptools import setup, find_packages
+#from setuptools import find_packages
 
 import os
 
@@ -44,13 +45,8 @@ setup(name='segmentation-fold-utils',
 		scripts=["bin/segmentation-fold-utils"],
 		packages=['segmentation_fold_utils'],
 		test_suite="tests",
-		setup_requires=['numpy','cython'],
-		install_requires=[
-			'numpy',
-			'HTSeq >= 0.6.1',
-			'pysam >= 0.8.0',
-            'click'
-		],
+		setup_requires=  ['HTSeq >= 0.6.1','pysam >= 0.8.0','click'],
+		install_requires=['HTSeq >= 0.6.1','pysam >= 0.8.0','click'],
 		classifiers=[
 			'Environment :: Console',
 			'Intended Audience :: Science/Research',

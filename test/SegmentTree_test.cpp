@@ -41,7 +41,7 @@
 #include "SegmentTreeElement.hpp"
 #include "SegmentTree.hpp"
 
-#include <array>
+#include <vector>
 #include <vector>
 
 #include <boost/test/included/unit_test.hpp>

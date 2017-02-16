@@ -29,7 +29,7 @@
 #define SEGMENTTRACEBACK_HPP
 
 
-#include <array>
+#include <vector>
 
 
 /**

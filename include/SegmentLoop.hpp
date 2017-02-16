@@ -28,7 +28,7 @@
 #define SEGMENTLOOP_HPP
 
 
-#include <array>
+#include <vector>
 #include "SegmentTraceback.hpp"
 
 
