@@ -181,7 +181,7 @@ void ScoringMatrix<T>::set(Pair &pair, T arg_value)
  * @brief Returns the number of reserved elements in the vector
  */
 template <class T>
-size_t ScoringMatrix<T>::size(void)
+inline size_t ScoringMatrix<T>::size(void)
 {
 	return this->m.size();
 }

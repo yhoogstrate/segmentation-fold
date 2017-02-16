@@ -76,7 +76,7 @@ class ScoringMatrix
 		
 		void set(Pair &p, T arg_value);
 		
-		size_t size(void);
+		inline size_t size(void);
 		size_t number_of_elements(size_t n);
 		
 		///@todo Nucleotide operator[](size_t); << directly obtain from the vector this->m, allows caching of its iterator
