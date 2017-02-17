@@ -118,7 +118,7 @@ void Settings::print_version(void)
 	std::cout << "[License]\n  GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>.\n\n";
 	std::cout << "  This is free software: you are free to change and redistribute it.\n";
 	std::cout << "  There is NO WARRANTY, to the extent permitted by law.\n\n";
-	std::cout << "  Written by Youri Hoogstrate.\n";
+	std::cout << "  Copyright (C) 2012-2017  Youri Hoogstrate.\n";
 	
 	this->run_print_version = true;
 }
