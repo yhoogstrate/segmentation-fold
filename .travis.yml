@@ -20,7 +20,7 @@ python:
 install:
   - sudo pip install numpy ; sudo pip install cython htseq pysam click nose
 
-  - if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; sudo apt-get install -qq libboost-filesystem1.55-dev libboost-test1.55-dev valgrind astyle ; fi
+  - if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then sudo apt-get install -qq libboost-filesystem1.55-dev libboost-test1.55-dev valgrind astyle; fi
   
   - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then brew upgrade boost; fi
   - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then brew install doxygen valgrind astyle; fi
