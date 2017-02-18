@@ -94,8 +94,7 @@ Nucleotide SubSequence::operator[](size_t arg_position)
 
 #if DEBUG
 /**
- * @brief
- *
+ * @brief checks whether the order of the position is correct and throws an exception otherwise
  */
 void SubSequence::_check_order(void)
 {

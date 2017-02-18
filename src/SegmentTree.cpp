@@ -1,7 +1,6 @@
 /**
  * @file src/SegmentTree.cpp
  *
- *
  * @author Youri Hoogstrate
  *
  * @section LICENSE
@@ -45,7 +44,6 @@
 
 /**
  * @brief Initializes an empty tree
- *
  */
 SegmentTree::SegmentTree()
 {
@@ -56,7 +54,6 @@ SegmentTree::SegmentTree()
 
 /**
  * @brief Destructs the tree recursively
- *
  */
 SegmentTree::~SegmentTree()
 {
@@ -67,7 +64,6 @@ SegmentTree::~SegmentTree()
 
 /**
  * @brief Searches a pair by using sets of iterators
- *
  */
 Segment *SegmentTree::search(SubSequence &arg_segment5p, SubSequence &arg_segment3p)
 {
@@ -78,7 +74,6 @@ Segment *SegmentTree::search(SubSequence &arg_segment5p, SubSequence &arg_segmen
 
 /**
  * @brief Adds a Segment (as member of a SegmentTreeElement) to the tree.
- *
  */
 void SegmentTree::insert(Segment &arg_segment)
 {
@@ -110,9 +105,7 @@ bool SegmentTree::empty(void)
 /**
  * @brief Counts recursively the elements in the tree
  *
- *
- * @todo If this function becomes inline, it can not be found anymore... This is probably because its kinda recursive since it uses another inline function? Inlines seem to have to be defined in a header file
- * @link http://www.parashift.com/c++-faq-lite/inline-member-fns.html
+** @note Inline functions can not be unit tested, only their parents in which they are included. As size functions are too important not to be tested these functons may not become inline.
  */
 size_t SegmentTree::size(void)
 {

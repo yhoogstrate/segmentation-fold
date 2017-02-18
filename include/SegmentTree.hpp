@@ -36,7 +36,6 @@
  *
  * @section DESCRIPTION
  * Stores all (K-turn) segments in memory.
- *
  */
 class SegmentTree
 {
