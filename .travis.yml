@@ -43,7 +43,7 @@ before_script:
   - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
 
 script:
-  - cmake -DCMAKE_BUILD_TYPE=debug -DCMAKE_INSTALL_PREFIX=~/.local -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON . ; make ; make install ; ctest ; for f in ./build/test/*; do valgrind --leak-check=full --show-reachable=yes --error-exitcode=1 "$f"; done
+  - cmake -DCMAKE_BUILD_TYPE=debug -DCMAKE_INSTALL_PREFIX=~/.local -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON . ; make ; make install ; ctest --verbose ; for f in ./build/test/*; do valgrind --leak-check=full --show-reachable=yes --error-exitcode=1 "$f"; done
   - if make tidy | grep "Formatted " ; then exit 2; else echo "No changes found by astyle" ; make tidy; fi;
   - cd scripts/energy-estimation-utility ; python setup.py install --user ; nosetests
 # DEfault method hides error messages for certain imports
