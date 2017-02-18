@@ -372,12 +372,10 @@ BOOST_AUTO_TEST_CASE(Test5)
 	
 	unsigned int i, j;
 	
-	SegmentTree segment_tree;
 	
 	for(i = 0; i < 120; i++)											// Test with 120 different orders of adding segments
 	{
-		segment_tree = SegmentTree();
-		
+		SegmentTree segment_tree = SegmentTree();
 		BOOST_CHECK(segment_tree.empty() == true);
 		BOOST_CHECK(segment_tree.size() == 0);
 		
@@ -435,6 +433,8 @@ BOOST_AUTO_TEST_CASE(Test5)
 		BOOST_CHECK(segment_05.name == segment_query05->name);
 		BOOST_CHECK(&segment_05 == segment_query05);// Deep copy detection
 	}
+	
+	SegmentTree segment_tree = SegmentTree();
 	
 	// Request a non-existing sequence and checks whether that returns a nullptr
 	Sequence           segment_xx_seq   = Sequence("AAAAAgggCCC");
