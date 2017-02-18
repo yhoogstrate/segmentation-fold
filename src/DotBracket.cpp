@@ -149,7 +149,7 @@ void DotBracket::format(unsigned int n, std::string &output)
  *
  * @param dot_bracket_pattern A dotbracket string like "((..))((()))" which allows question tags for unknown structures: "(((???)))"
  * 
- * @todo make static?! it as no intric relation with the the classes content
+ * @static
  */
 bool DotBracket::match(std::string &dot_bracket_pattern, std::string &dot_bracket_subject)
 {

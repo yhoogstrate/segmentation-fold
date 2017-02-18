@@ -68,22 +68,37 @@ BOOST_AUTO_TEST_SUITE(Testing)
  */
 BOOST_AUTO_TEST_CASE(Test_unfolded)
 {
+	BOOST_TEST_PASSPOINT();
+	
 	// Initialize variables
 	Sequence sequence = Sequence("AAAaaaAAA");
 	std::string true_structure = ".........";
 	
+	BOOST_TEST_PASSPOINT();
+	
 	Settings settings = Settings(0, nullptr, sequence);
+	
+	BOOST_TEST_PASSPOINT();
+	
 	ReadData thermodynamics = ReadData();
 	
 	// Predict structure
 	Zuker zuker = Zuker(settings, sequence, thermodynamics);
+	
+	BOOST_TEST_PASSPOINT();
+	
 	zuker.energy();
+	
+	BOOST_TEST_PASSPOINT();
+	
 	zuker.traceback();
 	
+	BOOST_TEST_PASSPOINT();
 	// Obtain and compare results
 	std::string predicted_structure;
 	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure); ///@todo make it size_t
 	
+	BOOST_TEST_PASSPOINT();
 	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
 }
 
