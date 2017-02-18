@@ -1,7 +1,6 @@
 /**
  * @file src/SegmentTraceback.cpp
  *
- *
  * @author Youri Hoogstrate
  *
  * @section LICENSE

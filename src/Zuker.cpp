@@ -522,7 +522,6 @@ void Zuker::traceback(void)
 	this->folded_segments = 0;
 	
 	SegmentTraceback *independent_segment_traceback;
-	Pair pair_tmp;
 	
 	traceback_jump origin = {{0, (unsigned int) this->sequence.size() - 1}, W_MATRIX};
 	traceback_jump action;
@@ -566,7 +565,7 @@ void Zuker::traceback(void)
 			if(independent_segment_traceback != nullptr)// If a Segment's traceback is found, trace its internal structure back
 			{
 				this->folded_segments++;
-				pair_tmp = origin.target;
+				Pair pair_tmp = origin.target;
 				
 				while(independent_segment_traceback->traceback(pair_tmp.first, pair_tmp.second))
 				{

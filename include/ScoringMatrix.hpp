@@ -33,6 +33,9 @@
 
 #include "main.hpp"
 
+#include "ZukerTraceback.hpp"
+
+
 
 /**
  * @brief A (memory efficient) lower triangle of an n*n scoring matrix plus an additional vertical.
