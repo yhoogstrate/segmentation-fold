@@ -55,7 +55,7 @@ class DotBracket
 		int  find(unsigned int arg_i);
 		void format(unsigned int n, std::string &output);
 		
-		bool match(std::string &dot_bracket_pattern, std::string &dot_bracket_subject);
+		static bool match(std::string &dot_bracket_pattern, std::string &dot_bracket_subject);
 };
 
 

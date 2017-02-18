@@ -147,31 +147,18 @@ void DotBracket::format(unsigned int n, std::string &output)
 /**
  * @brief Matches a dotbracked string with a pattern in which unknown chars are encoded with a '?'
  *
- *
  * @param dot_bracket_pattern A dotbracket string like "((..))((()))" which allows question tags for unknown structures: "(((???)))"
+ * 
+ * @todo make static?! it as no intric relation with the the classes content
  */
 bool DotBracket::match(std::string &dot_bracket_pattern, std::string &dot_bracket_subject)
 {
 #if DEBUG
-
-	if(dot_bracket_pattern.size() == dot_bracket_subject.size())
+	if(dot_bracket_pattern.size() != dot_bracket_subject.size())
 	{
-		for(std::string::size_type i = 0; i < dot_bracket_pattern.size(); ++i)
-		{
-			if(dot_bracket_pattern[i] != '?' && dot_bracket_pattern[i] != dot_bracket_subject[i])
-			{
-				return false;
-			}
-		}
-		
-		return true;
+		throw std::invalid_argument("DotBracket::match: comparing strings of different sizes (" + std::to_string((int) dot_bracket_pattern.size()) + ", " + std::to_string((int) dot_bracket_subject.size()) + ")");
 	}
-	else
-	{
-		return false;
-	}
-	
-#else //DEBUG
+#endif //DEBUG
 	
 	for(std::string::size_type i = 0; i < dot_bracket_pattern.size(); ++i)
 	{
@@ -182,6 +169,4 @@ bool DotBracket::match(std::string &dot_bracket_pattern, std::string &dot_bracke
 	}
 	
 	return true;
-	
-#endif //DEBUG
 }
