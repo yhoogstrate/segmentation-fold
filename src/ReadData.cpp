@@ -94,10 +94,6 @@ ReadData::ReadData() :
  * @section DESCRIPTION
  * Structure:
  * p2n(j',i') p2n(j,i) n2n(j'-1) n2n(i'-1) n2n(i'-2)
- *
- * @todo Find out if NUCLEOTIDE: 4 is a remaining part of code for DNA folding where 4 ment NUCLEOTIDE T or that it means NUCLEOTIDE_UNKNOWN
- *
- * @note NUCLEOTIDE_T / NUCLEOTIDE_UNKNOWN have been taken out since they correspond to DNA folding unknown nucleotides respectively
  */
 void ReadData::load_int21()
 {
