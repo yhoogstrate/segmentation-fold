@@ -47,7 +47,9 @@ before_script:
 script:
   - ctest --extra-verbose --output-on-failure; for f in ./build/test/*; do valgrind --leak-check=full --show-reachable=yes --error-exitcode=1 "$f"; done
   - if make tidy | grep "Formatted " ; then exit 2; else echo "No changes found by astyle" ; make tidy; fi;
-  - cd scripts/energy-estimation-utility ; python setup.py install --user ; nosetests
+  # --prefix is a weird workaround: http://stackoverflow.com/questions/4495120/combine-user-with-prefix-error-with-setup-py-install
+  # https://www.bountysource.com/issues/38159062-osx-builds-on-travis-should-not-use-setuptools-user-flag
+  - cd scripts/energy-estimation-utility ; python setup.py install --user --prefix= ; nosetests
 # DEfault method hides error messages for certain imports
 # ; python setup.py test
 
