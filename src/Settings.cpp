@@ -70,6 +70,9 @@ Settings::Settings(int arg_argc, char **arg_argv, Sequence &arg_sequence) :
 	
 	this->segment_filename = std::string();
 	
+	this->run_print_version = false;
+	this->run_print_usage = false;
+	
 	this->parse_arguments();
 	this->get_segments_file();
 }
