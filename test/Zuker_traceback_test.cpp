@@ -1873,6 +1873,9 @@ BOOST_AUTO_TEST_CASE(Test_bulge_loop)
         BOOST_TEST_PASSPOINT();
         
         Settings settings = Settings(0, nullptr, sequence);
+        
+        BOOST_TEST_PASSPOINT();
+        
         ReadData thermodynamics = ReadData();
         
         BOOST_TEST_PASSPOINT();
