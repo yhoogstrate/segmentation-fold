@@ -105,25 +105,25 @@ BOOST_AUTO_TEST_CASE(Test1)
 	
 	
 	
-	BOOST_CHECK_EQUAL(aa.type , PairingType::None);
-	BOOST_CHECK_EQUAL(ac.type , PairingType::None);
-	BOOST_CHECK_EQUAL(au.type , PairingType::AU);// True canonical pair
-	BOOST_CHECK_EQUAL(ag.type , PairingType::None);
+	BOOST_CHECK_EQUAL(aa.type, PairingType::None);
+	BOOST_CHECK_EQUAL(ac.type, PairingType::None);
+	BOOST_CHECK_EQUAL(au.type, PairingType::AU); // True canonical pair
+	BOOST_CHECK_EQUAL(ag.type, PairingType::None);
 	
-	BOOST_CHECK_EQUAL(ca.type , PairingType::None);
-	BOOST_CHECK_EQUAL(cc.type , PairingType::None);
-	BOOST_CHECK_EQUAL(cu.type , PairingType::None);
-	BOOST_CHECK_EQUAL(cg.type , PairingType::CG);// True canonical pair
+	BOOST_CHECK_EQUAL(ca.type, PairingType::None);
+	BOOST_CHECK_EQUAL(cc.type, PairingType::None);
+	BOOST_CHECK_EQUAL(cu.type, PairingType::None);
+	BOOST_CHECK_EQUAL(cg.type, PairingType::CG); // True canonical pair
 	
-	BOOST_CHECK_EQUAL(ua.type , PairingType::UA);// True canonical pair
-	BOOST_CHECK_EQUAL(uc.type , PairingType::None);
-	BOOST_CHECK_EQUAL(uu.type , PairingType::None);
-	BOOST_CHECK_EQUAL(ug.type , PairingType::UG);// True canonical pair
+	BOOST_CHECK_EQUAL(ua.type, PairingType::UA); // True canonical pair
+	BOOST_CHECK_EQUAL(uc.type, PairingType::None);
+	BOOST_CHECK_EQUAL(uu.type, PairingType::None);
+	BOOST_CHECK_EQUAL(ug.type, PairingType::UG); // True canonical pair
 	
-	BOOST_CHECK_EQUAL(ga.type , PairingType::None);
-	BOOST_CHECK_EQUAL(gc.type , PairingType::GC);// True canonical pair
-	BOOST_CHECK_EQUAL(gu.type , PairingType::GU);// True canonical pair
-	BOOST_CHECK_EQUAL(gg.type , PairingType::None);
+	BOOST_CHECK_EQUAL(ga.type, PairingType::None);
+	BOOST_CHECK_EQUAL(gc.type, PairingType::GC); // True canonical pair
+	BOOST_CHECK_EQUAL(gu.type, PairingType::GU); // True canonical pair
+	BOOST_CHECK_EQUAL(gg.type, PairingType::None);
 	
 	
 	// Size is size in between the pairs:
@@ -131,25 +131,25 @@ BOOST_AUTO_TEST_CASE(Test1)
 	// | A
 	// GA
 	// Has size 3
-	BOOST_CHECK_EQUAL(aa.size , 3);
-	BOOST_CHECK_EQUAL(ac.size , 4);
-	BOOST_CHECK_EQUAL(au.size , 5);
-	BOOST_CHECK_EQUAL(ag.size , 6);
+	BOOST_CHECK_EQUAL(aa.size, 3);
+	BOOST_CHECK_EQUAL(ac.size, 4);
+	BOOST_CHECK_EQUAL(au.size, 5);
+	BOOST_CHECK_EQUAL(ag.size, 6);
 	
-	BOOST_CHECK_EQUAL(ca.size , 2);
-	BOOST_CHECK_EQUAL(cc.size , 3);
-	BOOST_CHECK_EQUAL(cu.size , 4);
-	BOOST_CHECK_EQUAL(cg.size , 5);
+	BOOST_CHECK_EQUAL(ca.size, 2);
+	BOOST_CHECK_EQUAL(cc.size, 3);
+	BOOST_CHECK_EQUAL(cu.size, 4);
+	BOOST_CHECK_EQUAL(cg.size, 5);
 	
-	BOOST_CHECK_EQUAL(ua.size , 1);
-	BOOST_CHECK_EQUAL(uc.size , 2);
-	BOOST_CHECK_EQUAL(uu.size , 3);
-	BOOST_CHECK_EQUAL(ug.size , 4);
+	BOOST_CHECK_EQUAL(ua.size, 1);
+	BOOST_CHECK_EQUAL(uc.size, 2);
+	BOOST_CHECK_EQUAL(uu.size, 3);
+	BOOST_CHECK_EQUAL(ug.size, 4);
 	
-	BOOST_CHECK_EQUAL(ga.size , 0);
-	BOOST_CHECK_EQUAL(gc.size , 1);
-	BOOST_CHECK_EQUAL(gu.size , 2);
-	BOOST_CHECK_EQUAL(gg.size , 3);
+	BOOST_CHECK_EQUAL(ga.size, 0);
+	BOOST_CHECK_EQUAL(gc.size, 1);
+	BOOST_CHECK_EQUAL(gu.size, 2);
+	BOOST_CHECK_EQUAL(gg.size, 3);
 }
 
 
@@ -242,25 +242,25 @@ BOOST_AUTO_TEST_CASE(Test2)
 	
 	
 	
-	BOOST_CHECK_EQUAL(aa.type , PairingType::None);
-	BOOST_CHECK_EQUAL(ac.type , PairingType::None);
-	BOOST_CHECK_EQUAL(au.type , PairingType::AU);// True canonical pair
-	BOOST_CHECK_EQUAL(ag.type , PairingType::None);
+	BOOST_CHECK_EQUAL(aa.type, PairingType::None);
+	BOOST_CHECK_EQUAL(ac.type, PairingType::None);
+	BOOST_CHECK_EQUAL(au.type, PairingType::AU); // True canonical pair
+	BOOST_CHECK_EQUAL(ag.type, PairingType::None);
 	
-	BOOST_CHECK_EQUAL(ca.type , PairingType::None);
-	BOOST_CHECK_EQUAL(cc.type , PairingType::None);
-	BOOST_CHECK_EQUAL(cu.type , PairingType::None);
-	BOOST_CHECK_EQUAL(cg.type , PairingType::CG);// True canonical pair
+	BOOST_CHECK_EQUAL(ca.type, PairingType::None);
+	BOOST_CHECK_EQUAL(cc.type, PairingType::None);
+	BOOST_CHECK_EQUAL(cu.type, PairingType::None);
+	BOOST_CHECK_EQUAL(cg.type, PairingType::CG); // True canonical pair
 	
-	BOOST_CHECK_EQUAL(ua.type , PairingType::UA);// True canonical pair
-	BOOST_CHECK_EQUAL(uc.type , PairingType::None);
-	BOOST_CHECK_EQUAL(uu.type , PairingType::None);
-	BOOST_CHECK_EQUAL(ug.type , PairingType::UG);// True canonical pair
+	BOOST_CHECK_EQUAL(ua.type, PairingType::UA); // True canonical pair
+	BOOST_CHECK_EQUAL(uc.type, PairingType::None);
+	BOOST_CHECK_EQUAL(uu.type, PairingType::None);
+	BOOST_CHECK_EQUAL(ug.type, PairingType::UG); // True canonical pair
 	
-	BOOST_CHECK_EQUAL(ga.type , PairingType::None);
-	BOOST_CHECK_EQUAL(gc.type , PairingType::GC);// True canonical pair
-	BOOST_CHECK_EQUAL(gu.type , PairingType::GU);// True canonical pair
-	BOOST_CHECK_EQUAL(gg.type , PairingType::None);
+	BOOST_CHECK_EQUAL(ga.type, PairingType::None);
+	BOOST_CHECK_EQUAL(gc.type, PairingType::GC); // True canonical pair
+	BOOST_CHECK_EQUAL(gu.type, PairingType::GU); // True canonical pair
+	BOOST_CHECK_EQUAL(gg.type, PairingType::None);
 	
 	
 	// Size is size in between the pairs:
@@ -268,25 +268,25 @@ BOOST_AUTO_TEST_CASE(Test2)
 	// | A
 	// GA
 	// Has size 3
-	BOOST_CHECK_EQUAL(aa.size , 3);
-	BOOST_CHECK_EQUAL(ac.size , 4);
-	BOOST_CHECK_EQUAL(au.size , 5);
-	BOOST_CHECK_EQUAL(ag.size , 6);
+	BOOST_CHECK_EQUAL(aa.size, 3);
+	BOOST_CHECK_EQUAL(ac.size, 4);
+	BOOST_CHECK_EQUAL(au.size, 5);
+	BOOST_CHECK_EQUAL(ag.size, 6);
 	
-	BOOST_CHECK_EQUAL(ca.size , 2);
-	BOOST_CHECK_EQUAL(cc.size , 3);
-	BOOST_CHECK_EQUAL(cu.size , 4);
-	BOOST_CHECK_EQUAL(cg.size , 5);
+	BOOST_CHECK_EQUAL(ca.size, 2);
+	BOOST_CHECK_EQUAL(cc.size, 3);
+	BOOST_CHECK_EQUAL(cu.size, 4);
+	BOOST_CHECK_EQUAL(cg.size, 5);
 	
-	BOOST_CHECK_EQUAL(ua.size , 1);
-	BOOST_CHECK_EQUAL(uc.size , 2);
-	BOOST_CHECK_EQUAL(uu.size , 3);
-	BOOST_CHECK_EQUAL(ug.size , 4);
+	BOOST_CHECK_EQUAL(ua.size, 1);
+	BOOST_CHECK_EQUAL(uc.size, 2);
+	BOOST_CHECK_EQUAL(uu.size, 3);
+	BOOST_CHECK_EQUAL(ug.size, 4);
 	
-	BOOST_CHECK_EQUAL(ga.size , 0);
-	BOOST_CHECK_EQUAL(gc.size , 1);
-	BOOST_CHECK_EQUAL(gu.size , 2);
-	BOOST_CHECK_EQUAL(gg.size , 3);
+	BOOST_CHECK_EQUAL(ga.size, 0);
+	BOOST_CHECK_EQUAL(gc.size, 1);
+	BOOST_CHECK_EQUAL(gu.size, 2);
+	BOOST_CHECK_EQUAL(gg.size, 3);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

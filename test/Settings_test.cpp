@@ -221,7 +221,7 @@ BOOST_AUTO_TEST_CASE(Test4)
 	
 	Settings settings = Settings(argc, argv, sequence);
 	
-	BOOST_CHECK_EQUAL(settings.minimal_hairpin_length , 3);
+	BOOST_CHECK_EQUAL(settings.minimal_hairpin_length, 3);
 	
 	
 	// Check argumented values

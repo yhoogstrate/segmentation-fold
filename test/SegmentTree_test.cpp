@@ -89,15 +89,15 @@ BOOST_AUTO_TEST_CASE(Test1)
 	Position p1a = sequence.data.begin() + 3;
 	Position p1b = sequence.data.begin() + 7;
 	
-	BOOST_CHECK_EQUAL(*p1a , Nucleotide::A);
-	BOOST_CHECK_EQUAL(*p1b , Nucleotide::G);
+	BOOST_CHECK_EQUAL(*p1a, Nucleotide::A);
+	BOOST_CHECK_EQUAL(*p1b, Nucleotide::G);
 	
 	
 	Position p2a = sequence.data.begin() + 17;
 	Position p2b = sequence.data.begin() + 19;
 	
-	BOOST_CHECK_EQUAL(*p2a , Nucleotide::G);
-	BOOST_CHECK_EQUAL(*p2b , Nucleotide::A);
+	BOOST_CHECK_EQUAL(*p2a, Nucleotide::G);
+	BOOST_CHECK_EQUAL(*p2b, Nucleotide::A);
 	
 	
 	SubSequence p1 = SubSequence(p1a, p1b);
@@ -132,15 +132,15 @@ BOOST_AUTO_TEST_CASE(Test2)
 	Position p1a = sequence.data.begin() + 3;
 	Position p1b = sequence.data.begin() + 7;
 	
-	BOOST_CHECK_EQUAL(*p1a , Nucleotide::A);
-	BOOST_CHECK_EQUAL(*p1b , Nucleotide::G);
+	BOOST_CHECK_EQUAL(*p1a, Nucleotide::A);
+	BOOST_CHECK_EQUAL(*p1b, Nucleotide::G);
 	
 	
 	Position p2a = sequence.data.begin() + 17;
 	Position p2b = sequence.data.begin() + 19;
 	
-	BOOST_CHECK_EQUAL(*p2a , Nucleotide::G);
-	BOOST_CHECK_EQUAL(*p2b , Nucleotide::A);
+	BOOST_CHECK_EQUAL(*p2a, Nucleotide::G);
+	BOOST_CHECK_EQUAL(*p2b, Nucleotide::A);
 	
 	
 	SubSequence subsequence_5p = SubSequence(p1a, p1b);
@@ -184,16 +184,16 @@ BOOST_AUTO_TEST_CASE(Test3)
 	Position p1a = segment_01_seq5p.data.begin();
 	Position p1b = segment_01_seq5p.data.end() - 1;
 	
-	BOOST_CHECK_EQUAL(*p1a , Nucleotide::A);
-	BOOST_CHECK_EQUAL(*p1b , Nucleotide::G);
+	BOOST_CHECK_EQUAL(*p1a, Nucleotide::A);
+	BOOST_CHECK_EQUAL(*p1b, Nucleotide::G);
 	
 	
 	Position p2a = segment_01_seq3p.data.begin();
 	Position p2b = segment_01_seq3p.data.end() - 1;
 	
 	
-	BOOST_CHECK_EQUAL(*p2a , Nucleotide::G);
-	BOOST_CHECK_EQUAL(*p2b , Nucleotide::A);
+	BOOST_CHECK_EQUAL(*p2a, Nucleotide::G);
+	BOOST_CHECK_EQUAL(*p2b, Nucleotide::A);
 	
 	
 	SubSequence subsequence_5p = SubSequence(p1a, p1b);
@@ -404,31 +404,31 @@ BOOST_AUTO_TEST_CASE(Test5)
 		}
 		
 		// Obtain 01
-		Segment *segment_query01 = segment_tree.search(segment_01_5p , segment_01_3p);
+		Segment *segment_query01 = segment_tree.search(segment_01_5p, segment_01_3p);
 		BOOST_REQUIRE_MESSAGE(segment_query01 != nullptr, "Failure obtaining segment 01 at iteration " << i);
 		BOOST_CHECK(segment_01.name == segment_query01->name);
 		BOOST_CHECK(&segment_01 == segment_query01);// Deep copy detection
 		
 		// Obtain 02
-		Segment *segment_query02 = segment_tree.search(segment_02_5p , segment_02_3p);
+		Segment *segment_query02 = segment_tree.search(segment_02_5p, segment_02_3p);
 		BOOST_REQUIRE_MESSAGE(segment_query02 != nullptr, "Failure obtaining segment 02 at iteration " << i);
 		BOOST_CHECK(segment_02.name == segment_query02->name);
 		BOOST_CHECK(&segment_02 == segment_query02);// Deep copy detection
 		
 		// Obtain 03
-		Segment *segment_query03 = segment_tree.search(segment_03_5p , segment_03_3p);
+		Segment *segment_query03 = segment_tree.search(segment_03_5p, segment_03_3p);
 		BOOST_REQUIRE_MESSAGE(segment_query03 != nullptr, "Failure obtaining segment 03 at iteration " << i);
 		BOOST_CHECK(segment_03.name == segment_query03->name);
 		BOOST_CHECK(&segment_03 == segment_query03);// Deep copy detection
 		
 		// Obtain 04
-		Segment *segment_query04 = segment_tree.search(segment_04_5p , segment_04_3p);
+		Segment *segment_query04 = segment_tree.search(segment_04_5p, segment_04_3p);
 		BOOST_REQUIRE_MESSAGE(segment_query04 != nullptr, "Failure obtaining segment 04 at iteration " << i);
 		BOOST_CHECK(segment_04.name == segment_query04->name);
 		BOOST_CHECK(&segment_04 == segment_query04);// Deep copy detection
 		
 		// Obtain 05
-		Segment *segment_query05 = segment_tree.search(segment_05_5p , segment_05_3p);
+		Segment *segment_query05 = segment_tree.search(segment_05_5p, segment_05_3p);
 		BOOST_REQUIRE_MESSAGE(segment_query05 != nullptr, "Failure obtaining segment 05 at iteration " << i);
 		BOOST_CHECK(segment_05.name == segment_query05->name);
 		BOOST_CHECK(&segment_05 == segment_query05);// Deep copy detection
@@ -445,7 +445,7 @@ BOOST_AUTO_TEST_CASE(Test5)
 	SubSequence        segment_xx_5p    = SubSequence(segment_xx_5p_s, segment_xx_5p_e); //AAAAA
 	SubSequence        segment_xx_3p    = SubSequence(segment_xx_3p_s, segment_xx_3p_e); //CCC
 	
-	BOOST_CHECK(segment_tree.search(segment_xx_5p , segment_xx_3p) == nullptr);
+	BOOST_CHECK(segment_tree.search(segment_xx_5p, segment_xx_3p) == nullptr);
 }
 
 
@@ -516,9 +516,9 @@ BOOST_AUTO_TEST_CASE(Test7)
 	segment_tree.insert(segment_fwd);
 	segment_tree.insert(segment_rev);
 	
-	BOOST_CHECK(segment_tree.search(segment_fwd_5p , segment_fwd_3p) != nullptr);
-	BOOST_CHECK(segment_tree.search(segment_rev_5p , segment_rev_3p) != nullptr);
-	BOOST_CHECK(segment_tree.search(segment_fwd_5p , segment_fwd_3p) != segment_tree.search(segment_rev_5p , segment_rev_3p));
+	BOOST_CHECK(segment_tree.search(segment_fwd_5p, segment_fwd_3p) != nullptr);
+	BOOST_CHECK(segment_tree.search(segment_rev_5p, segment_rev_3p) != nullptr);
+	BOOST_CHECK(segment_tree.search(segment_fwd_5p, segment_fwd_3p) != segment_tree.search(segment_rev_5p, segment_rev_3p));
 	
 	BOOST_CHECK_THROW(segment_tree.insert(segment_fwd), std::invalid_argument);
 	BOOST_CHECK_THROW(segment_tree.insert(segment_rev), std::invalid_argument);

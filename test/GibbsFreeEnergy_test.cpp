@@ -89,7 +89,7 @@ BOOST_AUTO_TEST_CASE(TestHairpinLoop1)
 	
 	GibbsFreeEnergy gfe_1 = GibbsFreeEnergy(rna_1, thermodynamics);
 	
-	BOOST_CHECK_EQUAL(gfe_1.get_hairpin_loop_element(p) , -15.0);
+	BOOST_CHECK_EQUAL(gfe_1.get_hairpin_loop_element(p), -15.0);
 }
 
 
@@ -121,7 +121,7 @@ BOOST_AUTO_TEST_CASE(TestHairpinLoop2)
 	
 	GibbsFreeEnergy gfe_1 = GibbsFreeEnergy(rna_1, thermodynamics);
 	
-	BOOST_CHECK_EQUAL(gfe_1.get_hairpin_loop_element(p) , -15.0);
+	BOOST_CHECK_EQUAL(gfe_1.get_hairpin_loop_element(p), -15.0);
 }
 
 
@@ -184,7 +184,7 @@ BOOST_AUTO_TEST_CASE(TestHairpinLoop4)
 	GibbsFreeEnergy gfe = GibbsFreeEnergy(rna, thermodynamics);
 	
 	float interpolated_hairpin_loop = thermodynamics.loop_hairpin[30] + (thermodynamics.miscloop[MISCLOOP_PRELOG] * (float) log((float) 31 / 30));
-	BOOST_CHECK_EQUAL(gfe.get_hairpin_loop_element(p) , interpolated_hairpin_loop);
+	BOOST_CHECK_EQUAL(gfe.get_hairpin_loop_element(p), interpolated_hairpin_loop);
 }
 
 
@@ -306,9 +306,9 @@ BOOST_AUTO_TEST_CASE(TestHairpinLoop6)
 	GibbsFreeEnergy gfe2 = GibbsFreeEnergy(rna2, thermodynamics);
 	GibbsFreeEnergy gfe3 = GibbsFreeEnergy(rna3, thermodynamics);
 	
-	BOOST_CHECK_EQUAL(gfe1.get_hairpin_loop_element(p1) , (energy_gggu_loop  + energy_gu_pairing + energy_tloop_mask + energy_loop_hairpin));
-	BOOST_CHECK_EQUAL(gfe2.get_hairpin_loop_element(p2) , (energy_gggu_loop  + energy_gu_pairing + energy_tloop_mask + energy_loop_hairpin));
-	BOOST_CHECK_EQUAL(gfe3.get_hairpin_loop_element(p3) , (energy_gu_pairing + energy_tloop_mask + energy_loop_hairpin));
+	BOOST_CHECK_EQUAL(gfe1.get_hairpin_loop_element(p1), (energy_gggu_loop  + energy_gu_pairing + energy_tloop_mask + energy_loop_hairpin));
+	BOOST_CHECK_EQUAL(gfe2.get_hairpin_loop_element(p2), (energy_gggu_loop  + energy_gu_pairing + energy_tloop_mask + energy_loop_hairpin));
+	BOOST_CHECK_EQUAL(gfe3.get_hairpin_loop_element(p3), (energy_gu_pairing + energy_tloop_mask + energy_loop_hairpin));
 }
 BOOST_AUTO_TEST_SUITE_END()
 
@@ -389,7 +389,7 @@ BOOST_AUTO_TEST_CASE(TestBulgeLoop1)
 	// Compare energy
 	GibbsFreeEnergy gfe = GibbsFreeEnergy(rna, thermodynamics);
 	
-	BOOST_CHECK_EQUAL(gfe.get_bulge_loop_element(r) ,
+	BOOST_CHECK_EQUAL(gfe.get_bulge_loop_element(r),
 					  energy_loop_hairpin + energy_hairpin_stack + energy_hairpin_triloop_CaaaG +
 					  energy_bulge_loopsize);
 }
@@ -535,7 +535,7 @@ BOOST_AUTO_TEST_CASE(TestBulgeLoop3)
 	
 	float intrapolated_energy = thermodynamics.loop_bulge[30] + (thermodynamics.miscloop[MISCLOOP_PRELOG] * (float) log((float) 32 / 30));
 	
-	BOOST_CHECK_EQUAL(gfe.get_bulge_loop_element(r) ,
+	BOOST_CHECK_EQUAL(gfe.get_bulge_loop_element(r),
 					  energy_loop_hairpin + energy_hairpin_stack + energy_hairpin_triloop_CaaaG +
 					  intrapolated_energy);
 }
@@ -577,8 +577,8 @@ BOOST_AUTO_TEST_CASE(TestBulgeLoop4)
 	Nucleotide hni = rna[hi];
 	Nucleotide hnj = rna[hj];
 	
-	BOOST_CHECK_EQUAL(hni , Nucleotide::C);
-	BOOST_CHECK_EQUAL(hnj , Nucleotide::G);
+	BOOST_CHECK_EQUAL(hni, Nucleotide::C);
+	BOOST_CHECK_EQUAL(hnj, Nucleotide::G);
 	
 	Pairing hpairing = Pairing(hni, hnj);
 	
@@ -608,7 +608,7 @@ BOOST_AUTO_TEST_CASE(TestBulgeLoop4)
 	thermodynamics.loop_bulge[4] = energy_bulge_loopsize;
 	
 	// Do check
-	BOOST_CHECK_EQUAL(gfe.get_bulge_loop_element(r) ,
+	BOOST_CHECK_EQUAL(gfe.get_bulge_loop_element(r),
 					  energy_loop_hairpin + energy_hairpin_stack + energy_hairpin_triloop_CaaaG +
 					  energy_bulge_loopsize + (2 * energy_AU_UA_penalty));
 }
@@ -653,8 +653,8 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop1)
 	Nucleotide hni = rna[hi];
 	Nucleotide hnj = rna[hj];
 	
-	BOOST_CHECK_EQUAL(hni , Nucleotide::G);
-	BOOST_CHECK_EQUAL(hnj , Nucleotide::C);
+	BOOST_CHECK_EQUAL(hni, Nucleotide::G);
+	BOOST_CHECK_EQUAL(hnj, Nucleotide::C);
 	
 	Pairing hpairing = Pairing(hni, hnj);
 	
@@ -671,17 +671,17 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop1)
 	Nucleotide nip = rna[ip];
 	Nucleotide njp = rna[jp];
 	
-	BOOST_CHECK_EQUAL(ni , Nucleotide::G);
-	BOOST_CHECK_EQUAL(nj , Nucleotide::C);
+	BOOST_CHECK_EQUAL(ni, Nucleotide::G);
+	BOOST_CHECK_EQUAL(nj, Nucleotide::C);
 	
-	BOOST_CHECK_EQUAL(nip , Nucleotide::C);
-	BOOST_CHECK_EQUAL(njp , Nucleotide::G);
+	BOOST_CHECK_EQUAL(nip, Nucleotide::C);
+	BOOST_CHECK_EQUAL(njp, Nucleotide::G);
 	
 	
-	BOOST_CHECK_EQUAL(rna[i + 1] , Nucleotide::A);
-	BOOST_CHECK_EQUAL(rna[j - 1] , Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[i + 1], Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[j - 1], Nucleotide::A);
 	
-	BOOST_CHECK_EQUAL(rna[jp + 1] , Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[jp + 1], Nucleotide::A);
 	BOOST_CHECK_EQUAL(rna[ip - 1], Nucleotide::A);
 	
 	
@@ -706,7 +706,7 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop1)
 	thermodynamics.tstki[PairingType::GC][Nucleotide::A][Nucleotide::A] = energy_interior_GC_A_A;
 	
 	// Check
-	BOOST_CHECK_EQUAL(gfe.get_interior_loop_element(r) ,
+	BOOST_CHECK_EQUAL(gfe.get_interior_loop_element(r),
 					  energy_loop_hairpin + energy_hairpin_stack + energy_hairpin_triloop_GaaaC +
 					  energy_interior_loopsize + (2 * energy_interior_GC_A_A));
 }
@@ -773,8 +773,8 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop2)
 	Nucleotide hni = rna[hi];
 	Nucleotide hnj = rna[hj];
 	
-	BOOST_CHECK_EQUAL(hni , Nucleotide::G);
-	BOOST_CHECK_EQUAL(hnj , Nucleotide::C);
+	BOOST_CHECK_EQUAL(hni, Nucleotide::G);
+	BOOST_CHECK_EQUAL(hnj, Nucleotide::C);
 	
 	Pairing hpairing = Pairing(hni, hnj);
 	
@@ -794,17 +794,17 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop2)
 	Nucleotide nip = rna[ip];
 	Nucleotide njp = rna[jp];
 	
-	BOOST_CHECK_EQUAL(ni , Nucleotide::G);
-	BOOST_CHECK_EQUAL(nj , Nucleotide::C);
+	BOOST_CHECK_EQUAL(ni, Nucleotide::G);
+	BOOST_CHECK_EQUAL(nj, Nucleotide::C);
 	
-	BOOST_CHECK_EQUAL(nip , Nucleotide::C);
-	BOOST_CHECK_EQUAL(njp , Nucleotide::G);
+	BOOST_CHECK_EQUAL(nip, Nucleotide::C);
+	BOOST_CHECK_EQUAL(njp, Nucleotide::G);
 	
 	
-	BOOST_CHECK_EQUAL(rna[i + 1] , Nucleotide::A);
-	BOOST_CHECK_EQUAL(rna[j - 1] , Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[i + 1], Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[j - 1], Nucleotide::A);
 	
-	BOOST_CHECK_EQUAL(rna[jp + 1] , Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[jp + 1], Nucleotide::A);
 	BOOST_CHECK_EQUAL(rna[ip - 1], Nucleotide::A);
 	
 	
@@ -832,7 +832,7 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop2)
 	float intrapolated_energy = thermodynamics.loop_interior[30] +
 								(thermodynamics.miscloop[MISCLOOP_PRELOG] * (float) log((float)(n_unpaired_r1 + n_unpaired_r2) / 30));
 								
-	BOOST_CHECK_EQUAL(energy_34 ,
+	BOOST_CHECK_EQUAL(energy_34,
 					  energy_loop_hairpin + energy_hairpin_stack + energy_hairpin_triloop_GaaaC +
 					  intrapolated_energy + (2 * energy_interior_GC_A_A));
 					  
@@ -848,8 +848,8 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop2)
 	hni = rna[hi];
 	hnj = rna[hj];
 	
-	BOOST_CHECK_EQUAL(hni , Nucleotide::G);
-	BOOST_CHECK_EQUAL(hnj , Nucleotide::C);
+	BOOST_CHECK_EQUAL(hni, Nucleotide::G);
+	BOOST_CHECK_EQUAL(hnj, Nucleotide::C);
 	
 	hpairing = Pairing(hni, hnj);
 	
@@ -869,18 +869,18 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop2)
 	nip = rna[ip];
 	njp = rna[jp];
 	
-	BOOST_CHECK_EQUAL(ni , Nucleotide::G);
-	BOOST_CHECK_EQUAL(nj , Nucleotide::C);
+	BOOST_CHECK_EQUAL(ni, Nucleotide::G);
+	BOOST_CHECK_EQUAL(nj, Nucleotide::C);
 	
-	BOOST_CHECK_EQUAL(nip , Nucleotide::C);
-	BOOST_CHECK_EQUAL(njp , Nucleotide::G);
+	BOOST_CHECK_EQUAL(nip, Nucleotide::C);
+	BOOST_CHECK_EQUAL(njp, Nucleotide::G);
 	
 	
-	BOOST_CHECK_EQUAL(rna[i + 1] , Nucleotide::A);
-	BOOST_CHECK_EQUAL(rna[j - 1] , Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[i + 1], Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[j - 1], Nucleotide::A);
 	
-	BOOST_CHECK_EQUAL(rna[jp + 1] , Nucleotide::A);
-	BOOST_CHECK_EQUAL(rna[ip - 1] , Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[jp + 1], Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[ip - 1], Nucleotide::A);
 	
 	
 	p = Pair {i, j};
@@ -906,7 +906,7 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop2)
 	intrapolated_energy = thermodynamics.loop_interior[30] +
 						  (thermodynamics.miscloop[MISCLOOP_PRELOG] * (float) log((float)(n_unpaired_r1 + n_unpaired_r2) / 30));
 						  
-	BOOST_CHECK_EQUAL(energy_35 ,
+	BOOST_CHECK_EQUAL(energy_35,
 					  energy_loop_hairpin + energy_hairpin_stack + energy_hairpin_triloop_GaaaC +
 					  intrapolated_energy + (2 * energy_interior_GC_A_A));
 					  
@@ -922,14 +922,14 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop2)
 	hni = rna[hi];
 	hnj = rna[hj];
 	
-	BOOST_CHECK_EQUAL(hni , Nucleotide::G);
-	BOOST_CHECK_EQUAL(hnj , Nucleotide::C);
+	BOOST_CHECK_EQUAL(hni, Nucleotide::G);
+	BOOST_CHECK_EQUAL(hnj, Nucleotide::C);
 	
 	
-	BOOST_CHECK_EQUAL(rna[i + 1] , Nucleotide::A);
-	BOOST_CHECK_EQUAL(rna[j - 1] , Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[i + 1], Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[j - 1], Nucleotide::A);
 	
-	BOOST_CHECK_EQUAL(rna[jp + 1] , Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[jp + 1], Nucleotide::A);
 	BOOST_CHECK_EQUAL(rna[ip - 1], Nucleotide::A);
 	
 	
@@ -951,11 +951,11 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop2)
 	nip = rna[ip];
 	njp = rna[jp];
 	
-	BOOST_CHECK_EQUAL(ni , Nucleotide::G);
-	BOOST_CHECK_EQUAL(nj , Nucleotide::C);
+	BOOST_CHECK_EQUAL(ni, Nucleotide::G);
+	BOOST_CHECK_EQUAL(nj, Nucleotide::C);
 	
-	BOOST_CHECK_EQUAL(nip , Nucleotide::C);
-	BOOST_CHECK_EQUAL(njp , Nucleotide::G);
+	BOOST_CHECK_EQUAL(nip, Nucleotide::C);
+	BOOST_CHECK_EQUAL(njp, Nucleotide::G);
 	
 	
 	p = Pair {i, j};
@@ -981,7 +981,7 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop2)
 	intrapolated_energy = thermodynamics.loop_interior[30] +
 						  (thermodynamics.miscloop[MISCLOOP_PRELOG] * (float) log((float)(n_unpaired_r1 + n_unpaired_r2) / 30));
 						  
-	BOOST_CHECK_EQUAL(energy_36 ,
+	BOOST_CHECK_EQUAL(energy_36,
 					  energy_loop_hairpin + energy_hairpin_stack + energy_hairpin_triloop_GaaaC +
 					  intrapolated_energy + (2 * energy_interior_GC_A_A));
 					  
@@ -1073,8 +1073,8 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop2_poppen)
 	Nucleotide hni = rna[hi];
 	Nucleotide hnj = rna[hj];
 	
-	BOOST_CHECK_EQUAL(hni , Nucleotide::G);
-	BOOST_CHECK_EQUAL(hnj , Nucleotide::C);
+	BOOST_CHECK_EQUAL(hni, Nucleotide::G);
+	BOOST_CHECK_EQUAL(hnj, Nucleotide::C);
 	
 	Pairing hpairing = Pairing(hni, hnj);
 	
@@ -1094,17 +1094,17 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop2_poppen)
 	Nucleotide nip = rna[ip];
 	Nucleotide njp = rna[jp];
 	
-	BOOST_CHECK_EQUAL(ni , Nucleotide::G);
-	BOOST_CHECK_EQUAL(nj , Nucleotide::C);
+	BOOST_CHECK_EQUAL(ni, Nucleotide::G);
+	BOOST_CHECK_EQUAL(nj, Nucleotide::C);
 	
-	BOOST_CHECK_EQUAL(nip , Nucleotide::C);
-	BOOST_CHECK_EQUAL(njp , Nucleotide::G);
+	BOOST_CHECK_EQUAL(nip, Nucleotide::C);
+	BOOST_CHECK_EQUAL(njp, Nucleotide::G);
 	
 	
-	BOOST_CHECK_EQUAL(rna[i + 1] , Nucleotide::A);
-	BOOST_CHECK_EQUAL(rna[j - 1] , Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[i + 1], Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[j - 1], Nucleotide::A);
 	
-	BOOST_CHECK_EQUAL(rna[jp + 1] , Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[jp + 1], Nucleotide::A);
 	BOOST_CHECK_EQUAL(rna[ip - 1], Nucleotide::A);
 	
 	
@@ -1135,7 +1135,7 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop2_poppen)
 	float intrapolated_energy = thermodynamics.loop_interior[30] +
 								(thermodynamics.miscloop[MISCLOOP_PRELOG] * (float) log((float)(n_unpaired_r1 + n_unpaired_r2) / 30));
 								
-	BOOST_CHECK_EQUAL(energy_32 ,
+	BOOST_CHECK_EQUAL(energy_32,
 					  energy_loop_hairpin + energy_hairpin_stack + energy_hairpin_triloop_GaaaC +
 					  intrapolated_energy + (2 * energy_interior_GC_A_A) +
 					  (0 * asymetric_loopsize_poppen_4)
@@ -1153,8 +1153,8 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop2_poppen)
 	hni = rna[hi];
 	hnj = rna[hj];
 	
-	BOOST_CHECK_EQUAL(hni , Nucleotide::G);
-	BOOST_CHECK_EQUAL(hnj , Nucleotide::C);
+	BOOST_CHECK_EQUAL(hni, Nucleotide::G);
+	BOOST_CHECK_EQUAL(hnj, Nucleotide::C);
 	
 	hpairing = Pairing(hni, hnj);
 	
@@ -1174,18 +1174,18 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop2_poppen)
 	nip = rna[ip];
 	njp = rna[jp];
 	
-	BOOST_CHECK_EQUAL(ni , Nucleotide::G);
-	BOOST_CHECK_EQUAL(nj , Nucleotide::C);
+	BOOST_CHECK_EQUAL(ni, Nucleotide::G);
+	BOOST_CHECK_EQUAL(nj, Nucleotide::C);
 	
-	BOOST_CHECK_EQUAL(nip , Nucleotide::C);
-	BOOST_CHECK_EQUAL(njp , Nucleotide::G);
+	BOOST_CHECK_EQUAL(nip, Nucleotide::C);
+	BOOST_CHECK_EQUAL(njp, Nucleotide::G);
 	
 	
-	BOOST_CHECK_EQUAL(rna[i + 1] , Nucleotide::A);
-	BOOST_CHECK_EQUAL(rna[j - 1] , Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[i + 1], Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[j - 1], Nucleotide::A);
 	
-	BOOST_CHECK_EQUAL(rna[jp + 1] , Nucleotide::A);
-	BOOST_CHECK_EQUAL(rna[ip - 1] , Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[jp + 1], Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[ip - 1], Nucleotide::A);
 	
 	
 	p = Pair {i, j};
@@ -1214,7 +1214,7 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop2_poppen)
 	intrapolated_energy = thermodynamics.loop_interior[30] +
 						  (thermodynamics.miscloop[MISCLOOP_PRELOG] * (float) log((float)(n_unpaired_r1 + n_unpaired_r2) / 30));
 						  
-	BOOST_CHECK_EQUAL(energy_33 ,
+	BOOST_CHECK_EQUAL(energy_33,
 					  energy_loop_hairpin + energy_hairpin_stack + energy_hairpin_triloop_GaaaC +
 					  intrapolated_energy + (2 * energy_interior_GC_A_A) +
 					  (1 * asymetric_loopsize_poppen_4)
@@ -1230,8 +1230,8 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop2_poppen)
 	hni = rna[hi];
 	hnj = rna[hj];
 	
-	BOOST_CHECK_EQUAL(hni , Nucleotide::G);
-	BOOST_CHECK_EQUAL(hnj , Nucleotide::C);
+	BOOST_CHECK_EQUAL(hni, Nucleotide::G);
+	BOOST_CHECK_EQUAL(hnj, Nucleotide::C);
 	
 	hpairing = Pairing(hni, hnj);
 	
@@ -1251,18 +1251,18 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop2_poppen)
 	nip = rna[ip];
 	njp = rna[jp];
 	
-	BOOST_CHECK_EQUAL(ni , Nucleotide::G);
-	BOOST_CHECK_EQUAL(nj , Nucleotide::C);
+	BOOST_CHECK_EQUAL(ni, Nucleotide::G);
+	BOOST_CHECK_EQUAL(nj, Nucleotide::C);
 	
-	BOOST_CHECK_EQUAL(nip , Nucleotide::C);
-	BOOST_CHECK_EQUAL(njp , Nucleotide::G);
+	BOOST_CHECK_EQUAL(nip, Nucleotide::C);
+	BOOST_CHECK_EQUAL(njp, Nucleotide::G);
 	
 	
-	BOOST_CHECK_EQUAL(rna[i + 1] , Nucleotide::A);
-	BOOST_CHECK_EQUAL(rna[j - 1] , Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[i + 1], Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[j - 1], Nucleotide::A);
 	
-	BOOST_CHECK_EQUAL(rna[jp + 1] , Nucleotide::A);
-	BOOST_CHECK_EQUAL(rna[ip - 1] , Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[jp + 1], Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[ip - 1], Nucleotide::A);
 	
 	
 	p = Pair {i, j};
@@ -1292,7 +1292,7 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop2_poppen)
 	intrapolated_energy = thermodynamics.loop_interior[30] +
 						  (thermodynamics.miscloop[MISCLOOP_PRELOG] * (float) log((float)(n_unpaired_r1 + n_unpaired_r2) / 30));
 						  
-	BOOST_CHECK_EQUAL(energy_34 ,
+	BOOST_CHECK_EQUAL(energy_34,
 					  energy_loop_hairpin + energy_hairpin_stack + energy_hairpin_triloop_GaaaC +
 					  intrapolated_energy + (2 * energy_interior_GC_A_A) +
 					  (2 * asymetric_loopsize_poppen_4)
@@ -1310,8 +1310,8 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop2_poppen)
 	hni = rna[hi];
 	hnj = rna[hj];
 	
-	BOOST_CHECK_EQUAL(hni , Nucleotide::G);
-	BOOST_CHECK_EQUAL(hnj , Nucleotide::C);
+	BOOST_CHECK_EQUAL(hni, Nucleotide::G);
+	BOOST_CHECK_EQUAL(hnj, Nucleotide::C);
 	
 	hpairing = Pairing(hni, hnj);
 	
@@ -1331,18 +1331,18 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop2_poppen)
 	nip = rna[ip];
 	njp = rna[jp];
 	
-	BOOST_CHECK_EQUAL(ni , Nucleotide::G);
-	BOOST_CHECK_EQUAL(nj , Nucleotide::C);
+	BOOST_CHECK_EQUAL(ni, Nucleotide::G);
+	BOOST_CHECK_EQUAL(nj, Nucleotide::C);
 	
-	BOOST_CHECK_EQUAL(nip , Nucleotide::C);
-	BOOST_CHECK_EQUAL(njp , Nucleotide::G);
+	BOOST_CHECK_EQUAL(nip, Nucleotide::C);
+	BOOST_CHECK_EQUAL(njp, Nucleotide::G);
 	
 	
-	BOOST_CHECK_EQUAL(rna[i + 1] , Nucleotide::A);
-	BOOST_CHECK_EQUAL(rna[j - 1] , Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[i + 1], Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[j - 1], Nucleotide::A);
 	
-	BOOST_CHECK_EQUAL(rna[jp + 1] , Nucleotide::A);
-	BOOST_CHECK_EQUAL(rna[ip - 1] , Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[jp + 1], Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[ip - 1], Nucleotide::A);
 	
 	
 	p = Pair {i, j};
@@ -1372,7 +1372,7 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop2_poppen)
 	intrapolated_energy = thermodynamics.loop_interior[30] +
 						  (thermodynamics.miscloop[MISCLOOP_PRELOG] * (float) log((float)(n_unpaired_r1 + n_unpaired_r2) / 30));
 						  
-	BOOST_CHECK_EQUAL(energy_35 ,
+	BOOST_CHECK_EQUAL(energy_35,
 					  energy_loop_hairpin + energy_hairpin_stack + energy_hairpin_triloop_GaaaC +
 					  intrapolated_energy + (2 * energy_interior_GC_A_A) +
 					  asymetric_loopsize_correction
@@ -1414,8 +1414,8 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop3)
 	Nucleotide hni = rna[hi];
 	Nucleotide hnj = rna[hj];
 	
-	BOOST_CHECK_EQUAL(hni , Nucleotide::G);
-	BOOST_CHECK_EQUAL(hnj , Nucleotide::C);
+	BOOST_CHECK_EQUAL(hni, Nucleotide::G);
+	BOOST_CHECK_EQUAL(hnj, Nucleotide::C);
 	
 	Pairing hpairing = Pairing(hni, hnj);
 	
@@ -1435,17 +1435,17 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop3)
 	Nucleotide nip = rna[ip];
 	Nucleotide njp = rna[jp];
 	
-	BOOST_CHECK_EQUAL(ni , Nucleotide::G);
-	BOOST_CHECK_EQUAL(nj , Nucleotide::C);
+	BOOST_CHECK_EQUAL(ni, Nucleotide::G);
+	BOOST_CHECK_EQUAL(nj, Nucleotide::C);
 	
-	BOOST_CHECK_EQUAL(nip , Nucleotide::C);
-	BOOST_CHECK_EQUAL(njp , Nucleotide::G);
+	BOOST_CHECK_EQUAL(nip, Nucleotide::C);
+	BOOST_CHECK_EQUAL(njp, Nucleotide::G);
 	
 	
-	BOOST_CHECK_EQUAL(rna[i + 1] , Nucleotide::A);
-	BOOST_CHECK_EQUAL(rna[j - 1] , Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[i + 1], Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[j - 1], Nucleotide::A);
 	
-	BOOST_CHECK_EQUAL(rna[jp + 1] , Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[jp + 1], Nucleotide::A);
 	BOOST_CHECK_EQUAL(rna[ip - 1], Nucleotide::A);
 	
 	Pair p = Pair {i, j};
@@ -1468,7 +1468,7 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop3)
 	// Check
 	float energy = gfe.get_interior_loop_element(r);
 	
-	BOOST_CHECK_EQUAL(energy ,
+	BOOST_CHECK_EQUAL(energy,
 					  energy_loop_hairpin + energy_hairpin_stack + energy_hairpin_triloop_GaaaC +
 					  energy_interior_loop_penalty2
 					 );
@@ -1507,8 +1507,8 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop4)
 	Nucleotide hni = rna[hi];
 	Nucleotide hnj = rna[hj];
 	
-	BOOST_CHECK_EQUAL(hni , Nucleotide::G);
-	BOOST_CHECK_EQUAL(hnj , Nucleotide::C);
+	BOOST_CHECK_EQUAL(hni, Nucleotide::G);
+	BOOST_CHECK_EQUAL(hnj, Nucleotide::C);
 	
 	Pairing hpairing = Pairing(hni, hnj);
 	
@@ -1528,20 +1528,20 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop4)
 	Nucleotide nip = rna[ip];
 	Nucleotide njp = rna[jp];
 	
-	BOOST_CHECK_EQUAL(ni , Nucleotide::G);
-	BOOST_CHECK_EQUAL(nj , Nucleotide::C);
+	BOOST_CHECK_EQUAL(ni, Nucleotide::G);
+	BOOST_CHECK_EQUAL(nj, Nucleotide::C);
 	
-	BOOST_CHECK_EQUAL(nip , Nucleotide::C);
-	BOOST_CHECK_EQUAL(njp , Nucleotide::G);
+	BOOST_CHECK_EQUAL(nip, Nucleotide::C);
+	BOOST_CHECK_EQUAL(njp, Nucleotide::G);
 	
 	
-	BOOST_CHECK_EQUAL(rna[i + 1] , Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[i + 1], Nucleotide::A);
 	BOOST_CHECK_EQUAL(rna[ip - 1], Nucleotide::A);
 	
-	BOOST_CHECK_EQUAL(rna[j - 1] , Nucleotide::A);
-	BOOST_CHECK_EQUAL(rna[jp + 2] , Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[j - 1], Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[jp + 2], Nucleotide::A);
 	
-	BOOST_CHECK_EQUAL(rna[j - 2] , Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[j - 2], Nucleotide::A);
 	BOOST_CHECK_EQUAL(rna[jp + 1], Nucleotide::A);
 	
 	Pair p = Pair {i, j};
@@ -1569,7 +1569,7 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop4)
 	// Check
 	float energy = gfe.get_interior_loop_element(r);
 	
-	BOOST_CHECK_EQUAL(energy ,
+	BOOST_CHECK_EQUAL(energy,
 					  energy_loop_hairpin + energy_hairpin_stack + energy_hairpin_triloop_GaaaC +
 					  energy_interior_loop_penalty2
 					 );
@@ -1609,8 +1609,8 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop5)
 	Nucleotide hni = rna[hi];
 	Nucleotide hnj = rna[hj];
 	
-	BOOST_CHECK_EQUAL(hni , Nucleotide::G);
-	BOOST_CHECK_EQUAL(hnj , Nucleotide::C);
+	BOOST_CHECK_EQUAL(hni, Nucleotide::G);
+	BOOST_CHECK_EQUAL(hnj, Nucleotide::C);
 	
 	Pairing hpairing = Pairing(hni, hnj);
 	
@@ -1630,20 +1630,20 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop5)
 	Nucleotide nip = rna[ip];
 	Nucleotide njp = rna[jp];
 	
-	BOOST_CHECK_EQUAL(ni , Nucleotide::G);
-	BOOST_CHECK_EQUAL(nj , Nucleotide::C);
+	BOOST_CHECK_EQUAL(ni, Nucleotide::G);
+	BOOST_CHECK_EQUAL(nj, Nucleotide::C);
 	
-	BOOST_CHECK_EQUAL(nip , Nucleotide::C);
-	BOOST_CHECK_EQUAL(njp , Nucleotide::G);
+	BOOST_CHECK_EQUAL(nip, Nucleotide::C);
+	BOOST_CHECK_EQUAL(njp, Nucleotide::G);
 	
 	
-	BOOST_CHECK_EQUAL(rna[i + 1] , Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[i + 1], Nucleotide::A);
 	BOOST_CHECK_EQUAL(rna[ip - 2], Nucleotide::A);
 	
-	BOOST_CHECK_EQUAL(rna[j - 1] , Nucleotide::A);
-	BOOST_CHECK_EQUAL(rna[jp + 1] , Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[j - 1], Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[jp + 1], Nucleotide::A);
 	
-	BOOST_CHECK_EQUAL(rna[i + 2] , Nucleotide::G);
+	BOOST_CHECK_EQUAL(rna[i + 2], Nucleotide::G);
 	BOOST_CHECK_EQUAL(rna[ip - 1], Nucleotide::G);
 	
 	Pair p = Pair {i, j};
@@ -1671,7 +1671,7 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop5)
 	// Check
 	float energy = gfe.get_interior_loop_element(r);
 	
-	BOOST_CHECK_EQUAL(energy ,
+	BOOST_CHECK_EQUAL(energy,
 					  energy_loop_hairpin + energy_hairpin_stack + energy_hairpin_triloop_GaaaC +
 					  energy_interior_loop_penalty2
 					 );
@@ -1720,8 +1720,8 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop6)
 	Nucleotide hni = rna[hi];
 	Nucleotide hnj = rna[hj];
 	
-	BOOST_CHECK_EQUAL(hni , Nucleotide::G);
-	BOOST_CHECK_EQUAL(hnj , Nucleotide::C);
+	BOOST_CHECK_EQUAL(hni, Nucleotide::G);
+	BOOST_CHECK_EQUAL(hnj, Nucleotide::C);
 	
 	Pairing hpairing = Pairing(hni, hnj);
 	
@@ -1741,17 +1741,17 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop6)
 	Nucleotide nip = rna[ip];
 	Nucleotide njp = rna[jp];
 	
-	BOOST_CHECK_EQUAL(ni , Nucleotide::G);
-	BOOST_CHECK_EQUAL(nj , Nucleotide::C);
+	BOOST_CHECK_EQUAL(ni, Nucleotide::G);
+	BOOST_CHECK_EQUAL(nj, Nucleotide::C);
 	
-	BOOST_CHECK_EQUAL(nip , Nucleotide::C);
-	BOOST_CHECK_EQUAL(njp , Nucleotide::G);
+	BOOST_CHECK_EQUAL(nip, Nucleotide::C);
+	BOOST_CHECK_EQUAL(njp, Nucleotide::G);
 	
 	
-	BOOST_CHECK_EQUAL(rna[i + 1] , Nucleotide::A);
-	BOOST_CHECK_EQUAL(rna[j - 1] , Nucleotide::A);
-	BOOST_CHECK_EQUAL(rna[i + 2] , Nucleotide::A);
-	BOOST_CHECK_EQUAL(rna[j - 2] , Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[i + 1], Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[j - 1], Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[i + 2], Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[j - 2], Nucleotide::A);
 	
 	
 	Pair p = Pair {i, j};
@@ -1780,7 +1780,7 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop6)
 	// Check
 	float energy = gfe.get_interior_loop_element(r);
 	
-	BOOST_CHECK_EQUAL(energy ,
+	BOOST_CHECK_EQUAL(energy,
 					  energy_loop_hairpin + energy_hairpin_stack + energy_hairpin_triloop_GaaaC +
 					  energy_interior_loop_penalty2
 					 );
@@ -1842,26 +1842,26 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop7)
 	unsigned int jp = i + n_unpaired_r1 + 2 + hairpin_size + 2;
 	
 	
-	BOOST_CHECK_EQUAL(rna[i] , Nucleotide::G);
-	BOOST_CHECK_EQUAL(rna[j] , Nucleotide::C);
+	BOOST_CHECK_EQUAL(rna[i], Nucleotide::G);
+	BOOST_CHECK_EQUAL(rna[j], Nucleotide::C);
 	
-	BOOST_CHECK_EQUAL(rna[ip] , Nucleotide::C);
-	BOOST_CHECK_EQUAL(rna[jp] , Nucleotide::G);
+	BOOST_CHECK_EQUAL(rna[ip], Nucleotide::C);
+	BOOST_CHECK_EQUAL(rna[jp], Nucleotide::G);
 	
 	
-	BOOST_CHECK_EQUAL(rna[i + 1] , Nucleotide::A);
-	BOOST_CHECK_EQUAL(rna[i + 2] , Nucleotide::A);
-	BOOST_CHECK_EQUAL(rna[i + 3] , Nucleotide::A);
-	BOOST_CHECK_EQUAL(rna[ip - 1] , Nucleotide::A);
-	BOOST_CHECK_EQUAL(rna[ip - 2] , Nucleotide::A);
-	BOOST_CHECK_EQUAL(rna[ip - 3] , Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[i + 1], Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[i + 2], Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[i + 3], Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[ip - 1], Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[ip - 2], Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[ip - 3], Nucleotide::A);
 	BOOST_CHECK(rna[i] != Nucleotide::A);
 	BOOST_CHECK(rna[i + 4] != Nucleotide::A);
 	BOOST_CHECK(rna[ip] != Nucleotide::A);
 	BOOST_CHECK(rna[ip - 4] != Nucleotide::A);
 	
-	BOOST_CHECK_EQUAL(rna[j - 1] , Nucleotide::A);
-	BOOST_CHECK_EQUAL(rna[jp + 1] , Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[j - 1], Nucleotide::A);
+	BOOST_CHECK_EQUAL(rna[jp + 1], Nucleotide::A);
 	BOOST_CHECK(rna[j] != Nucleotide::A);
 	BOOST_CHECK(rna[j - 2] != Nucleotide::A);
 	BOOST_CHECK(rna[jp] != Nucleotide::A);
@@ -1886,7 +1886,7 @@ BOOST_AUTO_TEST_CASE(TestInteriorLoop7)
 	// Check
 	float energy = gfe.get_interior_loop_element(r);
 	
-	BOOST_CHECK_EQUAL(energy ,
+	BOOST_CHECK_EQUAL(energy,
 					  energy_loop_hairpin + energy_hairpin_stack + energy_hairpin_triloop_GaaaC +
 					  thermodynamics.loop_interior[4] +
 					  thermodynamics.tstki[PairingType::GC][Nucleotide::A][Nucleotide::A] +

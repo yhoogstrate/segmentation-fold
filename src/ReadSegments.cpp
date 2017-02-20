@@ -269,7 +269,7 @@ void ReadSegments::parse_examples(ptree &xml_examples)
 			}
 			
 			//this->rna_examples->push_back(rna_example { title ,  organism ,  sequence , std::vector<Segment *>(), std::vector<Segment *>() , dot_bracket });
-			this->rna_examples->push_back(rna_example { title ,  organism ,  sequence , std::vector<Segment *>(), dot_bracket });
+			this->rna_examples->push_back(rna_example { title,  organism,  sequence, std::vector<Segment *>(), dot_bracket });
 		}
 	}
 }

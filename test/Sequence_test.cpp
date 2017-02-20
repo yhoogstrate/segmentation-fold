@@ -59,7 +59,7 @@ BOOST_AUTO_TEST_CASE(Test01)
 	s.push_back(n3);
 	s.push_back('G');
 	
-	BOOST_CHECK_EQUAL(s.size() , 8);
+	BOOST_CHECK_EQUAL(s.size(), 8);
 	
 	BOOST_CHECK_EQUAL(s[0], Nucleotide::A);
 	BOOST_CHECK_EQUAL(s[1], Nucleotide::C);

@@ -206,9 +206,9 @@ BOOST_AUTO_TEST_CASE(Test3_multiloop_decomp_tRNA)
 	Pair p2 = Pair(26, 37);
 	Pair p3 = Pair(40, 54);
 	
-	BOOST_CHECK_EQUAL(zuker.wmij.get(p1) , zuker.vij.get(p1));
-	BOOST_CHECK_EQUAL(zuker.wmij.get(p2) , zuker.vij.get(p2));
-	BOOST_CHECK_EQUAL(zuker.wmij.get(p3) , zuker.vij.get(p3));
+	BOOST_CHECK_EQUAL(zuker.wmij.get(p1), zuker.vij.get(p1));
+	BOOST_CHECK_EQUAL(zuker.wmij.get(p2), zuker.vij.get(p2));
+	BOOST_CHECK_EQUAL(zuker.wmij.get(p3), zuker.vij.get(p3));
 	
 	
 	// pairs' left extension  .(((...)))
