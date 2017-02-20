@@ -1861,122 +1861,124 @@ void test_tij(Zuker &zuker)
  */
 BOOST_AUTO_TEST_CASE(Test_bulge_loop)
 {
-    BOOST_TEST_PASSPOINT();
-    for(unsigned char i = 0; i < 10; i++)
-    {
-        BOOST_TEST_PASSPOINT();
-        
-        // Initialize variables
-        Sequence sequence = Sequence("GGGAAAGGGAAACCCCCC");
-        std::string true_structure = "(((...(((...))))))";
-        
-        BOOST_TEST_PASSPOINT();
-        
-        Settings settings = Settings(0, nullptr, sequence);
-        
-        BOOST_TEST_PASSPOINT();
-        
-        ReadData thermodynamics = ReadData();
-        
-        BOOST_TEST_PASSPOINT();
-        
-        // Predict structure
-        Zuker zuker = Zuker(settings, sequence, thermodynamics);
-        
-        BOOST_TEST_PASSPOINT();
-        
-        zuker.energy();
-        
-        // The following code can be used to re-generate the funnctions above:
-        
-        /*
-        //test_vij
-        for(unsigned int x = 0;  x < (unsigned int) sequence.size(); x++)
-        {
-            for(unsigned int y = x;  y < (unsigned int) sequence.size(); y++)
-            {
-                Pair p = Pair(x,y);
-                if(zuker.vij.get(p) == N_INFINITY)
-                {
-                    printf("	p = {%i, %i};e = zuker.vij.get(p);BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY),\"V(%i,%i) = \" + std::to_string(e) );\n", x,  y, x, y);
-                }
-                else
-                {
-                    printf("	p = {%i, %i};e = zuker.vij.get(p);BOOST_CHECK_MESSAGE(IdenticalFloats(e, %.2ff),\"V(%i,%i) = \" + std::to_string(e) );\n", x,  y, zuker.vij.get(p), x, y);
-                }
-            }
-            printf("\n");
-        }
-        exit(1);
-        
-        //test_wij
-        for(unsigned int x = 0;  x < (unsigned int) sequence.size(); x++)
-        {
-            for(unsigned int y = x;  y < (unsigned int) sequence.size(); y++)
-            {
-                Pair p = Pair(x,y);
-                printf("	p = {%i, %i};e = zuker.wij.get(p);BOOST_CHECK_MESSAGE(IdenticalFloats(e, %.2ff),\"W(%i,%i) = \" + std::to_string(e) );\n", x,  y, zuker.wij.get(p), x, y);
-            }
-            printf("\n");
-        }
-        exit(1);
-        
-        //test_tij
-        for(unsigned int x = 0;  x < (unsigned int) sequence.size(); x++)
-        {
-            for(unsigned int y = x;  y < (unsigned int) sequence.size(); y++)
-            {
-                Pair p = Pair(x,y);
-                traceback_jump t = zuker.tij_v.get(p);
-                if(t.target.first == (unsigned int) UNBOUND)
-                {
-                    printf("	p = {%i, %i};t = zuker.tij_v.get(p);BOOST_CHECK_EQUAL(t.target.first, UNBOUND);\n", x,  y, t.store_pair ? "true" : "false");
-                }
-                else
-                {
-                    printf("	p = {%i, %i};t = zuker.tij_v.get(p);BOOST_CHECK_EQUAL(t.target.first, %i);BOOST_CHECK_EQUAL(t.target.second, %i);\n", x,  y, t.store_pair ? "true" : "false", t.target.first, t.target.second);
-                }
-            }
-            printf("\n");
-        }
-        exit(1);
-        */
-        
-        
-        test_vij(zuker);
-        
-        BOOST_TEST_PASSPOINT();
-        
-        test_wij(zuker);
-        
-        BOOST_TEST_PASSPOINT();
-        
-        test_sij(zuker, sequence.size());
-        
-        BOOST_TEST_PASSPOINT();
-        
-        test_tij(zuker);
-        
-        BOOST_TEST_PASSPOINT();
-        
-        zuker.traceback();
-        // Obtain and compare results
-        
-        BOOST_TEST_PASSPOINT();
-        
-        std::string predicted_structure;
-        
-        BOOST_TEST_PASSPOINT();
-        
-        zuker.dot_bracket.format((unsigned int) sequence.size(), predicted_structure); ///@todo unsigned int -> size_t
-        
-        bool valid_structure = predicted_structure.compare(true_structure) == 0;
-        
-        BOOST_TEST_PASSPOINT();
-        BOOST_CHECK_MESSAGE(valid_structure, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
-    }
-    
-    BOOST_TEST_PASSPOINT();
+	BOOST_TEST_PASSPOINT();
+	for(unsigned char i = 0; i < 10; i++)
+	{
+		BOOST_TEST_PASSPOINT();
+		
+		// Initialize variables
+		Sequence sequence = Sequence("GGGAAAGGGAAACCCCCC");
+		std::string true_structure = "(((...(((...))))))";
+		
+		BOOST_TEST_PASSPOINT();
+		
+		char *argv[] = {(char *) PACKAGE_NAME, nullptr};
+		signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+		Settings settings = Settings(argc, argv, sequence);
+		
+		BOOST_TEST_PASSPOINT();
+		
+		ReadData thermodynamics = ReadData();
+		
+		BOOST_TEST_PASSPOINT();
+		
+		// Predict structure
+		Zuker zuker = Zuker(settings, sequence, thermodynamics);
+		
+		BOOST_TEST_PASSPOINT();
+		
+		zuker.energy();
+		
+		// The following code can be used to re-generate the funnctions above:
+		
+		/*
+		//test_vij
+		for(unsigned int x = 0;  x < (unsigned int) sequence.size(); x++)
+		{
+			for(unsigned int y = x;  y < (unsigned int) sequence.size(); y++)
+			{
+				Pair p = Pair(x,y);
+				if(zuker.vij.get(p) == N_INFINITY)
+				{
+					printf("	p = {%i, %i};e = zuker.vij.get(p);BOOST_CHECK_MESSAGE(IdenticalFloats(e, N_INFINITY),\"V(%i,%i) = \" + std::to_string(e) );\n", x,  y, x, y);
+				}
+				else
+				{
+					printf("	p = {%i, %i};e = zuker.vij.get(p);BOOST_CHECK_MESSAGE(IdenticalFloats(e, %.2ff),\"V(%i,%i) = \" + std::to_string(e) );\n", x,  y, zuker.vij.get(p), x, y);
+				}
+			}
+			printf("\n");
+		}
+		exit(1);
+		
+		//test_wij
+		for(unsigned int x = 0;  x < (unsigned int) sequence.size(); x++)
+		{
+			for(unsigned int y = x;  y < (unsigned int) sequence.size(); y++)
+			{
+				Pair p = Pair(x,y);
+				printf("	p = {%i, %i};e = zuker.wij.get(p);BOOST_CHECK_MESSAGE(IdenticalFloats(e, %.2ff),\"W(%i,%i) = \" + std::to_string(e) );\n", x,  y, zuker.wij.get(p), x, y);
+			}
+			printf("\n");
+		}
+		exit(1);
+		
+		//test_tij
+		for(unsigned int x = 0;  x < (unsigned int) sequence.size(); x++)
+		{
+			for(unsigned int y = x;  y < (unsigned int) sequence.size(); y++)
+			{
+				Pair p = Pair(x,y);
+				traceback_jump t = zuker.tij_v.get(p);
+				if(t.target.first == (unsigned int) UNBOUND)
+				{
+					printf("	p = {%i, %i};t = zuker.tij_v.get(p);BOOST_CHECK_EQUAL(t.target.first, UNBOUND);\n", x,  y, t.store_pair ? "true" : "false");
+				}
+				else
+				{
+					printf("	p = {%i, %i};t = zuker.tij_v.get(p);BOOST_CHECK_EQUAL(t.target.first, %i);BOOST_CHECK_EQUAL(t.target.second, %i);\n", x,  y, t.store_pair ? "true" : "false", t.target.first, t.target.second);
+				}
+			}
+			printf("\n");
+		}
+		exit(1);
+		*/
+		
+		
+		test_vij(zuker);
+		
+		BOOST_TEST_PASSPOINT();
+		
+		test_wij(zuker);
+		
+		BOOST_TEST_PASSPOINT();
+		
+		test_sij(zuker, sequence.size());
+		
+		BOOST_TEST_PASSPOINT();
+		
+		test_tij(zuker);
+		
+		BOOST_TEST_PASSPOINT();
+		
+		zuker.traceback();
+		// Obtain and compare results
+		
+		BOOST_TEST_PASSPOINT();
+		
+		std::string predicted_structure;
+		
+		BOOST_TEST_PASSPOINT();
+		
+		zuker.dot_bracket.format((unsigned int) sequence.size(), predicted_structure); ///@todo unsigned int -> size_t
+		
+		bool valid_structure = predicted_structure.compare(true_structure) == 0;
+		
+		BOOST_TEST_PASSPOINT();
+		BOOST_CHECK_MESSAGE(valid_structure, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
+	}
+	
+	BOOST_TEST_PASSPOINT();
 }
 
 BOOST_AUTO_TEST_SUITE_END()
