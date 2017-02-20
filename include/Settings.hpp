@@ -67,8 +67,8 @@ class Settings
 		bool segment_prediction_functionality;
 		std::string segment_filename;
 		
-		bool run_print_version = false;
-		bool run_print_usage = false;
+		bool run_print_version;
+		bool run_print_usage;
 };
 
 

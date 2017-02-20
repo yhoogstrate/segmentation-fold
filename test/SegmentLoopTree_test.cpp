@@ -69,8 +69,8 @@ BOOST_AUTO_TEST_CASE(Test1)
 	Position p1a = query_sequence.data.begin() + 1;
 	Position p1b = query_sequence.data.begin() + 1 + 8;
 	
-	BOOST_CHECK_EQUAL(*p1a , Nucleotide::A);
-	BOOST_CHECK_EQUAL(*p1b , Nucleotide::A);
+	BOOST_CHECK_EQUAL(*p1a, Nucleotide::A);
+	BOOST_CHECK_EQUAL(*p1b, Nucleotide::A);
 	
 	SubSequence p1 = SubSequence(p1a, p1b);
 	
@@ -175,12 +175,12 @@ BOOST_AUTO_TEST_CASE(Test3)
 	Position p1a = query_sequence.data.begin() + 1;
 	Position p1b = query_sequence.data.begin() + 1 + 4;
 	
-	BOOST_CHECK_EQUAL(*p1a , Nucleotide::A);
-	BOOST_CHECK_EQUAL(*p1b , Nucleotide::A);
+	BOOST_CHECK_EQUAL(*p1a, Nucleotide::A);
+	BOOST_CHECK_EQUAL(*p1b, Nucleotide::A);
 	
 	SubSequence p1 = SubSequence(p1a, p1b);
 	
-	BOOST_CHECK_EQUAL(p1.size , 5);
+	BOOST_CHECK_EQUAL(p1.size, 5);
 	
 	SegmentLoopTree segmentloop_tree_01 = SegmentLoopTree();
 	segmentloop_tree_01.insert(segmentloop_01);

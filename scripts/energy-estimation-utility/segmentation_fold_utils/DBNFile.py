@@ -132,9 +132,9 @@ class DBNFile:
                 fh.close()
                 self.logger.warning('Missing index for bam file, trying to index with samtools')
                 try:
-                    subprocess.call(["samtools", "index", bam_file])# Create index
+                    pysam.index(bam_file)
                 except:
-                    self.error.warning('Couldn\'t indexing BAM file with samtools: '+bam_file+'. Are you sure samtools is installed?')
+                    self.logger.warning('Couldn\'t indexing BAM file with samtools: '+bam_file+'. Are you sure samtools is installed?')
         else:
             self.logger.warning('Missing chromosomes in BAM file - is it empty?')
 

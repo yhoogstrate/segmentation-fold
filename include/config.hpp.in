@@ -30,9 +30,6 @@
 /* Define to the version of this package. */
 #define PACKAGE_VERSION "@PROJECT_VERSION@"
 
-/* Version number of package */
-#define VERSION "@PROJECT_VERSION@"
-
 /* Build type (release/debug) */
 #define DEBUG @DEBUG@
 

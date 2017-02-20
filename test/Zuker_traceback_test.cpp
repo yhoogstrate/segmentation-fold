@@ -1861,17 +1861,32 @@ void test_tij(Zuker &zuker)
  */
 BOOST_AUTO_TEST_CASE(Test_bulge_loop)
 {
+	BOOST_TEST_PASSPOINT();
 	for(unsigned char i = 0; i < 10; i++)
 	{
+		BOOST_TEST_PASSPOINT();
+		
 		// Initialize variables
 		Sequence sequence = Sequence("GGGAAAGGGAAACCCCCC");
 		std::string true_structure = "(((...(((...))))))";
 		
-		Settings settings = Settings(0, nullptr, sequence);
+		BOOST_TEST_PASSPOINT();
+		
+		char *argv[] = {(char *) PACKAGE_NAME, nullptr};
+		signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+		Settings settings = Settings(argc, argv, sequence);
+		
+		BOOST_TEST_PASSPOINT();
+		
 		ReadData thermodynamics = ReadData();
+		
+		BOOST_TEST_PASSPOINT();
 		
 		// Predict structure
 		Zuker zuker = Zuker(settings, sequence, thermodynamics);
+		
+		BOOST_TEST_PASSPOINT();
+		
 		zuker.energy();
 		
 		// The following code can be used to re-generate the funnctions above:
@@ -1931,18 +1946,39 @@ BOOST_AUTO_TEST_CASE(Test_bulge_loop)
 		
 		
 		test_vij(zuker);
+		
+		BOOST_TEST_PASSPOINT();
+		
 		test_wij(zuker);
+		
+		BOOST_TEST_PASSPOINT();
+		
 		test_sij(zuker, sequence.size());
+		
+		BOOST_TEST_PASSPOINT();
+		
 		test_tij(zuker);
+		
+		BOOST_TEST_PASSPOINT();
 		
 		zuker.traceback();
 		// Obtain and compare results
+		
+		BOOST_TEST_PASSPOINT();
+		
 		std::string predicted_structure;
-		zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure); ///@todo unsigned int -> size_t
+		
+		BOOST_TEST_PASSPOINT();
+		
+		zuker.dot_bracket.format((unsigned int) sequence.size(), predicted_structure); ///@todo unsigned int -> size_t
 		
 		bool valid_structure = predicted_structure.compare(true_structure) == 0;
+		
+		BOOST_TEST_PASSPOINT();
 		BOOST_CHECK_MESSAGE(valid_structure, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
 	}
+	
+	BOOST_TEST_PASSPOINT();
 }
 
 BOOST_AUTO_TEST_SUITE_END()

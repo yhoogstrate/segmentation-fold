@@ -228,7 +228,7 @@ inline float GibbsFreeEnergy::get_loop_bulge(unsigned int arg_n_unpaired)
 	///@todo Throw exception
 	if(arg_n_unpaired >= (unsigned int) this->thermodynamics.loop_bulge.size())
 	{
-		fprintf(stderr, "GibbsFreeEnergy::get_loop_bulge(): out of bound: %i (size = %i)\n", arg_n_unpaired , (int) this->thermodynamics.loop_bulge.size());
+		fprintf(stderr, "GibbsFreeEnergy::get_loop_bulge(): out of bound: %i (size = %i)\n", arg_n_unpaired, (int) this->thermodynamics.loop_bulge.size());
 		exit(1);
 	}
 #endif //DEBUG
@@ -248,7 +248,7 @@ inline float GibbsFreeEnergy::get_loop_interior(unsigned int arg_n_unpaired)
 	///@todo Throw exception
 	if(arg_n_unpaired >= (unsigned int) this->thermodynamics.loop_interior.size())
 	{
-		fprintf(stderr, "GibbsFreeEnergy::get_loop_interior(): out of bound: %i (size = %i)\n", arg_n_unpaired , (int) this->thermodynamics.loop_interior.size());
+		fprintf(stderr, "GibbsFreeEnergy::get_loop_interior(): out of bound: %i (size = %i)\n", arg_n_unpaired, (int) this->thermodynamics.loop_interior.size());
 		exit(1);
 	}
 #endif //DEBUG
@@ -773,7 +773,7 @@ float GibbsFreeEnergy::get_interior_loop_element(Region &arg_region)
 					  (
 						  (float) abs(n_asym) * this->get_poppen(
 							  std::min(
-								  (unsigned int) this->thermodynamics.poppen_p.size() ,
+								  (unsigned int) this->thermodynamics.poppen_p.size(),
 								  std::min(
 									  l1,
 									  l2
@@ -806,7 +806,7 @@ float GibbsFreeEnergy::get_interior_loop_element(Region &arg_region)
 #if DEBUG
 			if(pairing2.type == PairingType::None)
 			{
-				fprintf(stderr, "GibbsFreeEnergy::get_interior_loop_element - Requesting energy for interior loop enclosing with non canonical pairing [%i,%i].\n", arg_region.pair2.first , arg_region.pair2.second);
+				fprintf(stderr, "GibbsFreeEnergy::get_interior_loop_element - Requesting energy for interior loop enclosing with non canonical pairing [%i,%i].\n", arg_region.pair2.first, arg_region.pair2.second);
 				energy += N_INFINITY;
 			}
 			else

@@ -251,6 +251,7 @@ void SegmentTreeElement::add_segment(Segment &arg_segment, char &arg_search_type
 				i++;
 			}
 			
+			// @todo  debug?
 			if(arg_n == self_n)
 			{
 				std::string err = std::string("adding the following duplicate Segment multiple times to the SegmentTree:\n 5') " + arg_segment.get_sequence(Direction::FivePrime)->str() + "\n 3') " + arg_segment.get_sequence(Direction::ThreePrime)->str());
@@ -266,12 +267,12 @@ void SegmentTreeElement::add_segment(Segment &arg_segment, char &arg_search_type
 /**
  * @brief Searches whether a segment exists in the tree
  *
- *
  * @todo use constants or static enum for cases 1, 2, 3 and 4
  */
 Segment *SegmentTreeElement::search_segment(SubSequence &arg_sequence_5p, SubSequence &arg_sequence_3p)
 {
 	char search_type = 1;
+	
 	return this->search_segment(arg_sequence_5p, arg_sequence_3p, search_type);
 }
 Segment *SegmentTreeElement::search_segment(SubSequence &arg_sequence_5p, SubSequence &arg_sequence_3p, char &arg_search_type)

@@ -1,3 +1,7 @@
+os:
+  - linux
+  - osx
+
 language: cpp
 
 compiler:
@@ -5,40 +9,45 @@ compiler:
   - clang
 
 before_install:
-  - sudo add-apt-repository -y ppa:boost-latest/ppa
-  - sudo apt-get update -qq
+  - if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then sudo add-apt-repository -y ppa:boost-latest/ppa; sudo apt-get update -qq; fi
+  - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then brew update; fi
+
+  - sed -i.bak "s/#pragma/\/\/#pragma/" src/Zuker.cpp 
 
 python:
   - "2.7"
 
-install:
-  - sudo pip install cython
-  - sudo pip install numpy
-  - sudo pip install htseq
-  - sudo pip install pysam
-  - sudo pip install click
-  - sudo pip install nose
-  - sudo apt-get install -qq libboost-filesystem1.55-dev libboost-test1.55-dev valgrind astyle samtools
-  - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
-  - sed -i.bak "s/#pragma/\/\/#pragma/" src/Zuker.cpp 
-  - cmake -DCMAKE_INSTALL_PREFIX=~/.local .
-  - make
-  - make install
-
 addons:
-  apt:
-    sources:
-    - ubuntu-toolchain-r-test
-    packages:
-    - gcc-4.8
-    - g++-4.8
-    - clang
+    apt:
+        sources:
+          - ubuntu-toolchain-r-test
+        packages:
+          - gcc-4.8
+          - g++-4.8
+          - clang
+
+
+install:
+  - sudo pip install numpy ; sudo pip install cython htseq pysam click nose
+
+  - if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then sudo apt-get install -qq libboost-filesystem1.55-dev libboost-test1.55-dev valgrind astyle; fi
+  
+  - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then brew upgrade boost; fi
+  - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then brew install doxygen valgrind astyle; fi
+  
+  - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8" CMAKE_CXX_COMPILER="g++-4.8" CMAKE_C_COMPILER="gcc-4.8"; fi ; cmake -DCMAKE_BUILD_TYPE=debug -DCMAKE_INSTALL_PREFIX=~/.local -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON . ; make ; make install
+
+matrix:
+    exclude:
+        - os: osx
+          compiler: gcc
+
 
 script:
-  - ctest
-  - for f in ./build/test/*; do valgrind --leak-check=full --show-reachable=yes --error-exitcode=1 "$f"; done
+  - ctest --extra-verbose --output-on-failure
+  - if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then for f in ./build/test/*; do valgrind --leak-check=full --show-reachable=yes --error-exitcode=1 "$f"; done; fi
   - if make tidy | grep "Formatted " ; then exit 2; else echo "No changes found by astyle" ; make tidy; fi;
-  - cd scripts/energy-estimation-utility ; python setup.py install --user ; nosetests
+  - cd scripts/energy-estimation-utility ; sudo python setup.py install; nosetests
 # DEfault method hides error messages for certain imports
 # ; python setup.py test
 

@@ -1,3 +1,9 @@
+2017-02-20  Youri Hoogstrate
+	* v1.6.8
+	  - OS X compilation compatibility, several travis and compilation
+	    fixes and cleanups and made a function static. Also fixed
+	    behaviour that differed between DEBUG and RELEASE builts.
+
 2017-02-16  Youri Hoogstrate
 	* v1.6.7
 	  - Replaces <array> include for <vector> for compatible with libc++

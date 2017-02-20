@@ -235,7 +235,7 @@ float Zuker::v(Pair &p1, PairingPlus &p1p)
 				// Find segments:
 				SubSequence pp1 = this->sequence.ssubseq(p1.first + 1, p2.first - 1);
 				SubSequence pp2 = this->sequence.ssubseq(p2.second + 1, p1.second - 1);
-				tmp_segment = this->thermodynamics.segments.search(pp1 , pp2);
+				tmp_segment = this->thermodynamics.segments.search(pp1, pp2);
 				
 				if(tmp_segment != nullptr)
 				{
@@ -488,7 +488,7 @@ float Zuker::wm(Pair &p1, PairingPlus &p1p)
 		tmp_tij.target_matrix = WM_MATRIX;//stay in wm
 	}
 	
-	p2 = Pair(p1.first , p1.second - 1);
+	p2 = Pair(p1.first, p1.second - 1);
 	tmp = this->wmij.get(p2);
 	if(tmp < energy)
 	{
@@ -522,7 +522,6 @@ void Zuker::traceback(void)
 	this->folded_segments = 0;
 	
 	SegmentTraceback *independent_segment_traceback;
-	Pair pair_tmp;
 	
 	traceback_jump origin = {{0, (unsigned int) this->sequence.size() - 1}, W_MATRIX};
 	traceback_jump action;
@@ -566,7 +565,7 @@ void Zuker::traceback(void)
 			if(independent_segment_traceback != nullptr)// If a Segment's traceback is found, trace its internal structure back
 			{
 				this->folded_segments++;
-				pair_tmp = origin.target;
+				Pair pair_tmp = origin.target;
 				
 				while(independent_segment_traceback->traceback(pair_tmp.first, pair_tmp.second))
 				{

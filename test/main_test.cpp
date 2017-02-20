@@ -68,22 +68,39 @@ BOOST_AUTO_TEST_SUITE(Testing)
  */
 BOOST_AUTO_TEST_CASE(Test_unfolded)
 {
+	BOOST_TEST_PASSPOINT();
+	
 	// Initialize variables
 	Sequence sequence = Sequence("AAAaaaAAA");
 	std::string true_structure = ".........";
 	
-	Settings settings = Settings(0, nullptr, sequence);
+	BOOST_TEST_PASSPOINT();
+	
+	char *argv[] = {(char *) PACKAGE_NAME, nullptr};
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	Settings settings = Settings(argc, argv, sequence);
+	
+	BOOST_TEST_PASSPOINT();
+	
 	ReadData thermodynamics = ReadData();
 	
 	// Predict structure
 	Zuker zuker = Zuker(settings, sequence, thermodynamics);
+	
+	BOOST_TEST_PASSPOINT();
+	
 	zuker.energy();
+	
+	BOOST_TEST_PASSPOINT();
+	
 	zuker.traceback();
 	
+	BOOST_TEST_PASSPOINT();
 	// Obtain and compare results
 	std::string predicted_structure;
-	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure); ///@todo make it size_t
+	zuker.dot_bracket.format((unsigned int) sequence.size(), predicted_structure);  ///@todo make it size_t
 	
+	BOOST_TEST_PASSPOINT();
 	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
 }
 
@@ -100,7 +117,10 @@ BOOST_AUTO_TEST_CASE(Test_hairpin)
 	Sequence sequence = Sequence("GGGaaaCCC");
 	std::string true_structure = "(((...)))";
 	
-	Settings settings = Settings(0, nullptr, sequence);
+	char *argv[] = {(char *) PACKAGE_NAME, nullptr};
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	Settings settings = Settings(argc, argv, sequence);
+	
 	ReadData thermodynamics = ReadData();
 	thermodynamics.triloop_map[Sequence("gaaac")] = -10.00;
 	
@@ -111,7 +131,7 @@ BOOST_AUTO_TEST_CASE(Test_hairpin)
 	
 	// Obtain and compare results
 	std::string predicted_structure;
-	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure); ///@todo make it size_t
+	zuker.dot_bracket.format((unsigned int) sequence.size(), predicted_structure);  ///@todo make it size_t
 	
 	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
 }
@@ -138,7 +158,10 @@ BOOST_AUTO_TEST_CASE(Test_bulge_loop)
 	Sequence sequence = Sequence("GGGAAAGGGAAACCCCCC");
 	std::string true_structure = "(((...(((...))))))";
 	
-	Settings settings = Settings(0, nullptr, sequence);
+	char *argv[] = {(char *) PACKAGE_NAME, nullptr};
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	Settings settings = Settings(argc, argv, sequence);
+	
 	ReadData thermodynamics = ReadData();
 	thermodynamics.triloop_map[Sequence("gaaac")] = -10.00;
 	
@@ -149,7 +172,7 @@ BOOST_AUTO_TEST_CASE(Test_bulge_loop)
 	
 	// Obtain and compare results
 	std::string predicted_structure;
-	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure); ///@size_t
+	zuker.dot_bracket.format((unsigned int) sequence.size(), predicted_structure);  ///@size_t
 	
 	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
 }
@@ -180,7 +203,10 @@ BOOST_AUTO_TEST_CASE(Test_interior_loop)
 	Sequence sequence = Sequence("GGGGAAAGGGGAAACCCCAAACCCC");
 	std::string true_structure = "((((...((((...))))...))))";
 	
-	Settings settings = Settings(0, nullptr, sequence);
+	char *argv[] = {(char *) PACKAGE_NAME, nullptr};
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	Settings settings = Settings(argc, argv, sequence);
+	
 	ReadData thermodynamics = ReadData();
 	thermodynamics.triloop_map[Sequence("gaaac")] = -10.00;
 	
@@ -191,7 +217,7 @@ BOOST_AUTO_TEST_CASE(Test_interior_loop)
 	
 	// Obtain and compare results
 	std::string predicted_structure;
-	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure); ///@todo unsinged int -> size_t
+	zuker.dot_bracket.format((unsigned int) sequence.size(), predicted_structure);  ///@todo unsinged int -> size_t
 	
 	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
 }
@@ -230,7 +256,10 @@ BOOST_AUTO_TEST_CASE(Test_bifurcation)
 	Sequence sequence = Sequence("GGGGgggaaaCCCgggAAAcccCCCC");
 	std::string true_structure = "(((((((...)))(((...)))))))";
 	
-	Settings settings = Settings(0, nullptr, sequence);
+	char *argv[] = {(char *) PACKAGE_NAME, nullptr};
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	Settings settings = Settings(argc, argv, sequence);
+	
 	ReadData thermodynamics = ReadData();
 	thermodynamics.triloop_map[Sequence("gaaac")] = -10.00;
 	
@@ -241,7 +270,7 @@ BOOST_AUTO_TEST_CASE(Test_bifurcation)
 	
 	// Obtain and compare results
 	std::string predicted_structure;
-	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure); ///@todo unsigned int -> size_t
+	zuker.dot_bracket.format((unsigned int) sequence.size(), predicted_structure);  ///@todo unsigned int -> size_t
 	
 	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
 }
@@ -263,7 +292,9 @@ BOOST_AUTO_TEST_CASE(Test_bifurcation)
 BOOST_AUTO_TEST_CASE(Test_kturns)
 {
 	Sequence dummy = Sequence("A");
-	Settings settings = Settings(0, nullptr, dummy);
+	char *argv[] = {(char *) PACKAGE_NAME, nullptr};
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	Settings settings = Settings(argc, argv, dummy);
 	
 	ReadData thermodynamics = ReadData();
 	std::vector<rna_example> rna_examples;
@@ -280,9 +311,9 @@ BOOST_AUTO_TEST_CASE(Test_kturns)
 		zuker.traceback();
 		
 		std::string predicted_structure = "";
-		zuker.dot_bracket.format((unsigned int)(*example).sequence.size() , predicted_structure);  ///@todo unsigned int -> size_t
+		zuker.dot_bracket.format((unsigned int)(*example).sequence.size(), predicted_structure);   ///@todo unsigned int -> size_t
 		
-		BOOST_REQUIRE_EQUAL((*example).dot_bracket_pattern.size() , predicted_structure.size());
+		BOOST_REQUIRE_EQUAL((*example).dot_bracket_pattern.size(), predicted_structure.size());
 		BOOST_CHECK_MESSAGE(db.match((*example).dot_bracket_pattern, predicted_structure), "Predicted structure:\n\t" << (*example).title << "\n\t" << (*example).sequence.str() << "\ndoesn't match it's true structure:\n\t" << predicted_structure << " (predicted structure)\n\t" << (*example).dot_bracket_pattern << " (pattern of true structure)\n");
 	}
 }
@@ -297,7 +328,10 @@ BOOST_AUTO_TEST_CASE(Test_kturns)
 BOOST_AUTO_TEST_CASE(Test_kturns_segments_disabled)
 {
 	Sequence dummy = Sequence("A");
-	Settings settings = Settings(0, nullptr, dummy);
+	char *argv[] = {(char *) PACKAGE_NAME, nullptr};
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	Settings settings = Settings(argc, argv, dummy);
+	
 	settings.segment_prediction_functionality = false;
 	
 	ReadData thermodynamics = ReadData();
@@ -313,9 +347,9 @@ BOOST_AUTO_TEST_CASE(Test_kturns_segments_disabled)
 		zuker.traceback();
 		
 		std::string predicted_structure = "";
-		zuker.dot_bracket.format((unsigned int)(*example).sequence.size() , predicted_structure);///@todo unsigned int -> size_t
+		zuker.dot_bracket.format((unsigned int)(*example).sequence.size(), predicted_structure); ///@todo unsigned int -> size_t
 		
-		BOOST_REQUIRE_EQUAL((*example).dot_bracket_pattern.size() , predicted_structure.size());
+		BOOST_REQUIRE_EQUAL((*example).dot_bracket_pattern.size(), predicted_structure.size());
 		BOOST_CHECK_MESSAGE(db.match((*example).dot_bracket_pattern, predicted_structure) == false, "Predicted structure of '" << (*example).title << "' did match its true structure while it shouldn't:\n\t" << predicted_structure << " (predicted structure)\n\t" << (*example).dot_bracket_pattern << " (pattern of true structure)\n");
 	}
 }
@@ -333,7 +367,10 @@ BOOST_AUTO_TEST_CASE(Test_segfault_01)
 	std::string true_structure = "(((...(((((......))))))))";
 	
 	// Load variables etc.
-	Settings settings = Settings(0, nullptr, sequence);
+	char *argv[] = {(char *) PACKAGE_NAME, nullptr};
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	Settings settings = Settings(argc, argv, sequence);
+	
 	ReadData thermodynamics = ReadData();
 	std::vector<rna_example> rna_examples;
 	ReadSegments r = ReadSegments(settings.segment_filename);
@@ -346,7 +383,7 @@ BOOST_AUTO_TEST_CASE(Test_segfault_01)
 	
 	// Obtain and compare results
 	std::string predicted_structure;
-	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure); ///@todo unsigned int -> size_t
+	zuker.dot_bracket.format((unsigned int) sequence.size(), predicted_structure);  ///@todo unsigned int -> size_t
 	
 	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
 }
@@ -364,7 +401,10 @@ BOOST_AUTO_TEST_CASE(Test_zuker_01a)
 	std::string true_structure = "(((....)))";
 	
 	// Load variables etc.
-	Settings settings = Settings(0, nullptr, sequence);
+	char *argv[] = {(char *) PACKAGE_NAME, nullptr};
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	Settings settings = Settings(argc, argv, sequence);
+	
 	ReadData thermodynamics = ReadData();
 	
 	// Predict structure
@@ -372,10 +412,10 @@ BOOST_AUTO_TEST_CASE(Test_zuker_01a)
 	float energy = zuker.energy();
 	zuker.traceback();
 	std::string predicted_structure;
-	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure);///@todo unsigned int -> size_t
+	zuker.dot_bracket.format((unsigned int) sequence.size(), predicted_structure); ///@todo unsigned int -> size_t
 	
 	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
-	BOOST_CHECK_EQUAL(energy , -2.0999999f);
+	BOOST_CHECK_EQUAL(energy, -2.0999999f);
 }
 
 
@@ -391,7 +431,10 @@ BOOST_AUTO_TEST_CASE(Test_zuker_01b)
 	std::string true_structure = "(((.....)))";
 	
 	// Load variables etc.
-	Settings settings = Settings(0, nullptr, sequence);
+	char *argv[] = {(char *) PACKAGE_NAME, nullptr};
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	Settings settings = Settings(argc, argv, sequence);
+	
 	ReadData thermodynamics = ReadData();
 	
 	// Predict structure
@@ -399,10 +442,10 @@ BOOST_AUTO_TEST_CASE(Test_zuker_01b)
 	float energy = zuker.energy();
 	zuker.traceback();
 	std::string predicted_structure;
-	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure);///@todo unsigned int -> size_t
+	zuker.dot_bracket.format((unsigned int) sequence.size(), predicted_structure); ///@todo unsigned int -> size_t
 	
 	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
-	BOOST_CHECK_EQUAL(energy , -2.0999999f);
+	BOOST_CHECK_EQUAL(energy, -2.0999999f);
 }
 
 
@@ -418,7 +461,10 @@ BOOST_AUTO_TEST_CASE(Test_zuker_01c)
 	std::string true_structure = "(((......)))";
 	
 	// Load variables etc.
-	Settings settings = Settings(0, nullptr, sequence);
+	char *argv[] = {(char *) PACKAGE_NAME, nullptr};
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	Settings settings = Settings(argc, argv, sequence);
+	
 	ReadData thermodynamics = ReadData();
 	
 	// Predict structure
@@ -426,10 +472,10 @@ BOOST_AUTO_TEST_CASE(Test_zuker_01c)
 	float energy = zuker.energy();
 	zuker.traceback();
 	std::string predicted_structure;
-	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure);///@todo unsigned int -> size_t
+	zuker.dot_bracket.format((unsigned int) sequence.size(), predicted_structure); ///@todo unsigned int -> size_t
 	
 	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
-	BOOST_CHECK_EQUAL(energy , -2.29999971f);//@mfold says -2.3
+	BOOST_CHECK_EQUAL(energy, -2.29999971f); //@mfold says -2.3
 }
 
 
@@ -445,7 +491,10 @@ BOOST_AUTO_TEST_CASE(Test_zuker_02)
 	std::string true_structure = "........................";
 	
 	// Load variables etc.
-	Settings settings = Settings(0, nullptr, sequence);
+	char *argv[] = {(char *) PACKAGE_NAME, nullptr};
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	Settings settings = Settings(argc, argv, sequence);
+	
 	ReadData thermodynamics = ReadData();
 	
 	// Predict structure
@@ -453,10 +502,10 @@ BOOST_AUTO_TEST_CASE(Test_zuker_02)
 	float energy = zuker.energy();
 	zuker.traceback();
 	std::string predicted_structure;
-	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure);///@todo unsigned int -> size_t
+	zuker.dot_bracket.format((unsigned int) sequence.size(), predicted_structure); ///@todo unsigned int -> size_t
 	
 	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
-	BOOST_CHECK_EQUAL(energy , 0.0f);//@mfold says 0.0
+	BOOST_CHECK_EQUAL(energy, 0.0f); //@mfold says 0.0
 }
 
 
@@ -472,7 +521,10 @@ BOOST_AUTO_TEST_CASE(Test_zuker_03)
 	std::string true_structure = "..........................";
 	
 	// Load variables etc.
-	Settings settings = Settings(0, nullptr, sequence);
+	char *argv[] = {(char *) PACKAGE_NAME, nullptr};
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	Settings settings = Settings(argc, argv, sequence);
+	
 	ReadData thermodynamics = ReadData();
 	
 	// Predict structure
@@ -480,10 +532,10 @@ BOOST_AUTO_TEST_CASE(Test_zuker_03)
 	float energy = zuker.energy();
 	zuker.traceback();
 	std::string predicted_structure;
-	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure);///@todo unsigned int -> size_t
+	zuker.dot_bracket.format((unsigned int) sequence.size(), predicted_structure); ///@todo unsigned int -> size_t
 	
 	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
-	BOOST_CHECK_EQUAL(energy , 0.0f);//@mfold says 0.0
+	BOOST_CHECK_EQUAL(energy, 0.0f); //@mfold says 0.0
 }
 
 
@@ -499,7 +551,10 @@ BOOST_AUTO_TEST_CASE(Test_zuker_04)
 	std::string true_structure = "((((...))))((((.....))))";
 	
 	// Load variables etc.
-	Settings settings = Settings(0, nullptr, sequence);
+	char *argv[] = {(char *) PACKAGE_NAME, nullptr};
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	Settings settings = Settings(argc, argv, sequence);
+	
 	ReadData thermodynamics = ReadData();
 	
 	// Predict structure
@@ -507,10 +562,10 @@ BOOST_AUTO_TEST_CASE(Test_zuker_04)
 	float energy = zuker.energy();
 	zuker.traceback();
 	std::string predicted_structure;
-	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure);///@todo unsigned int -> size_t
+	zuker.dot_bracket.format((unsigned int) sequence.size(), predicted_structure); ///@todo unsigned int -> size_t
 	
 	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
-	BOOST_CHECK_EQUAL(energy , -9.90000057f);
+	BOOST_CHECK_EQUAL(energy, -9.90000057f);
 }
 
 
@@ -527,7 +582,10 @@ BOOST_AUTO_TEST_CASE(Test_zuker_05)
 	std::string true_structure = "((((...)))).((((.....))))";
 	
 	// Load variables etc.
-	Settings settings = Settings(0, nullptr, sequence);
+	char *argv[] = {(char *) PACKAGE_NAME, nullptr};
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	Settings settings = Settings(argc, argv, sequence);
+	
 	ReadData thermodynamics = ReadData();
 	
 	// Predict structure
@@ -535,10 +593,10 @@ BOOST_AUTO_TEST_CASE(Test_zuker_05)
 	float energy = zuker.energy();
 	zuker.traceback();
 	std::string predicted_structure;
-	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure);///@todo unsigned int -> size_t
+	zuker.dot_bracket.format((unsigned int) sequence.size(), predicted_structure); ///@todo unsigned int -> size_t
 	
 	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
-	BOOST_CHECK_EQUAL(energy , -9.90000057f);
+	BOOST_CHECK_EQUAL(energy, -9.90000057f);
 }
 
 
@@ -555,7 +613,10 @@ BOOST_AUTO_TEST_CASE(Test_zuker_06)
 	std::string true_structure = "((((...))))..((((.....))))";
 	
 	// Load variables etc.
-	Settings settings = Settings(0, nullptr, sequence);
+	char *argv[] = {(char *) PACKAGE_NAME, nullptr};
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	Settings settings = Settings(argc, argv, sequence);
+	
 	ReadData thermodynamics = ReadData();
 	
 	// Predict structure
@@ -563,10 +624,10 @@ BOOST_AUTO_TEST_CASE(Test_zuker_06)
 	float energy = zuker.energy();
 	zuker.traceback();
 	std::string predicted_structure;
-	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure);///@todo unsigned int -> size_t
+	zuker.dot_bracket.format((unsigned int) sequence.size(), predicted_structure); ///@todo unsigned int -> size_t
 	
 	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
-	BOOST_CHECK_EQUAL(energy , -9.90000057f);
+	BOOST_CHECK_EQUAL(energy, -9.90000057f);
 }
 
 
@@ -581,7 +642,10 @@ BOOST_AUTO_TEST_CASE(Test_zuker_07)
 	std::string true_structure = "((((...))))...((((.....))))";
 	
 	// Load variables etc.
-	Settings settings = Settings(0, nullptr, sequence);
+	char *argv[] = {(char *) PACKAGE_NAME, nullptr};
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	Settings settings = Settings(argc, argv, sequence);
+	
 	ReadData thermodynamics = ReadData();
 	
 	// Predict structure
@@ -589,10 +653,10 @@ BOOST_AUTO_TEST_CASE(Test_zuker_07)
 	float energy = zuker.energy();
 	zuker.traceback();
 	std::string predicted_structure;
-	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure);///@todo unsigned int -> size_t
+	zuker.dot_bracket.format((unsigned int) sequence.size(), predicted_structure); ///@todo unsigned int -> size_t
 	
 	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
-	BOOST_CHECK_EQUAL(energy , -9.90000057f);
+	BOOST_CHECK_EQUAL(energy, -9.90000057f);
 }
 
 
@@ -611,7 +675,10 @@ BOOST_AUTO_TEST_CASE(Test_zuker_08)
 	std::string true_structure = "((((((...((((((...))))))..((((....))))..((((((...))))))...))))))";
 	
 	// Load variables etc.
-	Settings settings = Settings(0, nullptr, sequence);
+	char *argv[] = {(char *) PACKAGE_NAME, nullptr};
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	Settings settings = Settings(argc, argv, sequence);
+	
 	ReadData thermodynamics = ReadData();
 	
 	// Predict structure
@@ -619,10 +686,10 @@ BOOST_AUTO_TEST_CASE(Test_zuker_08)
 	float energy = zuker.energy();
 	zuker.traceback();
 	std::string predicted_structure;
-	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure);///@todo unsigned int -> size_t
+	zuker.dot_bracket.format((unsigned int) sequence.size(), predicted_structure); ///@todo unsigned int -> size_t
 	
 	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
-	BOOST_CHECK_EQUAL(energy , -43.000004f);//-41.30 according to vienna
+	BOOST_CHECK_EQUAL(energy, -43.000004f); //-41.30 according to vienna
 }
 
 
@@ -638,7 +705,10 @@ BOOST_AUTO_TEST_CASE(Test_zuker_09)
 	std::string true_structure = "(((...(((((...))))))))";
 	
 	// Load variables etc.
-	Settings settings = Settings(0, nullptr, sequence);
+	char *argv[] = {(char *) PACKAGE_NAME, nullptr};
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	Settings settings = Settings(argc, argv, sequence);
+	
 	ReadData thermodynamics = ReadData();
 	
 	// Predict structure
@@ -647,10 +717,10 @@ BOOST_AUTO_TEST_CASE(Test_zuker_09)
 	
 	zuker.traceback();
 	std::string predicted_structure;
-	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure);///@todo unsigned int -> size_t
+	zuker.dot_bracket.format((unsigned int) sequence.size(), predicted_structure); ///@todo unsigned int -> size_t
 	
 	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
-	BOOST_CHECK_EQUAL(energy , -12.000001f);
+	BOOST_CHECK_EQUAL(energy, -12.000001f);
 }
 
 
@@ -691,7 +761,7 @@ BOOST_AUTO_TEST_CASE(Test_zuker_10_i46)
 	
 	// Load variables etc.
 	
-	char *argv[] = {(char *) PACKAGE_NAME, (char *) "-s", (char *) "ACUUGUGAUGAAACACUCAUGGUCUGAAGA", (char *) "-x" , (char *) filename.c_str(), nullptr};
+	char *argv[] = {(char *) PACKAGE_NAME, (char *) "-s", (char *) "ACUUGUGAUGAAACACUCAUGGUCUGAAGA", (char *) "-x", (char *) filename.c_str(), nullptr};
 	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 	Settings settings = Settings(argc, argv, sequence);
 	//Settings settings = Settings(0, nullptr, sequence);
@@ -702,7 +772,7 @@ BOOST_AUTO_TEST_CASE(Test_zuker_10_i46)
 	zuker.energy();
 	zuker.traceback();
 	std::string predicted_structure;
-	zuker.dot_bracket.format((unsigned int) sequence.size() , predicted_structure);///@todo unsigned int -> size_t
+	zuker.dot_bracket.format((unsigned int) sequence.size(), predicted_structure); ///@todo unsigned int -> size_t
 	
 	BOOST_CHECK_MESSAGE(predicted_structure.compare(true_structure) == 0, "Predicted structure '" << predicted_structure << "' and true structure '" << true_structure << "' are different");
 	

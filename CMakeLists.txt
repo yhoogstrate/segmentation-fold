@@ -33,7 +33,7 @@ cmake_minimum_required(VERSION 2.8)
 
 project(segmentation-fold)
 
-set(PROJECT_VERSION "1.6.7")
+set(PROJECT_VERSION "1.6.8")
 set(PACKAGE_URL "https://github.com/yhoogstrate/segmentation-fold")
 set(PACKAGE_BUGREPORT "${PACKAGE_URL}/issues")
 
@@ -127,6 +127,16 @@ add_custom_target(doc DEPENDS make_doc)
 add_subdirectory(src)
 include_directories(include)
 add_definitions(-std=c++0x)
+
+# Boost
+find_package(Boost COMPONENTS system filesystem unit_test_framework REQUIRED)
+if(NOT Boost_FOUND)
+  message(FATAL_ERROR "Boost not found or requirement not satisfied. See building instructions.")
+else()
+  message(STATUS "Found Boost: ${Boost_INCLUDE_DIR}, ${Boost_LIBRARIES}")
+  add_definitions(-DBOOST_ALL_DYN_LINK)
+  include_directories(${Boost_INCLUDE_DIRS})
+endif()
 
 # OpenMP - threading
 find_package(OpenMP)

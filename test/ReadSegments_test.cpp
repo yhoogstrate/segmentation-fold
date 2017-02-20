@@ -88,8 +88,8 @@ BOOST_AUTO_TEST_CASE(Test1)
 	ReadSegments r = ReadSegments(filename);
 	r.parse(segments, segmentloops);
 	
-	BOOST_CHECK_EQUAL(segments.empty() , true);
-	BOOST_CHECK_EQUAL(segments.size() , 0);
+	BOOST_CHECK_EQUAL(segments.empty(), true);
+	BOOST_CHECK_EQUAL(segments.size(), 0);
 	
 	unlink(filename.c_str());
 }
@@ -131,8 +131,8 @@ BOOST_AUTO_TEST_CASE(Test2)
 	ReadSegments r = ReadSegments(filename);
 	r.parse(segments, segmentloops);
 	
-	BOOST_CHECK_EQUAL(segments.empty() , false);
-	BOOST_CHECK_EQUAL(segments.size() , 1);
+	BOOST_CHECK_EQUAL(segments.empty(), false);
+	BOOST_CHECK_EQUAL(segments.size(), 1);
 	
 	Sequence sequence_5p = Sequence("GAAGAA");
 	Sequence sequence_3p = Sequence("GGA");// Rotated; 5'->3'
@@ -145,19 +145,19 @@ BOOST_AUTO_TEST_CASE(Test2)
 	Segment *segment = segments.search(subsequence_5p, subsequence_3p);
 	
 	BOOST_REQUIRE(segment != nullptr);
-	BOOST_CHECK_EQUAL(segment->gibbs_free_energy , (float) - 11.1072);
+	BOOST_CHECK_EQUAL(segment->gibbs_free_energy, (float) - 11.1072);
 	
 	
 	Test_SegmentTraceback *segmenttraceback_test = static_cast<Test_SegmentTraceback *>(& segment->traceback);
 	
-	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[0].first , 4);
-	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[0].second , 1);
+	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[0].first, 4);
+	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[0].second, 1);
 	
-	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[1].first , 1);
-	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[1].second , 1);
+	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[1].first, 1);
+	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[1].second, 1);
 	
-	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[2].first , 1);
-	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[2].second , 1);
+	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[2].first, 1);
+	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[2].second, 1);
 	
 	
 	unsigned int i = 10;
@@ -251,8 +251,8 @@ BOOST_AUTO_TEST_CASE(Test3)
 	r.parse(segments, segmentloops);
 	
 	
-	BOOST_CHECK_EQUAL(segments.empty() , false);
-	BOOST_CHECK_EQUAL(segments.size() , 1);
+	BOOST_CHECK_EQUAL(segments.empty(), false);
+	BOOST_CHECK_EQUAL(segments.size(), 1);
 	
 	Sequence sequence_5p = Sequence("GGA");
 	Sequence sequence_3p = Sequence("GAAGAA");// Rotated; 5'->3'
@@ -266,21 +266,21 @@ BOOST_AUTO_TEST_CASE(Test3)
 	
 	
 	BOOST_REQUIRE(segment != nullptr);
-	BOOST_CHECK_EQUAL(segment->gibbs_free_energy , (float) - 11.1072);
+	BOOST_CHECK_EQUAL(segment->gibbs_free_energy, (float) - 11.1072);
 	
 	
 	// Allow testing private members
 	Test_SegmentTraceback *segmenttraceback_test = static_cast<Test_SegmentTraceback *>(& segment->traceback);
 	
 	// Check bonds
-	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[0].first , 1);
-	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[0].second , 1);
+	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[0].first, 1);
+	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[0].second, 1);
 	
-	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[1].first , 1);
-	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[1].second , 1);
+	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[1].first, 1);
+	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[1].second, 1);
 	
-	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[2].first , 1);
-	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[2].second , 1);
+	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[2].first, 1);
+	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[2].second, 1);
 	
 	unlink(filename.c_str());
 }
@@ -319,8 +319,8 @@ BOOST_AUTO_TEST_CASE(Test4)
 	ReadSegments r = ReadSegments(filename);
 	r.parse(segments, segmentloops);
 	
-	BOOST_CHECK_EQUAL(segments.empty() , false);
-	BOOST_CHECK_EQUAL(segments.size() , 2);
+	BOOST_CHECK_EQUAL(segments.empty(), false);
+	BOOST_CHECK_EQUAL(segments.size(), 2);
 	
 	unlink(filename.c_str());
 }
@@ -660,8 +660,8 @@ BOOST_AUTO_TEST_CASE(Test5)
 	const int n = 61;
 	int i = 0;
 	
-	BOOST_CHECK_EQUAL(segment_tree.empty() , false);
-	BOOST_CHECK_EQUAL(segment_tree.size() , n * 2);// forward and reverse
+	BOOST_CHECK_EQUAL(segment_tree.empty(), false);
+	BOOST_CHECK_EQUAL(segment_tree.size(), n * 2); // forward and reverse
 	
 	std::pair<Sequence, Sequence> segments[n];
 	segments[i++] = {Sequence("GAAGAA"),   Sequence("GGA")};
@@ -738,8 +738,8 @@ BOOST_AUTO_TEST_CASE(Test5)
 		
 		segment = segment_tree.search(subsequence_5p, subsequence_3p);
 		
-		BOOST_REQUIRE_MESSAGE(segment != nullptr , "failed with segment: " << segments[i].first.str().c_str() << "," << segments[i].second.str().c_str());
-		BOOST_CHECK_MESSAGE(segment->gibbs_free_energy == (float) - 11.1072 , "failed with segment: " << segments[i].first.str().c_str() << "," << segments[i].second.str().c_str());
+		BOOST_REQUIRE_MESSAGE(segment != nullptr, "failed with segment: " << segments[i].first.str().c_str() << "," << segments[i].second.str().c_str());
+		BOOST_CHECK_MESSAGE(segment->gibbs_free_energy == (float) - 11.1072, "failed with segment: " << segments[i].first.str().c_str() << "," << segments[i].second.str().c_str());
 	}
 	
 	unlink(filename.c_str());
@@ -764,7 +764,7 @@ BOOST_AUTO_TEST_CASE(Test_E1)
 	ReadSegments r = ReadSegments(filename);
 	r.parse(segments, segmentloops, rna_examples);
 	
-	BOOST_CHECK_EQUAL(rna_examples.size() , 28);
+	BOOST_CHECK_EQUAL(rna_examples.size(), 28);
 }
 
 
@@ -806,8 +806,8 @@ BOOST_AUTO_TEST_CASE(Test6)
 	ReadSegments r = ReadSegments(filename);
 	r.parse(segments, segmentloops);
 	
-	BOOST_CHECK_EQUAL(segments.empty() , false);
-	BOOST_CHECK_EQUAL(segments.size() , 2);
+	BOOST_CHECK_EQUAL(segments.empty(), false);
+	BOOST_CHECK_EQUAL(segments.size(), 2);
 	
 	Sequence sequence_5p = Sequence("UUUGAC");
 	Sequence sequence_3p = Sequence("CGA");// Rotated; 5'->3'
@@ -849,8 +849,8 @@ BOOST_AUTO_TEST_CASE(Test6)
 		pj = j;
 	}
 	
-	BOOST_CHECK_EQUAL(segment->size(Direction::FivePrime) , 6);
-	BOOST_CHECK_EQUAL(segment->size(Direction::ThreePrime) , 3);
+	BOOST_CHECK_EQUAL(segment->size(Direction::FivePrime), 6);
+	BOOST_CHECK_EQUAL(segment->size(Direction::ThreePrime), 3);
 	
 	unlink(filename.c_str());
 	unsigned int n0 = 0;
@@ -860,16 +860,16 @@ BOOST_AUTO_TEST_CASE(Test6)
 	unsigned int n4 = 4;
 	unsigned int n5 = 5;
 	
-	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::FivePrime, n0) , Nucleotide::U);
-	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::FivePrime, n1) , Nucleotide::U);
-	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::FivePrime, n2) , Nucleotide::U);
-	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::FivePrime, n3) , Nucleotide::G);
-	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::FivePrime, n4) , Nucleotide::A);
-	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::FivePrime, n5) , Nucleotide::C);
+	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::FivePrime, n0), Nucleotide::U);
+	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::FivePrime, n1), Nucleotide::U);
+	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::FivePrime, n2), Nucleotide::U);
+	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::FivePrime, n3), Nucleotide::G);
+	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::FivePrime, n4), Nucleotide::A);
+	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::FivePrime, n5), Nucleotide::C);
 	
-	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::ThreePrime, n0) , Nucleotide::C);
-	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::ThreePrime, n1) , Nucleotide::G);
-	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::ThreePrime, n2) , Nucleotide::A);
+	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::ThreePrime, n0), Nucleotide::C);
+	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::ThreePrime, n1), Nucleotide::G);
+	BOOST_CHECK_EQUAL(segment->get_nucleotide(Direction::ThreePrime, n2), Nucleotide::A);
 	
 	unlink(filename.c_str());
 }
@@ -906,26 +906,26 @@ BOOST_AUTO_TEST_CASE(Test7)
 	ReadSegments r = ReadSegments(filename);
 	r.parse(segments, segmentloops);
 	
-	BOOST_CHECK_EQUAL(segmentloops.empty() , false);
-	BOOST_CHECK_EQUAL(segmentloops.size() , 1);
+	BOOST_CHECK_EQUAL(segmentloops.empty(), false);
+	BOOST_CHECK_EQUAL(segmentloops.size(), 1);
 	
 	Sequence sequence = Sequence("CAAGAA");
 	SubSequence subsequence = sequence.ssubseq(0, sequence.size() - 1);
 	SegmentLoop *segmentloop = segmentloops.search(subsequence);
 	
 	BOOST_REQUIRE(segmentloop != nullptr);
-	BOOST_CHECK_EQUAL(segmentloop->gibbs_free_energy , (float) - 5.0);
+	BOOST_CHECK_EQUAL(segmentloop->gibbs_free_energy, (float) - 5.0);
 	
 	
 	// Allow testing private members
 	Test_SegmentTraceback *segmenttraceback_test = static_cast<Test_SegmentTraceback *>(& segmentloop->traceback);
 	
 	// Check bonds
-	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[0].first , 1);
-	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[0].second , 1);
+	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[0].first, 1);
+	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[0].second, 1);
 	
-	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[1].first , 1);
-	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[1].second , 1);
+	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[1].first, 1);
+	BOOST_CHECK_EQUAL(segmenttraceback_test->bonds[1].second, 1);
 	
 	unlink(filename.c_str());
 }
@@ -951,27 +951,27 @@ BOOST_AUTO_TEST_CASE(Test8)
 	//[1,1], [1,1], [1,1]
 	std::string dbn1 = "(((.)))";
 	std::vector<Pair> dbn1_bonds = trs.dotbracket_to_bonds(dbn1);
-	BOOST_CHECK_EQUAL(dbn1_bonds.size() , 3);
-	BOOST_CHECK_EQUAL(dbn1_bonds[0].first , 1);
-	BOOST_CHECK_EQUAL(dbn1_bonds[0].second , 1);
-	BOOST_CHECK_EQUAL(dbn1_bonds[1].first , 1);
-	BOOST_CHECK_EQUAL(dbn1_bonds[1].second , 1);
-	BOOST_CHECK_EQUAL(dbn1_bonds[2].first , 1);
-	BOOST_CHECK_EQUAL(dbn1_bonds[2].second , 1);
+	BOOST_CHECK_EQUAL(dbn1_bonds.size(), 3);
+	BOOST_CHECK_EQUAL(dbn1_bonds[0].first, 1);
+	BOOST_CHECK_EQUAL(dbn1_bonds[0].second, 1);
+	BOOST_CHECK_EQUAL(dbn1_bonds[1].first, 1);
+	BOOST_CHECK_EQUAL(dbn1_bonds[1].second, 1);
+	BOOST_CHECK_EQUAL(dbn1_bonds[2].first, 1);
+	BOOST_CHECK_EQUAL(dbn1_bonds[2].second, 1);
 	
 	
 	//should convert into (1,1),(1,2),(2,1),(1,1)
 	std::string dbn2 = "((.(())).)";
 	std::vector<Pair> dbn2_bonds = trs.dotbracket_to_bonds(dbn2);
-	BOOST_CHECK_EQUAL(dbn2_bonds.size() , 4);
-	BOOST_CHECK_EQUAL(dbn2_bonds[0].first , 1);
-	BOOST_CHECK_EQUAL(dbn2_bonds[0].second , 1);
-	BOOST_CHECK_EQUAL(dbn2_bonds[1].first , 1);
-	BOOST_CHECK_EQUAL(dbn2_bonds[1].second , 2);
-	BOOST_CHECK_EQUAL(dbn2_bonds[2].first , 2);
-	BOOST_CHECK_EQUAL(dbn2_bonds[2].second , 1);
-	BOOST_CHECK_EQUAL(dbn2_bonds[3].first , 1);
-	BOOST_CHECK_EQUAL(dbn2_bonds[3].second , 1);
+	BOOST_CHECK_EQUAL(dbn2_bonds.size(), 4);
+	BOOST_CHECK_EQUAL(dbn2_bonds[0].first, 1);
+	BOOST_CHECK_EQUAL(dbn2_bonds[0].second, 1);
+	BOOST_CHECK_EQUAL(dbn2_bonds[1].first, 1);
+	BOOST_CHECK_EQUAL(dbn2_bonds[1].second, 2);
+	BOOST_CHECK_EQUAL(dbn2_bonds[2].first, 2);
+	BOOST_CHECK_EQUAL(dbn2_bonds[2].second, 1);
+	BOOST_CHECK_EQUAL(dbn2_bonds[3].first, 1);
+	BOOST_CHECK_EQUAL(dbn2_bonds[3].second, 1);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

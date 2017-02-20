@@ -54,17 +54,17 @@ BOOST_AUTO_TEST_CASE(Test_1)
 	
 	SegmentTraceback segmenttraceback = SegmentTraceback(bonds);
 	
-	BOOST_CHECK_EQUAL(segmenttraceback.size() , 3);
+	BOOST_CHECK_EQUAL(segmenttraceback.size(), 3);
 	
 	unsigned int i = 0;
 	unsigned int j = 20;
 	
 	while(segmenttraceback.traceback(i, j))
 	{
-		BOOST_CHECK_EQUAL(segmenttraceback.size() , 3);
+		BOOST_CHECK_EQUAL(segmenttraceback.size(), 3);
 	}
 	
-	BOOST_CHECK_EQUAL(segmenttraceback.size() , 3);
+	BOOST_CHECK_EQUAL(segmenttraceback.size(), 3);
 }
 
 
@@ -80,7 +80,7 @@ BOOST_AUTO_TEST_CASE(Test_2)
 	
 	SegmentTraceback segmenttraceback = SegmentTraceback(bonds);
 	
-	BOOST_CHECK_EQUAL(segmenttraceback.size() , 0);
+	BOOST_CHECK_EQUAL(segmenttraceback.size(), 0);
 	
 	unsigned int i = 0;
 	unsigned int j = 0;
@@ -90,7 +90,7 @@ BOOST_AUTO_TEST_CASE(Test_2)
 		BOOST_REQUIRE_MESSAGE(1 != 1, "An empty segmenttraceback should not pop");
 	}
 	
-	BOOST_CHECK_EQUAL(segmenttraceback.size() , 0);
+	BOOST_CHECK_EQUAL(segmenttraceback.size(), 0);
 }
 
 
@@ -106,17 +106,17 @@ BOOST_AUTO_TEST_CASE(Test_3)
 	
 	SegmentTraceback segmenttraceback = SegmentTraceback(bonds);
 	
-	BOOST_CHECK_EQUAL(segmenttraceback.size() , 9);
+	BOOST_CHECK_EQUAL(segmenttraceback.size(), 9);
 	
 	unsigned int i = 0;
 	unsigned int j = 8;
 	
 	while(segmenttraceback.traceback(i, j))
 	{
-		BOOST_CHECK_EQUAL(segmenttraceback.size() , 9);
+		BOOST_CHECK_EQUAL(segmenttraceback.size(), 9);
 	}
 	
-	BOOST_CHECK_EQUAL(segmenttraceback.size() , 9);
+	BOOST_CHECK_EQUAL(segmenttraceback.size(), 9);
 }
 
 

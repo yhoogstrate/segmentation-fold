@@ -58,7 +58,7 @@ PairingPlus::PairingPlus(Position arg_position1, Position arg_position2):
  * @brief Stores positions and sets PairingType - If size is known apriori, it is useless to re-calculate it and thus save it immediately
  */
 PairingPlus::PairingPlus(Position arg_position1, Position arg_position2, size_t arg_size):
-	Pairing(*arg_position1 , *arg_position2),
+	Pairing(*arg_position1, *arg_position2),
 	position1(arg_position1),
 	position2(arg_position2),
 	size(arg_size)

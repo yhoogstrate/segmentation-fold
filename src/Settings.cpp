@@ -70,6 +70,9 @@ Settings::Settings(int arg_argc, char **arg_argv, Sequence &arg_sequence) :
 	
 	this->segment_filename = std::string();
 	
+	this->run_print_version = false;
+	this->run_print_usage = false;
+	
 	this->parse_arguments();
 	this->get_segments_file();
 }
@@ -118,7 +121,7 @@ void Settings::print_version(void)
 	std::cout << "[License]\n  GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>.\n\n";
 	std::cout << "  This is free software: you are free to change and redistribute it.\n";
 	std::cout << "  There is NO WARRANTY, to the extent permitted by law.\n\n";
-	std::cout << "  Written by Youri Hoogstrate.\n";
+	std::cout << "  Copyright (C) 2012-2017  Youri Hoogstrate.\n";
 	
 	this->run_print_version = true;
 }
