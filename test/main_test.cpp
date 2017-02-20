@@ -76,7 +76,9 @@ BOOST_AUTO_TEST_CASE(Test_unfolded)
 	
 	BOOST_TEST_PASSPOINT();
 	
-	Settings settings = Settings(0, nullptr, sequence);
+	char *argv[] = {(char *) PACKAGE_NAME, nullptr};
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	Settings settings = Settings(argc, argv, sequence);
 	
 	BOOST_TEST_PASSPOINT();
 	
@@ -115,7 +117,10 @@ BOOST_AUTO_TEST_CASE(Test_hairpin)
 	Sequence sequence = Sequence("GGGaaaCCC");
 	std::string true_structure = "(((...)))";
 	
-	Settings settings = Settings(0, nullptr, sequence);
+	char *argv[] = {(char *) PACKAGE_NAME, nullptr};
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	Settings settings = Settings(argc, argv, sequence);
+	
 	ReadData thermodynamics = ReadData();
 	thermodynamics.triloop_map[Sequence("gaaac")] = -10.00;
 	
@@ -153,7 +158,10 @@ BOOST_AUTO_TEST_CASE(Test_bulge_loop)
 	Sequence sequence = Sequence("GGGAAAGGGAAACCCCCC");
 	std::string true_structure = "(((...(((...))))))";
 	
-	Settings settings = Settings(0, nullptr, sequence);
+	char *argv[] = {(char *) PACKAGE_NAME, nullptr};
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	Settings settings = Settings(argc, argv, sequence);
+	
 	ReadData thermodynamics = ReadData();
 	thermodynamics.triloop_map[Sequence("gaaac")] = -10.00;
 	
@@ -195,7 +203,10 @@ BOOST_AUTO_TEST_CASE(Test_interior_loop)
 	Sequence sequence = Sequence("GGGGAAAGGGGAAACCCCAAACCCC");
 	std::string true_structure = "((((...((((...))))...))))";
 	
-	Settings settings = Settings(0, nullptr, sequence);
+	char *argv[] = {(char *) PACKAGE_NAME, nullptr};
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	Settings settings = Settings(argc, argv, sequence);
+	
 	ReadData thermodynamics = ReadData();
 	thermodynamics.triloop_map[Sequence("gaaac")] = -10.00;
 	
@@ -245,7 +256,10 @@ BOOST_AUTO_TEST_CASE(Test_bifurcation)
 	Sequence sequence = Sequence("GGGGgggaaaCCCgggAAAcccCCCC");
 	std::string true_structure = "(((((((...)))(((...)))))))";
 	
-	Settings settings = Settings(0, nullptr, sequence);
+	char *argv[] = {(char *) PACKAGE_NAME, nullptr};
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	Settings settings = Settings(argc, argv, sequence);
+	
 	ReadData thermodynamics = ReadData();
 	thermodynamics.triloop_map[Sequence("gaaac")] = -10.00;
 	
@@ -278,7 +292,9 @@ BOOST_AUTO_TEST_CASE(Test_bifurcation)
 BOOST_AUTO_TEST_CASE(Test_kturns)
 {
 	Sequence dummy = Sequence("A");
-	Settings settings = Settings(0, nullptr, dummy);
+	char *argv[] = {(char *) PACKAGE_NAME, nullptr};
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	Settings settings = Settings(argc, argv, dummy);
 	
 	ReadData thermodynamics = ReadData();
 	std::vector<rna_example> rna_examples;
@@ -312,7 +328,10 @@ BOOST_AUTO_TEST_CASE(Test_kturns)
 BOOST_AUTO_TEST_CASE(Test_kturns_segments_disabled)
 {
 	Sequence dummy = Sequence("A");
-	Settings settings = Settings(0, nullptr, dummy);
+	char *argv[] = {(char *) PACKAGE_NAME, nullptr};
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	Settings settings = Settings(argc, argv, dummy);
+	
 	settings.segment_prediction_functionality = false;
 	
 	ReadData thermodynamics = ReadData();
@@ -348,7 +367,10 @@ BOOST_AUTO_TEST_CASE(Test_segfault_01)
 	std::string true_structure = "(((...(((((......))))))))";
 	
 	// Load variables etc.
-	Settings settings = Settings(0, nullptr, sequence);
+	char *argv[] = {(char *) PACKAGE_NAME, nullptr};
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	Settings settings = Settings(argc, argv, sequence);
+	
 	ReadData thermodynamics = ReadData();
 	std::vector<rna_example> rna_examples;
 	ReadSegments r = ReadSegments(settings.segment_filename);
@@ -379,7 +401,10 @@ BOOST_AUTO_TEST_CASE(Test_zuker_01a)
 	std::string true_structure = "(((....)))";
 	
 	// Load variables etc.
-	Settings settings = Settings(0, nullptr, sequence);
+	char *argv[] = {(char *) PACKAGE_NAME, nullptr};
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	Settings settings = Settings(argc, argv, sequence);
+	
 	ReadData thermodynamics = ReadData();
 	
 	// Predict structure
@@ -406,7 +431,10 @@ BOOST_AUTO_TEST_CASE(Test_zuker_01b)
 	std::string true_structure = "(((.....)))";
 	
 	// Load variables etc.
-	Settings settings = Settings(0, nullptr, sequence);
+	char *argv[] = {(char *) PACKAGE_NAME, nullptr};
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	Settings settings = Settings(argc, argv, sequence);
+	
 	ReadData thermodynamics = ReadData();
 	
 	// Predict structure
@@ -433,7 +461,10 @@ BOOST_AUTO_TEST_CASE(Test_zuker_01c)
 	std::string true_structure = "(((......)))";
 	
 	// Load variables etc.
-	Settings settings = Settings(0, nullptr, sequence);
+	char *argv[] = {(char *) PACKAGE_NAME, nullptr};
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	Settings settings = Settings(argc, argv, sequence);
+	
 	ReadData thermodynamics = ReadData();
 	
 	// Predict structure
@@ -460,7 +491,10 @@ BOOST_AUTO_TEST_CASE(Test_zuker_02)
 	std::string true_structure = "........................";
 	
 	// Load variables etc.
-	Settings settings = Settings(0, nullptr, sequence);
+	char *argv[] = {(char *) PACKAGE_NAME, nullptr};
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	Settings settings = Settings(argc, argv, sequence);
+	
 	ReadData thermodynamics = ReadData();
 	
 	// Predict structure
@@ -487,7 +521,10 @@ BOOST_AUTO_TEST_CASE(Test_zuker_03)
 	std::string true_structure = "..........................";
 	
 	// Load variables etc.
-	Settings settings = Settings(0, nullptr, sequence);
+	char *argv[] = {(char *) PACKAGE_NAME, nullptr};
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	Settings settings = Settings(argc, argv, sequence);
+	
 	ReadData thermodynamics = ReadData();
 	
 	// Predict structure
@@ -514,7 +551,10 @@ BOOST_AUTO_TEST_CASE(Test_zuker_04)
 	std::string true_structure = "((((...))))((((.....))))";
 	
 	// Load variables etc.
-	Settings settings = Settings(0, nullptr, sequence);
+	char *argv[] = {(char *) PACKAGE_NAME, nullptr};
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	Settings settings = Settings(argc, argv, sequence);
+	
 	ReadData thermodynamics = ReadData();
 	
 	// Predict structure
@@ -542,7 +582,10 @@ BOOST_AUTO_TEST_CASE(Test_zuker_05)
 	std::string true_structure = "((((...)))).((((.....))))";
 	
 	// Load variables etc.
-	Settings settings = Settings(0, nullptr, sequence);
+	char *argv[] = {(char *) PACKAGE_NAME, nullptr};
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	Settings settings = Settings(argc, argv, sequence);
+	
 	ReadData thermodynamics = ReadData();
 	
 	// Predict structure
@@ -570,7 +613,10 @@ BOOST_AUTO_TEST_CASE(Test_zuker_06)
 	std::string true_structure = "((((...))))..((((.....))))";
 	
 	// Load variables etc.
-	Settings settings = Settings(0, nullptr, sequence);
+	char *argv[] = {(char *) PACKAGE_NAME, nullptr};
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	Settings settings = Settings(argc, argv, sequence);
+	
 	ReadData thermodynamics = ReadData();
 	
 	// Predict structure
@@ -596,7 +642,10 @@ BOOST_AUTO_TEST_CASE(Test_zuker_07)
 	std::string true_structure = "((((...))))...((((.....))))";
 	
 	// Load variables etc.
-	Settings settings = Settings(0, nullptr, sequence);
+	char *argv[] = {(char *) PACKAGE_NAME, nullptr};
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	Settings settings = Settings(argc, argv, sequence);
+	
 	ReadData thermodynamics = ReadData();
 	
 	// Predict structure
@@ -626,7 +675,10 @@ BOOST_AUTO_TEST_CASE(Test_zuker_08)
 	std::string true_structure = "((((((...((((((...))))))..((((....))))..((((((...))))))...))))))";
 	
 	// Load variables etc.
-	Settings settings = Settings(0, nullptr, sequence);
+	char *argv[] = {(char *) PACKAGE_NAME, nullptr};
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	Settings settings = Settings(argc, argv, sequence);
+	
 	ReadData thermodynamics = ReadData();
 	
 	// Predict structure
@@ -653,7 +705,10 @@ BOOST_AUTO_TEST_CASE(Test_zuker_09)
 	std::string true_structure = "(((...(((((...))))))))";
 	
 	// Load variables etc.
-	Settings settings = Settings(0, nullptr, sequence);
+	char *argv[] = {(char *) PACKAGE_NAME, nullptr};
+	signed int argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+	Settings settings = Settings(argc, argv, sequence);
+	
 	ReadData thermodynamics = ReadData();
 	
 	// Predict structure
