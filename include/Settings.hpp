@@ -69,6 +69,8 @@ class Settings
 		std::string segment_filename;
 		
 		bool proceed_with_folding;
+		
+		static std::string readlink_self(void);
 };
 
 

@@ -376,16 +376,31 @@ std::vector<std::string> Settings::get_share_directories(void)
 	directories.push_back("~/.local/share/");
 	
 	
-	// This is for local installations that do not make use of ~/.local, e.g. conda and brew
-	char binary_path[PATH_MAX + 1];
-	readlink("/proc/self/exe", binary_path, PATH_MAX + 1);
-	
-	directories.push_back(std::string(binary_path) + "/../share/");
-	directories.push_back(std::string(dirname(binary_path)) + "/../share/");
+	directories.push_back(this->readlink_self() + "/../share/");
 	
 	return directories;
 }
 
+
+/**
+ * @brief Returns path of executable in a mem safe way as std::string
+ *
+ * @static
+ */
+std::string Settings::readlink_self()
+{
+	char buffer[PATH_MAX + 1];
+	ssize_t len = ::readlink("/proc/self/exe", buffer, PATH_MAX);
+	if(len != -1)
+	{
+		buffer[len] = '\0';
+		return std::string(buffer);
+	}
+	else
+	{
+		return std::string("");
+	}
+}
 
 
 /**
