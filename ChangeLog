@@ -1,3 +1,16 @@
+2017-02-22  Youri Hoogstrate
+	* v1.7.0
+	  - Improved searching config files for installations that do not
+	    make use of system default paths like conda and brew.
+	  - Changed CLI:
+	    * Added -X, --default-xml to find the installations default XM
+	      file
+	    * Replaced -h for -H, to obtain the hairpin size and -h has
+	      become the equivalent of --help
+	    * Improved layout of --help
+	    * Solved a bug in parsing -t
+	    * Updated corresponding test-cases + new one for -X
+
 2017-02-20  Youri Hoogstrate
 	* v1.6.8
 	  - OS X compilation compatibility, several travis and compilation

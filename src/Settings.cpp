@@ -28,6 +28,9 @@
 
 
 
+#include <libgen.h>
+#include <limits.h>
+
 #include "Utils/utils.hpp"
 
 #include "Pair.hpp"
@@ -70,38 +73,42 @@ Settings::Settings(int arg_argc, char **arg_argv, Sequence &arg_sequence) :
 	
 	this->segment_filename = std::string();
 	
-	this->run_print_version = false;
-	this->run_print_usage = false;
+	this->proceed_with_folding = true;
 	
 	this->parse_arguments();
-	this->get_segments_file();
 }
 
 
 
 /**
  * @brief Prints usage
+ * 
+ * @todo write to stdout if `as_error` == False
  */
-void Settings::print_usage(void)
+void Settings::print_usage(bool as_error)
 {
+	this->proceed_with_folding = false;
+	
 	std::cerr << "Usage: " PACKAGE_NAME " -s [SEQUENCE]\n";
-	std::cerr << "Usage: " PACKAGE_NAME " -f [FASTA_FILE]\n";
+	std::cerr << "       " PACKAGE_NAME " -f [FASTA_FILE]\n";
 	std::cerr << "   * Note: If FASTA_FILE and SEQUENCE are not provided,\n";
 	std::cerr << "           the program will read from STDIN.\n";
 	std::cerr << "\n\n";
 	std::cerr << "The following parameters can be used:\n";
-	std::cerr << "  -s SEQUENCE                Specific RNA SEQUENCE (overrules -f)\n";
-	std::cerr << "  -f FASTA_FILE              Location to FASTA_FILE that contains the sequence\n\n";
-	std::cerr << "  -p                  [1/0]  Enable/disable segment prediction functionality\n\n";
-	std::cerr << "  -h HAIRPINSIZE      [1,N}  Minimum hairpin size, default: 3\n";
-	std::cerr << "  -x SEGMENTS_XML_FILE       Use custom  \"segments.xml\"-syntaxed file\n\n";
-	std::cerr << "  -t NUM_THREADS      [0,N}  Number of threads; 0 = maximum available, default: 3\n\n";
-	std::cerr << "  -V                         Shows the version and license\n";
+	std::cerr << "  -s SEQUENCE       Specific RNA SEQUENCE (overrules -f)\n";
+	std::cerr << "  -f FASTA_FILE     Path of FASTA_FILE containing sequence(s)\n";
+	std::cerr << "  -p                Enable/disable segment functionality           [1/0]\n";
+	std::cerr << "  -H HAIRPINSIZE    Minimum hairpin size, default: 3               [1,N}\n";
+	std::cerr << "  -x SEGMENTS_XML   Use custom  \"segments.xml\"-syntaxed file\n";
+	std::cerr << "  -t NUM_THREADS    Number of threads; 0 = maximum available,      [0,N}\n";
+	std::cerr << "                    default: 3 \n\n";
+	std::cerr << "  -h, --help        Display this help and exit\n";
+	std::cerr << "  -V, --version     Show version and license\n";
+	std::cerr << "  -X, --default-xml Show path to default \"segments.xml\" on\n";
+	std::cerr << "                    system\n";
 	std::cerr << "\n\n";
-	std::cerr << "If you encounter problems with this software, please send bug-reports to:\n";
+	std::cerr << "If you encounter problems with this software, please report it at:\n";
 	std::cerr << "   <" PACKAGE_BUGREPORT ">\n\n";
-	
-	this->run_print_usage = true;
 }
 
 
@@ -111,6 +118,8 @@ void Settings::print_usage(void)
  */
 void Settings::print_version(void)
 {
+	this->proceed_with_folding = false;
+	
 #if DEBUG
 #define BUILD_TYPE_STRING " (debug)"
 #else
@@ -122,8 +131,28 @@ void Settings::print_version(void)
 	std::cout << "  This is free software: you are free to change and redistribute it.\n";
 	std::cout << "  There is NO WARRANTY, to the extent permitted by law.\n\n";
 	std::cout << "  Copyright (C) 2012-2017  Youri Hoogstrate.\n";
+}
+
+
+void Settings::print_default_xml(void)
+{
+	this->proceed_with_folding = false;
 	
-	this->run_print_version = true;
+	/* convenient for development
+		printf("scanning directories:\n");
+		std::vector<std::string> data_directories = this->get_share_directories();
+		for(std::vector<std::string>::iterator it = data_directories.begin(); it != data_directories.end(); ++it)
+		{
+			std::cout << "\t" << *it << PACKAGE_NAME << "/\n";
+		}
+		std::cout << "\n";
+	*/
+	
+	this->get_segments_file();
+	char *real_path = realpath(this->segment_filename.c_str(), nullptr);
+	std::cout << real_path << "\n";
+	
+	free(real_path);
 }
 
 
@@ -137,25 +166,38 @@ void Settings::parse_arguments(void)
 	// This allows parsing arguments multiple times during one program (e.g. functional testing)
 	optind = 1;
 	
-	bool proceed = true;
+	bool proceed_parsing_arguments = true;//proceed with parsing arguments
+	
 	int c;
 	size_t i;
 	
-	if(this->argc > 1 && strcmp(this->argv[1], "--version") == 0)
+	if(this->argc > 1)
 	{
-		this->argv[1] = (char *) "-V\0";
+		if(strcmp(this->argv[1], "--version") == 0)
+		{
+			this->argv[1] = (char *) "-V\0";
+		}
+		else if(strcmp(this->argv[1], "--default-xml") == 0)
+		{
+			this->argv[1] = (char *) "-X\0";
+		}
+		else if(strcmp(this->argv[1], "--help") == 0)
+		{
+			this->argv[1] = (char *) "-h\0";
+		}
 	}
 	
-	while((c = getopt(this->argc, this->argv, "+h:f:s:p:x:t:V")) > 0 && proceed)
+	// 'So to distinguish them, getopt provides a mechanism. All the options that require argument will be preceded by a : (colon).'
+	while((c = getopt(this->argc, this->argv, "+H:f:s:p:x:t:hVX")) > 0 && proceed_parsing_arguments)
 	{
 		switch(c)
 		{
-			case 'h':													// option -h for minimum hairpin length
+			case 'H':													// option -h for minimum hairpin length
 				for(i = 0; i < strlen(optarg); i++)///@todo Validate whether we are converting a true integer
 				{
 					if(!isdigit(optarg[i]))
 					{
-						this->print_usage();
+						this->print_usage(false);
 					}
 				}
 				sscanf(optarg, "%d", &this->minimal_hairpin_length);	// TODO use atoi?
@@ -191,30 +233,48 @@ void Settings::parse_arguments(void)
 				}
 				break;
 			case 't':
-				for(i = 0; i < strlen(optarg); i++)
+				for(i = 0; i < strlen(optarg); i++)// all chars must be integers
 				{
 					if(!isdigit(optarg[i]))
 					{
-						this->print_usage();
+						proceed_parsing_arguments = false;
+						break;
 					}
 				}
-				sscanf(optarg, "%d", &this->num_threads);
+				
+				if(proceed_parsing_arguments == false)
+				{
+					this->print_usage(true);
+				}
+				else
+				{
+					sscanf(optarg, "%d", &this->num_threads);
+				}
 				break;
 			case 'V':
+				proceed_parsing_arguments = false;
 				this->print_version();
-				proceed = false;
+				break;
+			case 'X':
+				proceed_parsing_arguments = false;
+				this->print_default_xml();
 				break;
 			default:
-				this->print_usage();
-				proceed = false;
+				proceed_parsing_arguments = false;
+				this->print_usage(true);
 				break;
 		}
 	}
 	
-	if(this->obj_sequence.empty() && this->run_print_version == false && this->run_print_usage == false)
+	if(this->proceed_with_folding)
 	{
-		printf("Please insert your RNA sequence:\n");
-		this->parse_sequence_from_stream(stdin);
+		this->get_segments_file();
+		
+		if(this->obj_sequence.empty())
+		{
+			printf("Please insert your RNA sequence:\n");
+			this->parse_sequence_from_stream(stdin);
+		}
 	}
 }
 
@@ -302,6 +362,14 @@ std::vector<std::string> Settings::get_share_directories(void)
 	directories.push_back(SEGMENTS_PATH "/");
 	directories.push_back("~/.local/share/");
 	
+	
+	// This is for local installations that do not make use of ~/.local, e.g. conda and brew
+	char binary_path[PATH_MAX+1];
+	readlink("/proc/self/exe", binary_path, PATH_MAX+1);
+	
+	directories.push_back(std::string(binary_path) + "/../share/");
+	directories.push_back(std::string(dirname(binary_path)) + "/../share/");
+	
 	return directories;
 }
 
@@ -312,7 +380,6 @@ std::vector<std::string> Settings::get_share_directories(void)
  *
  * @section DESCRIPTION
  * The file is usually found in "/usr/local/share/[package_name]
- *
  */
 void Settings::get_segments_file(void)
 {

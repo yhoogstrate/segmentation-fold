@@ -203,7 +203,7 @@ BOOST_AUTO_TEST_CASE(Test3)
 
 
 /**
- * @brief Tests whether the minimal hairpin-size can be set (-h)
+ * @brief Tests whether the minimal hairpin-size can be set (-H)
  *
  * @test
  *
@@ -230,7 +230,7 @@ BOOST_AUTO_TEST_CASE(Test4)
 		is = std::to_string(i);
 		char *ics = (char *) is.c_str();
 		
-		char *argv[] = {(char *) PACKAGE_NAME, (char *) "-s", (char *) "a", (char *) "-h", (char *) ics, nullptr};
+		char *argv[] = {(char *) PACKAGE_NAME, (char *) "-s", (char *) "a", (char *) "-H", (char *) ics, nullptr};
 		argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
 		
 		Settings settings = Settings(argc, argv, sequence);
@@ -287,7 +287,7 @@ BOOST_AUTO_TEST_CASE(Test6)
 		
 		Settings settings = Settings(argc, argv, sequence);
 		
-		BOOST_CHECK_EQUAL(settings.run_print_version, false);
+		BOOST_CHECK_EQUAL(settings.proceed_with_folding, true);
 	}
 	
 	{
@@ -297,7 +297,7 @@ BOOST_AUTO_TEST_CASE(Test6)
 		
 		Settings settings = Settings(argc, argv, sequence);
 		
-		BOOST_CHECK_EQUAL(settings.run_print_version, true);
+		BOOST_CHECK_EQUAL(settings.proceed_with_folding, false);
 	}
 }
 
@@ -319,7 +319,7 @@ BOOST_AUTO_TEST_CASE(Test7)
 		
 		Settings settings = Settings(argc, argv, sequence);
 		
-		BOOST_CHECK_EQUAL(settings.run_print_version, false);
+		BOOST_CHECK_EQUAL(settings.proceed_with_folding, true);
 	}
 	
 	{
@@ -329,7 +329,7 @@ BOOST_AUTO_TEST_CASE(Test7)
 		
 		Settings settings = Settings(argc, argv, sequence);
 		
-		BOOST_CHECK_EQUAL(settings.run_print_version, true);
+		BOOST_CHECK_EQUAL(settings.proceed_with_folding, false);
 	}
 }
 
@@ -337,7 +337,6 @@ BOOST_AUTO_TEST_CASE(Test7)
  * @brief Tests whether the version command is being picked up (--help)
  *
  * @test
- *
  */
 BOOST_AUTO_TEST_CASE(Test8)
 {
@@ -351,7 +350,7 @@ BOOST_AUTO_TEST_CASE(Test8)
 		
 		Settings settings = Settings(argc, argv, sequence);
 		
-		BOOST_CHECK_EQUAL(settings.run_print_usage, false);
+		BOOST_CHECK_EQUAL(settings.proceed_with_folding, true);
 	}
 	
 	{
@@ -361,15 +360,25 @@ BOOST_AUTO_TEST_CASE(Test8)
 		
 		Settings settings = Settings(argc, argv, sequence);
 		
-		BOOST_CHECK_EQUAL(settings.run_print_usage, true);
+		BOOST_CHECK_EQUAL(settings.proceed_with_folding, false);
+	}
+	
+	{
+		// Check non existing file
+		char *argv[] = {(char *) PACKAGE_NAME, (char *) "-h", nullptr};
+		argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+		
+		Settings settings = Settings(argc, argv, sequence);
+		
+		BOOST_CHECK_EQUAL(settings.proceed_with_folding, false);
 	}
 }
+
 
 /**
  * @brief Tests whether the number of threads is being picked up (-t)
  *
  * @test
- *
  */
 BOOST_AUTO_TEST_CASE(Test9)
 {
@@ -401,4 +410,47 @@ BOOST_AUTO_TEST_CASE(Test9)
 		BOOST_CHECK_MESSAGE(settings.num_threads  == i, "Failed to obtain num_threads of " << i << " ( " << settings.num_threads << " was found instead)");
 	}
 }
+
+
+/**
+ * @brief Tests whether the default xml command is being picked up (-X, --default-xml)
+ *
+ * @test
+ */
+BOOST_AUTO_TEST_CASE(Test10)
+{
+	Sequence sequence;
+	int argc;
+	
+	{
+		// Check example file
+		char *argv[] = {(char *) PACKAGE_NAME, (char *) "-s", (char *) "a", nullptr};
+		argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+		
+		Settings settings = Settings(argc, argv, sequence);
+		
+		BOOST_CHECK_EQUAL(settings.proceed_with_folding, true);
+	}
+	
+	{
+		// Check non existing file
+		char *argv[] = {(char *) PACKAGE_NAME, (char *) "--default-xml", nullptr};
+		argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+		
+		Settings settings = Settings(argc, argv, sequence);
+		
+		BOOST_CHECK_EQUAL(settings.proceed_with_folding, false);
+	}
+	
+	{
+		// Check non existing file
+		char *argv[] = {(char *) PACKAGE_NAME, (char *) "-X", nullptr};
+		argc = (signed int) sizeof(argv) / (signed int) sizeof(char *) - 1;
+		
+		Settings settings = Settings(argc, argv, sequence);
+		
+		BOOST_CHECK_EQUAL(settings.proceed_with_folding, false);
+	}
+}
+
 BOOST_AUTO_TEST_SUITE_END()
