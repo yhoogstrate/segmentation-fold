@@ -82,33 +82,33 @@ Settings::Settings(int arg_argc, char **arg_argv, Sequence &arg_sequence) :
 
 /**
  * @brief Prints usage
- *
- * @todo write to stdout if `as_error` == False
  */
 void Settings::print_usage(bool as_error)
 {
 	this->proceed_with_folding = false;
 	
-	std::cerr << "Usage: " PACKAGE_NAME " -s [SEQUENCE]\n";
-	std::cerr << "       " PACKAGE_NAME " -f [FASTA_FILE]\n";
-	std::cerr << "   * Note: If FASTA_FILE and SEQUENCE are not provided,\n";
-	std::cerr << "           the program will read from STDIN.\n";
-	std::cerr << "\n\n";
-	std::cerr << "The following parameters can be used:\n";
-	std::cerr << "  -s SEQUENCE       Specific RNA SEQUENCE (overrules -f)\n";
-	std::cerr << "  -f FASTA_FILE     Path of FASTA_FILE containing sequence(s)\n";
-	std::cerr << "  -p                Enable/disable segment functionality           [1/0]\n";
-	std::cerr << "  -H HAIRPINSIZE    Minimum hairpin size, default: 3               [1,N}\n";
-	std::cerr << "  -x SEGMENTS_XML   Use custom  \"segments.xml\"-syntaxed file\n";
-	std::cerr << "  -t NUM_THREADS    Number of threads; 0 = maximum available,      [0,N}\n";
-	std::cerr << "                    default: 3 \n\n";
-	std::cerr << "  -h, --help        Display this help and exit\n";
-	std::cerr << "  -V, --version     Show version and license\n";
-	std::cerr << "  -X, --default-xml Show path to default \"segments.xml\" on\n";
-	std::cerr << "                    system\n";
-	std::cerr << "\n\n";
-	std::cerr << "If you encounter problems with this software, please report it at:\n";
-	std::cerr << "   <" PACKAGE_BUGREPORT ">\n\n";
+	std::ostream &stream = as_error ? std::cerr : std::cout;
+	
+	stream << "Usage: " PACKAGE_NAME " -s [SEQUENCE]\n";
+	stream << "       " PACKAGE_NAME " -f [FASTA_FILE]\n";
+	stream << "   * Note: If FASTA_FILE and SEQUENCE are not provided,\n";
+	stream << "           the program will read from STDIN.\n";
+	stream << "\n\n";
+	stream << "The following parameters can be used:\n";
+	stream << "  -s SEQUENCE       Specific RNA SEQUENCE (overrules -f)\n";
+	stream << "  -f FASTA_FILE     Path of FASTA_FILE containing sequence(s)\n";
+	stream << "  -p                Enable/disable segment functionality           [1/0]\n";
+	stream << "  -H HAIRPINSIZE    Minimum hairpin size, default: 3               [1,N}\n";
+	stream << "  -x SEGMENTS_XML   Use custom  \"segments.xml\"-syntaxed file\n";
+	stream << "  -t NUM_THREADS    Number of threads; 0 = maximum available,      [0,N}\n";
+	stream << "                    default: 3 \n\n";
+	stream << "  -h, --help        Display this help and exit\n";
+	stream << "  -V, --version     Show version and license\n";
+	stream << "  -X, --default-xml Show path to default \"segments.xml\" on\n";
+	stream << "                    system\n";
+	stream << "\n\n";
+	stream << "If you encounter problems with this software, please report it at:\n";
+	stream << "   <" PACKAGE_BUGREPORT ">\n\n";
 }
 
 
@@ -192,15 +192,25 @@ void Settings::parse_arguments(void)
 	{
 		switch(c)
 		{
-			case 'H':													// option -h for minimum hairpin length
-				for(i = 0; i < strlen(optarg); i++)///@todo Validate whether we are converting a true integer
+			case 'H':							// option -H for minimum hairpin length
+				for(i = 0; i < strlen(optarg); i++)
 				{
 					if(!isdigit(optarg[i]))
 					{
-						this->print_usage(false);
+						proceed_parsing_arguments = false;
+						break;
 					}
 				}
-				sscanf(optarg, "%d", &this->minimal_hairpin_length);	// TODO use atoi?
+				
+				if(proceed_parsing_arguments == false)
+				{
+					this->print_usage(true);
+					throw std::invalid_argument("Invalid argument (-" + std::string(1, (char) c) + "): " + std::string(optarg));
+				}
+				else
+				{
+					sscanf(optarg, "%d", &this->minimal_hairpin_length);	// TODO use atoi?
+				}
 				break;
 			case 'f':
 				FILE *stream;
@@ -213,7 +223,8 @@ void Settings::parse_arguments(void)
 				}
 				else
 				{
-					throw std::invalid_argument("Can't open file \"" + std::string(optarg) + "\".");
+					this->print_usage(true);
+					throw std::invalid_argument("Invalid argument (-" + std::string(1, (char) c) + "): can't open file \"" + std::string(optarg) + "\"");
 				}
 				break;
 			case 's':
@@ -229,11 +240,12 @@ void Settings::parse_arguments(void)
 				}
 				else
 				{
-					throw std::invalid_argument("Can't open file \"" + std::string(optarg) + "\".");
+					this->print_usage(true);
+					throw std::invalid_argument("Invalid argument (-" + std::string(1, (char) c) + "): can't open file \"" + std::string(optarg) + "\"");
 				}
 				break;
 			case 't':
-				for(i = 0; i < strlen(optarg); i++)// all chars must be integers
+				for(i = 0; i < strlen(optarg); i++)
 				{
 					if(!isdigit(optarg[i]))
 					{
@@ -245,6 +257,7 @@ void Settings::parse_arguments(void)
 				if(proceed_parsing_arguments == false)
 				{
 					this->print_usage(true);
+					throw std::invalid_argument("Invalid argument (-" + std::string(1, (char) c) + "): " + std::string(optarg));
 				}
 				else
 				{
@@ -261,7 +274,7 @@ void Settings::parse_arguments(void)
 				break;
 			default:
 				proceed_parsing_arguments = false;
-				this->print_usage(true);
+				this->print_usage(false);
 				break;
 		}
 	}

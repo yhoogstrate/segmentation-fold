@@ -10,6 +10,7 @@
 	    * Improved layout of --help
 	    * Solved a bug in parsing -t
 	    * Updated corresponding test-cases + new one for -X
+	    * --help gets written to stderr only with incorrect parameters
 
 2017-02-20  Youri Hoogstrate
 	* v1.6.8
