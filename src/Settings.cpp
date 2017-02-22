@@ -82,7 +82,7 @@ Settings::Settings(int arg_argc, char **arg_argv, Sequence &arg_sequence) :
 
 /**
  * @brief Prints usage
- * 
+ *
  * @todo write to stdout if `as_error` == False
  */
 void Settings::print_usage(bool as_error)
@@ -125,7 +125,7 @@ void Settings::print_version(void)
 #else
 #define BUILD_TYPE_STRING " (release)"
 #endif
-
+	
 	std::cout << "[Version]\n  " PACKAGE_STRING GIT_SHA1_STRING BUILD_TYPE_STRING "\n\n";
 	std::cout << "[License]\n  GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>.\n\n";
 	std::cout << "  This is free software: you are free to change and redistribute it.\n";
@@ -364,8 +364,8 @@ std::vector<std::string> Settings::get_share_directories(void)
 	
 	
 	// This is for local installations that do not make use of ~/.local, e.g. conda and brew
-	char binary_path[PATH_MAX+1];
-	readlink("/proc/self/exe", binary_path, PATH_MAX+1);
+	char binary_path[PATH_MAX + 1];
+	readlink("/proc/self/exe", binary_path, PATH_MAX + 1);
 	
 	directories.push_back(std::string(binary_path) + "/../share/");
 	directories.push_back(std::string(dirname(binary_path)) + "/../share/");
