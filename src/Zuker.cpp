@@ -59,15 +59,15 @@
 Zuker::Zuker(Settings &arg_settings, Sequence &arg_sequence, ReadData &arg_thermodynamics) :
 	GibbsFreeEnergy(arg_sequence, arg_thermodynamics),
 	settings(arg_settings),
-
+	
 	vij(arg_sequence.size(), N_INFINITY),
 	wij(arg_sequence.size(), 0.0),
 	wmij(arg_sequence.size(), N_INFINITY),
-
+	
 	tij_v(arg_sequence.size(), {Pair(UNBOUND, UNBOUND), V_MATRIX}),				//@todo use N instead of 0? >> if so, set UNBOUND to N  + 1 or so
 	  tij_w(arg_sequence.size(), {Pair(UNBOUND, UNBOUND), W_MATRIX}),				//@todo use N instead of 0? >> if so, set UNBOUND to N  + 1 or so
 	  tij_wm(arg_sequence.size(), {Pair(UNBOUND, UNBOUND), WM_MATRIX}),			//@todo use N instead of 0? >> if so, set UNBOUND to N  + 1 or so
-
+	  
 	  sij(arg_sequence.size(), nullptr)
 {
 #if DEBUG
