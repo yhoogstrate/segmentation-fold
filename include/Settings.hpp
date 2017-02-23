@@ -57,8 +57,9 @@ class Settings
 		void get_segments_file(void);
 		
 		// Print functions
-		void print_usage(void);
+		void print_usage(bool as_error);
 		void print_version(void);
+		void print_default_xml(void);
 	public:
 		Settings(int arg_argc, char **arg_argv, Sequence &arg_sequence);
 		
@@ -67,8 +68,9 @@ class Settings
 		bool segment_prediction_functionality;
 		std::string segment_filename;
 		
-		bool run_print_version;
-		bool run_print_usage;
+		bool proceed_with_folding;
+		
+		static std::string readlink_self(void);
 };
 
 

@@ -72,7 +72,7 @@ int main(int argc, char *argv[])
 	
 	// Set variables
 	Settings settings = Settings(argc, argv, sequence);
-	if(!settings.run_print_version and !settings.run_print_usage)
+	if(settings.proceed_with_folding)
 	{
 		ReadData thermodynamics = ReadData();
 		ReadSegments readsegments = ReadSegments(settings.segment_filename);
