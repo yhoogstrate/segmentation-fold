@@ -36,6 +36,9 @@ Pairing::Pairing(Nucleotide arg_n1, Nucleotide arg_n2)
 
 
 /**
+ * @brief
+ * 
+ * @note this is quicker than hashing based on (arg_n1*4)+arg_n2 or (arg_n1 << 2)+arg_n2 (test code provided in ./benchmarks)
  */
 void Pairing::init(Nucleotide arg_n1, Nucleotide arg_n2)
 {
