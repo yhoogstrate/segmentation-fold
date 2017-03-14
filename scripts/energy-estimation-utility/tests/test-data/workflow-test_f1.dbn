@@ -1,0 +1,15 @@
+>test_sequence:217-274(+) x Kt-CD-box.CAU
+TTGCAGAATACATGATGATCTCAATCCAACTTGAACTCTCTCACTGATTACTTGATG
+....(((((.(((((.((..((((......))))..))..))).))))).)).....	........((...((((...((((......))))....((.....))....))))))	-1.60729980469
+>test_sequence:217-300(+) x Kt-CD-box.CAU
+TTGCAGAATACATGATGATCTCAATCCAACTTGAACTCTCTCACTGATTACTTGATGACAATAAAATATCTGATATTCTGCAT
+.(((((((((((.((((...((((......))))......(((..((....))..)))........)))))).))))))))).	.(((((((((...((((((.((((......))))......(((..((....))..))).........))))))))))))))).	1.60729980469
+>test_sequence:381-424(+) x Kt-CD-box.AAU
+GGGTTTGTGTAATGATGTTGATCAAATGTCTGACCTGAAATGA
+(((((.((...))((((((.....)))))).))))).......	.........(...((((....(((......))).)))))....	-10.4718017578
+>test_sequence:381-429(+) x Kt-CD-box.AAU
+GGGTTTGTGTAATGATGTTGATCAAATGTCTGACCTGAAATGAGCATG
+(((((.((...))((((((.....)))))).)))))............	..(((..(.(...((((....(((......))).))))))..)))...	-7.84167480469
+>test_sequence:381-458(+) x Kt-CD-box.AAU
+GGGTTTGTGTAATGATGTTGATCAAATGTCTGACCTGAAATGAGCATGTAGACAAAGGTAACACTGAAGAACCCTGT
+((((((((((..((((....))))..(((((.((.((.......)).)))))))......))))....))))))...	((((((...(...(((((..(((...(((((.((.((.......)).)))))))..)))...))))))))))))...	-6.28308105469

@@ -77,6 +77,70 @@ class Test_find_boxes(unittest.TestCase):
         ##self.assertEqual(get_n_lines(dbn_output_file),7)
 
 
+    def test_02(self):
+        """
+        Do the unit test via the command line
+         - Requires segmentation-fold-utils to be installed
+        """
+        input_file_fa = "workflow-test_cd-box_kturns.fa"
+        input_file_xml = "workflow-test_cd-box_kturns.xml"
+        output_file_f1 = "workflow-test_f1.dbn"
+        output_file_f2 = "workflow-test_f2.dbn"
+        
+        command_01 = ['segmentation-fold-utils',
+                      'fix-fasta-headers',
+                      'tests/test-data/'+input_file_fa,
+                      'fasta_fixed_headers.fa']
+        command_02 = ['segmentation-fold-utils',
+                      'find-boxes',
+                      '--box1',
+                      'NRUGAUG',
+                      '--box2',
+                      'CUGA',
+                      '--forward',
+                      '--reverse',
+                      'fasta_fixed_headers.fa',
+                      'detected_boxes.bed']
+        command_03 = ['segmentation-fold-utils',
+                      'extract-boxed-sequences',
+                      '--max-inner-dist',
+                      '110',
+                      '--bp-extension',
+                      '10',
+                      'fasta_fixed_headers.fa',
+                      'detected_boxes.bed',
+                      'sequences_containing_boxes_within_110bp.fa']
+        command_04 = ['segmentation-fold-utils',
+                      'estimate-energy',
+                      '-T',
+                      '1',
+                      '-x',
+                      'tests/test-data/'+input_file_xml,
+                      '-p',
+                      '0.1',
+                      '-r',
+                      '0',
+                      '--sequences-from-fasta-file',
+                      'sequences_containing_boxes_within_110bp.fa',
+                      'energy_estimation_raw_results.dbn']
+        command_05 = ['segmentation-fold-utils',
+                      'filter-by-energy',
+                      '--energy',
+                      '-15.0',
+                      'energy_estimation_raw_results.dbn',
+                      output_file_f1,
+                      output_file_f2]
+        
+        self.assertEqual(subprocess.call(command_01) , 0)
+        self.assertEqual(subprocess.call(command_02) , 0)
+        self.assertEqual(subprocess.call(command_03) , 0)
+        self.assertEqual(subprocess.call(command_04) , 0)
+        self.assertEqual(subprocess.call(command_05) , 0)
+        
+        
+        self.assertTrue(filecmp.cmp(output_file_f1, "tests/test-data/"+output_file_f1))
+        self.assertTrue(filecmp.cmp(output_file_f2, "tests/test-data/"+output_file_f2))
+
 def main():
     unittest.main()
 
