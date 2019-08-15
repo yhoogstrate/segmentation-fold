@@ -56,7 +56,7 @@ BOOST_AUTO_TEST_SUITE(Testing)
  */
 BOOST_AUTO_TEST_CASE(Test1)
 {
-	std::string segmentloop_name = "Arteficial SegmentLoop construct";
+	std::string segmentloop_name = "Artificial SegmentLoop construct";
 	float energy = -1.234f;
 	
 	Sequence sequence     = Sequence("ACUUGaGUA");

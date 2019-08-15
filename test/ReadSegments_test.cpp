@@ -892,7 +892,7 @@ BOOST_AUTO_TEST_CASE(Test7)
 		   "<root>\n"
 		   "	<segments />\n"
 		   "	<segmentloops>\n"
-		   "		<segmentloop><id>Arteficial segmentloop</id>\n"
+		   "		<segmentloop><id>Artificial segmentloop</id>\n"
 		   "			<sequence>CAAGAA</sequence>\n"
 		   "			<dot_bracket type=\"full\">((..))</dot_bracket>\n"
 		   "			<energy>-5.0</energy>\n"
